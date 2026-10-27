@@ -5,10 +5,10 @@ import { SkeletonCard } from "@/components/ui/SkeletonCard";
 import type { Product } from "@/types/product";
 
 const CURATED_CATEGORIES = [
-  { id: "all", label: "All Items" },
-  { id: "kitchen-accessories", label: "🌿 Eco Kitchenware" },
-  { id: "home-decoration", label: "🕯️ Home & Hygge" },
-  { id: "furniture", label: "🪵 Wood & Furniture" },
+  { id: "all", label: "All Collection", count: "40+ items" },
+  { id: "kitchen-accessories", label: "🌿 Eco Kitchenware & Bamboo", count: "30 items" },
+  { id: "home-decoration", label: "🕯️ Hygge & Home Decor", count: "5 items" },
+  { id: "furniture", label: "🪵 Raw Wood & Furniture", count: "5 items" },
 ] as const;
 
 export const CatalogPage = () => {
@@ -22,10 +22,9 @@ export const CatalogPage = () => {
       setLoading(true);
       setError(null);
 
-      // თუ "all" არის არჩეული, შეგვიძლია წამოვიღოთ პირველი 24 პროდუქტი ან კონკრეტული კატეგორია
       const data = await getProducts({
         category: selectedCategory === "all" ? undefined : selectedCategory,
-        limit: 24,
+        limit: 40,
       });
 
       setProducts(data.products);
@@ -41,21 +40,26 @@ export const CatalogPage = () => {
   }, [fetchProducts]);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* 1. Hero / Header Banner - Nordic Warmth Aesthetic */}
-      <div className="mb-8 rounded-3xl border border-stone-200/70 bg-gradient-to-br from-amber-50/70 via-stone-50 to-stone-100/60 p-6 sm:p-10 dark:border-stone-800 dark:from-stone-900/60 dark:via-stone-900 dark:to-stone-950">
-        <span className="inline-block rounded-full bg-amber-800/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-amber-800 dark:bg-amber-500/10 dark:text-amber-400">
-          Nordic Warmth & Raw Wood
-        </span>
-        <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-stone-900 sm:text-4xl lg:text-5xl dark:text-stone-100">
-          Sustainable Living & Crafts
-        </h1>
-        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-stone-600 sm:text-base dark:text-stone-400">
-          Handcrafted wooden essentials, minimalist ceramics, organic kitchenware, and ambient home accents inspired by Scandinavian nature.
-        </p>
+    <div className="container mx-auto px-4 py-8 sm:py-12">
+      {/* 1. Nordic Editorial Hero Banner */}
+      <section className="relative mb-10 overflow-hidden rounded-3xl border border-[#E8E1D5] bg-gradient-to-br from-[#F5EFE6] via-[#F8F5EE] to-[#EFE8DD] p-8 sm:p-12 dark:border-stone-800 dark:from-[#231F1B] dark:via-[#1D1A17] dark:to-[#171412]">
+        <div className="max-w-2xl">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#D8CABE] bg-white/70 px-3.5 py-1 text-xs font-semibold tracking-wider text-[#7A533E] uppercase backdrop-blur-xs dark:border-stone-700 dark:bg-stone-900/60 dark:text-[#D4A373]">
+            <span>🌿</span>
+            <span>Sustainable Crafts & Wood</span>
+          </div>
 
-        {/* 2. Category Filter Pills */}
-        <div className="mt-6 flex flex-wrap gap-2">
+          <h1 className="mt-4 font-serif text-3xl font-bold tracking-tight text-[#2C241E] sm:text-5xl lg:text-6xl dark:text-[#FAF7F2]">
+            Nordic Living & Raw Wood
+          </h1>
+
+          <p className="mt-4 text-base leading-relaxed text-[#6E6258] sm:text-lg dark:text-stone-300">
+            Thoughtfully curated handcrafted pieces — from eco-friendly bamboo utensils and solid wood furnishings to ceramic planters and ambient lighting.
+          </p>
+        </div>
+
+        {/* 2. Curated Category Navigation Pills */}
+        <div className="mt-8 flex flex-wrap items-center gap-2.5 pt-6 border-t border-[#E5DCcf] dark:border-stone-800">
           {CURATED_CATEGORIES.map((cat) => {
             const isActive = selectedCategory === cat.id;
             return (
@@ -63,20 +67,20 @@ export const CatalogPage = () => {
                 key={cat.id}
                 type="button"
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`rounded-full px-4 py-2 text-xs font-semibold transition ${
+                className={`group flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition-all ${
                   isActive
-                    ? "bg-amber-800 text-white shadow-sm dark:bg-amber-700"
-                    : "border border-stone-300/80 bg-white text-stone-700 hover:border-amber-800/40 hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300 dark:hover:bg-stone-700"
+                    ? "bg-[#3B2C24] text-[#FAF7F2] shadow-sm dark:bg-[#FAF7F2] dark:text-[#2C241E]"
+                    : "border border-[#DFD5C7] bg-white/80 text-[#5C4D42] hover:border-[#7A533E]/50 hover:bg-white dark:border-stone-700 dark:bg-stone-900/70 dark:text-stone-300 dark:hover:bg-stone-800"
                 }`}
               >
-                {cat.label}
+                <span>{cat.label}</span>
               </button>
             );
           })}
         </div>
-      </div>
+      </section>
 
-      {/* 3. Products Status Area (Loading, Error, Empty, Success) */}
+      {/* 3. Products Grid Area */}
       {loading ? (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {Array.from({ length: 8 }).map((_, index) => (
@@ -91,36 +95,39 @@ export const CatalogPage = () => {
           <button
             type="button"
             onClick={fetchProducts}
-            className="mt-4 rounded-xl bg-rose-700 px-4 py-2 text-xs font-semibold text-white transition hover:bg-rose-800 dark:bg-rose-800 dark:hover:bg-rose-700"
+            className="mt-4 rounded-xl bg-rose-700 px-4 py-2 text-xs font-semibold text-white transition hover:bg-rose-800"
           >
             Try Again
           </button>
         </div>
       ) : products.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-stone-300 p-12 text-center dark:border-stone-800">
-          <h3 className="text-lg font-bold text-stone-900 dark:text-stone-100">
+        <div className="rounded-2xl border border-dashed border-[#DFD5C7] p-12 text-center dark:border-stone-800">
+          <h3 className="font-serif text-xl font-bold text-[#2C241E] dark:text-stone-100">
             No products found
           </h3>
-          <p className="mt-1 text-sm text-stone-600 dark:text-stone-400">
-            Try choosing a different category or clearing your filter.
+          <p className="mt-1 text-sm text-[#6E6258] dark:text-stone-400">
+            Try choosing another category to explore our wood and home crafts.
           </p>
           <button
             type="button"
             onClick={() => setSelectedCategory("all")}
-            className="mt-4 rounded-xl bg-stone-900 px-4 py-2 text-xs font-semibold text-white transition hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200"
+            className="mt-4 rounded-xl bg-[#3B2C24] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#251B15]"
           >
             Clear filters
           </button>
         </div>
       ) : (
         <>
-          <div className="mb-4 flex items-center justify-between text-xs text-stone-500 dark:text-stone-400">
-            <span>Showing {products.length} products</span>
+          <div className="mb-6 flex items-center justify-between text-xs text-[#7A6D63] dark:text-stone-400">
+            <span className="font-medium">
+              Showing {products.length} sustainable pieces
+            </span>
           </div>
+
           <ProductGrid
             products={products}
             onAdd={(p) => {
-              console.log("Add to cart clicked for:", p.title);
+              console.log("Add to cart:", p.title);
             }}
           />
         </>
