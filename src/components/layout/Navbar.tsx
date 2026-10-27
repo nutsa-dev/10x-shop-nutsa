@@ -1,8 +1,16 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useTheme } from "@/context/ThemeContext";
+import { useAuth } from "@/context/AuthContext";
 
 export const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
+  const { user, isLoggedIn, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-stone-200 bg-white/95 backdrop-blur-xs dark:border-stone-800 dark:bg-stone-900/95">
@@ -37,7 +45,7 @@ export const Navbar = () => {
           </nav>
         </div>
 
-        {/* Theme, Cart & Login (PRD P0.3) */}
+        {/* Theme, Cart & Auth (PRD P0.3) */}
         <div className="flex items-center gap-2.5 sm:gap-3">
           {/* Theme Toggle Button */}
           <button
@@ -67,13 +75,28 @@ export const Navbar = () => {
             </span>
           </NavLink>
 
-          {/* Login */}
-          <Link
-            to="/login"
-            className="rounded-lg bg-stone-900 px-3.5 py-1.5 text-xs font-medium text-white transition hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200"
-          >
-            Log in
-          </Link>
+          {/* Login / Logout Area */}
+          {isLoggedIn ? (
+            <div className="flex items-center gap-2">
+              <span className="hidden text-xs font-medium text-stone-600 sm:inline dark:text-stone-400">
+                {user?.username}
+              </span>
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="rounded-lg border border-stone-300 px-3 py-1.5 text-xs font-medium text-stone-700 hover:bg-stone-100 dark:border-stone-700 dark:text-stone-300 dark:hover:bg-stone-800 transition"
+              >
+                Log out
+              </button>
+            </div>
+          ) : (
+            <Link
+              to="/login"
+              className="rounded-lg bg-stone-900 px-3.5 py-1.5 text-xs font-medium text-white transition hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200"
+            >
+              Log in
+            </Link>
+          )}
         </div>
 
       </div>
