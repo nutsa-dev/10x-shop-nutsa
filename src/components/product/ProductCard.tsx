@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import type { Product } from "@/types/product";
 
 interface ProductCardProps {
@@ -25,15 +26,18 @@ export const ProductCard = ({ product, onAdd }: ProductCardProps) => {
         </span>
       )}
 
-      {/* სურათი */}
-      <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-stone-100 dark:bg-stone-800">
+      {/* სურათი - ბმული დეტალებზე */}
+      <Link
+        to={`/products/${product.id}`}
+        className="relative aspect-square w-full overflow-hidden rounded-xl bg-stone-100 dark:bg-stone-800"
+      >
         <img
           src={product.thumbnail}
           alt={product.title}
           loading="lazy"
           className="h-full w-full object-cover object-center transition duration-300 group-hover:scale-105"
         />
-      </div>
+      </Link>
 
       {/* კატეგორია და რეიტინგი */}
       <div className="mt-3 flex items-center justify-between text-xs">
@@ -45,9 +49,14 @@ export const ProductCard = ({ product, onAdd }: ProductCardProps) => {
         </span>
       </div>
 
-      {/* სათაური */}
+      {/* სათაური - ბმული დეტალებზე */}
       <h3 className="mt-1 line-clamp-1 text-base font-semibold text-stone-900 dark:text-white" title={product.title}>
-        {product.title}
+        <Link
+          to={`/products/${product.id}`}
+          className="hover:text-amber-800 transition dark:hover:text-amber-400"
+        >
+          {product.title}
+        </Link>
       </h3>
 
       {/* მარაგის სტატუსი */}

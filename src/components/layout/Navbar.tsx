@@ -1,55 +1,68 @@
+import { Link, NavLink } from "react-router-dom";
+
 export const Navbar = () => {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/80">
+    <header className="sticky top-0 z-50 w-full border-b border-stone-200/80 bg-stone-50/90 backdrop-blur-md dark:border-stone-800 dark:bg-stone-950/90">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 gap-4">
         
-        {/* 1. Logo and Name */}
-        <a href="/" className="flex items-center gap-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-          <span className="rounded-lg bg-blue-600 px-2.5 py-1 text-sm font-black text-white shadow-sm">
-            10x
-          </span>
-          <span>Shop</span>
-        </a>
+        {/* 1. Logo and Brand */}
+        <div className="flex items-center gap-6">
+          <Link
+            to="/"
+            className="flex items-center gap-2 text-xl font-bold tracking-tight text-stone-900 dark:text-stone-100"
+          >
+            <span className="rounded-lg bg-amber-800 px-2.5 py-1 text-sm font-black text-white shadow-sm dark:bg-amber-700">
+              10x
+            </span>
+            <span>Shop</span>
+          </Link>
 
-        {/* 2. Searchbar */}
-        <div className="hidden sm:flex flex-1 max-w-md mx-4">
-          <input
-            type="search"
-            placeholder="Search products..."
-            className="w-full rounded-full border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-900 outline-none transition focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-950"
-          />
+          {/* Navigation Links */}
+          <nav className="hidden md:flex items-center gap-1">
+            <NavLink
+              to="/"
+              end
+              className={({ isActive }) =>
+                `rounded-lg px-3 py-1.5 text-sm font-medium transition ${
+                  isActive
+                    ? "bg-stone-200/70 text-stone-900 dark:bg-stone-800 dark:text-stone-100"
+                    : "text-stone-600 hover:bg-stone-100 hover:text-stone-900 dark:text-stone-400 dark:hover:bg-stone-800/50 dark:hover:text-stone-200"
+                }`
+              }
+            >
+              Catalog
+            </NavLink>
+          </nav>
         </div>
 
-        {/* 3. მარჯვენა მოქმედებები (თემა, კალათა, შესვლა) */}
-        <div className="flex items-center gap-3">
+        {/* 2. Actions (Theme, Cart, Login) */}
+        <div className="flex items-center gap-2.5 sm:gap-3">
           
-          {/* რეჟიმის გადამრთველი */}
-          <button
-            type="button"
-            aria-label="Toggle theme"
-            className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition"
+          {/* Cart with Live Badge */}
+          <NavLink
+            to="/cart"
+            className={({ isActive }) =>
+              `relative flex items-center gap-1.5 rounded-xl border border-stone-200 px-3 py-1.5 text-sm font-medium transition dark:border-stone-700 ${
+                isActive
+                  ? "bg-stone-200/80 text-stone-900 dark:bg-stone-800 dark:text-stone-100"
+                  : "bg-white text-stone-700 hover:bg-stone-100 dark:bg-stone-900 dark:text-stone-200 dark:hover:bg-stone-800"
+              }`
+            }
           >
-            🌙
-          </button>
-
-          {/* კალათა მთვლელით */}
-          <button
-            type="button"
-            className="relative flex items-center gap-1.5 rounded-lg border border-gray-200 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 transition"
-          >
-            <span>🛒 Cart</span>
-            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-600 text-xs font-bold text-white">
+            <span aria-hidden="true">🛒</span>
+            <span className="hidden sm:inline">Cart</span>
+            <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-amber-800 px-1 text-xs font-bold text-white dark:bg-amber-700">
               0
             </span>
-          </button>
+          </NavLink>
 
-          {/* ავტორიზაცია */}
-          <button
-            type="button"
-            className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          {/* Auth Button */}
+          <Link
+            to="/login"
+            className="rounded-xl bg-stone-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200"
           >
             Log in
-          </button>
+          </Link>
 
         </div>
 
