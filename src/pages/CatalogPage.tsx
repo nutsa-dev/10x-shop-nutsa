@@ -5,11 +5,13 @@ import { SkeletonCard } from "@/components/ui/SkeletonCard";
 import type { Product } from "@/types/product";
 
 const CATEGORIES = [
-  { id: "all", label: "All Categories" },
-  { id: "kitchen-accessories", label: "Kitchen Accessories" },
-  { id: "home-decoration", label: "Home Decoration" },
-  { id: "furniture", label: "Furniture" },
+  { id: "all", label: "All Products" },
+  { id: "kitchen-accessories", label: "Kitchen & Dining" },
+  { id: "furniture", label: "Wooden Furniture" },
+  { id: "holiday-decor", label: "Holiday & Christmas Decor" },
+  { id: "home-decoration", label: "Home Decor & Hygge" },
 ] as const;
+
 
 export const CatalogPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
