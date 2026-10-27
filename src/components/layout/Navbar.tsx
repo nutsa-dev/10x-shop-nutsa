@@ -1,6 +1,9 @@
 import { Link, NavLink } from "react-router-dom";
+import { useTheme } from "@/context/ThemeContext";
 
 export const Navbar = () => {
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-stone-200 bg-white/95 backdrop-blur-xs dark:border-stone-800 dark:bg-stone-900/95">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 gap-4">
@@ -34,8 +37,20 @@ export const Navbar = () => {
           </nav>
         </div>
 
-        {/* Cart & Login (PRD P0.3) */}
-        <div className="flex items-center gap-3">
+        {/* Theme, Cart & Login (PRD P0.3) */}
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          {/* Theme Toggle Button */}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className="flex items-center gap-1.5 rounded-lg border border-stone-200 px-2.5 py-1.5 text-xs font-medium text-stone-700 hover:bg-stone-50 dark:border-stone-700 dark:text-stone-300 dark:hover:bg-stone-800 transition"
+          >
+            <span>{theme === "dark" ? "☀️" : "🌙"}</span>
+            <span className="hidden sm:inline">{theme === "dark" ? "Light" : "Dark"}</span>
+          </button>
+
+          {/* Cart with Live Badge */}
           <NavLink
             to="/cart"
             className={({ isActive }) =>
@@ -52,6 +67,7 @@ export const Navbar = () => {
             </span>
           </NavLink>
 
+          {/* Login */}
           <Link
             to="/login"
             className="rounded-lg bg-stone-900 px-3.5 py-1.5 text-xs font-medium text-white transition hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200"

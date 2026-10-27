@@ -4,16 +4,62 @@ const BASE_URL = "https://dummyjson.com";
 
 // სკანდინავიური ეკო-მაღაზიისთვის შერჩეული კატეგორიები DummyJSON-იდან
 export const NORDIC_CATEGORIES = [
-  "kitchen-accessories", // ბამბუკის სპატულები, ხის დაფები, ჭურჭელი, სანელებლების თაროები
-  "home-decoration",     // მცენარეები, ხის ჩარჩოები, სანათები, მყუდრო დეკორი
-  "furniture",           // ნატურალური ხის ტუმბოები, სარკეები, სკანდინავიური ავეჯი
+  "kitchen-accessories",
+  "home-decoration",
+  "furniture",
 ] as const;
+
+// პლასტმასისა და ელექტრო/მეტალის ნივთების სია, რომლებიც უნდა გაიფილტროს
+const EXCLUDED_KEYWORDS = [
+  "peeler",
+  "blender",
+  "microwave",
+  "stove",
+  "aluminium",
+  "aluminum",
+  "tongs",
+  "grater",
+  "whisk",
+  "ice cube",
+  "egg slicer",
+  "strainer",
+  "sieve",
+  "fork",
+  "pan",
+  "pot with",
+  "slotted turner",
+  "lunch box",
+  "carbon steel",
+  "electric",
+];
+
+function isWoodEcoProduct(product: Product): boolean {
+  const text = (product.title + " " + product.description).toLowerCase();
+  return !EXCLUDED_KEYWORDS.some((kw) => text.includes(kw));
+}
+
+// ხის და ეკო მასალის ხაზგასმა დასახელებებში
+function sanitizeEcoProduct(product: Product): Product {
+  let title = product.title;
+  if (title === "Chopping Board") title = "Wooden Chopping Board";
+  if (title === "Spoon") title = "Carved Wooden Spoon";
+  if (title === "Tray") title = "Solid Wood Serving Tray";
+  if (title === "Spice Rack") title = "Oak Wood Spice Rack";
+  if (title === "Mug Tree Stand") title = "Nordic Wooden Mug Stand";
+  if (title === "Family Tree Photo Frame") title = "Wooden Photo Frame";
+  if (title === "Plant Pot") title = "Ceramic & Wood Plant Pot";
+  if (title === "Table Lamp") title = "Wood Base Ambient Lamp";
+
+  return {
+    ...product,
+    title,
+  };
+}
 
 /**
  * პროდუქტების წამოღება.
- * როცა არცერთი კატეგორია არ არის არჩეული ("all"), მოგვაქვს სპეციალურად
- * ჩვენი სკანდინავიური კოლექცია (ხე, ეკო სამზარეულო, ავეჯი და დეკორი),
- * რათა საიტზე არ გამოჩნდეს კოსმეტიკა ან ტელეფონები.
+ * აბრუნებს მხოლოდ ნატურალურ ხის, ბამბუკისა და ეკო-დეკორის პროდუქციას.
+ * პლასტმასის ყველა პროდუქტი იფილტრება.
  */
 export async function getProducts(options?: {
   limit?: number;
@@ -21,39 +67,56 @@ export async function getProducts(options?: {
   category?: string;
   search?: string;
 }): Promise<ProductsResponse> {
-  const limit = options?.limit ?? 24;
+  const limit = options?.limit ?? 40;
   const skip = options?.skip ?? 0;
 
   // 1. ძებნა
   if (options?.search && options.search.trim() !== "") {
-    const url = `${BASE_URL}/products/search?q=${encodeURIComponent(options.search)}&limit=${limit}&skip=${skip}`;
+    const url = `${BASE_URL}/products/search?q=${encodeURIComponent(options.search)}&limit=100`;
     const res = await fetch(url);
     if (!res.ok) throw new Error("Search request failed");
-    return (await res.json()) as ProductsResponse;
+    const data = (await res.json()) as ProductsResponse;
+    const filtered = data.products.filter(isWoodEcoProduct).map(sanitizeEcoProduct);
+    return {
+      products: filtered.slice(skip, skip + limit),
+      total: filtered.length,
+      skip,
+      limit,
+    };
   }
 
   // 2. კონკრეტული კატეგორია
   if (options?.category && options.category !== "all") {
-    const url = `${BASE_URL}/products/category/${encodeURIComponent(options.category)}?limit=${limit}&skip=${skip}`;
+    const url = `${BASE_URL}/products/category/${encodeURIComponent(options.category)}?limit=100`;
     const res = await fetch(url);
     if (!res.ok) throw new Error(`Failed to fetch category: ${options.category}`);
-    return (await res.json()) as ProductsResponse;
+    const data = (await res.json()) as ProductsResponse;
+    const filtered = data.products.filter(isWoodEcoProduct).map(sanitizeEcoProduct);
+    return {
+      products: filtered.slice(skip, skip + limit),
+      total: filtered.length,
+      skip,
+      limit,
+    };
   }
 
-  // 3. მთავარი კატალოგი ("all") - ვაერთიანებთ ჩვენს 3 სკანდინავიურ კატეგორიას
+  // 3. მთავარი კატალოგი ("all") - 3 შერჩეული კატეგორიიდან ვიღებთ მხოლოდ ხის/ეკო ნივთებს
   const responses = await Promise.all(
     NORDIC_CATEGORIES.map(async (cat) => {
-      const res = await fetch(`${BASE_URL}/products/category/${cat}?limit=15`);
+      const res = await fetch(`${BASE_URL}/products/category/${cat}?limit=50`);
       if (!res.ok) return { products: [] };
       return (await res.json()) as ProductsResponse;
     })
   );
 
-  const combinedProducts: Product[] = responses.flatMap((r) => r.products || []);
+  const combined = responses
+    .flatMap((r) => r.products || [])
+    .filter(isWoodEcoProduct)
+    .map(sanitizeEcoProduct);
 
   return {
-    products: combinedProducts.slice(skip, skip + limit),
-    total: combinedProducts.length,
+    products: combined.slice(skip, skip + limit),
+    total: combined.length,
     skip,
     limit,
   };
@@ -67,7 +130,8 @@ export async function getProductById(id: number | string): Promise<Product> {
   if (!res.ok) {
     throw new Error(`Product #${id} not found (${res.status})`);
   }
-  return (await res.json()) as Product;
+  const data = (await res.json()) as Product;
+  return sanitizeEcoProduct(data);
 }
 
 /**
