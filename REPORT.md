@@ -2,7 +2,8 @@
 
 > **Front-end Diploma Project | 10X Developer Program 2026**  
 > Author: **Nutsa**  
-> Technology Stack: **React 19**, **TypeScript** (`strict: true`), **Tailwind CSS v4**, **Vite**
+> Technology Stack: **React 19**, **TypeScript** (`strict: true`), **Tailwind CSS v4**, **Vite**  
+> 🔗 **Live URL:** [https://10x-shop-nutsa.vercel.app/](https://10x-shop-nutsa.vercel.app/)
 
 ---
 

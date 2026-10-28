@@ -1,7 +1,8 @@
 # 10X Shop — E-Commerce Single Page Application (SPA)
 
 > **Front-end Diploma Project | 10X Developer Program 2026**  
-> Built with **React 19**, **TypeScript** (strict mode), and **Tailwind CSS v4** powered by the **DummyJSON API**.
+> Built with **React 19**, **TypeScript** (strict mode), and **Tailwind CSS v4** powered by the **DummyJSON API**.  
+> 🔗 **Live URL:** [https://10x-shop-nutsa.vercel.app/](https://10x-shop-nutsa.vercel.app/)
 
 ---
 
@@ -134,7 +135,7 @@ npm run lint       # Runs ESLint code style and hook rules check
 
 ## 👤 Test Credentials & Live Demo
 
-- **Live Deployment:** *(Vercel / Netlify link will be added upon deployment)*
+- **Live Deployment:** [https://10x-shop-nutsa.vercel.app/](https://10x-shop-nutsa.vercel.app/)
 - **Demo User Account:**
   - **Username:** `emilys`
   - **Password:** `emilyspass` *(or any valid credentials ≥ 6 characters)*
