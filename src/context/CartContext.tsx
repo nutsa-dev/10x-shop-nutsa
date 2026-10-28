@@ -29,7 +29,13 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const saved = localStorage.getItem(CART_STORAGE_KEY);
       if (saved) {
-        return JSON.parse(saved) as CartItem[];
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          return parsed as CartItem[];
+        }
+        if (parsed && typeof parsed === "object" && Array.isArray((parsed as { items?: unknown }).items)) {
+          return (parsed as { items: CartItem[] }).items;
+        }
       }
     } catch (e) {
       console.error("Failed to load cart from localStorage", e);
@@ -48,7 +54,8 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   // LocalStorage სინქრონიზაცია
   useEffect(() => {
     try {
-      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+      const safeItems = Array.isArray(items) ? items : [];
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(safeItems));
     } catch (e) {
       console.error("Failed to save cart to localStorage", e);
     }
@@ -71,13 +78,14 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     if (product.stock <= 0) return;
 
     setItems((prevItems) => {
-      const existingIndex = prevItems.findIndex((i) => i.productId === product.id);
+      const currentList = Array.isArray(prevItems) ? prevItems : [];
+      const existingIndex = currentList.findIndex((i) => i.productId === product.id);
 
       if (existingIndex > -1) {
-        const existing = prevItems[existingIndex];
+        const existing = currentList[existingIndex];
         const newQuantity = Math.min(existing.quantity + quantity, product.stock);
 
-        const updated = [...prevItems];
+        const updated = [...currentList];
         updated[existingIndex] = {
           ...existing,
           quantity: newQuantity,
@@ -98,13 +106,16 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         quantity: Math.min(Math.max(1, quantity), product.stock),
       };
 
-      return [...prevItems, newItem];
+      return [...currentList, newItem];
     });
   };
 
   // კალათიდან ამოშლა
   const removeItem = (productId: number) => {
-    setItems((prev) => prev.filter((item) => item.productId !== productId));
+    setItems((prev) => {
+      const currentList = Array.isArray(prev) ? prev : [];
+      return currentList.filter((item) => item.productId !== productId);
+    });
   };
 
   // რაოდენობის შეცვლა
@@ -114,15 +125,16 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       return;
     }
 
-    setItems((prev) =>
-      prev.map((item) => {
+    setItems((prev) => {
+      const currentList = Array.isArray(prev) ? prev : [];
+      return currentList.map((item) => {
         if (item.productId === productId) {
           const clampedQty = Math.min(quantity, item.stock);
           return { ...item, quantity: clampedQty };
         }
         return item;
-      })
-    );
+      });
+    });
   };
 
   // კალათის სრული გასუფთავება
@@ -148,11 +160,12 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   // გამოთვლები
   const { totalItems, rawSubtotal, subtotal, promoDiscount, totalPrice, savings } =
     useMemo(() => {
+      const safeItems = Array.isArray(items) ? items : [];
       let count = 0;
       let rawTotal = 0;
       let discountedTotal = 0;
 
-      for (const item of items) {
+      for (const item of safeItems) {
         count += item.quantity;
         rawTotal += item.price * item.quantity;
 
@@ -180,10 +193,12 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       };
     }, [items, promoCode]);
 
+  const safeItems = Array.isArray(items) ? items : [];
+
   return (
     <CartContext.Provider
       value={{
-        items,
+        items: safeItems,
         totalItems,
         rawSubtotal,
         subtotal,
