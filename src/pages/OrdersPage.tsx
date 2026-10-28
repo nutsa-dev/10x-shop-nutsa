@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useCart } from "@/context/CartContext";
 import { formatPrice, formatDate, getDiscountedPrice } from "@/utils/format";
 import type { Order, OrderStatus } from "@/types/order";
 
@@ -8,6 +9,30 @@ const STATUS_STEPS: OrderStatus[] = ["Processing", "Shipped", "Delivered"];
 export const OrdersPage = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [expandedOrderId, setExpandedOrderId] = useState<number | null>(null);
+  const { addItem } = useCart();
+  const navigate = useNavigate();
+
+  const handleReorder = (order: Order) => {
+    for (const item of order.items) {
+      addItem(
+        {
+          id: item.productId,
+          title: item.title,
+          thumbnail: item.thumbnail,
+          price: item.price,
+          discountPercentage: item.discountPercentage,
+          stock: item.stock,
+          description: "",
+          category: "",
+          rating: 5,
+          images: [item.thumbnail],
+          reviews: [],
+        },
+        item.quantity
+      );
+    }
+    navigate("/cart");
+  };
 
   useEffect(() => {
     try {
@@ -152,14 +177,24 @@ export const OrdersPage = () => {
                     </p>
                   </div>
 
-                  <button
-                    type="button"
-                    onClick={() => handleCycleStatus(order.id)}
-                    title="Simulate advancing order status"
-                    className="rounded-lg border border-stone-300 px-2.5 py-1 text-[11px] font-semibold text-stone-700 hover:bg-stone-100 dark:border-stone-700 dark:text-stone-300 dark:hover:bg-stone-800 transition"
-                  >
-                    Simulate Status ↻
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => handleReorder(order)}
+                      title="Add these items back to cart"
+                      className="rounded-lg bg-stone-900 px-3 py-1 text-[11px] font-semibold text-white hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200 transition"
+                    >
+                      Reorder 🛒
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleCycleStatus(order.id)}
+                      title="Simulate advancing order status"
+                      className="rounded-lg border border-stone-300 px-2.5 py-1 text-[11px] font-semibold text-stone-700 hover:bg-stone-100 dark:border-stone-700 dark:text-stone-300 dark:hover:bg-stone-800 transition"
+                    >
+                      Simulate Status ↻
+                    </button>
+                  </div>
                 </div>
               </div>
 

@@ -5,6 +5,7 @@ import { AuthProvider } from "@/context/AuthContext";
 import { CartProvider } from "@/context/CartContext";
 import { ProtectedRoute } from "@/routes/ProtectedRoute";
 import { Layout } from "@/components/layout/Layout";
+import { ErrorBoundary } from "@/components/layout/ErrorBoundary";
 
 // Route-level code splitting (React.lazy) per PRD Architecture
 const CatalogPage = lazy(() =>
@@ -49,34 +50,36 @@ export default function App() {
       <AuthProvider>
         <CartProvider>
           <BrowserRouter>
-            <Suspense fallback={<RouteLoadingFallback />}>
-              <Routes>
-                <Route path="/" element={<Layout />}>
-                  <Route index element={<CatalogPage />} />
-                  <Route path="products/:id" element={<ProductPage />} />
-                  <Route path="cart" element={<CartPage />} />
-                  <Route
-                    path="checkout"
-                    element={
-                      <ProtectedRoute>
-                        <CheckoutPage />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route path="orders" element={<OrdersPage />} />
-                  <Route
-                    path="profile"
-                    element={
-                      <ProtectedRoute>
-                        <ProfilePage />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route path="login" element={<LoginPage />} />
-                  <Route path="*" element={<NotFoundPage />} />
-                </Route>
-              </Routes>
-            </Suspense>
+            <ErrorBoundary>
+              <Suspense fallback={<RouteLoadingFallback />}>
+                <Routes>
+                  <Route path="/" element={<Layout />}>
+                    <Route index element={<CatalogPage />} />
+                    <Route path="products/:id" element={<ProductPage />} />
+                    <Route path="cart" element={<CartPage />} />
+                    <Route
+                      path="checkout"
+                      element={
+                        <ProtectedRoute>
+                          <CheckoutPage />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route path="orders" element={<OrdersPage />} />
+                    <Route
+                      path="profile"
+                      element={
+                        <ProtectedRoute>
+                          <ProfilePage />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route path="login" element={<LoginPage />} />
+                    <Route path="*" element={<NotFoundPage />} />
+                  </Route>
+                </Routes>
+              </Suspense>
+            </ErrorBoundary>
           </BrowserRouter>
         </CartProvider>
       </AuthProvider>

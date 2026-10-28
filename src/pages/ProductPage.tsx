@@ -23,7 +23,13 @@ export const ProductPage = () => {
     let isMounted = true;
 
     async function loadProduct() {
-      if (!id) return;
+      const numericId = Number(id);
+      if (!id || isNaN(numericId) || numericId <= 0 || !Number.isInteger(numericId)) {
+        setError("Product not found");
+        setLoading(false);
+        return;
+      }
+
       try {
         setLoading(true);
         setError(null);

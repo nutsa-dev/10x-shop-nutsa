@@ -63,7 +63,11 @@ export const CartPage = () => {
 
         <button
           type="button"
-          onClick={clearCart}
+          onClick={() => {
+            if (window.confirm("Clear the cart? This cannot be undone.")) {
+              clearCart();
+            }
+          }}
           className="self-start sm:self-auto text-xs font-semibold text-stone-500 hover:text-rose-600 dark:text-stone-400 dark:hover:text-rose-400 transition"
         >
           Clear all items
