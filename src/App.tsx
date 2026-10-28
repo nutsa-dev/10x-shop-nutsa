@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { AuthProvider } from "@/context/AuthContext";
+import { CartProvider } from "@/context/CartContext";
 import { ProtectedRoute } from "@/routes/ProtectedRoute";
 import { Layout } from "@/components/layout/Layout";
 import { CatalogPage } from "@/pages/CatalogPage";
@@ -14,25 +15,27 @@ export default function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<CatalogPage />} />
-              <Route path="products/:id" element={<ProductPage />} />
-              <Route path="cart" element={<CartPage />} />
-              <Route
-                path="checkout"
-                element={
-                  <ProtectedRoute>
-                    <CheckoutPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="login" element={<LoginPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
+        <CartProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<CatalogPage />} />
+                <Route path="products/:id" element={<ProductPage />} />
+                <Route path="cart" element={<CartPage />} />
+                <Route
+                  path="checkout"
+                  element={
+                    <ProtectedRoute>
+                      <CheckoutPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="login" element={<LoginPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </CartProvider>
       </AuthProvider>
     </ThemeProvider>
   );

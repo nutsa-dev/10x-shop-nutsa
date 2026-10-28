@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useCart } from "@/context/CartContext";
 import type { Product } from "@/types/product";
 
 interface ProductCardProps {
@@ -7,6 +9,19 @@ interface ProductCardProps {
 }
 
 export const ProductCard = ({ product, onAdd }: ProductCardProps) => {
+  const { addItem } = useCart();
+  const [isAdded, setIsAdded] = useState(false);
+
+  const handleAddToCart = () => {
+    if (onAdd) {
+      onAdd(product);
+    } else {
+      addItem(product);
+    }
+    setIsAdded(true);
+    setTimeout(() => setIsAdded(false), 1200);
+  };
+
   const hasDiscount = product.discountPercentage > 1;
   const discountedPrice = hasDiscount
     ? (product.price * (1 - product.discountPercentage / 100)).toFixed(2)
@@ -84,10 +99,14 @@ export const ProductCard = ({ product, onAdd }: ProductCardProps) => {
         <button
           type="button"
           disabled={isOutOfStock}
-          onClick={() => onAdd?.(product)}
-          className="rounded-lg bg-stone-900 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-stone-800 disabled:cursor-not-allowed disabled:bg-stone-300 disabled:text-stone-500 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200 dark:disabled:bg-stone-800 dark:disabled:text-stone-600"
+          onClick={handleAddToCart}
+          className={`rounded-lg px-3 py-1.5 text-xs font-medium transition ${
+            isAdded
+              ? "bg-emerald-600 text-white dark:bg-emerald-500 dark:text-stone-900"
+              : "bg-stone-900 text-white hover:bg-stone-800 disabled:cursor-not-allowed disabled:bg-stone-300 disabled:text-stone-500 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200 dark:disabled:bg-stone-800 dark:disabled:text-stone-600"
+          }`}
         >
-          Add to cart
+          {isAdded ? "Added ✓" : "Add to cart"}
         </button>
       </div>
     </article>

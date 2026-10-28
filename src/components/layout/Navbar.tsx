@@ -1,10 +1,12 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useTheme } from "@/context/ThemeContext";
 import { useAuth } from "@/context/AuthContext";
+import { useCart } from "@/context/CartContext";
 
 export const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
   const { user, isLoggedIn, logout } = useAuth();
+  const { totalItems } = useCart();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -70,8 +72,14 @@ export const Navbar = () => {
             }
           >
             <span>Cart</span>
-            <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-stone-900 px-1 text-[10px] font-bold text-white dark:bg-stone-100 dark:text-stone-900">
-              0
+            <span
+              className={`flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-bold transition ${
+                totalItems > 0
+                  ? "bg-amber-600 text-white dark:bg-amber-500 dark:text-stone-900"
+                  : "bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900"
+              }`}
+            >
+              {totalItems}
             </span>
           </NavLink>
 
