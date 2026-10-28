@@ -44,6 +44,18 @@ export const Navbar = () => {
             >
               Catalog
             </NavLink>
+            <NavLink
+              to="/orders"
+              className={({ isActive }) =>
+                `rounded-md px-3 py-1.5 text-xs font-medium transition ${
+                  isActive
+                    ? "bg-stone-100 text-stone-900 font-semibold dark:bg-stone-800 dark:text-stone-100"
+                    : "text-stone-600 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
+                }`
+              }
+            >
+              Orders
+            </NavLink>
           </nav>
         </div>
 
@@ -83,16 +95,26 @@ export const Navbar = () => {
             </span>
           </NavLink>
 
-          {/* Login / Logout Area */}
+          {/* Login / Logout & Profile Area */}
           {isLoggedIn ? (
             <div className="flex items-center gap-2">
-              <span className="hidden text-xs font-medium text-stone-600 sm:inline dark:text-stone-400">
-                {user?.username}
-              </span>
+              <NavLink
+                to="/profile"
+                className={({ isActive }) =>
+                  `flex items-center gap-1 rounded-lg border border-stone-200 px-2.5 py-1.5 text-xs font-medium transition dark:border-stone-700 ${
+                    isActive
+                      ? "bg-stone-100 text-stone-900 dark:bg-stone-800 dark:text-stone-100"
+                      : "text-stone-700 hover:bg-stone-50 dark:text-stone-300 dark:hover:bg-stone-800"
+                  }`
+                }
+              >
+                <span>👤</span>
+                <span className="max-w-[80px] truncate">{user?.username}</span>
+              </NavLink>
               <button
                 type="button"
                 onClick={handleLogout}
-                className="rounded-lg border border-stone-300 px-3 py-1.5 text-xs font-medium text-stone-700 hover:bg-stone-100 dark:border-stone-700 dark:text-stone-300 dark:hover:bg-stone-800 transition"
+                className="rounded-lg border border-stone-300 px-2.5 py-1.5 text-xs font-medium text-stone-700 hover:bg-stone-100 dark:border-stone-700 dark:text-stone-300 dark:hover:bg-stone-800 transition"
               >
                 Log out
               </button>

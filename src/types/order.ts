@@ -19,4 +19,5 @@ export interface Order {
   shippingCost: number;
   total: number;
   placedAt: string;
+  status?: OrderStatus;
 }
