@@ -1,8 +1,6 @@
 import type { Product, ProductsResponse, Category } from "@/types/product";
 import { WINTER_SPORTS_PRODUCTS } from "./custom-products";
 
-const BASE_URL = "https://dummyjson.com";
-
 export const WINTER_CATEGORIES = [
   "skis",
   "snowboards",
@@ -28,8 +26,8 @@ export async function getProducts(options?: {
   let list = [...WINTER_SPORTS_PRODUCTS];
 
   // Filter by category
-  if (category !== "all") {
-    list = list.filter((p) => p.category === category);
+  if (category && category !== "all") {
+    list = list.filter((p) => p.category.toLowerCase() === category.toLowerCase());
   }
 
   // Filter by search query (checks title, brand, description, category)
@@ -57,28 +55,8 @@ export async function getProducts(options?: {
  */
 export async function getProductById(id: number | string): Promise<Product> {
   const numericId = Number(id);
-
-  const local = WINTER_SPORTS_PRODUCTS.find((p) => p.id === numericId);
-  if (local) return local;
-
-  // Fallback for mapped DummyJSON items
-  if (numericId > 1000) {
-    try {
-      const res = await fetch(`${BASE_URL}/products/${numericId - 1000}`);
-      if (res.ok) {
-        const data = (await res.json()) as Product;
-        return {
-          ...data,
-          id: numericId,
-          category: "goggles",
-          title: `Alpine ${data.title}`,
-        };
-      }
-    } catch {
-      // ignore
-    }
-  }
-
+  const item = WINTER_SPORTS_PRODUCTS.find((p) => p.id === numericId);
+  if (item) return item;
   throw new Error(`Product #${id} not found`);
 }
 

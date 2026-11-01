@@ -33,6 +33,11 @@ export const CatalogPage = () => {
   const [searchInput, setSearchInput] = useState<string>(searchParam);
   const [sortOption, setSortOption] = useState<SortOption>(sortParam);
 
+  // Sync state if URL searchParams change
+  useEffect(() => {
+    setSelectedCategory(categoryParam);
+  }, [categoryParam]);
+
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
