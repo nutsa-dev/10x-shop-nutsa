@@ -36,9 +36,9 @@ const NotFoundPage = lazy(() =>
 const RouteLoadingFallback = () => (
   <div className="flex min-h-[50vh] items-center justify-center">
     <div className="flex flex-col items-center gap-3">
-      <div className="h-8 w-8 animate-spin rounded-full border-2 border-amber-600 border-t-transparent dark:border-amber-400" />
-      <span className="text-xs font-medium text-stone-500 dark:text-stone-400">
-        Loading view...
+      <div className="h-8 w-8 animate-spin rounded-full border-2 border-emerald-600 border-t-transparent dark:border-emerald-400" />
+      <span className="text-xs font-semibold text-stone-500 dark:text-stone-400">
+        Loading Nordic collection...
       </span>
     </div>
   </div>
