@@ -8,11 +8,12 @@ export const WINTER_CATEGORIES = [
   "snowboards",
   "goggles",
   "helmets",
-  "accessories",
+  "outerwear",
+  "bags",
 ] as const;
 
 /**
- * Fetch winter sports products with category & search support
+ * Fetch winter sports products with category & search support (Evo / Backcountry style)
  */
 export async function getProducts(options?: {
   limit?: number;
@@ -26,40 +27,20 @@ export async function getProducts(options?: {
 
   let list = [...WINTER_SPORTS_PRODUCTS];
 
-  // Optional: Try fetching DummyJSON sunglasses if goggles category is selected
-  if (category === "goggles" || category === "all") {
-    try {
-      const res = await fetch(`${BASE_URL}/products/category/sunglasses?limit=10`);
-      if (res.ok) {
-        const data = (await res.json()) as ProductsResponse;
-        const mapped = (data.products || []).map((p) => ({
-          ...p,
-          id: p.id + 1000,
-          category: "goggles",
-          title: `Alpine ${p.title}`,
-        }));
-        if (category === "goggles") {
-          list = [...list.filter((p) => p.category === "goggles"), ...mapped];
-        }
-      }
-    } catch {
-      // Fallback to local winter sports products
-    }
-  }
-
   // Filter by category
   if (category !== "all") {
     list = list.filter((p) => p.category === category);
   }
 
-  // Filter by search query
+  // Filter by search query (checks title, brand, description, category)
   if (options?.search && options.search.trim() !== "") {
     const q = options.search.toLowerCase().trim();
     list = list.filter(
       (p) =>
         p.title.toLowerCase().includes(q) ||
         p.description.toLowerCase().includes(q) ||
-        (p.brand && p.brand.toLowerCase().includes(q))
+        (p.brand && p.brand.toLowerCase().includes(q)) ||
+        p.category.toLowerCase().includes(q)
     );
   }
 
@@ -94,7 +75,7 @@ export async function getProductById(id: number | string): Promise<Product> {
         };
       }
     } catch {
-      // fall through
+      // ignore
     }
   }
 
@@ -111,6 +92,7 @@ export async function getCategories(): Promise<Category[]> {
     { slug: "snowboards", name: "Snowboards", url: "" },
     { slug: "goggles", name: "Goggles & Eyewear", url: "" },
     { slug: "helmets", name: "Helmets", url: "" },
-    { slug: "accessories", name: "Accessories", url: "" },
+    { slug: "outerwear", name: "Outerwear & Gloves", url: "" },
+    { slug: "bags", name: "Packs & Bags", url: "" },
   ];
 }

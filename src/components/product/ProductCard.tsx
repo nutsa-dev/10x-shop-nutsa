@@ -36,11 +36,11 @@ export const ProductCard = ({ product, onAdd }: ProductCardProps) => {
   return (
     <article className="group flex flex-col justify-between overflow-hidden rounded-xl border border-neutral-200/90 bg-white p-3 shadow-2xs hover:border-neutral-400 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-neutral-700 transition">
       <div>
-        {/* Image Area */}
+        {/* Product Image Area */}
         <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center p-2">
           {hasDiscount && (
             <span className="absolute left-2 top-2 z-10 rounded bg-neutral-900 px-1.5 py-0.5 text-[10px] font-bold text-white dark:bg-white dark:text-neutral-950">
-              -{Math.round(product.discountPercentage)}%
+              SALE -{Math.round(product.discountPercentage)}%
             </span>
           )}
 
@@ -59,20 +59,22 @@ export const ProductCard = ({ product, onAdd }: ProductCardProps) => {
           </Link>
         </div>
 
-        {/* Category & Rating */}
-        <div className="mt-3 flex items-center justify-between text-[11px] text-neutral-400">
-          <span className="uppercase font-semibold tracking-wider">
-            {product.category}
+        {/* Brand & Rating (Evo / Backcountry style) */}
+        <div className="mt-2.5 flex items-center justify-between text-[11px]">
+          <span className="font-extrabold tracking-wider text-neutral-900 uppercase dark:text-neutral-200">
+            {product.brand || product.category}
           </span>
-          <div className="flex items-center gap-1 text-neutral-600 dark:text-neutral-300">
+          <div className="flex items-center gap-1 text-neutral-500 dark:text-neutral-400">
             <IconStar className="h-3 w-3 fill-current text-neutral-400" />
-            <span className="font-medium">{product.rating.toFixed(1)}</span>
+            <span className="font-semibold text-neutral-700 dark:text-neutral-300">
+              {product.rating.toFixed(1)}
+            </span>
           </div>
         </div>
 
-        {/* Title */}
-        <h3 className="mt-1 text-xs font-semibold tracking-tight text-neutral-900 dark:text-neutral-100 line-clamp-1">
-          <Link to={`/products/${product.id}`} className="hover:underline">
+        {/* Product Title */}
+        <h3 className="mt-1 text-xs font-medium text-neutral-700 dark:text-neutral-300 line-clamp-1">
+          <Link to={`/products/${product.id}`} className="hover:text-neutral-950 dark:hover:text-white">
             {product.title}
           </Link>
         </h3>
@@ -107,7 +109,7 @@ export const ProductCard = ({ product, onAdd }: ProductCardProps) => {
               <span>Added</span>
             </span>
           ) : (
-            "Add"
+            "Add to cart"
           )}
         </button>
       </div>

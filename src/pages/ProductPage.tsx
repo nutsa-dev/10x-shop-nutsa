@@ -156,7 +156,7 @@ export const ProductPage = () => {
         <span className="capitalize">{product.category}</span>
         <span>/</span>
         <span className="truncate text-neutral-900 dark:text-neutral-200 font-medium">
-          {product.title}
+          {product.brand ? `${product.brand} ${product.title}` : product.title}
         </span>
       </nav>
 
@@ -192,19 +192,15 @@ export const ProductPage = () => {
           )}
         </div>
 
-        {/* Right: Info */}
+        {/* Right: Info (Evo / Backcountry Specs Layout) */}
         <div className="flex flex-col">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase text-neutral-400">
-            <span>{product.category}</span>
-            {product.brand && (
-              <>
-                <span>•</span>
-                <span>{product.brand}</span>
-              </>
-            )}
-          </div>
+          {product.brand && (
+            <span className="text-xs font-black uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
+              {product.brand}
+            </span>
+          )}
 
-          <h1 className="mt-2 text-xl sm:text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
+          <h1 className="mt-1 text-xl sm:text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
             {product.title}
           </h1>
 
@@ -214,7 +210,7 @@ export const ProductPage = () => {
               <IconStar className="h-3.5 w-3.5 fill-current text-neutral-400" />
               <span className="font-semibold">{product.rating.toFixed(1)}</span>
             </div>
-            <span>• {product.reviews?.length || 0} reviews</span>
+            <span>• {product.reviews?.length || 0} customer reviews</span>
           </div>
 
           {/* Price */}
@@ -223,9 +219,14 @@ export const ProductPage = () => {
               {formatPrice(discountedPrice)}
             </span>
             {hasDiscount && (
-              <span className="text-xs text-neutral-400 line-through">
-                {formatPrice(product.price)}
-              </span>
+              <>
+                <span className="text-xs text-neutral-400 line-through">
+                  {formatPrice(product.price)}
+                </span>
+                <span className="rounded bg-neutral-900 px-1.5 py-0.5 text-[10px] font-bold text-white dark:bg-white dark:text-neutral-950">
+                  Save {formatPrice(product.price - discountedPrice)}
+                </span>
+              </>
             )}
           </div>
 
@@ -235,7 +236,7 @@ export const ProductPage = () => {
               <span className="font-semibold text-rose-600 dark:text-rose-400">Out of stock</span>
             ) : (
               <span className="font-medium text-neutral-600 dark:text-neutral-400">
-                In stock ({product.stock} available)
+                In stock ({product.stock} units available)
               </span>
             )}
           </div>
@@ -244,6 +245,23 @@ export const ProductPage = () => {
           <p className="mt-4 text-xs leading-relaxed text-neutral-600 dark:text-neutral-300">
             {product.description}
           </p>
+
+          {/* Evo / Backcountry Technical Specs Table */}
+          {product.specs && Object.keys(product.specs).length > 0 && (
+            <div className="mt-5 border-t border-neutral-100 pt-4 dark:border-neutral-800">
+              <h2 className="text-[11px] font-bold uppercase tracking-wider text-neutral-400 mb-2.5">
+                Technical Specifications
+              </h2>
+              <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-xs">
+                {Object.entries(product.specs).map(([key, val]) => (
+                  <div key={key} className="flex justify-between border-b border-neutral-100 pb-1.5 dark:border-neutral-800/60">
+                    <dt className="text-neutral-500 dark:text-neutral-400">{key}:</dt>
+                    <dd className="font-semibold text-neutral-800 dark:text-neutral-200 text-right">{val}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          )}
 
           {/* Actions */}
           <div className="mt-6 space-y-3">
@@ -308,7 +326,7 @@ export const ProductPage = () => {
       {product.reviews && product.reviews.length > 0 && (
         <section className="mt-12 border-t border-neutral-200/80 pt-8 dark:border-neutral-800">
           <h2 className="text-sm font-bold uppercase tracking-wider text-neutral-900 dark:text-neutral-100">
-            Reviews ({product.reviews.length})
+            Customer Reviews ({product.reviews.length})
           </h2>
 
           <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">

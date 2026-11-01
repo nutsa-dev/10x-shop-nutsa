@@ -15,10 +15,11 @@ const CATEGORIES = [
   { id: "snowboards", label: "Snowboards" },
   { id: "goggles", label: "Goggles & Eyewear" },
   { id: "helmets", label: "Helmets" },
-  { id: "accessories", label: "Accessories" },
+  { id: "outerwear", label: "Outerwear & Gloves" },
+  { id: "bags", label: "Packs & Bags" },
 ] as const;
 
-type SortOption = "featured" | "price-asc" | "price-desc" | "rating-desc" | "title-asc";
+type SortOption = "featured" | "price-asc" | "price-desc" | "rating-desc" | "brand-asc";
 
 export const CatalogPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -89,8 +90,8 @@ export const CatalogPage = () => {
         });
       case "rating-desc":
         return list.sort((a, b) => b.rating - a.rating);
-      case "title-asc":
-        return list.sort((a, b) => a.title.localeCompare(b.title));
+      case "brand-asc":
+        return list.sort((a, b) => (a.brand || "").localeCompare(b.brand || ""));
       case "featured":
       default:
         return list;
@@ -108,11 +109,11 @@ export const CatalogPage = () => {
   return (
     <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
       
-      {/* 1. Minimal Header */}
+      {/* 1. Header (Minimalist Evo / Backcountry Style) */}
       <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 border-b border-neutral-200/80 pb-4 dark:border-neutral-800">
         <div>
           <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
-            Winter Sports Equipment
+            Winter Sports & Alpine Gear
           </h1>
           <p className="text-xs text-neutral-500 dark:text-neutral-400">
             {!loading && `${sortedProducts.length} items`}
@@ -130,7 +131,7 @@ export const CatalogPage = () => {
         )}
       </div>
 
-      {/* 2. Minimal Category Navigation Tabs */}
+      {/* 2. Category Tabs */}
       <div className="mt-4 flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
         {CATEGORIES.map((cat) => {
           const isActive = selectedCategory === cat.id;
@@ -151,7 +152,7 @@ export const CatalogPage = () => {
         })}
       </div>
 
-      {/* 3. Search and Sort Filter Controls */}
+      {/* 3. Search and Sort Toolbar */}
       <div className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-12 sm:items-center">
         {/* Search Input */}
         <div className="relative sm:col-span-8 lg:col-span-9">
@@ -160,7 +161,7 @@ export const CatalogPage = () => {
           </span>
           <input
             type="text"
-            placeholder="Search skis, snowboards, goggles..."
+            placeholder="Search Salomon, Burton, Smith, skis, boards..."
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             className="w-full rounded-lg border border-neutral-200 bg-white py-2 pl-9 pr-8 text-xs text-neutral-900 outline-none transition focus:border-neutral-900 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100 dark:focus:border-neutral-400"
@@ -190,7 +191,7 @@ export const CatalogPage = () => {
             <option value="price-asc">Price: Low to High</option>
             <option value="price-desc">Price: High to Low</option>
             <option value="rating-desc">Highest Rated</option>
-            <option value="title-asc">Name: A to Z</option>
+            <option value="brand-asc">Brand: A to Z</option>
           </select>
         </div>
       </div>
@@ -222,7 +223,7 @@ export const CatalogPage = () => {
               No products found
             </h3>
             <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-              Try adjusting your search criteria.
+              Try adjusting your search criteria or switching categories.
             </p>
             <button
               type="button"
