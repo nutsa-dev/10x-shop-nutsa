@@ -224,3 +224,4 @@ export const IconArrowLeft = (props: SVGProps<SVGSVGElement>) => (
     <path d="M19 12H5" />
   </svg>
 );
+

@@ -1,64 +1,18 @@
 import type { Product, ProductsResponse, Category } from "@/types/product";
-import { CUSTOM_NORDIC_PRODUCTS } from "./custom-products";
+import { WINTER_SPORTS_PRODUCTS } from "./custom-products";
 
 const BASE_URL = "https://dummyjson.com";
 
-// სკანდინავიური ეკო-მაღაზიისთვის შერჩეული კატეგორიები DummyJSON-იდან
-export const NORDIC_CATEGORIES = [
-  "kitchen-accessories",
-  "home-decoration",
-  "furniture",
+export const WINTER_CATEGORIES = [
+  "skis",
+  "snowboards",
+  "goggles",
+  "helmets",
+  "accessories",
 ] as const;
 
-// პლასტმასისა და ელექტრო/მეტალის ნივთების სია, რომლებიც უნდა გაიფილტროს
-const EXCLUDED_KEYWORDS = [
-  "peeler",
-  "blender",
-  "microwave",
-  "stove",
-  "aluminium",
-  "aluminum",
-  "tongs",
-  "grater",
-  "whisk",
-  "ice cube",
-  "egg slicer",
-  "strainer",
-  "sieve",
-  "fork",
-  "pan",
-  "pot with",
-  "slotted turner",
-  "lunch box",
-  "carbon steel",
-  "electric",
-];
-
-function isWoodEcoProduct(product: Product): boolean {
-  const text = (product.title + " " + product.description).toLowerCase();
-  return !EXCLUDED_KEYWORDS.some((kw) => text.includes(kw));
-}
-
-// ხის და ეკო მასალის ხაზგასმა დასახელებებში
-function sanitizeEcoProduct(product: Product): Product {
-  let title = product.title;
-  if (title === "Chopping Board") title = "Wooden Chopping Board";
-  if (title === "Spoon") title = "Carved Wooden Spoon";
-  if (title === "Tray") title = "Solid Wood Serving Tray";
-  if (title === "Spice Rack") title = "Oak Wood Spice Rack";
-  if (title === "Mug Tree Stand") title = "Nordic Wooden Mug Stand";
-  if (title === "Family Tree Photo Frame") title = "Wooden Photo Frame";
-  if (title === "Plant Pot") title = "Ceramic & Wood Plant Pot";
-  if (title === "Table Lamp") title = "Wood Base Ambient Lamp";
-
-  return {
-    ...product,
-    title,
-  };
-}
-
 /**
- * პროდუქტების წამოღება (ჰიბრიდული: DummyJSON ხის ნივთები + საახალწლო და IKEA-ს ავეჯი)
+ * Fetch winter sports products with category & search support
  */
 export async function getProducts(options?: {
   limit?: number;
@@ -66,108 +20,97 @@ export async function getProducts(options?: {
   category?: string;
   search?: string;
 }): Promise<ProductsResponse> {
-  const limit = options?.limit ?? 40;
+  const limit = options?.limit ?? 50;
   const skip = options?.skip ?? 0;
   const category = options?.category ?? "all";
 
-  // 1. თუ მხოლოდ საახალწლო კატეგორიაა არჩეული
-  if (category === "holiday-decor") {
-    const holidayItems = CUSTOM_NORDIC_PRODUCTS.filter((p) => p.category === "holiday-decor");
-    return {
-      products: holidayItems.slice(skip, skip + limit),
-      total: holidayItems.length,
-      skip,
-      limit,
-    };
-  }
+  let list = [...WINTER_SPORTS_PRODUCTS];
 
-  // 2. DummyJSON-იდან მონაცემების ჩატვირთვა
-  let dummyProducts: Product[] = [];
-  try {
-    if (category === "kitchen-accessories" || category === "home-decoration") {
-      const res = await fetch(`${BASE_URL}/products/category/${category}?limit=50`);
+  // Optional: Try fetching DummyJSON sunglasses if goggles category is selected
+  if (category === "goggles" || category === "all") {
+    try {
+      const res = await fetch(`${BASE_URL}/products/category/sunglasses?limit=10`);
       if (res.ok) {
         const data = (await res.json()) as ProductsResponse;
-        dummyProducts = data.products.filter(isWoodEcoProduct).map(sanitizeEcoProduct);
+        const mapped = (data.products || []).map((p) => ({
+          ...p,
+          id: p.id + 1000,
+          category: "goggles",
+          title: `Alpine ${p.title}`,
+        }));
+        if (category === "goggles") {
+          list = [...list.filter((p) => p.category === "goggles"), ...mapped];
+        }
       }
-    } else if (category === "furniture") {
-      const res = await fetch(`${BASE_URL}/products/category/furniture?limit=50`);
-      if (res.ok) {
-        const data = (await res.json()) as ProductsResponse;
-        dummyProducts = data.products.filter(isWoodEcoProduct).map(sanitizeEcoProduct);
-      }
-    } else {
-      // "all" - ყველა კატეგორიის გაერთიანება
-      const responses = await Promise.all(
-        NORDIC_CATEGORIES.map(async (cat) => {
-          const res = await fetch(`${BASE_URL}/products/category/${cat}?limit=50`);
-          if (!res.ok) return { products: [] };
-          return (await res.json()) as ProductsResponse;
-        })
-      );
-      dummyProducts = responses
-        .flatMap((r) => r.products || [])
-        .filter(isWoodEcoProduct)
-        .map(sanitizeEcoProduct);
+    } catch {
+      // Fallback to local winter sports products
     }
-  } catch {
-    dummyProducts = [];
   }
 
-  // 3. custom პროდუქტების დამატება კატეგორიის მიხედვით
-  let customItems: Product[] = [];
-  if (category === "furniture") {
-    customItems = CUSTOM_NORDIC_PRODUCTS.filter((p) => p.category === "furniture");
-  } else if (category === "all") {
-    customItems = CUSTOM_NORDIC_PRODUCTS;
+  // Filter by category
+  if (category !== "all") {
+    list = list.filter((p) => p.category === category);
   }
 
-  // 4. გაერთიანება და ძებნის ფილტრი
-  let combined = [...customItems, ...dummyProducts];
-
+  // Filter by search query
   if (options?.search && options.search.trim() !== "") {
-    const q = options.search.toLowerCase();
-    combined = combined.filter(
-      (p) => p.title.toLowerCase().includes(q) || p.description.toLowerCase().includes(q)
+    const q = options.search.toLowerCase().trim();
+    list = list.filter(
+      (p) =>
+        p.title.toLowerCase().includes(q) ||
+        p.description.toLowerCase().includes(q) ||
+        (p.brand && p.brand.toLowerCase().includes(q))
     );
   }
 
   return {
-    products: combined.slice(skip, skip + limit),
-    total: combined.length,
+    products: list.slice(skip, skip + limit),
+    total: list.length,
     skip,
     limit,
   };
 }
 
 /**
- * ერთი პროდუქტის წამოღება ID-ით (ამოწმებს ჯერ custom პროდუქტებში, შემდეგ DummyJSON-ში)
+ * Fetch a single product by numeric ID
  */
 export async function getProductById(id: number | string): Promise<Product> {
   const numericId = Number(id);
 
-  // შევამოწმოთ custom პროდუქტებში
-  const custom = CUSTOM_NORDIC_PRODUCTS.find((p) => p.id === numericId);
-  if (custom) return custom;
+  const local = WINTER_SPORTS_PRODUCTS.find((p) => p.id === numericId);
+  if (local) return local;
 
-  // თუ იქ არ არის, წამოვიღოთ DummyJSON-იდან
-  const res = await fetch(`${BASE_URL}/products/${id}`);
-  if (!res.ok) {
-    throw new Error(`Product #${id} not found (${res.status})`);
+  // Fallback for mapped DummyJSON items
+  if (numericId > 1000) {
+    try {
+      const res = await fetch(`${BASE_URL}/products/${numericId - 1000}`);
+      if (res.ok) {
+        const data = (await res.json()) as Product;
+        return {
+          ...data,
+          id: numericId,
+          category: "goggles",
+          title: `Alpine ${data.title}`,
+        };
+      }
+    } catch {
+      // fall through
+    }
   }
-  const data = (await res.json()) as Product;
-  return sanitizeEcoProduct(data);
+
+  throw new Error(`Product #${id} not found`);
 }
 
 /**
- * კატეგორიების სია
+ * Category list
  */
 export async function getCategories(): Promise<Category[]> {
   return [
-    { slug: "all", name: "All Products", url: "" },
-    { slug: "kitchen-accessories", name: "Kitchen & Dining", url: "" },
-    { slug: "furniture", name: "Wooden Furniture", url: "" },
-    { slug: "holiday-decor", name: "Holiday & Christmas Decor", url: "" },
-    { slug: "home-decoration", name: "Home Decor & Hygge", url: "" },
+    { slug: "all", name: "All Gear", url: "" },
+    { slug: "skis", name: "Skis", url: "" },
+    { slug: "snowboards", name: "Snowboards", url: "" },
+    { slug: "goggles", name: "Goggles & Eyewear", url: "" },
+    { slug: "helmets", name: "Helmets", url: "" },
+    { slug: "accessories", name: "Accessories", url: "" },
   ];
 }

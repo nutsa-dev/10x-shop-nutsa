@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { useCart } from "@/context/CartContext";
 import { CartItemRow } from "@/components/cart/CartItemRow";
 import { CartSummary } from "@/components/cart/CartSummary";
-import { IconCart, IconArrowRight, IconLeaf } from "@/components/ui/Icons";
 
 export const CartPage = () => {
   const {
@@ -21,29 +20,22 @@ export const CartPage = () => {
     removePromoCode,
   } = useCart();
 
-  // Empty Cart State
   if (items.length === 0) {
     return (
-      <div className="container mx-auto px-4 sm:px-6 py-16 sm:py-24">
-        <div className="mx-auto max-w-lg rounded-3xl border border-dashed border-stone-300 bg-white p-10 sm:p-14 text-center shadow-2xs dark:border-stone-800 dark:bg-[#181816]">
-          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-stone-100 text-stone-600 dark:bg-stone-800 dark:text-stone-300">
-            <IconCart className="h-10 w-10 stroke-1" />
-          </div>
-          
-          <h1 className="mt-6 text-2xl font-extrabold tracking-tight text-stone-900 dark:text-stone-100 font-sans">
-            Your Cart is Peaceful & Empty
+      <div className="container mx-auto px-4 py-20 text-center">
+        <div className="mx-auto max-w-sm rounded-xl border border-neutral-200 bg-white p-10 dark:border-neutral-800 dark:bg-neutral-900">
+          <h1 className="text-base font-bold text-neutral-900 dark:text-neutral-100">
+            Your Cart is Empty
           </h1>
-          <p className="mt-2 text-xs sm:text-sm text-stone-500 dark:text-stone-400 max-w-sm mx-auto leading-relaxed">
-            Discover our collection of handcrafted Nordic wooden essentials and bring calm to your space.
+          <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+            Explore our collection of alpine skis, snowboards, and winter gear.
           </p>
-          
-          <div className="mt-8">
+          <div className="mt-5">
             <Link
               to="/"
-              className="inline-flex items-center gap-2 rounded-2xl bg-stone-900 px-6 py-3.5 text-xs sm:text-sm font-bold text-white shadow-xs hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200 transition"
+              className="inline-flex rounded-lg bg-neutral-900 px-4 py-2 text-xs font-semibold text-white dark:bg-white dark:text-neutral-950 transition hover:bg-neutral-800"
             >
-              <span>Explore Collection</span>
-              <IconArrowRight className="h-4 w-4" />
+              Browse Equipment
             </Link>
           </div>
         </div>
@@ -52,48 +44,35 @@ export const CartPage = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
-      
-      {/* Header Toolbar */}
-      <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between border-b border-stone-200/80 pb-5 dark:border-stone-800/80">
+    <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      {/* Header */}
+      <div className="mb-6 flex items-center justify-between border-b border-neutral-200/80 pb-4 dark:border-neutral-800">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-900 dark:text-stone-100 font-sans">
+          <h1 className="text-xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
             Shopping Cart
           </h1>
-          <p className="mt-0.5 text-xs text-stone-500 dark:text-stone-400">
-            Review your {totalItems} {totalItems === 1 ? "item" : "items"} before checkout
+          <p className="text-xs text-neutral-500 dark:text-neutral-400">
+            {totalItems} {totalItems === 1 ? "item" : "items"}
           </p>
         </div>
 
         <button
           type="button"
           onClick={() => {
-            if (window.confirm("Empty the entire cart?")) {
+            if (window.confirm("Empty the cart?")) {
               clearCart();
             }
           }}
-          className="self-start sm:self-auto text-xs font-semibold text-stone-400 hover:text-rose-600 dark:text-stone-500 dark:hover:text-rose-400 transition"
+          className="text-xs text-neutral-400 hover:text-neutral-800 dark:hover:text-neutral-200"
         >
           Clear cart
         </button>
       </div>
 
-      {/* Free Carbon-Neutral Shipping Banner */}
-      <div className="mb-8 flex items-center justify-between rounded-2xl border border-emerald-200/80 bg-emerald-50/70 p-4 text-xs font-semibold text-emerald-900 dark:border-emerald-900/50 dark:bg-emerald-950/40 dark:text-emerald-300">
-        <div className="flex items-center gap-2">
-          <IconLeaf className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-          <span>You qualify for <strong>Free Carbon-Neutral Shipping</strong> & Plastic-Free Packaging!</span>
-        </div>
-        <span className="hidden sm:inline-block rounded-full bg-emerald-100 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300">
-          Applied
-        </span>
-      </div>
-
-      {/* Main Grid: Items List + Order Summary */}
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-start">
-        
-        {/* Items column */}
-        <div className="space-y-4 lg:col-span-8">
+      {/* Grid */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-start">
+        {/* Items */}
+        <div className="space-y-3 lg:col-span-8">
           {items.map((item) => (
             <CartItemRow
               key={item.productId}
@@ -104,8 +83,8 @@ export const CartPage = () => {
           ))}
         </div>
 
-        {/* Summary column */}
-        <div className="lg:col-span-4 lg:sticky lg:top-24">
+        {/* Summary */}
+        <div className="lg:col-span-4 lg:sticky lg:top-20">
           <CartSummary
             subtotal={subtotal}
             rawSubtotal={rawSubtotal}
@@ -117,7 +96,6 @@ export const CartPage = () => {
             onRemovePromo={removePromoCode}
           />
         </div>
-
       </div>
     </div>
   );

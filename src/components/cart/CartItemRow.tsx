@@ -16,64 +16,56 @@ export const CartItemRow = ({ item, onUpdateQuantity, onRemove }: CartItemRowPro
   const isMaxStock = item.quantity >= item.stock;
 
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border border-stone-200/80 bg-white p-4 shadow-2xs transition-all hover:border-stone-300 dark:border-stone-800 dark:bg-[#181816] dark:hover:border-stone-700">
-      
-      {/* Product Image & Details */}
-      <div className="flex items-center gap-4">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-lg border border-neutral-200/90 bg-white p-3.5 dark:border-neutral-800 dark:bg-neutral-900">
+      <div className="flex items-center gap-3">
         <Link
           to={`/products/${item.productId}`}
-          className="relative aspect-square h-20 w-20 shrink-0 overflow-hidden rounded-2xl border border-stone-100 bg-stone-100/70 p-2 dark:border-stone-800 dark:bg-stone-800/60"
+          className="relative aspect-square h-16 w-16 shrink-0 overflow-hidden rounded-md border border-neutral-100 bg-neutral-100 p-1 dark:border-neutral-800 dark:bg-neutral-800"
         >
           <img
             src={item.thumbnail}
             alt={item.title}
-            className="h-full w-full object-contain"
+            className="h-full w-full object-cover"
           />
         </Link>
 
         <div>
-          <h3 className="text-sm font-semibold tracking-tight text-stone-900 dark:text-stone-100">
-            <Link
-              to={`/products/${item.productId}`}
-              className="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors line-clamp-1"
-            >
+          <h3 className="text-xs font-semibold text-neutral-900 dark:text-neutral-100">
+            <Link to={`/products/${item.productId}`} className="hover:underline line-clamp-1">
               {item.title}
             </Link>
           </h3>
 
-          <div className="mt-1 flex items-baseline gap-2">
-            <span className="text-sm font-extrabold text-stone-900 dark:text-stone-100">
+          <div className="mt-0.5 flex items-baseline gap-1.5">
+            <span className="text-xs font-bold text-neutral-900 dark:text-neutral-100">
               {formatPrice(unitPrice)}
             </span>
             {hasDiscount && (
-              <span className="text-xs text-stone-400 line-through dark:text-stone-500">
+              <span className="text-[10px] text-neutral-400 line-through">
                 {formatPrice(item.price)}
               </span>
             )}
           </div>
 
           {isMaxStock && (
-            <p className="mt-1 text-[11px] font-semibold text-amber-700 dark:text-amber-400">
-              Max available stock reached ({item.stock})
+            <p className="text-[10px] text-neutral-500">
+              Max available stock ({item.stock})
             </p>
           )}
         </div>
       </div>
 
-      {/* Stepper, Subtotal & Remove Action */}
-      <div className="flex items-center justify-between sm:justify-end gap-6 border-t border-stone-100 pt-3 sm:border-t-0 sm:pt-0 dark:border-stone-800/80">
-        
-        {/* Quantity Stepper */}
-        <div className="flex h-9 items-center rounded-xl border border-stone-200 bg-white dark:border-stone-700 dark:bg-stone-900 shadow-2xs">
+      <div className="flex items-center justify-between sm:justify-end gap-5 border-t border-neutral-100 pt-2 sm:border-t-0 sm:pt-0 dark:border-neutral-800">
+        <div className="flex h-7 items-center rounded-md border border-neutral-200 bg-white dark:border-neutral-700 dark:bg-neutral-900">
           <button
             type="button"
             aria-label="Decrease quantity"
             onClick={() => onUpdateQuantity(item.productId, item.quantity - 1)}
-            className="flex h-9 w-8 items-center justify-center rounded-l-xl text-stone-600 hover:bg-stone-100 dark:text-stone-300 dark:hover:bg-stone-800 transition"
+            className="flex h-7 w-7 items-center justify-center text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
           >
             −
           </button>
-          <span className="w-8 text-center text-xs font-bold text-stone-900 dark:text-stone-100">
+          <span className="w-6 text-center text-xs font-bold text-neutral-900 dark:text-neutral-100">
             {item.quantity}
           </span>
           <button
@@ -81,30 +73,26 @@ export const CartItemRow = ({ item, onUpdateQuantity, onRemove }: CartItemRowPro
             aria-label="Increase quantity"
             disabled={isMaxStock}
             onClick={() => onUpdateQuantity(item.productId, item.quantity + 1)}
-            className="flex h-9 w-8 items-center justify-center rounded-r-xl text-stone-600 hover:bg-stone-100 disabled:opacity-40 dark:text-stone-300 dark:hover:bg-stone-800 transition"
+            className="flex h-7 w-7 items-center justify-center text-neutral-600 hover:bg-neutral-100 disabled:opacity-40 dark:text-neutral-300 dark:hover:bg-neutral-800"
           >
             +
           </button>
         </div>
 
-        {/* Item Total */}
-        <div className="w-24 text-right">
-          <span className="text-sm font-extrabold text-stone-900 dark:text-stone-100">
+        <div className="w-16 text-right">
+          <span className="text-xs font-bold text-neutral-900 dark:text-neutral-100">
             {formatPrice(itemTotal)}
           </span>
         </div>
 
-        {/* Remove Button */}
         <button
           type="button"
-          aria-label={`Remove ${item.title} from cart`}
+          aria-label={`Remove ${item.title}`}
           onClick={() => onRemove(item.productId)}
-          className="flex h-8 w-8 items-center justify-center rounded-xl text-stone-400 hover:bg-rose-50 hover:text-rose-600 dark:text-stone-500 dark:hover:bg-rose-950/40 dark:hover:text-rose-400 transition"
-          title="Remove item"
+          className="text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
         >
-          <IconClose className="h-4 w-4" />
+          <IconClose className="h-3.5 w-3.5" />
         </button>
-
       </div>
     </div>
   );
