@@ -5,6 +5,15 @@ import * as Yup from "yup";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
 import { formatPrice, getDiscountedPrice } from "@/utils/format";
+import {
+  IconCheck,
+  IconShield,
+  IconTruck,
+  IconArrowLeft,
+  IconArrowRight,
+  IconCart,
+  IconLeaf,
+} from "@/components/ui/Icons";
 import type { Order, ShippingInfo } from "@/types/order";
 
 const validationSchema = Yup.object({
@@ -39,6 +48,7 @@ export const CheckoutPage = () => {
 
   const [placedOrder, setPlacedOrder] = useState<Order | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [copiedOrder, setCopiedOrder] = useState<boolean>(false);
 
   const formik = useFormik<ShippingInfo>({
     initialValues: {
@@ -51,7 +61,7 @@ export const CheckoutPage = () => {
     onSubmit: async (values) => {
       setIsSubmitting(true);
 
-      // სიმულაციური მცირე დაყოვნება შეკვეთის გაფორმებისთვის
+      // Brief simulated payment/order placement delay
       await new Promise((resolve) => setTimeout(resolve, 600));
 
       const orderId = Date.now();
@@ -84,77 +94,105 @@ export const CheckoutPage = () => {
     },
   });
 
-  // 1. შეკვეთის წარმატების ეკრანი (Success Confirmation View)
+  const handleCopyOrder = () => {
+    if (!placedOrder) return;
+    navigator.clipboard.writeText(placedOrder.number);
+    setCopiedOrder(true);
+    setTimeout(() => setCopiedOrder(false), 2000);
+  };
+
+  // 1. Order Success / Confirmation Receipt Screen
   if (placedOrder) {
     return (
-      <div className="container mx-auto px-4 py-12">
-        <div className="mx-auto max-w-2xl rounded-3xl border border-stone-200 bg-white p-8 shadow-sm sm:p-12 dark:border-stone-800 dark:bg-stone-900">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-100 text-3xl text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400">
-            ✓
+      <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-20">
+        <div className="mx-auto max-w-2xl rounded-3xl border border-stone-200/90 bg-white p-8 sm:p-12 shadow-sm dark:border-stone-800 dark:bg-[#181816]">
+          
+          {/* Animated Green Checkmark Badge */}
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-emerald-100 text-emerald-800 dark:bg-emerald-950/70 dark:text-emerald-400">
+            <IconCheck className="h-10 w-10 stroke-2" />
           </div>
 
           <div className="mt-6 text-center">
-            <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300">
-              Order Confirmed
-            </span>
-            <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-stone-900 dark:text-stone-100">
-              Thank You For Your Order!
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300">
+              <IconLeaf className="h-3.5 w-3.5" />
+              <span>Order Confirmed & Carbon-Offset</span>
+            </div>
+            <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-stone-900 dark:text-stone-100 font-sans">
+              Takk! Your Order is on Its Way
             </h1>
-            <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
-              We have received your order and are preparing it for shipment.
+            <p className="mt-2 text-xs sm:text-sm text-stone-500 dark:text-stone-400 max-w-md mx-auto leading-relaxed">
+              We have received your order and our Nordic workshop is preparing your handcrafted items with plastic-free packaging.
             </p>
           </div>
 
-          {/* შეკვეთის დეტალების ბარათი */}
-          <div className="mt-8 rounded-2xl border border-stone-200 bg-stone-50 p-6 text-xs text-stone-700 dark:border-stone-800 dark:bg-stone-950/40 dark:text-stone-300">
-            <div className="grid grid-cols-2 gap-4 pb-4 border-b border-stone-200 dark:border-stone-800">
+          {/* Order Details Receipt Card */}
+          <div className="mt-8 rounded-2xl border border-stone-200/90 bg-stone-50/70 p-6 text-xs text-stone-700 dark:border-stone-800 dark:bg-stone-900/50 dark:text-stone-300">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-4 border-b border-stone-200 dark:border-stone-800">
               <div>
-                <span className="font-semibold text-stone-400 uppercase tracking-wider text-[10px]">
+                <span className="font-bold text-stone-400 uppercase tracking-wider text-[10px]">
                   Order Number
                 </span>
-                <p className="mt-0.5 font-bold text-stone-900 text-sm dark:text-stone-100">
-                  #{placedOrder.number}
-                </p>
+                <div className="mt-1 flex items-center gap-2">
+                  <span className="font-mono font-bold text-stone-900 text-sm dark:text-stone-100">
+                    #{placedOrder.number}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={handleCopyOrder}
+                    className="rounded-md border border-stone-300 px-1.5 py-0.5 text-[10px] font-semibold text-stone-600 hover:bg-stone-200 dark:border-stone-700 dark:text-stone-400 dark:hover:bg-stone-800"
+                  >
+                    {copiedOrder ? "Copied ✓" : "Copy"}
+                  </button>
+                </div>
               </div>
               <div>
-                <span className="font-semibold text-stone-400 uppercase tracking-wider text-[10px]">
+                <span className="font-bold text-stone-400 uppercase tracking-wider text-[10px]">
                   Recipient
                 </span>
-                <p className="mt-0.5 font-bold text-stone-900 text-sm dark:text-stone-100">
+                <p className="mt-1 font-bold text-stone-900 text-sm dark:text-stone-100">
                   {placedOrder.shipping.fullName}
                 </p>
               </div>
             </div>
 
-            <div className="pt-4 grid grid-cols-2 gap-4">
+            <div className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <span className="font-semibold text-stone-400 uppercase tracking-wider text-[10px]">
-                  Shipping Address
+                <span className="font-bold text-stone-400 uppercase tracking-wider text-[10px]">
+                  Delivery Address
                 </span>
-                <p className="mt-0.5 font-medium">
+                <p className="mt-1 font-medium text-stone-800 dark:text-stone-200">
                   {placedOrder.shipping.address}, {placedOrder.shipping.city}
                 </p>
               </div>
               <div>
-                <span className="font-semibold text-stone-400 uppercase tracking-wider text-[10px]">
-                  Notification Email
+                <span className="font-bold text-stone-400 uppercase tracking-wider text-[10px]">
+                  Confirmation Email
                 </span>
-                <p className="mt-0.5 font-medium">{placedOrder.shipping.email}</p>
+                <p className="mt-1 font-medium text-stone-800 dark:text-stone-200">
+                  {placedOrder.shipping.email}
+                </p>
               </div>
             </div>
 
-            {/* შეძენილი ნივთების მოკლე სია */}
+            {/* Purchased Items List */}
             <div className="mt-6 border-t border-stone-200 pt-4 dark:border-stone-800">
-              <span className="font-semibold text-stone-400 uppercase tracking-wider text-[10px]">
-                Items Purchased ({placedOrder.items.length})
+              <span className="font-bold text-stone-400 uppercase tracking-wider text-[10px]">
+                Items in This Shipment ({placedOrder.items.length})
               </span>
-              <div className="mt-3 divide-y divide-stone-200 dark:divide-stone-800">
+              <div className="mt-3 divide-y divide-stone-200/80 dark:divide-stone-800">
                 {placedOrder.items.map((item) => (
-                  <div key={item.productId} className="flex items-center justify-between py-2">
-                    <span className="truncate pr-4 text-stone-800 dark:text-stone-200">
-                      {item.quantity}x {item.title}
-                    </span>
-                    <span className="font-semibold text-stone-900 dark:text-stone-100">
+                  <div key={item.productId} className="flex items-center justify-between py-2.5">
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={item.thumbnail}
+                        alt={item.title}
+                        className="h-10 w-10 rounded-lg border border-stone-200 bg-stone-100 object-contain p-1 dark:border-stone-800 dark:bg-stone-800"
+                      />
+                      <span className="font-medium text-stone-800 dark:text-stone-200">
+                        {item.quantity}× {item.title}
+                      </span>
+                    </div>
+                    <span className="font-bold text-stone-900 dark:text-stone-100">
                       {formatPrice(
                         getDiscountedPrice(item.price, item.discountPercentage) * item.quantity
                       )}
@@ -163,20 +201,26 @@ export const CheckoutPage = () => {
                 ))}
               </div>
 
-              <div className="mt-4 flex items-center justify-between border-t border-stone-200 pt-3 text-sm font-bold text-stone-900 dark:border-stone-800 dark:text-stone-100">
-                <span>Total Paid</span>
+              <div className="mt-4 flex items-center justify-between border-t border-stone-200 pt-3 text-sm font-extrabold text-stone-900 dark:border-stone-800 dark:text-stone-100">
+                <span>Total Paid (incl. VAT)</span>
                 <span>{formatPrice(placedOrder.total)}</span>
               </div>
             </div>
           </div>
 
-          {/* მოქმედების ღილაკები */}
+          {/* Action CTAs */}
           <div className="mt-8 flex flex-col sm:flex-row gap-3">
             <Link
-              to="/"
-              className="flex-1 rounded-xl bg-stone-900 px-6 py-3 text-center text-sm font-semibold text-white transition hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200"
+              to="/orders"
+              className="flex-1 rounded-2xl bg-stone-900 px-6 py-3.5 text-center text-xs sm:text-sm font-bold text-white shadow-xs transition hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200"
             >
-              Continue Shopping
+              Track Order Status →
+            </Link>
+            <Link
+              to="/"
+              className="rounded-2xl border border-stone-300 px-6 py-3.5 text-center text-xs sm:text-sm font-semibold text-stone-700 hover:bg-stone-100 dark:border-stone-700 dark:text-stone-300 dark:hover:bg-stone-800 transition"
+            >
+              Back to Catalog
             </Link>
           </div>
         </div>
@@ -184,61 +228,92 @@ export const CheckoutPage = () => {
     );
   }
 
-  // 2. თუ კალათა ცარიელია და შეკვეთა ჯერ არ განხორციელებულა
+  // 2. Empty Cart Fallback
   if (items.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-16">
-        <div className="mx-auto max-w-md rounded-2xl border border-stone-200 bg-white p-8 text-center shadow-xs dark:border-stone-800 dark:bg-stone-900">
-          <span className="text-4xl">🛒</span>
-          <h2 className="mt-4 text-xl font-bold text-stone-900 dark:text-stone-100">
+      <div className="container mx-auto px-4 sm:px-6 py-20 text-center">
+        <div className="mx-auto max-w-md rounded-3xl border border-stone-200 bg-white p-10 shadow-2xs dark:border-stone-800 dark:bg-[#181816]">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-stone-100 text-stone-500 dark:bg-stone-800 dark:text-stone-300">
+            <IconCart className="h-8 w-8" />
+          </div>
+          <h2 className="mt-4 text-xl font-bold tracking-tight text-stone-900 dark:text-stone-100">
             Your Cart is Empty
           </h2>
-          <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
-            Please add items to your cart before proceeding to checkout.
+          <p className="mt-2 text-xs text-stone-500 dark:text-stone-400">
+            Please add handcrafted Nordic items to your cart before proceeding to checkout.
           </p>
           <Link
             to="/"
-            className="mt-6 inline-flex items-center rounded-xl bg-stone-900 px-5 py-2.5 text-xs font-semibold text-white transition hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200"
+            className="mt-6 inline-flex items-center gap-1.5 rounded-xl bg-stone-900 px-5 py-2.5 text-xs font-semibold text-white shadow-xs hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200 transition"
           >
-            ← Browse Catalog
+            <IconArrowLeft className="h-3.5 w-3.5" />
+            <span>Browse Catalog</span>
           </Link>
         </div>
       </div>
     );
   }
 
-  // 3. შეკვეთის ფორმა და შეჯამება (Active Checkout Flow)
+  // 3. Active Checkout Form & Order Review
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* ნავიგაცია უკან კალათაში */}
-      <div className="mb-6">
+    <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
+      
+      {/* Checkout Step Breadcrumb */}
+      <div className="mb-8 flex flex-col gap-2">
         <Link
           to="/cart"
-          className="text-xs font-medium text-stone-500 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-200 transition"
+          className="inline-flex items-center gap-1 text-xs font-semibold text-stone-500 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-200 transition"
         >
-          ← Back to cart
+          <IconArrowLeft className="h-3.5 w-3.5" />
+          <span>Return to Cart</span>
         </Link>
-        <h1 className="mt-2 text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl dark:text-stone-100">
-          Checkout & Shipping
-        </h1>
-        <p className="mt-1 text-xs text-stone-500 dark:text-stone-400">
-          Please fill in your shipping information to complete your order.
-        </p>
+        
+        <div className="mt-1 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-900 dark:text-stone-100 font-sans">
+              Shipping & Checkout
+            </h1>
+            <p className="mt-0.5 text-xs text-stone-500 dark:text-stone-400">
+              Provide delivery details for carbon-neutral shipment.
+            </p>
+          </div>
+
+          {/* Stepper badge */}
+          <div className="flex items-center gap-2 text-xs font-bold">
+            <span className="text-stone-400">1. Cart</span>
+            <span className="text-stone-300">→</span>
+            <span className="rounded-full bg-emerald-100 px-3 py-1 text-emerald-800 dark:bg-emerald-950/70 dark:text-emerald-300">
+              2. Shipping
+            </span>
+            <span className="text-stone-300">→</span>
+            <span className="text-stone-400">3. Confirmation</span>
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-start">
-        {/* მარცხენა სვეტი: მიწოდების ფორმა */}
-        <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-xs lg:col-span-7 dark:border-stone-800 dark:bg-stone-900">
-          <h2 className="text-base font-bold tracking-tight text-stone-900 dark:text-stone-100">
-            Shipping Information
-          </h2>
+        
+        {/* Left Column: Shipping Details Form */}
+        <div className="rounded-3xl border border-stone-200/90 bg-white p-6 sm:p-8 shadow-2xs lg:col-span-7 dark:border-stone-800 dark:bg-[#181816]">
+          <div className="flex items-center justify-between border-b border-stone-100 pb-4 dark:border-stone-800">
+            <div>
+              <h2 className="text-base font-extrabold tracking-tight text-stone-900 dark:text-stone-100 font-sans">
+                Delivery Details
+              </h2>
+              <p className="text-xs text-stone-500 dark:text-stone-400">
+                All shipments are tracked and packaged with zero single-use plastics.
+              </p>
+            </div>
+            <IconTruck className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+          </div>
 
           <form onSubmit={formik.handleSubmit} className="mt-6 space-y-4">
+            
             {/* Full Name */}
             <div>
               <label
                 htmlFor="fullName"
-                className="block text-xs font-medium text-stone-700 dark:text-stone-300"
+                className="block text-xs font-semibold text-stone-700 dark:text-stone-300"
               >
                 Full Name *
               </label>
@@ -246,18 +321,18 @@ export const CheckoutPage = () => {
                 id="fullName"
                 name="fullName"
                 type="text"
-                placeholder="e.g. Emily Smith"
+                placeholder="e.g. Astrid Lindgren"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.fullName}
-                className={`mt-1.5 w-full rounded-xl border bg-stone-50 px-3.5 py-2.5 text-xs text-stone-900 outline-none transition focus:bg-white dark:bg-stone-800 dark:text-stone-100 ${
+                className={`mt-1.5 w-full rounded-xl border bg-stone-50/70 px-4 py-2.5 text-xs text-stone-900 outline-none transition focus:bg-white dark:bg-stone-900 dark:text-stone-100 ${
                   formik.touched.fullName && formik.errors.fullName
                     ? "border-rose-500 focus:border-rose-600"
-                    : "border-stone-300 focus:border-stone-500 dark:border-stone-700"
+                    : "border-stone-200 focus:border-stone-500 dark:border-stone-700"
                 }`}
               />
               {formik.touched.fullName && formik.errors.fullName && (
-                <p className="mt-1 text-[11px] font-medium text-rose-600 dark:text-rose-400">
+                <p className="mt-1 text-[11px] font-semibold text-rose-600 dark:text-rose-400">
                   {formik.errors.fullName}
                 </p>
               )}
@@ -267,7 +342,7 @@ export const CheckoutPage = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-xs font-medium text-stone-700 dark:text-stone-300"
+                className="block text-xs font-semibold text-stone-700 dark:text-stone-300"
               >
                 Email Address *
               </label>
@@ -275,18 +350,18 @@ export const CheckoutPage = () => {
                 id="email"
                 name="email"
                 type="email"
-                placeholder="e.g. emily@example.com"
+                placeholder="e.g. astrid@nordichome.se"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.email}
-                className={`mt-1.5 w-full rounded-xl border bg-stone-50 px-3.5 py-2.5 text-xs text-stone-900 outline-none transition focus:bg-white dark:bg-stone-800 dark:text-stone-100 ${
+                className={`mt-1.5 w-full rounded-xl border bg-stone-50/70 px-4 py-2.5 text-xs text-stone-900 outline-none transition focus:bg-white dark:bg-stone-900 dark:text-stone-100 ${
                   formik.touched.email && formik.errors.email
                     ? "border-rose-500 focus:border-rose-600"
-                    : "border-stone-300 focus:border-stone-500 dark:border-stone-700"
+                    : "border-stone-200 focus:border-stone-500 dark:border-stone-700"
                 }`}
               />
               {formik.touched.email && formik.errors.email && (
-                <p className="mt-1 text-[11px] font-medium text-rose-600 dark:text-rose-400">
+                <p className="mt-1 text-[11px] font-semibold text-rose-600 dark:text-rose-400">
                   {formik.errors.email}
                 </p>
               )}
@@ -296,7 +371,7 @@ export const CheckoutPage = () => {
             <div>
               <label
                 htmlFor="address"
-                className="block text-xs font-medium text-stone-700 dark:text-stone-300"
+                className="block text-xs font-semibold text-stone-700 dark:text-stone-300"
               >
                 Street Address *
               </label>
@@ -304,18 +379,18 @@ export const CheckoutPage = () => {
                 id="address"
                 name="address"
                 type="text"
-                placeholder="e.g. 104 Nordic Way, Apt 3B"
+                placeholder="e.g. 14 Vasagatan, Apt 4"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.address}
-                className={`mt-1.5 w-full rounded-xl border bg-stone-50 px-3.5 py-2.5 text-xs text-stone-900 outline-none transition focus:bg-white dark:bg-stone-800 dark:text-stone-100 ${
+                className={`mt-1.5 w-full rounded-xl border bg-stone-50/70 px-4 py-2.5 text-xs text-stone-900 outline-none transition focus:bg-white dark:bg-stone-900 dark:text-stone-100 ${
                   formik.touched.address && formik.errors.address
                     ? "border-rose-500 focus:border-rose-600"
-                    : "border-stone-300 focus:border-stone-500 dark:border-stone-700"
+                    : "border-stone-200 focus:border-stone-500 dark:border-stone-700"
                 }`}
               />
               {formik.touched.address && formik.errors.address && (
-                <p className="mt-1 text-[11px] font-medium text-rose-600 dark:text-rose-400">
+                <p className="mt-1 text-[11px] font-semibold text-rose-600 dark:text-rose-400">
                   {formik.errors.address}
                 </p>
               )}
@@ -325,7 +400,7 @@ export const CheckoutPage = () => {
             <div>
               <label
                 htmlFor="city"
-                className="block text-xs font-medium text-stone-700 dark:text-stone-300"
+                className="block text-xs font-semibold text-stone-700 dark:text-stone-300"
               >
                 City / Region *
               </label>
@@ -337,39 +412,46 @@ export const CheckoutPage = () => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.city}
-                className={`mt-1.5 w-full rounded-xl border bg-stone-50 px-3.5 py-2.5 text-xs text-stone-900 outline-none transition focus:bg-white dark:bg-stone-800 dark:text-stone-100 ${
+                className={`mt-1.5 w-full rounded-xl border bg-stone-50/70 px-4 py-2.5 text-xs text-stone-900 outline-none transition focus:bg-white dark:bg-stone-900 dark:text-stone-100 ${
                   formik.touched.city && formik.errors.city
                     ? "border-rose-500 focus:border-rose-600"
-                    : "border-stone-300 focus:border-stone-500 dark:border-stone-700"
+                    : "border-stone-200 focus:border-stone-500 dark:border-stone-700"
                 }`}
               />
               {formik.touched.city && formik.errors.city && (
-                <p className="mt-1 text-[11px] font-medium text-rose-600 dark:text-rose-400">
+                <p className="mt-1 text-[11px] font-semibold text-rose-600 dark:text-rose-400">
                   {formik.errors.city}
                 </p>
               )}
             </div>
 
+            {/* Submit Button */}
             <div className="pt-4">
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-stone-900 px-6 py-3 text-sm font-semibold text-white shadow-xs transition hover:bg-stone-800 disabled:opacity-50 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200"
+                className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-stone-900 px-6 py-3.5 text-xs sm:text-sm font-bold text-white shadow-xs transition hover:bg-stone-800 disabled:opacity-50 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200"
               >
-                <span>{isSubmitting ? "Processing Order..." : "Place Order Now"}</span>
-                <span>→</span>
+                <span>{isSubmitting ? "Placing Your Order..." : `Place Order • ${formatPrice(totalPrice)}`}</span>
+                <IconArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </button>
             </div>
           </form>
+
+          {/* Guarantees */}
+          <div className="mt-6 flex items-center justify-center gap-2 text-[11px] text-stone-400 dark:text-stone-500">
+            <IconShield className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
+            <span>256-Bit SSL Encrypted & Protected</span>
+          </div>
         </div>
 
-        {/* მარჯვენა სვეტი: შეკვეთის შეჯამება */}
-        <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-xs lg:col-span-5 dark:border-stone-800 dark:bg-stone-900">
-          <h2 className="text-base font-bold tracking-tight text-stone-900 dark:text-stone-100">
+        {/* Right Column: Order Review */}
+        <div className="rounded-3xl border border-stone-200/90 bg-white p-6 shadow-2xs lg:col-span-5 dark:border-stone-800 dark:bg-[#181816]">
+          <h2 className="text-base font-extrabold tracking-tight text-stone-900 dark:text-stone-100 font-sans">
             Order Review ({items.length} {items.length === 1 ? "item" : "items"})
           </h2>
 
-          {/* ნივთების მინი სია */}
+          {/* Item Mini List */}
           <div className="mt-4 max-h-72 divide-y divide-stone-100 overflow-y-auto pr-1 dark:divide-stone-800">
             {items.map((item) => {
               const unitPrice = getDiscountedPrice(item.price, item.discountPercentage);
@@ -378,17 +460,17 @@ export const CheckoutPage = () => {
                   <img
                     src={item.thumbnail}
                     alt={item.title}
-                    className="h-12 w-12 rounded-lg border border-stone-200 bg-stone-50 object-contain p-1 dark:border-stone-800 dark:bg-stone-800"
+                    className="h-12 w-12 rounded-xl border border-stone-200/80 bg-stone-100/70 object-contain p-1.5 dark:border-stone-800 dark:bg-stone-800/60"
                   />
                   <div className="flex-1 min-w-0">
-                    <p className="truncate text-xs font-semibold text-stone-900 dark:text-stone-100">
+                    <p className="truncate text-xs font-bold text-stone-900 dark:text-stone-100">
                       {item.title}
                     </p>
                     <p className="text-[11px] text-stone-500 dark:text-stone-400">
                       Qty: {item.quantity} × {formatPrice(unitPrice)}
                     </p>
                   </div>
-                  <span className="text-xs font-bold text-stone-900 dark:text-stone-100">
+                  <span className="text-xs font-extrabold text-stone-900 dark:text-stone-100">
                     {formatPrice(unitPrice * item.quantity)}
                   </span>
                 </div>
@@ -396,8 +478,8 @@ export const CheckoutPage = () => {
             })}
           </div>
 
-          {/* ჯამების შეჯამება */}
-          <dl className="mt-6 border-t border-stone-200 pt-4 space-y-2 text-xs dark:border-stone-800">
+          {/* Financial summary */}
+          <dl className="mt-6 border-t border-stone-200/80 pt-4 space-y-2.5 text-xs dark:border-stone-800">
             <div className="flex justify-between text-stone-600 dark:text-stone-400">
               <dt>Subtotal</dt>
               <dd className="font-semibold text-stone-900 dark:text-stone-100">
@@ -406,36 +488,37 @@ export const CheckoutPage = () => {
             </div>
 
             {savings > 0 && (
-              <div className="flex justify-between text-emerald-600 dark:text-emerald-400">
-                <dt>Savings & Discounts</dt>
-                <dd className="font-semibold">
+              <div className="flex justify-between text-emerald-700 dark:text-emerald-400">
+                <dt>Catalog Discounts</dt>
+                <dd className="font-bold">
                   -{formatPrice(savings)}
                 </dd>
               </div>
             )}
 
             {promoDiscount > 0 && (
-              <div className="flex justify-between text-emerald-600 dark:text-emerald-400">
-                <dt>Promo Discount (10%)</dt>
-                <dd className="font-semibold">
+              <div className="flex justify-between text-emerald-700 dark:text-emerald-400">
+                <dt>Promo Voucher (10%)</dt>
+                <dd className="font-bold">
                   -{formatPrice(promoDiscount)}
                 </dd>
               </div>
             )}
 
             <div className="flex justify-between text-stone-600 dark:text-stone-400">
-              <dt>Shipping</dt>
-              <dd className="font-semibold text-emerald-600 dark:text-emerald-400">
+              <dt>Carbon-Neutral Delivery</dt>
+              <dd className="font-bold text-emerald-700 dark:text-emerald-400">
                 Free
               </dd>
             </div>
 
-            <div className="border-t border-stone-200 pt-3 flex justify-between text-base font-extrabold text-stone-900 dark:border-stone-800 dark:text-stone-100">
+            <div className="border-t border-stone-200/80 pt-3 flex justify-between text-base font-extrabold text-stone-900 dark:border-stone-800 dark:text-stone-100">
               <dt>Total to Pay</dt>
               <dd>{formatPrice(totalPrice)}</dd>
             </div>
           </dl>
         </div>
+
       </div>
     </div>
   );
