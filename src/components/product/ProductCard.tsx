@@ -101,7 +101,7 @@ export const ProductCard = ({ product, index, onAdd }: ProductCardProps) => {
               width={240}
               height={240}
               loading="lazy"
-              className="object-contain max-h-full transition-transform duration-500 ease-out group-hover:scale-105"
+              className="object-contain max-h-full rounded-lg transition-transform duration-500 ease-out group-hover:scale-105"
             />
           </Link>
         </div>

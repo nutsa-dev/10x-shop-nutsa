@@ -8,27 +8,27 @@ export const Footer = () => {
           <span className="wood-engraved uppercase">
             KURA // Atelier Objects
           </span>
-          <span className="hidden sm:inline font-semibold text-[#3B2311] dark:text-[#D8C2A8]">
-            — Curated Objects for Mindful Living
+          <span className="hidden sm:inline font-medium text-[#3B2311]/80 dark:text-[#D8C2A8]/80">
+            — Nordic Woodshop & Winter Market
           </span>
         </div>
 
-        <div className="flex items-center gap-3 text-xs">
-          <Link to="/" className="wood-btn rounded-md px-2.5 py-1 text-[11px]">
+        <div className="flex items-center gap-6 text-xs">
+          <Link to="/" className="wood-engraved text-[11px] uppercase opacity-75 hover:opacity-100 transition-opacity">
             Collection
           </Link>
-          <Link to="/cart" className="wood-btn rounded-md px-2.5 py-1 text-[11px]">
+          <Link to="/cart" className="wood-engraved text-[11px] uppercase opacity-75 hover:opacity-100 transition-opacity">
             Cart
           </Link>
-          <Link to="/orders" className="wood-btn rounded-md px-2.5 py-1 text-[11px]">
+          <Link to="/orders" className="wood-engraved text-[11px] uppercase opacity-75 hover:opacity-100 transition-opacity">
             Orders
           </Link>
-          <Link to="/profile" className="wood-btn rounded-md px-2.5 py-1 text-[11px]">
+          <Link to="/profile" className="wood-engraved text-[11px] uppercase opacity-75 hover:opacity-100 transition-opacity">
             Account
           </Link>
         </div>
 
-        <p className="wood-engraved text-[11px]">© 2026 KURA // Atelier Objects</p>
+        <p className="wood-engraved font-mono text-[11px] opacity-75">© 2026 KURA</p>
       </div>
     </footer>
   );

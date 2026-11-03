@@ -19,8 +19,8 @@ export const Navbar = () => {
     <header className="wood-plank-header sticky top-0 z-40 w-full transition-colors">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6">
         
-        {/* Brand & Navigation Links */}
-        <div className="flex items-center gap-4 sm:gap-7">
+        {/* Brand & Engraved Plank Navigation Links */}
+        <div className="flex items-center gap-6 sm:gap-9">
           <Link
             to="/"
             className="wood-engraved flex items-center gap-2 text-xs sm:text-sm uppercase"
@@ -28,15 +28,15 @@ export const Navbar = () => {
             <span>KURA // Atelier Objects</span>
           </Link>
 
-          <nav className="flex items-center gap-1.5">
+          <nav className="flex items-center gap-5">
             <NavLink
               to="/"
               end
               className={({ isActive }) =>
-                `rounded-lg px-3 py-1.5 text-xs transition-all ${
+                `wood-engraved relative py-1 text-xs uppercase transition-opacity ${
                   isActive
-                    ? "wood-btn-walnut"
-                    : "wood-btn"
+                    ? "opacity-100 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-[#2C4032] dark:after:bg-[#D49B4B]"
+                    : "opacity-65 hover:opacity-100"
                 }`
               }
             >
@@ -45,10 +45,10 @@ export const Navbar = () => {
             <NavLink
               to="/orders"
               className={({ isActive }) =>
-                `rounded-lg px-3 py-1.5 text-xs transition-all ${
+                `wood-engraved relative py-1 text-xs uppercase transition-opacity ${
                   isActive
-                    ? "wood-btn-walnut"
-                    : "wood-btn"
+                    ? "opacity-100 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-[#2C4032] dark:after:bg-[#D49B4B]"
+                    : "opacity-65 hover:opacity-100"
                 }`
               }
             >
@@ -57,14 +57,14 @@ export const Navbar = () => {
           </nav>
         </div>
 
-        {/* Right Actions */}
-        <div className="flex items-center gap-2">
-          {/* Theme Switcher */}
+        {/* Right Actions: Clean Balance */}
+        <div className="flex items-center gap-3">
+          {/* Minimalist Theme Toggle on Plank */}
           <button
             type="button"
             onClick={toggleTheme}
             aria-label="Toggle theme"
-            className="wood-btn flex h-9 w-9 items-center justify-center rounded-lg"
+            className="wood-engraved flex h-8 w-8 items-center justify-center rounded-full opacity-75 hover:opacity-100 transition-opacity"
           >
             {theme === "dark" ? (
               <IconSun className="h-4 w-4" />
@@ -73,34 +73,34 @@ export const Navbar = () => {
             )}
           </button>
 
-          {/* Cart */}
+          {/* Primary Tactile Cart Badge */}
           <NavLink
             to="/cart"
             className={({ isActive }) =>
-              `flex h-9 items-center gap-1.5 rounded-lg px-3 text-xs ${
+              `flex h-9 items-center gap-1.5 rounded-lg px-3.5 text-xs ${
                 isActive ? "wood-btn-walnut" : "wood-btn"
               }`
             }
           >
             <IconCart className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Cart</span>
-            <span className="text-[11px]">({totalItems})</span>
+            <span className="font-mono text-[11px]">({totalItems})</span>
           </NavLink>
 
           {/* User Auth */}
           {isLoggedIn ? (
-            <div className="flex items-center gap-1.5 pl-1">
+            <div className="flex items-center gap-3 pl-1">
               <NavLink
                 to="/profile"
-                className="wood-btn flex h-9 items-center gap-1.5 rounded-lg px-2.5 text-xs"
+                className="wood-engraved flex items-center gap-1.5 text-xs opacity-85 hover:opacity-100"
               >
                 <IconUser className="h-3.5 w-3.5" />
-                <span className="max-w-[70px] truncate">{user?.username}</span>
+                <span className="max-w-[75px] truncate">{user?.username}</span>
               </NavLink>
               <button
                 type="button"
                 onClick={handleLogout}
-                className="wood-btn hidden sm:inline-flex h-9 items-center rounded-lg px-2.5 text-xs"
+                className="wood-engraved hidden sm:inline-block text-[11px] uppercase opacity-65 hover:opacity-100"
               >
                 Logout
               </button>

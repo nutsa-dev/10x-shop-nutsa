@@ -155,10 +155,10 @@ export const CatalogPage = () => {
         </div>
       </section>
 
-      {/* Filter, Category Select & Sort Toolbar */}
+      {/* Search & Sort Toolbar */}
       <div className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-12 sm:items-center">
         {/* Search Input */}
-        <div className="relative sm:col-span-5 lg:col-span-6">
+        <div className="relative sm:col-span-8 lg:col-span-9">
           <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-[#5C4938] dark:text-[#D8C2A8]">
             <IconSearch className="h-4 w-4" />
           </span>
@@ -187,25 +187,8 @@ export const CatalogPage = () => {
           )}
         </div>
 
-        {/* Category Filter Select */}
-        <div className="sm:col-span-4 lg:col-span-3">
-          <select
-            id="category-select"
-            aria-label="Select category"
-            value={selectedCategory}
-            onChange={(e) => handleCategoryChange(e.target.value)}
-            className="tactile-card w-full rounded-xl px-3.5 py-2.5 text-xs font-semibold text-[#26170C] outline-none transition focus:border-[#8C6D58] dark:text-[#F5EBE0]"
-          >
-            {CATEGORY_OPTIONS.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
-        </div>
-
         {/* Sort Select */}
-        <div className="sm:col-span-3 lg:col-span-3">
+        <div className="sm:col-span-4 lg:col-span-3">
           <select
             id="sort-select"
             aria-label="Sort products"

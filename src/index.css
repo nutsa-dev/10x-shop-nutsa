@@ -26,8 +26,9 @@
   body {
     background-color: #DEC6A7;
     background-image: url("/nordic-wood.jpg");
-    background-repeat: repeat;
-    background-size: 520px auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center top;
     background-attachment: fixed;
     color: #26170C;
     font-family: var(--font-sans);
@@ -38,7 +39,7 @@
   }
 
   /*
-   * Site Background: Light Oak Wood (Light) / Smoked Walnut Wood (Dark)
+   * Site Background: Seamless full-slab Light Oak Wood (Light) / Smoked Walnut Wood (Dark)
    * with a soft studio spotlight vignette for visual calm and focus.
    */
   .nordic-wood-bg {
@@ -46,12 +47,13 @@
     background-image:
       radial-gradient(
         ellipse at 50% 15%,
-        rgba(255, 249, 238, 0.24) 0%,
-        rgba(38, 22, 9, 0.12) 100%
+        rgba(255, 250, 240, 0.26) 0%,
+        rgba(38, 22, 9, 0.14) 100%
       ),
       url("/nordic-wood.jpg");
-    background-repeat: no-repeat, repeat;
-    background-size: 100% 100%, 520px auto;
+    background-repeat: no-repeat, no-repeat;
+    background-size: 100% 100%, cover;
+    background-position: center, center top;
     background-attachment: fixed;
   }
 
@@ -59,8 +61,9 @@
   .dark body {
     background-color: #361F0E;
     background-image: url("/nordic-wood-dark.jpg");
-    background-repeat: repeat;
-    background-size: 520px auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center top;
     background-attachment: fixed;
     color: #F5EBE0;
   }
@@ -71,11 +74,12 @@
       radial-gradient(
         ellipse at 50% 12%,
         rgba(212, 155, 75, 0.10) 0%,
-        rgba(12, 7, 4, 0.36) 100%
+        rgba(12, 7, 4, 0.38) 100%
       ),
       url("/nordic-wood-dark.jpg");
-    background-repeat: no-repeat, repeat;
-    background-size: 100% 100%, 520px auto;
+    background-repeat: no-repeat, no-repeat;
+    background-size: 100% 100%, cover;
+    background-position: center, center top;
     background-attachment: fixed;
   }
 
@@ -108,17 +112,18 @@
   background-image:
     linear-gradient(
       180deg,
-      rgba(255, 248, 236, 0.30) 0%,
-      rgba(168, 130, 90, 0.22) 100%
+      rgba(255, 248, 236, 0.34) 0%,
+      rgba(168, 130, 90, 0.24) 100%
     ),
     url("/nordic-wood.jpg");
-  background-repeat: repeat;
-  background-size: auto, 420px auto;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   border-bottom: 1.5px solid #9E7952;
   box-shadow:
-    0 10px 28px -6px rgba(38, 22, 9, 0.26),
+    0 10px 28px -6px rgba(38, 22, 9, 0.24),
     0 1px 0 rgba(212, 155, 75, 0.35),
-    inset 0 1px 0 rgba(255, 250, 240, 0.7);
+    inset 0 1px 0 rgba(255, 250, 240, 0.75);
 }
 
 .dark .wood-plank-header {
@@ -126,12 +131,13 @@
   background-image:
     linear-gradient(
       180deg,
-      rgba(70, 44, 24, 0.22) 0%,
-      rgba(18, 10, 5, 0.48) 100%
+      rgba(70, 44, 24, 0.24) 0%,
+      rgba(18, 10, 5, 0.50) 100%
     ),
     url("/nordic-wood-dark.jpg");
-  background-repeat: repeat;
-  background-size: auto, 420px auto;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   border-bottom: 1.5px solid #5A3A1E;
   box-shadow:
     0 12px 32px -4px rgba(0, 0, 0, 0.68),
@@ -144,16 +150,17 @@
   background-image:
     linear-gradient(
       180deg,
-      rgba(168, 130, 90, 0.20) 0%,
-      rgba(255, 248, 236, 0.18) 100%
+      rgba(168, 130, 90, 0.22) 0%,
+      rgba(255, 248, 236, 0.20) 100%
     ),
     url("/nordic-wood.jpg");
-  background-repeat: repeat;
-  background-size: auto, 420px auto;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   border-top: 1.5px solid #9E7952;
   box-shadow:
     0 -8px 24px -4px rgba(38, 22, 9, 0.20),
-    inset 0 1px 0 rgba(255, 250, 240, 0.6);
+    inset 0 1px 0 rgba(255, 250, 240, 0.65);
 }
 
 .dark .wood-plank-footer {
@@ -161,12 +168,13 @@
   background-image:
     linear-gradient(
       180deg,
-      rgba(18, 10, 5, 0.4) 0%,
-      rgba(55, 34, 18, 0.25) 100%
+      rgba(18, 10, 5, 0.42) 0%,
+      rgba(55, 34, 18, 0.28) 100%
     ),
     url("/nordic-wood-dark.jpg");
-  background-repeat: repeat;
-  background-size: auto, 420px auto;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   border-top: 1.5px solid #4A2F18;
   box-shadow:
     0 -10px 28px -4px rgba(0, 0, 0, 0.6),
