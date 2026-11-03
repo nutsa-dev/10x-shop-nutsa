@@ -59,25 +59,25 @@ export const Navbar = () => {
 
         {/* Right Actions: Clean Balance */}
         <div className="flex items-center gap-3">
-          {/* Animated Lightbulb Theme Switcher (Lit on Light Mode, Unlit on Dark Mode) */}
+          {/* Realistic Edison Lightbulb Theme Switcher (Lit on Light Mode, Unlit on Dark Mode) */}
           <button
             type="button"
             onClick={toggleTheme}
             aria-label={theme === "light" ? "Turn off light (Dark mode)" : "Turn on light (Light mode)"}
             title={theme === "light" ? "Turn off light (Dark mode)" : "Turn on light (Light mode)"}
-            className="wood-engraved relative flex h-9 w-9 items-center justify-center rounded-full opacity-90 hover:opacity-100 transition-transform duration-500 active:scale-90"
+            className="relative flex h-10 w-10 items-center justify-center rounded-full transition-transform duration-500 hover:scale-110 active:scale-95"
           >
             <IconBulbOn
-              className={`absolute h-[19px] w-[19px] text-[#B45309] drop-shadow-[0_0_8px_rgba(251,191,36,0.9)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              className={`absolute h-7 w-7 drop-shadow-[0_0_10px_rgba(251,191,36,0.95)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                 theme === "light"
                   ? "scale-100 opacity-100"
                   : "scale-75 opacity-0"
               }`}
             />
             <IconBulbOff
-              className={`absolute h-[18px] w-[18px] text-[#C8B29B] opacity-70 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              className={`absolute h-7 w-7 drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                 theme === "dark"
-                  ? "scale-100 opacity-80"
+                  ? "scale-100 opacity-100"
                   : "scale-75 opacity-0"
               }`}
             />

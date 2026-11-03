@@ -2,53 +2,199 @@ import type { SVGProps } from "react";
 
 export const IconBulbOn = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    viewBox="0 0 24 24"
+    viewBox="0 0 32 32"
     fill="none"
-    stroke="currentColor"
-    strokeWidth={1.8}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="h-4 w-4"
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-6 w-6"
     {...props}
   >
-    {/* Warm glowing glass fill */}
+    <defs>
+      {/* Ambient outer aura */}
+      <radialGradient id="bulbAura" cx="50%" cy="42%" r="50%">
+        <stop offset="0%" stopColor="#FDE047" stopOpacity="0.65" />
+        <stop offset="55%" stopColor="#F59E0B" stopOpacity="0.25" />
+        <stop offset="100%" stopColor="#F59E0B" stopOpacity="0" />
+      </radialGradient>
+      {/* Realistic 3D lit glass globe */}
+      <radialGradient id="bulbGlassOn" cx="44%" cy="38%" r="52%">
+        <stop offset="0%" stopColor="#FFFFFF" />
+        <stop offset="28%" stopColor="#FEF08A" />
+        <stop offset="68%" stopColor="#F59E0B" />
+        <stop offset="92%" stopColor="#D97706" />
+        <stop offset="100%" stopColor="#92400E" />
+      </radialGradient>
+      {/* Filament core glow */}
+      <radialGradient id="filamentGlow" cx="50%" cy="44%" r="28%">
+        <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.95" />
+        <stop offset="60%" stopColor="#FDE047" stopOpacity="0.55" />
+        <stop offset="100%" stopColor="#F59E0B" stopOpacity="0" />
+      </radialGradient>
+      {/* Realistic metallic brass screw base */}
+      <linearGradient id="brassBaseOn" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stopColor="#78531A" />
+        <stop offset="28%" stopColor="#D4AF37" />
+        <stop offset="50%" stopColor="#FEF08A" />
+        <stop offset="75%" stopColor="#B48327" />
+        <stop offset="100%" stopColor="#5C3D10" />
+      </linearGradient>
+    </defs>
+
+    {/* Warm ambient glow */}
+    <circle cx="16" cy="13.5" r="13.5" fill="url(#bulbAura)" />
+
+    {/* Main glass Edison pear-shaped globe */}
     <path
-      d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"
-      fill="#FBBF24"
-      fillOpacity={0.85}
+      d="M16 3.5C10.75 3.5 6.5 7.6 6.5 12.7c0 3.15 1.65 5.65 3.2 7.55.85 1.05 1.45 2.15 1.6 3.25h9.4c.15-1.1.75-2.2 1.6-3.25 1.55-1.9 3.2-4.4 3.2-7.55 0-5.1-4.25-9.2-9.5-9.2Z"
+      fill="url(#bulbGlassOn)"
+      stroke="#B45309"
+      strokeWidth="0.6"
     />
-    {/* Filament */}
-    <path d="M10 14v-2.5a2 2 0 1 1 4 0V14" strokeWidth={1.5} />
-    {/* Base threads */}
-    <path d="M9 18h6" />
-    <path d="M10 21h4" />
-    {/* Light rays */}
-    <path d="M12 1v1.5" />
-    <path d="M4.22 4.22l1.06 1.06" />
-    <path d="M19.78 4.22l-1.06 1.06" />
-    <path d="M1.5 9H3" />
-    <path d="M21 9h1.5" />
+
+    {/* Inner filament hot core glow */}
+    <circle cx="16" cy="13.5" r="6" fill="url(#filamentGlow)" />
+
+    {/* Glass stem mount at bottom of globe */}
+    <path
+      d="M14.3 23.5v-4.2h3.4v4.2"
+      fill="#D97706"
+      fillOpacity="0.35"
+      stroke="#92400E"
+      strokeWidth="0.6"
+    />
+
+    {/* Glowing tungsten Edison filament coil */}
+    <path
+      d="M14.5 19.5L13.2 12.8c-.15-.8.45-1.5 1.25-1.5.55 0 1.05.35 1.2.9l.35 1.1.35-1.1c.15-.55.65-.9 1.2-.9.8 0 1.4.7 1.25 1.5L17.5 19.5"
+      stroke="#FFFFFF"
+      strokeWidth="1.25"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+
+    {/* Specular curved glass highlight (top-left) */}
+    <path
+      d="M9.2 11.8c0-3.3 2.5-6.1 5.8-6.6"
+      stroke="#FFFFFF"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeOpacity="0.85"
+    />
+    <circle cx="9.3" cy="14.2" r="0.7" fill="#FFFFFF" fillOpacity="0.75" />
+
+    {/* Brass screw base collar & threads */}
+    <rect
+      x="11.3"
+      y="23.2"
+      width="9.4"
+      height="4.8"
+      rx="1.2"
+      fill="url(#brassBaseOn)"
+      stroke="#5C3D10"
+      strokeWidth="0.5"
+    />
+    <path
+      d="M11.4 24.8h9.2M11.6 26.4h8.8"
+      stroke="#5C3D10"
+      strokeWidth="0.65"
+      strokeLinecap="round"
+    />
+
+    {/* Electrical bottom contact */}
+    <path
+      d="M13.2 28h5.6l-1.1 1.7c-.3.45-.8.7-1.35.7h-.7c-.55 0-1.05-.25-1.35-.7L13.2 28Z"
+      fill="#1F1610"
+    />
   </svg>
 );
 
 export const IconBulbOff = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    viewBox="0 0 24 24"
+    viewBox="0 0 32 32"
     fill="none"
-    stroke="currentColor"
-    strokeWidth={1.8}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="h-4 w-4"
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-6 w-6"
     {...props}
   >
-    {/* Unlit glass outline */}
-    <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
-    {/* Unlit filament */}
-    <path d="M10 14v-2a2 2 0 1 1 4 0v2" strokeOpacity={0.45} strokeWidth={1.4} />
-    {/* Base threads */}
-    <path d="M9 18h6" />
-    <path d="M10 21h4" />
+    <defs>
+      {/* Realistic unlit smoked glass gradient */}
+      <radialGradient id="bulbGlassOff" cx="38%" cy="32%" r="60%">
+        <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.32" />
+        <stop offset="45%" stopColor="#D6C7B2" stopOpacity="0.14" />
+        <stop offset="85%" stopColor="#5C4938" stopOpacity="0.22" />
+        <stop offset="100%" stopColor="#2A1E14" stopOpacity="0.45" />
+      </radialGradient>
+      {/* Unlit antique brass screw base */}
+      <linearGradient id="brassBaseOff" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stopColor="#3E3023" />
+        <stop offset="30%" stopColor="#8C7355" />
+        <stop offset="50%" stopColor="#B89F7D" />
+        <stop offset="75%" stopColor="#6E583F" />
+        <stop offset="100%" stopColor="#2E2218" />
+      </linearGradient>
+    </defs>
+
+    {/* Unlit glass Edison pear-shaped globe */}
+    <path
+      d="M16 3.5C10.75 3.5 6.5 7.6 6.5 12.7c0 3.15 1.65 5.65 3.2 7.55.85 1.05 1.45 2.15 1.6 3.25h9.4c.15-1.1.75-2.2 1.6-3.25 1.55-1.9 3.2-4.4 3.2-7.55 0-5.1-4.25-9.2-9.5-9.2Z"
+      fill="url(#bulbGlassOff)"
+      stroke="#9C8770"
+      strokeWidth="0.8"
+      strokeOpacity="0.7"
+    />
+
+    {/* Internal glass stem mount */}
+    <path
+      d="M14.3 23.5v-4.2h3.4v4.2"
+      fill="#8C7355"
+      fillOpacity="0.2"
+      stroke="#8C7355"
+      strokeWidth="0.6"
+      strokeOpacity="0.6"
+    />
+
+    {/* Cold unlit tungsten wire coil */}
+    <path
+      d="M14.5 19.5L13.2 12.8c-.15-.8.45-1.5 1.25-1.5.55 0 1.05.35 1.2.9l.35 1.1.35-1.1c.15-.55.65-.9 1.2-.9.8 0 1.4.7 1.25 1.5L17.5 19.5"
+      stroke="#8C7355"
+      strokeWidth="0.9"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeOpacity="0.65"
+    />
+
+    {/* Subtle curved glass reflection on unlit glass */}
+    <path
+      d="M9.2 11.8c0-3.3 2.5-6.1 5.8-6.6"
+      stroke="#FFFFFF"
+      strokeWidth="1.2"
+      strokeLinecap="round"
+      strokeOpacity="0.45"
+    />
+    <circle cx="9.3" cy="14.2" r="0.6" fill="#FFFFFF" fillOpacity="0.35" />
+
+    {/* Antique brass screw base */}
+    <rect
+      x="11.3"
+      y="23.2"
+      width="9.4"
+      height="4.8"
+      rx="1.2"
+      fill="url(#brassBaseOff)"
+      stroke="#2E2218"
+      strokeWidth="0.5"
+    />
+    <path
+      d="M11.4 24.8h9.2M11.6 26.4h8.8"
+      stroke="#2E2218"
+      strokeWidth="0.65"
+      strokeLinecap="round"
+    />
+
+    {/* Electrical bottom contact */}
+    <path
+      d="M13.2 28h5.6l-1.1 1.7c-.3.45-.8.7-1.35.7h-.7c-.55 0-1.05-.25-1.35-.7L13.2 28Z"
+      fill="#140E0A"
+    />
   </svg>
 );
 

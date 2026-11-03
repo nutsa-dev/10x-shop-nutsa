@@ -90,9 +90,9 @@ export const ProfilePage = () => {
             className="wood-btn flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs"
           >
             {theme === "light" ? (
-              <IconBulbOn className="h-4 w-4 text-[#B45309] drop-shadow-[0_0_6px_rgba(251,191,36,0.85)]" />
+              <IconBulbOn className="h-5 w-5 drop-shadow-[0_0_6px_rgba(251,191,36,0.85)]" />
             ) : (
-              <IconBulbOff className="h-4 w-4 opacity-75" />
+              <IconBulbOff className="h-5 w-5" />
             )}
             <span className="capitalize">{theme} Mode</span>
           </button>
