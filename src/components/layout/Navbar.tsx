@@ -45,96 +45,103 @@ export const Navbar = () => {
 
   return (
     <header className="wood-plank-header sticky top-0 z-40 w-full">
-      <div className="relative z-10 container mx-auto flex h-16 items-center justify-between px-4 sm:px-6">
+      <div className="relative z-10 mx-auto flex h-[68px] max-w-[1240px] items-center justify-between px-6 sm:px-10 lg:px-16">
         
-        {/* Brand & Engraved Plank Navigation Links */}
-        <div className="flex items-center gap-6 sm:gap-9">
-          <Link
+        {/* Left Zone: Editorial Brand Identity */}
+        <Link
+          to="/"
+          className="group flex items-center gap-2.5"
+        >
+          <span className="h-2 w-2 rounded-full bg-[#2C4032] transition-transform duration-300 group-hover:scale-125 dark:bg-[#D49B4B]" />
+          <span className="font-editorial text-lg sm:text-xl font-bold tracking-[0.12em] uppercase text-[#26170C] dark:text-[#F5EBE0]">
+            WOODWORK
+          </span>
+        </Link>
+
+        {/* Center Zone: Symmetrical Minimalist Navigation */}
+        <nav className="flex items-center gap-6 sm:gap-8">
+          <NavLink
             to="/"
-            className="wood-engraved flex items-center gap-2 text-xs sm:text-sm uppercase"
+            end
+            className={({ isActive }) =>
+              `relative py-1 text-[11px] font-bold tracking-[0.14em] uppercase transition-all duration-300 ${
+                isActive
+                  ? "text-[#26170C] dark:text-[#F5EBE0] after:absolute after:inset-x-0 after:-bottom-1 after:h-[2px] after:rounded-full after:bg-[#2C4032] dark:after:bg-[#D49B4B]"
+                  : "text-[#5C4938]/80 hover:text-[#26170C] dark:text-[#D8C2A8]/75 dark:hover:text-[#F5EBE0]"
+              }`
+            }
           >
-            <span>WOODWORK</span>
-          </Link>
+            Collection
+          </NavLink>
+          <NavLink
+            to="/orders"
+            className={({ isActive }) =>
+              `relative py-1 text-[11px] font-bold tracking-[0.14em] uppercase transition-all duration-300 ${
+                isActive
+                  ? "text-[#26170C] dark:text-[#F5EBE0] after:absolute after:inset-x-0 after:-bottom-1 after:h-[2px] after:rounded-full after:bg-[#2C4032] dark:after:bg-[#D49B4B]"
+                  : "text-[#5C4938]/80 hover:text-[#26170C] dark:text-[#D8C2A8]/75 dark:hover:text-[#F5EBE0]"
+              }`
+            }
+          >
+            Orders
+          </NavLink>
+        </nav>
 
-          <nav className="flex items-center gap-5">
-            <NavLink
-              to="/"
-              end
-              className={({ isActive }) =>
-                `wood-engraved relative py-1 text-xs uppercase transition-opacity duration-300 ${
-                  isActive
-                    ? "opacity-100 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-[#2C4032] after:transition-colors after:duration-500 dark:after:bg-[#D49B4B]"
-                    : "opacity-65 hover:opacity-100"
-                }`
-              }
-            >
-              Collection
-            </NavLink>
-            <NavLink
-              to="/orders"
-              className={({ isActive }) =>
-                `wood-engraved relative py-1 text-xs uppercase transition-opacity duration-300 ${
-                  isActive
-                    ? "opacity-100 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-[#2C4032] after:transition-colors after:duration-500 dark:after:bg-[#D49B4B]"
-                    : "opacity-65 hover:opacity-100"
-                }`
-              }
-            >
-              Orders
-            </NavLink>
-          </nav>
-        </div>
-
-        {/* Right Actions: Clean Balance */}
+        {/* Right Zone: Recessed Sensory Capsule + Cart & Auth */}
         <div className="flex items-center gap-2.5 sm:gap-3">
-          {/* Graphic Bell Sound Toggle (Mute / Unmute) */}
-          <button
-            type="button"
-            data-sound-ignore="true"
-            onClick={handleToggleSound}
-            aria-label={soundOn ? "Mute woodshop sound" : "Enable woodshop sound"}
-            title={soundOn ? "Wood sound: ON (Click to mute)" : "Wood sound: OFF (Click to enable)"}
-            className="wood-engraved relative flex h-9 w-9 items-center justify-center rounded-full opacity-80 hover:opacity-100 transition-transform duration-300 active:scale-90"
-          >
-            <IconSoundOn
-              className={`absolute h-[18px] w-[18px] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                soundOn
-                  ? "scale-100 opacity-100"
-                  : "scale-75 opacity-0"
-              }`}
-            />
-            <IconSoundOff
-              className={`absolute h-[18px] w-[18px] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                !soundOn
-                  ? "scale-100 opacity-60"
-                  : "scale-75 opacity-0"
-              }`}
-            />
-          </button>
+          {/* Unified Recessed Capsule for Bell (Sound) & Lightbulb (Theme) */}
+          <div className="wood-input flex items-center gap-0.5 rounded-full px-1.5 py-0.5">
+            {/* Graphic Bell Sound Toggle */}
+            <button
+              type="button"
+              data-sound-ignore="true"
+              onClick={handleToggleSound}
+              aria-label={soundOn ? "Mute woodshop sound" : "Enable woodshop sound"}
+              title={soundOn ? "Wood sound: ON (Click to mute)" : "Wood sound: OFF (Click to enable)"}
+              className="relative flex h-8 w-8 items-center justify-center rounded-full text-[#281407] opacity-80 hover:opacity-100 transition-transform duration-300 active:scale-90 dark:text-[#F2DEC4]"
+            >
+              <IconSoundOn
+                className={`absolute h-4 w-4 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  soundOn
+                    ? "scale-100 opacity-100"
+                    : "scale-75 opacity-0"
+                }`}
+              />
+              <IconSoundOff
+                className={`absolute h-4 w-4 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  !soundOn
+                    ? "scale-100 opacity-55"
+                    : "scale-75 opacity-0"
+                }`}
+              />
+            </button>
 
-          {/* Realistic Edison Lightbulb Theme Switcher (Lit on Light Mode, Unlit on Dark Mode) */}
-          <button
-            type="button"
-            onClick={toggleTheme}
-            aria-label={theme === "light" ? "Turn off light (Dark mode)" : "Turn on light (Light mode)"}
-            title={theme === "light" ? "Turn off light (Dark mode)" : "Turn on light (Light mode)"}
-            className="relative flex h-10 w-10 items-center justify-center rounded-full transition-transform duration-500 hover:scale-110 active:scale-95"
-          >
-            <IconBulbOn
-              className={`absolute h-7 w-7 drop-shadow-[0_0_10px_rgba(251,191,36,0.95)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                theme === "light"
-                  ? "scale-100 opacity-100"
-                  : "scale-75 opacity-0"
-              }`}
-            />
-            <IconBulbOff
-              className={`absolute h-7 w-7 drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                theme === "dark"
-                  ? "scale-100 opacity-100"
-                  : "scale-75 opacity-0"
-              }`}
-            />
-          </button>
+            <span className="h-3.5 w-[1px] bg-[#9A744C]/30 dark:bg-[#5C3B21]/60" />
+
+            {/* Realistic Edison Lightbulb Theme Switcher */}
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label={theme === "light" ? "Turn off light (Dark mode)" : "Turn on light (Light mode)"}
+              title={theme === "light" ? "Turn off light (Dark mode)" : "Turn on light (Light mode)"}
+              className="relative flex h-8 w-8 items-center justify-center rounded-full transition-transform duration-500 hover:scale-110 active:scale-95"
+            >
+              <IconBulbOn
+                className={`absolute h-6 w-6 drop-shadow-[0_0_8px_rgba(251,191,36,0.9)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  theme === "light"
+                    ? "scale-100 opacity-100"
+                    : "scale-75 opacity-0"
+                }`}
+              />
+              <IconBulbOff
+                className={`absolute h-6 w-6 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  theme === "dark"
+                    ? "scale-100 opacity-100"
+                    : "scale-75 opacity-0"
+                }`}
+              />
+            </button>
+          </div>
 
           {/* Primary Tactile Cart Badge */}
           <NavLink
@@ -152,10 +159,10 @@ export const Navbar = () => {
 
           {/* User Auth */}
           {isLoggedIn ? (
-            <div className="flex items-center gap-3 pl-1">
+            <div className="flex items-center gap-2.5 pl-1">
               <NavLink
                 to="/profile"
-                className="wood-engraved flex items-center gap-1.5 text-xs opacity-85 hover:opacity-100"
+                className="flex items-center gap-1.5 text-xs font-bold text-[#26170C] opacity-85 hover:opacity-100 dark:text-[#F5EBE0]"
               >
                 <IconUser className="h-3.5 w-3.5" />
                 <span className="max-w-[75px] truncate">{user?.username}</span>
@@ -163,7 +170,7 @@ export const Navbar = () => {
               <button
                 type="button"
                 onClick={handleLogout}
-                className="wood-engraved hidden sm:inline-block text-[11px] uppercase opacity-65 hover:opacity-100"
+                className="hidden sm:inline-block text-[11px] font-bold uppercase tracking-wider text-[#5C4938] hover:text-[#26170C] dark:text-[#D8C2A8] dark:hover:text-[#F5EBE0]"
               >
                 Logout
               </button>
