@@ -145,26 +145,26 @@ export const ProductPage = () => {
   const images = product.images && product.images.length > 0 ? product.images : [product.thumbnail];
 
   return (
-    <div className="mx-auto max-w-[1380px] px-5 sm:px-8 lg:px-10 py-7 sm:py-9">
+    <div className="mx-auto max-w-[1380px] px-3.5 sm:px-8 lg:px-10 py-5 sm:py-9">
       {/* Breadcrumb */}
-      <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs">
-        <Link to="/" className="wood-btn inline-flex items-center gap-1 rounded-md px-2.5 py-1 text-xs">
+      <nav aria-label="Breadcrumb" className="mb-4 sm:mb-6 flex items-center gap-1.5 sm:gap-2 text-xs overflow-hidden">
+        <Link to="/" className="wood-btn shrink-0 inline-flex items-center gap-1 rounded-md px-2.5 py-1 text-xs">
           <IconArrowLeft className="h-3 w-3" />
           <span>Collection</span>
         </Link>
-        <span className="wood-engraved">/</span>
-        <span className="wood-engraved capitalize">{product.category.replace("-", " ")}</span>
-        <span className="wood-engraved">/</span>
+        <span className="wood-engraved shrink-0">/</span>
+        <span className="wood-engraved hidden sm:inline shrink-0 capitalize">{product.category.replace("-", " ")}</span>
+        <span className="wood-engraved hidden sm:inline shrink-0">/</span>
         <span className="wood-engraved truncate">
           {product.title}
         </span>
       </nav>
 
       {/* Main Showcase Card */}
-      <div className="tactile-card rounded-2xl p-6 sm:p-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
+      <div className="tactile-card rounded-2xl p-4 sm:p-8 grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:gap-12">
         {/* Left: Gallery */}
         <div className="space-y-3">
-          <div className="atelier-image-stage relative aspect-square w-full overflow-hidden rounded-2xl border border-[#CBB092] dark:border-[#4A301D] flex items-center justify-center p-6">
+          <div className="atelier-image-stage relative aspect-square w-full overflow-hidden rounded-xl sm:rounded-2xl border border-[#CBB092] dark:border-[#4A301D] flex items-center justify-center p-4 sm:p-6">
             <img
               src={activeImage || product.thumbnail}
               alt={product.title}
@@ -179,7 +179,7 @@ export const ProductPage = () => {
                   key={idx}
                   type="button"
                   onClick={() => setActiveImage(img)}
-                  className={`atelier-image-stage relative aspect-square h-16 w-16 shrink-0 overflow-hidden rounded-xl border p-1.5 transition ${
+                  className={`atelier-image-stage relative aspect-square h-14 w-14 sm:h-16 sm:w-16 shrink-0 overflow-hidden rounded-xl border p-1.5 transition ${
                     activeImage === img
                       ? "border-[#8C6D58] ring-2 ring-[#8C6D58]/40"
                       : "border-[#CBB092] opacity-60 dark:border-[#4A301D]"
@@ -198,7 +198,7 @@ export const ProductPage = () => {
             {product.brand || product.category.replace("-", " ")}
           </span>
 
-          <h1 className="font-editorial mt-1.5 text-2xl sm:text-4xl font-bold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
+          <h1 className="font-editorial mt-1.5 text-xl sm:text-4xl font-bold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
             {product.title}
           </h1>
 
@@ -212,16 +212,16 @@ export const ProductPage = () => {
           </div>
 
           {/* Price */}
-          <div className="mt-5 flex items-baseline gap-2.5 border-y border-[#D8C2A8] py-4 dark:border-[#3D2616]">
-            <span className="text-2xl font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
+          <div className="mt-4 sm:mt-5 flex flex-wrap items-baseline gap-2.5 border-y border-[#D8C2A8] py-3.5 sm:py-4 dark:border-[#3D2616]">
+            <span className="text-xl sm:text-2xl font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
               {formatPrice(discountedPrice)}
             </span>
             {hasDiscount && (
               <>
-                <span className="text-sm text-[#736B63] line-through">
+                <span className="text-xs sm:text-sm text-[#736B63] line-through">
                   {formatPrice(product.price)}
                 </span>
-                <span className="wood-btn rounded-md px-2 py-0.5 text-[11px]">
+                <span className="wood-btn rounded-md px-2 py-0.5 text-[10px] sm:text-[11px]">
                   Save {formatPrice(product.price - discountedPrice)}
                 </span>
               </>
@@ -240,31 +240,31 @@ export const ProductPage = () => {
           </div>
 
           {/* Description */}
-          <p className="mt-4 text-sm leading-relaxed text-[#5C4938] dark:text-[#D8C2A8]">
+          <p className="mt-3 sm:mt-4 text-xs sm:text-sm leading-relaxed text-[#5C4938] dark:text-[#D8C2A8]">
             {product.description}
           </p>
 
           {/* Actions */}
-          <div className="mt-6 space-y-3">
-            <div className="flex items-center gap-3">
+          <div className="mt-5 sm:mt-6 space-y-3">
+            <div className="flex items-center gap-2.5 sm:gap-3">
               {/* Stepper */}
-              <div className="flex h-11 items-center rounded-lg border border-[#CBB092] bg-[#EFE8DC] dark:border-[#4A301D] dark:bg-[#19100A]">
+              <div className="flex h-11 shrink-0 items-center rounded-lg border border-[#CBB092] bg-[#EFE8DC] dark:border-[#4A301D] dark:bg-[#19100A]">
                 <button
                   type="button"
                   disabled={isOutOfStock || quantity <= 1}
                   onClick={() => handleQuantityChange(-1)}
-                  className="wood-btn flex h-11 w-10 items-center justify-center rounded-l-lg disabled:opacity-40"
+                  className="wood-btn flex h-11 w-9 sm:w-10 items-center justify-center rounded-l-lg disabled:opacity-40"
                 >
                   −
                 </button>
-                <span className="w-9 text-center text-xs font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
+                <span className="w-8 sm:w-9 text-center text-xs font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
                   {quantity}
                 </span>
                 <button
                   type="button"
                   disabled={isOutOfStock || quantity >= product.stock}
                   onClick={() => handleQuantityChange(1)}
-                  className="wood-btn flex h-11 w-10 items-center justify-center rounded-r-lg disabled:opacity-40"
+                  className="wood-btn flex h-11 w-9 sm:w-10 items-center justify-center rounded-r-lg disabled:opacity-40"
                 >
                   +
                 </button>
@@ -275,7 +275,7 @@ export const ProductPage = () => {
                 type="button"
                 disabled={isOutOfStock}
                 onClick={handleAddToCart}
-                className={`flex h-11 flex-1 items-center justify-center gap-2 rounded-lg px-5 text-xs disabled:opacity-40 ${
+                className={`flex h-11 flex-1 items-center justify-center gap-1.5 sm:gap-2 rounded-lg px-3.5 sm:px-5 text-xs disabled:opacity-40 ${
                   addedToast ? "wood-btn-walnut" : "wood-btn"
                 }`}
               >
@@ -286,8 +286,8 @@ export const ProductPage = () => {
                   </>
                 ) : (
                   <>
-                    <IconCart className="h-4 w-4" />
-                    <span>Add to Cart • {formatPrice(discountedPrice * quantity)}</span>
+                    <IconCart className="h-4 w-4 shrink-0" />
+                    <span className="truncate">Add to Cart • {formatPrice(discountedPrice * quantity)}</span>
                   </>
                 )}
               </button>

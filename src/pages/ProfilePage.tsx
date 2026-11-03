@@ -65,9 +65,9 @@ export const ProfilePage = () => {
   };
 
   return (
-    <div className="container mx-auto max-w-2xl px-4 sm:px-6 py-6 sm:py-10">
-      <div className="tactile-card mb-6 rounded-2xl px-6 py-4">
-        <h1 className="text-xl font-extrabold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
+    <div className="mx-auto max-w-2xl px-3.5 sm:px-6 py-5 sm:py-10">
+      <div className="tactile-card mb-4 sm:mb-6 rounded-2xl px-4 sm:px-6 py-3.5 sm:py-4">
+        <h1 className="text-lg sm:text-xl font-extrabold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
           Account & Settings
         </h1>
         <p className="text-xs text-[#5C4938] dark:text-[#D8C2A8]">
@@ -76,32 +76,32 @@ export const ProfilePage = () => {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-3">
-        <div className="tactile-card rounded-xl p-3.5 text-center">
-          <span className="text-lg font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
+      <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
+        <div className="tactile-card rounded-xl p-2.5 sm:p-3.5 text-center">
+          <span className="text-base sm:text-lg font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
             {orders.length}
           </span>
-          <p className="text-[10px] uppercase tracking-wider text-[#5C4938] dark:text-[#D8C2A8]">Orders</p>
+          <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-[#5C4938] dark:text-[#D8C2A8]">Orders</p>
         </div>
-        <div className="tactile-card rounded-xl p-3.5 text-center">
-          <span className="text-lg font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
+        <div className="tactile-card rounded-xl p-2.5 sm:p-3.5 text-center">
+          <span className="text-base sm:text-lg font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
             {totalItems}
           </span>
-          <p className="text-[10px] uppercase tracking-wider text-[#5C4938] dark:text-[#D8C2A8]">Cart Objects</p>
+          <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-[#5C4938] dark:text-[#D8C2A8]">Cart Objects</p>
         </div>
-        <div className="tactile-card rounded-xl p-3.5 text-center">
-          <span className="text-lg font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
+        <div className="tactile-card rounded-xl p-2.5 sm:p-3.5 text-center">
+          <span className="text-base sm:text-lg font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
             {formatPrice(totalSpent)}
           </span>
-          <p className="text-[10px] uppercase tracking-wider text-[#5C4938] dark:text-[#D8C2A8]">Spent</p>
+          <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-[#5C4938] dark:text-[#D8C2A8]">Spent</p>
         </div>
       </div>
 
       {/* Settings */}
-      <div className="mt-6 space-y-3">
+      <div className="mt-5 sm:mt-6 space-y-3">
         {/* Theme */}
-        <div className="tactile-card flex items-center justify-between rounded-xl p-4">
-          <div>
+        <div className="tactile-card flex items-center justify-between gap-3 rounded-xl p-3.5 sm:p-4">
+          <div className="min-w-0">
             <p className="text-xs font-bold text-[#26170C] dark:text-[#F5EBE0]">
               Appearance
             </p>
@@ -112,7 +112,7 @@ export const ProfilePage = () => {
           <button
             type="button"
             onClick={toggleTheme}
-            className="wood-btn flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs"
+            className="wood-btn shrink-0 flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs"
           >
             {theme === "light" ? (
               <IconBulbOn className="h-5 w-5 drop-shadow-[0_0_6px_rgba(251,191,36,0.85)]" />
@@ -124,8 +124,8 @@ export const ProfilePage = () => {
         </div>
 
         {/* Wood Tap Sound Effects */}
-        <div className="tactile-card flex items-center justify-between rounded-xl p-4">
-          <div>
+        <div className="tactile-card flex items-center justify-between gap-3 rounded-xl p-3.5 sm:p-4">
+          <div className="min-w-0">
             <p className="text-xs font-bold text-[#26170C] dark:text-[#F5EBE0]">
               Tactile Wood Sound
             </p>
@@ -137,7 +137,7 @@ export const ProfilePage = () => {
             type="button"
             data-sound-ignore="true"
             onClick={handleToggleSound}
-            className="wood-btn flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs"
+            className="wood-btn shrink-0 flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs"
           >
             {soundOn ? (
               <IconSoundOn className="h-4 w-4" />
@@ -149,8 +149,8 @@ export const ProfilePage = () => {
         </div>
 
         {/* Orders link */}
-        <div className="tactile-card flex items-center justify-between rounded-xl p-4">
-          <div>
+        <div className="tactile-card flex items-center justify-between gap-3 rounded-xl p-3.5 sm:p-4">
+          <div className="min-w-0">
             <p className="text-xs font-bold text-[#26170C] dark:text-[#F5EBE0]">
               Order Tracking
             </p>
@@ -160,15 +160,15 @@ export const ProfilePage = () => {
           </div>
           <Link
             to="/orders"
-            className="wood-btn rounded-lg px-3.5 py-1.5 text-xs"
+            className="wood-btn shrink-0 rounded-lg px-3.5 py-1.5 text-xs"
           >
             Orders →
           </Link>
         </div>
 
         {/* Reset Demo Data */}
-        <div className="tactile-card flex items-center justify-between rounded-xl p-4">
-          <div>
+        <div className="tactile-card flex items-center justify-between gap-3 rounded-xl p-3.5 sm:p-4">
+          <div className="min-w-0">
             <p className="text-xs font-bold text-[#26170C] dark:text-[#F5EBE0]">
               Reset Demo Data
             </p>
@@ -179,7 +179,7 @@ export const ProfilePage = () => {
           <button
             type="button"
             onClick={handleResetData}
-            className="wood-btn rounded-lg px-3 py-1.5 text-xs"
+            className="wood-btn shrink-0 rounded-lg px-3 py-1.5 text-xs"
           >
             Reset
           </button>

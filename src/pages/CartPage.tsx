@@ -22,8 +22,8 @@ export const CartPage = () => {
 
   if (items.length === 0) {
     return (
-      <div className="mx-auto max-w-[1380px] px-5 sm:px-8 lg:px-10 py-20 text-center">
-        <div className="tactile-card mx-auto max-w-sm rounded-2xl p-10">
+      <div className="mx-auto max-w-[1380px] px-3.5 sm:px-8 lg:px-10 py-14 sm:py-20 text-center">
+        <div className="tactile-card mx-auto max-w-sm rounded-2xl p-7 sm:p-10">
           <h1 className="text-base font-bold text-[#26170C] dark:text-[#F5EBE0]">
             Your Cart is Empty
           </h1>
@@ -44,11 +44,11 @@ export const CartPage = () => {
   }
 
   return (
-    <div className="mx-auto max-w-[1380px] px-5 sm:px-8 lg:px-10 py-7 sm:py-9">
+    <div className="mx-auto max-w-[1380px] px-3.5 sm:px-8 lg:px-10 py-5 sm:py-9">
       {/* Header */}
-      <div className="tactile-card mb-6 flex items-center justify-between rounded-2xl px-6 py-4">
+      <div className="tactile-card mb-4 sm:mb-6 flex items-center justify-between rounded-2xl px-4 sm:px-6 py-3.5 sm:py-4">
         <div>
-          <h1 className="text-xl font-extrabold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
+          <h1 className="text-lg sm:text-xl font-extrabold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
             Shopping Cart
           </h1>
           <p className="text-xs text-[#5C4938] dark:text-[#D8C2A8]">

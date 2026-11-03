@@ -85,8 +85,8 @@ export const CheckoutPage = () => {
 
   if (placedOrder) {
     return (
-      <div className="mx-auto max-w-[1380px] px-5 sm:px-8 lg:px-10 py-16">
-        <div className="tactile-card mx-auto max-w-lg rounded-2xl p-8">
+      <div className="mx-auto max-w-[1380px] px-3.5 sm:px-8 lg:px-10 py-12 sm:py-16">
+        <div className="tactile-card mx-auto max-w-lg rounded-2xl p-6 sm:p-8">
           <div className="wood-btn flex h-12 w-12 items-center justify-center rounded-full mb-4">
             <IconCheck className="h-6 w-6" />
           </div>
@@ -99,19 +99,19 @@ export const CheckoutPage = () => {
           </p>
 
           <div className="mt-6 border-t border-[#D8C2A8] pt-4 text-xs space-y-2 dark:border-[#3D2616]">
-            <div className="flex justify-between">
+            <div className="flex justify-between gap-2">
               <span className="text-[#5C4938] dark:text-[#D8C2A8]">Recipient</span>
-              <span className="font-bold text-[#26170C] dark:text-[#F5EBE0]">
+              <span className="font-bold text-right text-[#26170C] dark:text-[#F5EBE0]">
                 {placedOrder.shipping.fullName}
               </span>
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between gap-2">
               <span className="text-[#5C4938] dark:text-[#D8C2A8]">Destination</span>
-              <span className="font-bold text-[#26170C] dark:text-[#F5EBE0]">
+              <span className="font-bold text-right text-[#26170C] dark:text-[#F5EBE0]">
                 {placedOrder.shipping.address}, {placedOrder.shipping.city}
               </span>
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between gap-2">
               <span className="text-[#5C4938] dark:text-[#D8C2A8]">Total Paid</span>
               <span className="font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
                 {formatPrice(placedOrder.total)}
@@ -140,8 +140,8 @@ export const CheckoutPage = () => {
 
   if (items.length === 0) {
     return (
-      <div className="mx-auto max-w-[1380px] px-5 sm:px-8 lg:px-10 py-16 text-center">
-        <div className="tactile-card mx-auto max-w-sm rounded-2xl p-8">
+      <div className="mx-auto max-w-[1380px] px-3.5 sm:px-8 lg:px-10 py-14 sm:py-16 text-center">
+        <div className="tactile-card mx-auto max-w-sm rounded-2xl p-7 sm:p-8">
           <h2 className="text-base font-bold text-[#26170C] dark:text-[#F5EBE0]">
             Your Cart is Empty
           </h2>
@@ -157,7 +157,7 @@ export const CheckoutPage = () => {
   }
 
   return (
-    <div className="mx-auto max-w-[1380px] px-5 sm:px-8 lg:px-10 py-7 sm:py-9">
+    <div className="mx-auto max-w-[1380px] px-3.5 sm:px-8 lg:px-10 py-5 sm:py-9">
       <Link
         to="/cart"
         className="wood-btn inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs mb-4"
@@ -166,13 +166,13 @@ export const CheckoutPage = () => {
         <span>Back to cart</span>
       </Link>
 
-      <h1 className="wood-engraved text-xl mb-6 uppercase">
+      <h1 className="wood-engraved text-lg sm:text-xl mb-4 sm:mb-6 uppercase">
         Checkout
       </h1>
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-start">
+      <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-12 lg:items-start">
         {/* Form */}
-        <div className="tactile-card rounded-2xl p-6 lg:col-span-7">
+        <div className="tactile-card rounded-2xl p-4 sm:p-6 lg:col-span-7">
           <h2 className="text-[11px] font-bold uppercase tracking-widest text-[#8C6D58] mb-4">
             Shipping Information
           </h2>

@@ -79,8 +79,8 @@ export const OrdersPage = () => {
 
   if (orders.length === 0) {
     return (
-      <div className="mx-auto max-w-[1380px] px-5 sm:px-8 lg:px-10 py-20 text-center">
-        <div className="tactile-card mx-auto max-w-sm rounded-2xl p-10">
+      <div className="mx-auto max-w-[1380px] px-3.5 sm:px-8 lg:px-10 py-14 sm:py-20 text-center">
+        <div className="tactile-card mx-auto max-w-sm rounded-2xl p-7 sm:p-10">
           <h1 className="text-base font-bold text-[#26170C] dark:text-[#F5EBE0]">
             No Orders Yet
           </h1>
@@ -101,10 +101,10 @@ export const OrdersPage = () => {
   }
 
   return (
-    <div className="mx-auto max-w-[1380px] px-5 sm:px-8 lg:px-10 py-7 sm:py-9">
-      <div className="tactile-card mb-6 flex items-center justify-between rounded-2xl px-6 py-4">
+    <div className="mx-auto max-w-[1380px] px-3.5 sm:px-8 lg:px-10 py-5 sm:py-9">
+      <div className="tactile-card mb-4 sm:mb-6 flex items-center justify-between rounded-2xl px-4 sm:px-6 py-3.5 sm:py-4">
         <div>
-          <h1 className="text-xl font-extrabold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
+          <h1 className="text-lg sm:text-xl font-extrabold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
             Orders & Tracking
           </h1>
           <p className="text-xs text-[#5C4938] dark:text-[#D8C2A8]">
@@ -126,9 +126,9 @@ export const OrdersPage = () => {
           return (
             <div
               key={order.id}
-              className="tactile-card rounded-2xl p-5"
+              className="tactile-card rounded-2xl p-4 sm:p-5"
             >
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between border-b border-[#D8C2A8] pb-4 dark:border-[#3D2616]">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-[#D8C2A8] pb-4 dark:border-[#3D2616]">
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="font-mono text-sm font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
@@ -143,7 +143,7 @@ export const OrdersPage = () => {
                   </p>
                 </div>
 
-                <div className="flex items-center gap-4">
+                <div className="flex items-center justify-between sm:justify-end gap-4">
                   <div className="text-left sm:text-right">
                     <span className="text-[10px] uppercase text-[#5C4938] dark:text-[#D8C2A8]">Total</span>
                     <p className="text-sm font-extrabold text-[#26170C] dark:text-[#F5EBE0]">

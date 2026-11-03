@@ -128,9 +128,9 @@ export const CatalogPage = () => {
     sortOption !== "featured";
 
   return (
-    <div className="mx-auto max-w-[1380px] px-5 sm:px-8 lg:px-10 pt-7 pb-12">
+    <div className="mx-auto max-w-[1380px] px-3.5 sm:px-8 lg:px-10 pt-5 sm:pt-7 pb-10 sm:pb-12">
       {/* Search & Sort Toolbar directly on the wooden table */}
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-12 sm:items-center">
+      <div className="grid grid-cols-1 gap-2.5 sm:gap-3 sm:grid-cols-12 sm:items-center">
         {/* Search Input */}
         <div className="relative sm:col-span-8 lg:col-span-9">
           <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-[#4E3622] dark:text-[#C8B29B]">
@@ -179,8 +179,8 @@ export const CatalogPage = () => {
       </div>
 
       {/* Workshop Drawer Category Plates & Status Bar */}
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 pb-2">
-        <div className="flex items-center gap-2 overflow-x-auto py-1 scrollbar-none">
+      <div className="mt-3.5 sm:mt-4 flex flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-between gap-2.5 sm:gap-3 pb-2">
+        <div className="-mx-3.5 px-3.5 sm:mx-0 sm:px-0 flex items-center gap-2 overflow-x-auto py-1 scrollbar-none">
           {CATEGORY_OPTIONS.map((cat) => {
             const isActive = selectedCategory === cat.value;
             return (
@@ -188,7 +188,7 @@ export const CatalogPage = () => {
                 key={cat.value}
                 type="button"
                 onClick={() => handleCategoryChange(cat.value)}
-                className={`shrink-0 rounded-lg px-3.5 py-2 text-xs ${
+                className={`shrink-0 rounded-lg px-3 sm:px-3.5 py-1.5 sm:py-2 text-[11px] sm:text-xs ${
                   isActive ? "wood-btn-walnut" : "wood-btn"
                 }`}
               >
@@ -198,9 +198,9 @@ export const CatalogPage = () => {
           })}
         </div>
 
-        <div className="flex items-center gap-3 text-xs">
+        <div className="flex items-center justify-between sm:justify-end gap-3 text-xs">
           {!loading && (
-            <span className="wood-engraved font-mono text-xs">
+            <span className="wood-engraved font-mono text-[11px] sm:text-xs">
               [{total} OBJECTS]
             </span>
           )}
@@ -217,9 +217,9 @@ export const CatalogPage = () => {
       </div>
 
       {/* Products Grid */}
-      <div className="mt-4">
+      <div className="mt-3 sm:mt-4">
         {loading ? (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
             {Array.from({ length: 8 }).map((_, index) => (
               <SkeletonCard key={index} />
             ))}
