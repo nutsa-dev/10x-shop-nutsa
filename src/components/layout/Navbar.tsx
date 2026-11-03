@@ -87,26 +87,26 @@ export const Navbar = () => {
 
         {/* Right Actions: Clean Balance */}
         <div className="flex items-center gap-2.5 sm:gap-3">
-          {/* Realistic Brass Shop Bell Sound Toggle (Mute / Unmute) */}
+          {/* Graphic Bell Sound Toggle (Mute / Unmute) */}
           <button
             type="button"
             data-sound-ignore="true"
             onClick={handleToggleSound}
             aria-label={soundOn ? "Mute woodshop sound" : "Enable woodshop sound"}
-            title={soundOn ? "Shop bell & wood sound: ON (Click to mute)" : "Shop bell & wood sound: OFF (Click to enable)"}
-            className="relative flex h-10 w-10 items-center justify-center rounded-full transition-transform duration-500 hover:scale-110 active:scale-95"
+            title={soundOn ? "Wood sound: ON (Click to mute)" : "Wood sound: OFF (Click to enable)"}
+            className="wood-engraved relative flex h-9 w-9 items-center justify-center rounded-full opacity-80 hover:opacity-100 transition-transform duration-300 active:scale-90"
           >
             <IconSoundOn
-              className={`absolute h-6 w-6 drop-shadow-[0_2px_6px_rgba(180,83,9,0.45)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              className={`absolute h-[18px] w-[18px] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                 soundOn
                   ? "scale-100 opacity-100"
                   : "scale-75 opacity-0"
               }`}
             />
             <IconSoundOff
-              className={`absolute h-6 w-6 opacity-70 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              className={`absolute h-[18px] w-[18px] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                 !soundOn
-                  ? "scale-100 opacity-75"
+                  ? "scale-100 opacity-60"
                   : "scale-75 opacity-0"
               }`}
             />

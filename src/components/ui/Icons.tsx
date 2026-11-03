@@ -200,152 +200,41 @@ export const IconBulbOff = (props: SVGProps<SVGSVGElement>) => (
 
 export const IconSoundOn = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    viewBox="0 0 32 32"
+    viewBox="0 0 24 24"
     fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className="h-6 w-6"
+    stroke="currentColor"
+    strokeWidth={1.9}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="h-4 w-4"
     {...props}
   >
-    <defs>
-      {/* Realistic 3D polished brass bell gradient */}
-      <linearGradient id="brassBellOn" x1="15%" y1="10%" x2="85%" y2="90%">
-        <stop offset="0%" stopColor="#FEF08A" />
-        <stop offset="32%" stopColor="#F59E0B" />
-        <stop offset="68%" stopColor="#B45309" />
-        <stop offset="100%" stopColor="#78350F" />
-      </linearGradient>
-      {/* Bell rim highlight */}
-      <linearGradient id="bellRimOn" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="#78350F" />
-        <stop offset="30%" stopColor="#FDE047" />
-        <stop offset="55%" stopColor="#FEF9C3" />
-        <stop offset="80%" stopColor="#D97706" />
-        <stop offset="100%" stopColor="#78350F" />
-      </linearGradient>
-    </defs>
-
-    {/* Subtle acoustic chime waves */}
-    <path
-      d="M5.2 11.5a9.5 9.5 0 0 0-1.4 5.2M26.8 11.5a9.5 9.5 0 0 1 1.4 5.2"
-      stroke="#D97706"
-      strokeWidth="1.4"
-      strokeLinecap="round"
-      strokeOpacity="0.85"
-    />
-
-    {/* Top wooden/brass hanging loop */}
-    <circle
-      cx="16"
-      cy="5.2"
-      r="2"
-      fill="none"
-      stroke="#92400E"
-      strokeWidth="1.5"
-    />
-
-    {/* Main 3D Brass Shop Bell Dome */}
-    <path
-      d="M16 7C11.6 7 8.5 10.2 8.5 15v4.2c0 1.3-.9 2.4-2.1 2.8-.5.18-.9.62-.9 1.15 0 .68.55 1.25 1.25 1.25h18.5c.7 0 1.25-.57 1.25-1.25 0-.53-.4-.97-.9-1.15-1.2-.4-2.1-1.5-2.1-2.8V15c0-4.8-3.1-8-7.5-8Z"
-      fill="url(#brassBellOn)"
-      stroke="#78350F"
-      strokeWidth="0.7"
-    />
-
-    {/* Turned brass bell lip / rim */}
-    <rect
-      x="6"
-      y="22.4"
-      width="20"
-      height="2.1"
-      rx="1.05"
-      fill="url(#bellRimOn)"
-      stroke="#78350F"
-      strokeWidth="0.5"
-    />
-
-    {/* Specular curved metallic highlight on left side of bell dome */}
-    <path
-      d="M11 14.5c0-3.1 1.8-5.3 4.3-5.8"
-      stroke="#FFFFFF"
-      strokeWidth="1.3"
-      strokeLinecap="round"
-      strokeOpacity="0.8"
-    />
-
-    {/* Brass clapper ball at bottom */}
-    <path
-      d="M13.6 24.5a2.4 2.4 0 0 0 4.8 0h-4.8Z"
-      fill="#B45309"
-      stroke="#78350F"
-      strokeWidth="0.6"
-    />
-    <circle cx="15.3" cy="25.3" r="0.6" fill="#FEF08A" fillOpacity="0.85" />
+    {/* Graphic bell dome */}
+    <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+    {/* Bell clapper */}
+    <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+    {/* Minimalist ringing arcs */}
+    <path d="M4 2C2.8 3.7 2 5.7 2 8" />
+    <path d="M20 2c1.2 1.7 2 3.7 2 6" />
   </svg>
 );
 
 export const IconSoundOff = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    viewBox="0 0 32 32"
+    viewBox="0 0 24 24"
     fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className="h-6 w-6"
+    stroke="currentColor"
+    strokeWidth={1.9}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="h-4 w-4"
     {...props}
   >
-    <defs>
-      {/* Muted antique bronze bell gradient */}
-      <linearGradient id="brassBellOff" x1="15%" y1="10%" x2="85%" y2="90%">
-        <stop offset="0%" stopColor="#B89F7D" stopOpacity="0.75" />
-        <stop offset="45%" stopColor="#7C6549" stopOpacity="0.75" />
-        <stop offset="100%" stopColor="#3B2C1E" stopOpacity="0.85" />
-      </linearGradient>
-    </defs>
-
-    {/* Top hanging loop */}
-    <circle
-      cx="16"
-      cy="5.2"
-      r="2"
-      fill="none"
-      stroke="#7C6549"
-      strokeWidth="1.4"
-      strokeOpacity="0.7"
-    />
-
-    {/* Muted Antique Bell Dome */}
-    <path
-      d="M16 7C11.6 7 8.5 10.2 8.5 15v4.2c0 1.3-.9 2.4-2.1 2.8-.5.18-.9.62-.9 1.15 0 .68.55 1.25 1.25 1.25h18.5c.7 0 1.25-.57 1.25-1.25 0-.53-.4-.97-.9-1.15-1.2-.4-2.1-1.5-2.1-2.8V15c0-4.8-3.1-8-7.5-8Z"
-      fill="url(#brassBellOff)"
-      stroke="#4A3726"
-      strokeWidth="0.7"
-      strokeOpacity="0.75"
-    />
-
-    {/* Subtle muted reflection */}
-    <path
-      d="M11 14.5c0-3.1 1.8-5.3 4.3-5.8"
-      stroke="#FFFFFF"
-      strokeWidth="1.1"
-      strokeLinecap="round"
-      strokeOpacity="0.3"
-    />
-
-    {/* Muted clapper */}
-    <path
-      d="M13.6 24.5a2.4 2.4 0 0 0 4.8 0h-4.8Z"
-      fill="#4A3726"
-      fillOpacity="0.75"
-    />
-
-    {/* Diagonal mute bar across bell */}
-    <line
-      x1="6"
-      y1="6"
-      x2="26"
-      y2="26"
-      stroke="#8C6D58"
-      strokeWidth="2"
-      strokeLinecap="round"
-    />
+    {/* Graphic muted bell with slash */}
+    <path d="M8.7 3A6 6 0 0 1 18 8a21.3 21.3 0 0 0 .6 5" />
+    <path d="M17 17H3s3-2 3-9a4.67 4.67 0 0 1 .3-1.7" />
+    <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+    <line x1="2" y1="2" x2="22" y2="22" />
   </svg>
 );
 
