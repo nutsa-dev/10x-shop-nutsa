@@ -53,7 +53,7 @@ export const LoginPage = () => {
           Sign In
         </h1>
         <p className="mt-0.5 text-xs text-[#5C4938] dark:text-[#D8C2A8]">
-          Access your KURA // Atelier Objects account
+          Access your WOODWORK account
         </p>
 
         <form onSubmit={formik.handleSubmit} noValidate className="mt-5 space-y-4">

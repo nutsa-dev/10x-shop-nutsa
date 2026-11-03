@@ -25,7 +25,7 @@ export const Navbar = () => {
             to="/"
             className="wood-engraved flex items-center gap-2 text-xs sm:text-sm uppercase"
           >
-            <span>KURA // Atelier Objects</span>
+            <span>WOODWORK</span>
           </Link>
 
           <nav className="flex items-center gap-5">

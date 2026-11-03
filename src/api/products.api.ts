@@ -25,7 +25,7 @@ export const CURATED_ATELIER_PRODUCTS: Product[] = [
     discountPercentage: 12,
     rating: 4.9,
     stock: 18,
-    brand: "KURA Play",
+    brand: "WOODWORK Play",
     category: "wooden-toys",
     thumbnail:
       "https://images.unsplash.com/photo-1558877385-81a1c7e67d72?auto=format&fit=crop&w=800&h=800&q=80",
@@ -52,7 +52,7 @@ export const CURATED_ATELIER_PRODUCTS: Product[] = [
     discountPercentage: 10,
     rating: 4.8,
     stock: 25,
-    brand: "KURA Play",
+    brand: "WOODWORK Play",
     category: "wooden-toys",
     thumbnail:
       "https://images.unsplash.com/photo-1560859251-d563a49c5e4a?auto=format&fit=crop&w=800&h=800&q=80",
@@ -79,7 +79,7 @@ export const CURATED_ATELIER_PRODUCTS: Product[] = [
     discountPercentage: 15,
     rating: 4.9,
     stock: 14,
-    brand: "KURA Play",
+    brand: "WOODWORK Play",
     category: "wooden-toys",
     thumbnail:
       "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=800&h=800&q=80",
@@ -106,7 +106,7 @@ export const CURATED_ATELIER_PRODUCTS: Product[] = [
     discountPercentage: 15,
     rating: 4.9,
     stock: 20,
-    brand: "KURA Seasonal",
+    brand: "WOODWORK Seasonal",
     category: "holiday-decor",
     thumbnail:
       "https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=800&h=800&q=80",
@@ -134,7 +134,7 @@ export const CURATED_ATELIER_PRODUCTS: Product[] = [
     discountPercentage: 10,
     rating: 4.8,
     stock: 22,
-    brand: "KURA Seasonal",
+    brand: "WOODWORK Seasonal",
     category: "holiday-decor",
     thumbnail:
       "https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=800&h=800&q=80",
@@ -161,7 +161,7 @@ export const CURATED_ATELIER_PRODUCTS: Product[] = [
     discountPercentage: 8,
     rating: 4.9,
     stock: 30,
-    brand: "KURA Seasonal",
+    brand: "WOODWORK Seasonal",
     category: "holiday-decor",
     thumbnail:
       "https://images.unsplash.com/photo-1634507708682-f37ef194ed13?auto=format&fit=crop&w=800&h=800&q=80",
@@ -188,7 +188,7 @@ export const CURATED_ATELIER_PRODUCTS: Product[] = [
     discountPercentage: 12,
     rating: 4.7,
     stock: 16,
-    brand: "KURA Seasonal",
+    brand: "WOODWORK Seasonal",
     category: "holiday-decor",
     thumbnail:
       "https://images.unsplash.com/photo-1529973625058-a665431328fb?auto=format&fit=crop&w=800&h=800&q=80",
@@ -208,7 +208,7 @@ export const CURATED_ATELIER_PRODUCTS: Product[] = [
     discountPercentage: 10,
     rating: 4.9,
     stock: 9,
-    brand: "KURA Living",
+    brand: "WOODWORK Living",
     category: "furniture",
     thumbnail:
       "https://images.unsplash.com/photo-1598300188992-fb5c3408c9a5?auto=format&fit=crop&w=800&h=800&q=80",
@@ -235,7 +235,7 @@ export const CURATED_ATELIER_PRODUCTS: Product[] = [
     discountPercentage: 14,
     rating: 4.8,
     stock: 7,
-    brand: "KURA Living",
+    brand: "WOODWORK Living",
     category: "furniture",
     thumbnail:
       "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=800&h=800&q=80",
@@ -255,7 +255,7 @@ export const CURATED_ATELIER_PRODUCTS: Product[] = [
     discountPercentage: 8,
     rating: 4.9,
     stock: 11,
-    brand: "KURA Living",
+    brand: "WOODWORK Living",
     category: "furniture",
     thumbnail:
       "https://images.unsplash.com/photo-1580481072645-022f9a6d83d0?auto=format&fit=crop&w=800&h=800&q=80",
