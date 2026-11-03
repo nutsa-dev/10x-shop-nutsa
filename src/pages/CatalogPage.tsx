@@ -133,7 +133,7 @@ export const CatalogPage = () => {
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-12 sm:items-center">
         {/* Search Input */}
         <div className="relative sm:col-span-8 lg:col-span-9">
-          <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-[#5C4938] dark:text-[#D8C2A8]">
+          <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-[#4E3622] dark:text-[#C8B29B]">
             <IconSearch className="h-4 w-4" />
           </span>
           <input
@@ -144,7 +144,7 @@ export const CatalogPage = () => {
               setSearchInput(e.target.value);
               setPage(1);
             }}
-            className="tactile-card w-full rounded-xl py-2.5 pl-10 pr-8 text-xs font-medium text-[#26170C] placeholder-[#736B63] outline-none transition focus:border-[#8C6D58] dark:text-[#F5EBE0]"
+            className="wood-input w-full rounded-xl py-2.5 pl-10 pr-8 text-xs font-semibold outline-none"
           />
           {searchInput && (
             <button
@@ -154,7 +154,7 @@ export const CatalogPage = () => {
                 setPage(1);
               }}
               aria-label="Clear search"
-              className="absolute inset-y-0 right-0 flex items-center pr-3 text-[#5C4938] hover:text-[#26170C] dark:text-[#D8C2A8]"
+              className="absolute inset-y-0 right-0 flex items-center pr-3 text-[#4E3622] hover:text-[#26170C] dark:text-[#C8B29B]"
             >
               <IconClose className="h-3.5 w-3.5" />
             </button>
@@ -168,7 +168,7 @@ export const CatalogPage = () => {
             aria-label="Sort products"
             value={sortOption}
             onChange={(e) => handleSortChange(e.target.value as SortOption)}
-            className="tactile-card w-full rounded-xl px-3.5 py-2.5 text-xs font-semibold text-[#26170C] outline-none transition focus:border-[#8C6D58] dark:text-[#F5EBE0]"
+            className="wood-input w-full cursor-pointer rounded-xl px-3.5 py-2.5 text-xs font-bold outline-none"
           >
             <option value="featured">Sort: Featured</option>
             <option value="price-asc">Price: Low to High</option>
