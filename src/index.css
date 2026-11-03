@@ -34,16 +34,15 @@
   }
 
   /*
-   * Nordic Light Oak Wood Texture (using the uploaded oak grain texture)
-   * with a very subtle warm glaze so cards and typography pop cleanly.
+   * Light Mode: Nordic Light Oak Wood Texture
    */
   .nordic-wood-bg {
     background-color: #DEC6A7;
     background-image:
       linear-gradient(
         180deg,
-        rgba(247, 240, 229, 0.18) 0%,
-        rgba(235, 218, 195, 0.12) 100%
+        rgba(247, 240, 229, 0.14) 0%,
+        rgba(235, 218, 195, 0.10) 100%
       ),
       url("/nordic-wood.jpg");
     background-repeat: repeat;
@@ -51,22 +50,28 @@
     background-attachment: fixed;
   }
 
+  /*
+   * Dark Mode: Deep Smoked Walnut / Dark Oak Wood Texture
+   */
   .dark html,
   .dark body {
-    background-color: #191614;
-    background-image: none;
+    background-color: #361F0E;
+    background-image: url("/nordic-wood-dark.jpg");
+    background-repeat: repeat;
+    background-size: 520px auto;
+    background-attachment: fixed;
     color: #F7F5F0;
   }
 
   .dark .nordic-wood-bg {
-    background-color: #191614;
+    background-color: #361F0E;
     background-image:
       linear-gradient(
         180deg,
-        rgba(25, 22, 20, 0.88) 0%,
-        rgba(25, 22, 20, 0.92) 100%
+        rgba(28, 18, 11, 0.18) 0%,
+        rgba(22, 14, 9, 0.24) 100%
       ),
-      url("/nordic-wood.jpg");
+      url("/nordic-wood-dark.jpg");
     background-repeat: repeat;
     background-size: auto, 520px auto;
     background-attachment: fixed;
@@ -85,6 +90,6 @@
     border-radius: 9999px;
   }
   .dark ::-webkit-scrollbar-thumb {
-    background: #3A332E;
+    background: #5E3D24;
   }
 }
