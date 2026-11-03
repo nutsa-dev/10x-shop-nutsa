@@ -5,7 +5,7 @@ export const Footer = () => {
     <footer className="wood-plank-footer relative z-10 mt-auto py-7 text-xs">
       <div className="mx-auto flex max-w-[1380px] flex-col items-center justify-between gap-4 px-5 sm:flex-row sm:px-8 lg:px-10">
         <div className="flex items-center gap-2">
-          <span className="font-editorial text-sm font-bold tracking-[0.12em] uppercase text-[#26170C] dark:text-[#F5EBE0]">
+          <span className="font-editorial text-sm font-bold tracking-[0.06em] uppercase text-[#26170C] dark:text-[#F5EBE0]">
             WOODWORK
           </span>
           <span className="hidden sm:inline font-medium text-[#5C4938] dark:text-[#D8C2A8]/80">

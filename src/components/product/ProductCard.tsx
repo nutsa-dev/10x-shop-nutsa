@@ -126,7 +126,7 @@ export const ProductCard = ({ product, index, onAdd }: ProductCardProps) => {
         </div>
 
         {/* Product Title (Editorial Serif) */}
-        <h3 className="font-editorial mt-1 text-lg font-bold tracking-tight text-[#26170C] line-clamp-1 leading-snug dark:text-[#F5EBE0]">
+        <h3 className="font-editorial mt-1.5 text-[15px] font-semibold tracking-tight text-[#26170C] line-clamp-1 leading-snug dark:text-[#F5EBE0]">
           <Link to={`/products/${product.id}`} className="hover:text-[#593E28] dark:hover:text-[#D49B4B] transition-colors">
             {product.title}
           </Link>

@@ -52,7 +52,7 @@ export const Navbar = () => {
           to="/"
           className="flex items-center"
         >
-          <span className="font-editorial text-lg sm:text-xl font-bold tracking-[0.12em] uppercase text-[#26170C] dark:text-[#F5EBE0]">
+          <span className="font-editorial text-lg sm:text-xl font-bold tracking-[0.06em] uppercase text-[#26170C] dark:text-[#F5EBE0]">
             WOODWORK
           </span>
         </Link>
