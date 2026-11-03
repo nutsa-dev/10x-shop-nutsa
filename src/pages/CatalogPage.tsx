@@ -12,7 +12,7 @@ import type { Product } from "@/types/product";
 const PAGE_LIMIT = 16;
 
 const CATEGORY_OPTIONS = [
-  { value: "home-decoration", label: "All Atelier Objects" },
+  { value: "home-decoration", label: "All" },
   { value: "wooden-toys", label: "Wooden Toys" },
   { value: "holiday-decor", label: "Holiday Market" },
   { value: "furniture", label: "Wood Furniture" },
@@ -178,9 +178,27 @@ export const CatalogPage = () => {
         </div>
       </div>
 
-      {/* Workshop Drawer Category Plates & Status Bar */}
+      {/* Workshop Drawer Category Plates (Desktop) & Dropdown (Mobile) + Status Bar */}
       <div className="mt-3.5 sm:mt-4 flex flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-between gap-2.5 sm:gap-3 pb-2">
-        <div className="-mx-3.5 px-3.5 sm:mx-0 sm:px-0 flex items-center gap-2 overflow-x-auto py-1 scrollbar-none">
+        {/* Mobile Category Dropdown (< 640px) */}
+        <div className="sm:hidden">
+          <select
+            id="category-select-mobile"
+            aria-label="Filter by category"
+            value={selectedCategory}
+            onChange={(e) => handleCategoryChange(e.target.value)}
+            className="wood-input w-full cursor-pointer rounded-xl px-3.5 py-2.5 text-xs font-bold outline-none"
+          >
+            {CATEGORY_OPTIONS.map((cat) => (
+              <option key={cat.value} value={cat.value}>
+                Category: {cat.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Desktop / Tablet Category Buttons (>= 640px) */}
+        <div className="hidden sm:flex items-center gap-2 overflow-x-auto py-1 scrollbar-none">
           {CATEGORY_OPTIONS.map((cat) => {
             const isActive = selectedCategory === cat.value;
             return (
@@ -188,7 +206,7 @@ export const CatalogPage = () => {
                 key={cat.value}
                 type="button"
                 onClick={() => handleCategoryChange(cat.value)}
-                className={`shrink-0 rounded-lg px-3 sm:px-3.5 py-1.5 sm:py-2 text-[11px] sm:text-xs ${
+                className={`shrink-0 rounded-lg px-3.5 py-2 text-xs ${
                   isActive ? "wood-btn-walnut" : "wood-btn"
                 }`}
               >
@@ -219,7 +237,7 @@ export const CatalogPage = () => {
       {/* Products Grid */}
       <div className="mt-3 sm:mt-4">
         {loading ? (
-          <div className="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {Array.from({ length: 8 }).map((_, index) => (
               <SkeletonCard key={index} />
             ))}
