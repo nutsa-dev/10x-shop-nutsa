@@ -9,69 +9,71 @@ import { IconClose, IconSearch } from "@/components/ui/Icons";
 import { getDiscountedPrice } from "@/utils/format";
 import type { Product } from "@/types/product";
 
-const CATEGORIES = [
-  { id: "all", label: "All Gear" },
-  { id: "skis", label: "Skis" },
-  { id: "snowboards", label: "Snowboards" },
-  { id: "goggles", label: "Goggles & Eyewear" },
-  { id: "helmets", label: "Helmets" },
-  { id: "outerwear", label: "Outerwear & Gloves" },
-  { id: "bags", label: "Packs & Bags" },
+const PAGE_LIMIT = 12;
+
+const CATEGORY_OPTIONS = [
+  { value: "home-decoration", label: "Home Decoration" },
+  { value: "kitchen-accessories", label: "Kitchen Accessories" },
+  { value: "all", label: "All Atelier Objects" },
 ] as const;
 
-type SortOption = "featured" | "price-asc" | "price-desc" | "rating-desc" | "brand-asc";
+type SortOption = "featured" | "price-asc" | "price-desc" | "rating-desc";
 
 export const CatalogPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { addItem } = useCart();
 
-  const categoryParam = searchParams.get("category") || "all";
-  const searchParam = searchParams.get("search") || "";
+  const categoryParam = searchParams.get("category") || "home-decoration";
+  const pageParam = Math.max(1, Number(searchParams.get("page")) || 1);
   const sortParam = (searchParams.get("sort") as SortOption) || "featured";
+  const searchParam = searchParams.get("search") || "";
 
   const [selectedCategory, setSelectedCategory] = useState<string>(categoryParam);
-  const [searchInput, setSearchInput] = useState<string>(searchParam);
+  const [page, setPage] = useState<number>(pageParam);
   const [sortOption, setSortOption] = useState<SortOption>(sortParam);
-
-  // Sync state if URL searchParams change
-  useEffect(() => {
-    setSelectedCategory(categoryParam);
-  }, [categoryParam]);
+  const [searchInput, setSearchInput] = useState<string>(searchParam);
 
   const [products, setProducts] = useState<Product[]>([]);
+  const [total, setTotal] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   const debouncedSearch = useDebounce(searchInput, 300);
 
-  // Sync with URL query params
+  // Sync URL searchParams (?category=..., ?page=..., ?sort=..., ?search=...)
   useEffect(() => {
-    const params: Record<string, string> = {};
-    if (selectedCategory !== "all") params.category = selectedCategory;
-    if (debouncedSearch.trim()) params.search = debouncedSearch.trim();
-    if (sortOption !== "featured") params.sort = sortOption;
-
+    const params: Record<string, string> = {
+      category: selectedCategory,
+      page: String(page),
+      sort: sortOption,
+    };
+    if (debouncedSearch.trim()) {
+      params.search = debouncedSearch.trim();
+    }
     setSearchParams(params, { replace: true });
-  }, [selectedCategory, debouncedSearch, sortOption, setSearchParams]);
+  }, [selectedCategory, page, sortOption, debouncedSearch, setSearchParams]);
 
   const fetchProducts = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
 
+      const skip = (page - 1) * PAGE_LIMIT;
       const data = await getProducts({
-        category: selectedCategory === "all" ? undefined : selectedCategory,
+        category: selectedCategory,
+        limit: PAGE_LIMIT,
+        skip,
         search: debouncedSearch.trim() || undefined,
-        limit: 50,
       });
 
       setProducts(data.products);
+      setTotal(data.total);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load products");
+      setError(err instanceof Error ? err.message : "Failed to load atelier collection");
     } finally {
       setLoading(false);
     }
-  }, [selectedCategory, debouncedSearch]);
+  }, [selectedCategory, page, debouncedSearch]);
 
   useEffect(() => {
     fetchProducts();
@@ -95,154 +97,221 @@ export const CatalogPage = () => {
         });
       case "rating-desc":
         return list.sort((a, b) => b.rating - a.rating);
-      case "brand-asc":
-        return list.sort((a, b) => (a.brand || "").localeCompare(b.brand || ""));
       case "featured":
       default:
         return list;
     }
   }, [products, sortOption]);
 
-  const handleClearFilters = () => {
-    setSelectedCategory("all");
-    setSearchInput("");
-    setSortOption("featured");
+  const handleCategoryChange = (newCategory: string) => {
+    setSelectedCategory(newCategory);
+    setPage(1);
   };
 
-  const hasActiveFilters = selectedCategory !== "all" || debouncedSearch.trim() !== "" || sortOption !== "featured";
+  const handleSortChange = (newSort: SortOption) => {
+    setSortOption(newSort);
+  };
+
+  const handleClearFilters = () => {
+    setSelectedCategory("home-decoration");
+    setPage(1);
+    setSortOption("featured");
+    setSearchInput("");
+  };
+
+  const totalPages = Math.max(1, Math.ceil(total / PAGE_LIMIT));
+  const hasActiveFilters =
+    selectedCategory !== "home-decoration" ||
+    debouncedSearch.trim() !== "" ||
+    sortOption !== "featured";
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+    <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-10">
       
-      {/* 1. Header (Minimalist Evo / Backcountry Style) */}
-      <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 border-b border-neutral-200/80 pb-4 dark:border-neutral-800">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
-            Winter Sports & Alpine Gear
-          </h1>
-          <p className="text-xs text-neutral-500 dark:text-neutral-400">
-            {!loading && `${sortedProducts.length} items`}
-          </p>
-        </div>
+      {/* Editorial Hero / Header Banner */}
+      <section className="rounded-2xl border border-[#EADBCC] bg-white px-6 py-8 sm:px-10 sm:py-12 shadow-[0_4px_20px_rgba(44,39,36,0.04)] dark:border-[#332C27] dark:bg-[#24201D]">
+        <span className="inline-block text-[11px] font-semibold uppercase tracking-widest text-[#8C6D58]">
+          COLLECTION 2026
+        </span>
+        <h1 className="mt-2.5 text-2xl sm:text-4xl font-bold tracking-tight text-[#2C2724] dark:text-[#F7F5F0]">
+          Curated Objects for Mindful Living
+        </h1>
+        <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-[#736B63] dark:text-[#A39A90]">
+          Handcrafted ceramics, raw wood forms, and sculptural accents sourced for modern interiors.
+        </p>
+      </section>
 
-        {hasActiveFilters && (
-          <button
-            type="button"
-            onClick={handleClearFilters}
-            className="text-xs font-medium text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
-          >
-            Clear filters
-          </button>
-        )}
-      </div>
-
-      {/* 2. Category Tabs */}
-      <div className="mt-4 flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
-        {CATEGORIES.map((cat) => {
-          const isActive = selectedCategory === cat.id;
-          return (
-            <button
-              key={cat.id}
-              type="button"
-              onClick={() => setSelectedCategory(cat.id)}
-              className={`shrink-0 rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
-                isActive
-                  ? "bg-neutral-900 text-white dark:bg-white dark:text-neutral-950"
-                  : "bg-white text-neutral-600 hover:bg-neutral-100 border border-neutral-200 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800"
-              }`}
-            >
-              {cat.label}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* 3. Search and Sort Toolbar */}
-      <div className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-12 sm:items-center">
+      {/* Filter, Category Select & Sort Toolbar */}
+      <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-12 sm:items-center">
         {/* Search Input */}
-        <div className="relative sm:col-span-8 lg:col-span-9">
-          <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-neutral-400">
-            <IconSearch className="h-3.5 w-3.5" />
+        <div className="relative sm:col-span-5 lg:col-span-6">
+          <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-[#736B63]">
+            <IconSearch className="h-4 w-4" />
           </span>
           <input
             type="text"
-            placeholder="Search Salomon, Burton, Smith, skis, boards..."
+            placeholder="Search ceramics, lamps, planters, kitchenware..."
             value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            className="w-full rounded-lg border border-neutral-200 bg-white py-2 pl-9 pr-8 text-xs text-neutral-900 outline-none transition focus:border-neutral-900 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100 dark:focus:border-neutral-400"
+            onChange={(e) => {
+              setSearchInput(e.target.value);
+              setPage(1);
+            }}
+            className="w-full rounded-xl border border-[#EADBCC] bg-white py-2.5 pl-10 pr-8 text-xs text-[#2C2724] placeholder-[#736B63] outline-none transition focus:border-[#8C6D58] dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#F7F5F0]"
           />
           {searchInput && (
             <button
               type="button"
-              onClick={() => setSearchInput("")}
+              onClick={() => {
+                setSearchInput("");
+                setPage(1);
+              }}
               aria-label="Clear search"
-              className="absolute inset-y-0 right-0 flex items-center pr-2.5 text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200"
+              className="absolute inset-y-0 right-0 flex items-center pr-3 text-[#736B63] hover:text-[#2C2724] dark:hover:text-[#F7F5F0]"
             >
               <IconClose className="h-3.5 w-3.5" />
             </button>
           )}
         </div>
 
-        {/* Sort Filter */}
+        {/* Category Filter Select */}
         <div className="sm:col-span-4 lg:col-span-3">
+          <select
+            id="category-select"
+            aria-label="Select category"
+            value={selectedCategory}
+            onChange={(e) => handleCategoryChange(e.target.value)}
+            className="w-full rounded-xl border border-[#EADBCC] bg-white px-3.5 py-2.5 text-xs font-medium text-[#2C2724] outline-none transition focus:border-[#8C6D58] dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#F7F5F0]"
+          >
+            {CATEGORY_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Sort Select */}
+        <div className="sm:col-span-3 lg:col-span-3">
           <select
             id="sort-select"
             aria-label="Sort products"
             value={sortOption}
-            onChange={(e) => setSortOption(e.target.value as SortOption)}
-            className="w-full rounded-lg border border-neutral-200 bg-white px-2.5 py-2 text-xs font-medium text-neutral-800 outline-none transition focus:border-neutral-900 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-200"
+            onChange={(e) => handleSortChange(e.target.value as SortOption)}
+            className="w-full rounded-xl border border-[#EADBCC] bg-white px-3.5 py-2.5 text-xs font-medium text-[#2C2724] outline-none transition focus:border-[#8C6D58] dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#F7F5F0]"
           >
-            <option value="featured">Featured</option>
+            <option value="featured">Sort: Featured</option>
             <option value="price-asc">Price: Low to High</option>
             <option value="price-desc">Price: High to Low</option>
             <option value="rating-desc">Highest Rated</option>
-            <option value="brand-asc">Brand: A to Z</option>
           </select>
         </div>
       </div>
 
-      {/* 4. Products Grid */}
+      {/* Category Quick Pills & Status Bar */}
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-b border-[#EADBCC] pb-4 dark:border-[#332C27]">
+        <div className="flex items-center gap-2 overflow-x-auto scrollbar-none">
+          {CATEGORY_OPTIONS.map((cat) => {
+            const isActive = selectedCategory === cat.value;
+            return (
+              <button
+                key={cat.value}
+                type="button"
+                onClick={() => handleCategoryChange(cat.value)}
+                className={`shrink-0 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
+                  isActive
+                    ? "bg-[#8C6D58] text-white"
+                    : "border border-[#EADBCC] bg-white text-[#736B63] hover:border-[#8C6D58] hover:text-[#2C2724] dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#A39A90]"
+                }`}
+              >
+                {cat.label}
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="flex items-center gap-3 text-xs text-[#736B63]">
+          {!loading && <span>{total} objects</span>}
+          {hasActiveFilters && (
+            <button
+              type="button"
+              onClick={handleClearFilters}
+              className="font-medium text-[#8C6D58] hover:text-[#735744] underline"
+            >
+              Reset filters
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Products Grid */}
       <div className="mt-6">
         {loading ? (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {Array.from({ length: 8 }).map((_, index) => (
               <SkeletonCard key={index} />
             ))}
           </div>
         ) : error ? (
-          <div className="rounded-xl border border-neutral-200 bg-white p-8 text-center dark:border-neutral-800 dark:bg-neutral-900">
-            <p className="text-xs font-medium text-neutral-800 dark:text-neutral-200">
+          <div className="rounded-2xl border border-[#EADBCC] bg-white p-10 text-center dark:border-[#332C27] dark:bg-[#24201D]">
+            <p className="text-xs font-medium text-[#2C2724] dark:text-[#F7F5F0]">
               {error}
             </p>
             <button
               type="button"
               onClick={fetchProducts}
-              className="mt-3 rounded-lg bg-neutral-900 px-4 py-1.5 text-xs font-semibold text-white transition hover:bg-neutral-800 dark:bg-white dark:text-neutral-900"
+              className="mt-4 rounded-lg bg-[#8C6D58] hover:bg-[#735744] px-4 py-2 text-xs font-medium text-white transition-colors"
             >
               Retry
             </button>
           </div>
         ) : sortedProducts.length === 0 ? (
-          <div className="rounded-2xl border border-neutral-200 bg-white p-12 text-center dark:border-neutral-800 dark:bg-neutral-900">
-            <h3 className="text-sm font-bold text-neutral-900 dark:text-neutral-100">
-              No products found
+          <div className="rounded-2xl border border-[#EADBCC] bg-white p-12 text-center dark:border-[#332C27] dark:bg-[#24201D]">
+            <h3 className="text-sm font-semibold text-[#2C2724] dark:text-[#F7F5F0]">
+              No objects found
             </h3>
-            <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-              Try adjusting your search criteria or switching categories.
+            <p className="mt-1 text-xs text-[#736B63]">
+              Try adjusting your search query or switching categories.
             </p>
             <button
               type="button"
               onClick={handleClearFilters}
-              className="mt-4 rounded-lg bg-neutral-900 px-4 py-1.5 text-xs font-semibold text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-900"
+              className="mt-4 rounded-lg bg-[#8C6D58] hover:bg-[#735744] px-4 py-2 text-xs font-medium text-white transition-colors"
             >
               Reset filters
             </button>
           </div>
         ) : (
-          <ProductGrid
-            products={sortedProducts}
-            onAdd={(p) => addItem(p)}
-          />
+          <>
+            <ProductGrid
+              products={sortedProducts}
+              onAdd={(p) => addItem(p)}
+            />
+
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+              <div className="mt-8 flex items-center justify-center gap-2">
+                <button
+                  type="button"
+                  disabled={page <= 1}
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  className="rounded-lg border border-[#EADBCC] bg-white px-3.5 py-2 text-xs font-medium text-[#2C2724] hover:border-[#8C6D58] disabled:opacity-40 transition-colors dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#F7F5F0]"
+                >
+                  Previous
+                </button>
+                <span className="px-3 text-xs font-medium text-[#736B63]">
+                  Page {page} of {totalPages}
+                </span>
+                <button
+                  type="button"
+                  disabled={page >= totalPages}
+                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  className="rounded-lg border border-[#EADBCC] bg-white px-3.5 py-2 text-xs font-medium text-[#2C2724] hover:border-[#8C6D58] disabled:opacity-40 transition-colors dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#F7F5F0]"
+                >
+                  Next
+                </button>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

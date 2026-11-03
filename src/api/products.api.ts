@@ -1,17 +1,15 @@
 import type { Product, ProductsResponse, Category } from "@/types/product";
-import { WINTER_SPORTS_PRODUCTS } from "./custom-products";
 
-export const WINTER_CATEGORIES = [
-  "skis",
-  "snowboards",
-  "goggles",
-  "helmets",
-  "outerwear",
-  "bags",
+const BASE_URL = "https://dummyjson.com";
+
+export const ATELIER_CATEGORIES = [
+  "home-decoration",
+  "kitchen-accessories",
 ] as const;
 
 /**
- * Fetch winter sports products with category & search support (Evo / Backcountry style)
+ * Fetch products from DummyJSON API with category, pagination & search support.
+ * Default category: 'home-decoration', default limit: 12, default skip: 0.
  */
 export async function getProducts(options?: {
   limit?: number;
@@ -19,58 +17,92 @@ export async function getProducts(options?: {
   category?: string;
   search?: string;
 }): Promise<ProductsResponse> {
-  const limit = options?.limit ?? 50;
+  const limit = options?.limit ?? 12;
   const skip = options?.skip ?? 0;
-  const category = options?.category ?? "all";
+  const category = options?.category ?? "home-decoration";
+  const search = options?.search?.trim();
 
-  let list = [...WINTER_SPORTS_PRODUCTS];
+  // If a search query is provided and category is 'all', use DummyJSON search endpoint or filter within category
+  if (search) {
+    if (category && category !== "all") {
+      const res = await fetch(
+        `${BASE_URL}/products/category/${encodeURIComponent(category)}?limit=100&skip=0`
+      );
+      if (!res.ok) {
+        throw new Error(`Failed to fetch category ${category} (${res.status})`);
+      }
+      const data = (await res.json()) as ProductsResponse;
+      const q = search.toLowerCase();
+      const filtered = (data.products || []).filter(
+        (p) =>
+          p.title.toLowerCase().includes(q) ||
+          p.description.toLowerCase().includes(q) ||
+          (p.brand && p.brand.toLowerCase().includes(q))
+      );
+      return {
+        products: filtered.slice(skip, skip + limit),
+        total: filtered.length,
+        skip,
+        limit,
+      };
+    } else {
+      const res = await fetch(
+        `${BASE_URL}/products/search?q=${encodeURIComponent(search)}&limit=${limit}&skip=${skip}`
+      );
+      if (!res.ok) {
+        throw new Error(`Failed to search products (${res.status})`);
+      }
+      return (await res.json()) as ProductsResponse;
+    }
+  }
 
-  // Filter by category
+  // Category-specific fetch (Default: GET https://dummyjson.com/products/category/home-decoration?limit=12&skip=0)
   if (category && category !== "all") {
-    list = list.filter((p) => p.category.toLowerCase() === category.toLowerCase());
-  }
-
-  // Filter by search query (checks title, brand, description, category)
-  if (options?.search && options.search.trim() !== "") {
-    const q = options.search.toLowerCase().trim();
-    list = list.filter(
-      (p) =>
-        p.title.toLowerCase().includes(q) ||
-        p.description.toLowerCase().includes(q) ||
-        (p.brand && p.brand.toLowerCase().includes(q)) ||
-        p.category.toLowerCase().includes(q)
+    const res = await fetch(
+      `${BASE_URL}/products/category/${encodeURIComponent(category)}?limit=${limit}&skip=${skip}`
     );
+    if (!res.ok) {
+      throw new Error(`Failed to load products for ${category} (${res.status})`);
+    }
+    return (await res.json()) as ProductsResponse;
   }
 
+  // When 'all' is selected, combine 'home-decoration' and 'kitchen-accessories'
+  const responses = await Promise.all(
+    ATELIER_CATEGORIES.map(async (cat) => {
+      const res = await fetch(`${BASE_URL}/products/category/${cat}?limit=50&skip=0`);
+      if (!res.ok) return { products: [], total: 0, skip: 0, limit: 50 };
+      return (await res.json()) as ProductsResponse;
+    })
+  );
+
+  const combined = responses.flatMap((r) => r.products || []);
   return {
-    products: list.slice(skip, skip + limit),
-    total: list.length,
+    products: combined.slice(skip, skip + limit),
+    total: combined.length,
     skip,
     limit,
   };
 }
 
 /**
- * Fetch a single product by numeric ID
+ * Fetch a single product by ID from DummyJSON API
  */
 export async function getProductById(id: number | string): Promise<Product> {
-  const numericId = Number(id);
-  const item = WINTER_SPORTS_PRODUCTS.find((p) => p.id === numericId);
-  if (item) return item;
-  throw new Error(`Product #${id} not found`);
+  const res = await fetch(`${BASE_URL}/products/${encodeURIComponent(String(id))}`);
+  if (!res.ok) {
+    throw new Error(`Product #${id} not found (${res.status})`);
+  }
+  return (await res.json()) as Product;
 }
 
 /**
- * Category list
+ * Available categories for KURA // Atelier Objects
  */
 export async function getCategories(): Promise<Category[]> {
   return [
-    { slug: "all", name: "All Gear", url: "" },
-    { slug: "skis", name: "Skis", url: "" },
-    { slug: "snowboards", name: "Snowboards", url: "" },
-    { slug: "goggles", name: "Goggles & Eyewear", url: "" },
-    { slug: "helmets", name: "Helmets", url: "" },
-    { slug: "outerwear", name: "Outerwear & Gloves", url: "" },
-    { slug: "bags", name: "Packs & Bags", url: "" },
+    { slug: "home-decoration", name: "Home Decoration", url: `${BASE_URL}/products/category/home-decoration` },
+    { slug: "kitchen-accessories", name: "Kitchen Accessories", url: `${BASE_URL}/products/category/kitchen-accessories` },
+    { slug: "all", name: "All Atelier Objects", url: `${BASE_URL}/products` },
   ];
 }

@@ -23,19 +23,19 @@ export const CartPage = () => {
   if (items.length === 0) {
     return (
       <div className="container mx-auto px-4 py-20 text-center">
-        <div className="mx-auto max-w-sm rounded-xl border border-neutral-200 bg-white p-10 dark:border-neutral-800 dark:bg-neutral-900">
-          <h1 className="text-base font-bold text-neutral-900 dark:text-neutral-100">
+        <div className="mx-auto max-w-sm rounded-2xl border border-[#EADBCC] bg-white p-10 shadow-[0_4px_20px_rgba(44,39,36,0.04)] dark:border-[#332C27] dark:bg-[#24201D]">
+          <h1 className="text-base font-bold text-[#2C2724] dark:text-[#F7F5F0]">
             Your Cart is Empty
           </h1>
-          <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-            Explore our collection of alpine skis, snowboards, and winter gear.
+          <p className="mt-1 text-xs text-[#736B63]">
+            Explore our curated collection of ceramics, raw wood forms, and sculptural objects.
           </p>
           <div className="mt-5">
             <Link
               to="/"
-              className="inline-flex rounded-lg bg-neutral-900 px-4 py-2 text-xs font-semibold text-white dark:bg-white dark:text-neutral-950 transition hover:bg-neutral-800"
+              className="inline-flex rounded-lg bg-[#8C6D58] hover:bg-[#735744] px-4 py-2.5 text-xs font-medium text-white transition-colors"
             >
-              Browse Equipment
+              Explore Collection
             </Link>
           </div>
         </div>
@@ -46,13 +46,13 @@ export const CartPage = () => {
   return (
     <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
       {/* Header */}
-      <div className="mb-6 flex items-center justify-between border-b border-neutral-200/80 pb-4 dark:border-neutral-800">
+      <div className="mb-6 flex items-center justify-between border-b border-[#EADBCC] pb-4 dark:border-[#332C27]">
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
+          <h1 className="text-xl font-bold tracking-tight text-[#2C2724] dark:text-[#F7F5F0]">
             Shopping Cart
           </h1>
-          <p className="text-xs text-neutral-500 dark:text-neutral-400">
-            {totalItems} {totalItems === 1 ? "item" : "items"}
+          <p className="text-xs text-[#736B63]">
+            {totalItems} {totalItems === 1 ? "object" : "objects"}
           </p>
         </div>
 
@@ -63,7 +63,7 @@ export const CartPage = () => {
               clearCart();
             }
           }}
-          className="text-xs text-neutral-400 hover:text-neutral-800 dark:hover:text-neutral-200"
+          className="text-xs text-[#736B63] hover:text-[#2C2724] dark:hover:text-[#F7F5F0]"
         >
           Clear cart
         </button>

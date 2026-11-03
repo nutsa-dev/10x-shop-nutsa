@@ -34,13 +34,13 @@ export const ProductCard = ({ product, onAdd }: ProductCardProps) => {
   const isOutOfStock = product.stock === 0;
 
   return (
-    <article className="group flex flex-col justify-between overflow-hidden rounded-xl border border-neutral-200/90 bg-white p-3 shadow-2xs hover:border-neutral-400 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-neutral-700 transition">
+    <article className="group flex flex-col justify-between bg-white rounded-2xl border border-[#EADBCC] p-4 shadow-[0_4px_20px_rgba(44,39,36,0.04)] hover:shadow-[0_8px_30px_rgba(44,39,36,0.08)] transition-all duration-300 dark:bg-[#24201D] dark:border-[#332C27]">
       <div>
-        {/* Product Image Area */}
-        <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center p-2">
+        {/* Product Image Container */}
+        <div className="relative aspect-square w-full bg-[#F2EFE9] rounded-xl overflow-hidden flex items-center justify-center p-4 dark:bg-[#191614]">
           {hasDiscount && (
-            <span className="absolute left-2 top-2 z-10 rounded bg-neutral-900 px-1.5 py-0.5 text-[10px] font-bold text-white dark:bg-white dark:text-neutral-950">
-              SALE -{Math.round(product.discountPercentage)}%
+            <span className="absolute left-2.5 top-2.5 z-10 rounded-md bg-[#2C2724] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white">
+              -{Math.round(product.discountPercentage)}%
             </span>
           )}
 
@@ -54,40 +54,40 @@ export const ProductCard = ({ product, onAdd }: ProductCardProps) => {
               width={240}
               height={240}
               loading="lazy"
-              className="h-full w-full object-cover rounded-md transition duration-300 group-hover:scale-104"
+              className="object-contain max-h-full transition-transform duration-300 group-hover:scale-105"
             />
           </Link>
         </div>
 
-        {/* Brand & Rating (Evo / Backcountry style) */}
-        <div className="mt-2.5 flex items-center justify-between text-[11px]">
-          <span className="font-extrabold tracking-wider text-neutral-900 uppercase dark:text-neutral-200">
-            {product.brand || product.category}
+        {/* Category & Rating */}
+        <div className="mt-3.5 flex items-center justify-between">
+          <span className="text-[11px] uppercase tracking-widest text-[#8C6D58] font-medium">
+            {product.category.replace("-", " ")}
           </span>
-          <div className="flex items-center gap-1 text-neutral-500 dark:text-neutral-400">
-            <IconStar className="h-3 w-3 fill-current text-neutral-400" />
-            <span className="font-semibold text-neutral-700 dark:text-neutral-300">
+          <div className="flex items-center gap-1 text-xs text-[#736B63]">
+            <IconStar className="h-3 w-3 fill-current text-[#8C6D58]" />
+            <span className="font-medium text-[#2C2724] dark:text-[#D6CEC5]">
               {product.rating.toFixed(1)}
             </span>
           </div>
         </div>
 
         {/* Product Title */}
-        <h3 className="mt-1 text-xs font-medium text-neutral-700 dark:text-neutral-300 line-clamp-1">
-          <Link to={`/products/${product.id}`} className="hover:text-neutral-950 dark:hover:text-white">
+        <h3 className="mt-1.5 text-sm font-semibold text-[#2C2724] line-clamp-1 leading-snug dark:text-[#F7F5F0]">
+          <Link to={`/products/${product.id}`} className="hover:text-[#8C6D58] transition-colors">
             {product.title}
           </Link>
         </h3>
       </div>
 
-      {/* Price & Add to Cart button */}
-      <div className="mt-3 flex items-center justify-between border-t border-neutral-100 pt-2.5 dark:border-neutral-800">
-        <div className="flex items-baseline gap-1.5">
-          <span className="text-sm font-bold text-neutral-900 dark:text-neutral-100">
+      {/* Price Block & CTA Button */}
+      <div className="mt-4 flex items-center justify-between gap-2 border-t border-[#EADBCC]/70 pt-3.5 dark:border-[#332C27]">
+        <div className="flex flex-wrap items-baseline gap-1.5">
+          <span className="text-base font-bold text-[#2C2724] dark:text-[#F7F5F0]">
             {formatPrice(discountedPrice)}
           </span>
           {hasDiscount && (
-            <span className="text-[11px] text-neutral-400 line-through">
+            <span className="text-xs text-[#736B63] line-through">
               {formatPrice(product.price)}
             </span>
           )}
@@ -97,17 +97,15 @@ export const ProductCard = ({ product, onAdd }: ProductCardProps) => {
           type="button"
           disabled={isOutOfStock}
           onClick={handleAddToCart}
-          className={`h-7 rounded-lg px-2.5 text-[11px] font-semibold transition ${
-            isAdded
-              ? "bg-neutral-900 text-white dark:bg-white dark:text-neutral-950"
-              : "border border-neutral-300 bg-white text-neutral-900 hover:bg-neutral-100 disabled:opacity-40 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 dark:hover:bg-neutral-800"
-          }`}
+          className="rounded-lg py-2.5 px-4 bg-[#8C6D58] hover:bg-[#735744] text-white text-xs font-medium transition-colors disabled:opacity-40 shrink-0"
         >
           {isAdded ? (
             <span className="flex items-center gap-1">
-              <IconCheck className="h-3 w-3" />
+              <IconCheck className="h-3.5 w-3.5" />
               <span>Added</span>
             </span>
+          ) : isOutOfStock ? (
+            "Out of stock"
           ) : (
             "Add to cart"
           )}

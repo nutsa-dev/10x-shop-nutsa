@@ -41,21 +41,21 @@ export const CartSummary = ({
   };
 
   return (
-    <div className="rounded-xl border border-neutral-200/90 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-900">
-      <h2 className="text-sm font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
+    <div className="rounded-2xl border border-[#EADBCC] bg-white p-5 shadow-[0_4px_20px_rgba(44,39,36,0.04)] dark:border-[#332C27] dark:bg-[#24201D]">
+      <h2 className="text-sm font-bold tracking-tight text-[#2C2724] dark:text-[#F7F5F0]">
         Order Summary
       </h2>
 
       {/* Promo */}
-      <div className="mt-4 border-b border-neutral-100 pb-4 dark:border-neutral-800">
+      <div className="mt-4 border-b border-[#EADBCC] pb-4 dark:border-[#332C27]">
         {promoCode ? (
-          <div className="flex items-center justify-between rounded-lg bg-neutral-100 px-3 py-2 text-xs font-semibold text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100">
+          <div className="flex items-center justify-between rounded-lg bg-[#F2EFE9] px-3 py-2 text-xs font-semibold text-[#2C2724] dark:bg-[#191614] dark:text-[#F7F5F0]">
             <span>Promo {promoCode} (-10%)</span>
             <button
               type="button"
               onClick={onRemovePromo}
               aria-label="Remove promo"
-              className="text-neutral-500 hover:text-neutral-900 dark:hover:text-white"
+              className="text-[#736B63] hover:text-[#2C2724] dark:hover:text-white"
             >
               <IconClose className="h-3.5 w-3.5" />
             </button>
@@ -71,11 +71,11 @@ export const CartSummary = ({
                   setInputCode(e.target.value);
                   if (promoError) setPromoError(null);
                 }}
-                className="w-full rounded-lg border border-neutral-200 bg-neutral-50 px-2.5 py-1.5 text-xs uppercase text-neutral-900 outline-none focus:border-neutral-900 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100"
+                className="w-full rounded-lg border border-[#EADBCC] bg-[#F7F5F0] px-2.5 py-2 text-xs uppercase text-[#2C2724] outline-none focus:border-[#8C6D58] dark:border-[#332C27] dark:bg-[#191614] dark:text-[#F7F5F0]"
               />
               <button
                 type="submit"
-                className="rounded-lg bg-neutral-900 px-3 py-1.5 text-xs font-semibold text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-950"
+                className="rounded-lg bg-[#8C6D58] hover:bg-[#735744] px-3.5 py-2 text-xs font-medium text-white transition-colors"
               >
                 Apply
               </button>
@@ -91,54 +91,54 @@ export const CartSummary = ({
 
       {/* Breakdown */}
       <dl className="mt-4 space-y-2 text-xs">
-        <div className="flex justify-between text-neutral-600 dark:text-neutral-400">
+        <div className="flex justify-between text-[#736B63]">
           <dt>Subtotal</dt>
-          <dd className="font-semibold text-neutral-900 dark:text-neutral-100">
+          <dd className="font-semibold text-[#2C2724] dark:text-[#F7F5F0]">
             {formatPrice(rawSubtotal)}
           </dd>
         </div>
 
         {savings > 0 && (
-          <div className="flex justify-between text-neutral-600 dark:text-neutral-400">
+          <div className="flex justify-between text-[#736B63]">
             <dt>Discounts</dt>
-            <dd className="font-semibold">
+            <dd className="font-semibold text-[#8C6D58]">
               -{formatPrice(rawSubtotal - subtotal)}
             </dd>
           </div>
         )}
 
         {promoDiscount > 0 && (
-          <div className="flex justify-between text-neutral-600 dark:text-neutral-400">
+          <div className="flex justify-between text-[#736B63]">
             <dt>Promo Voucher</dt>
-            <dd className="font-semibold">
+            <dd className="font-semibold text-[#8C6D58]">
               -{formatPrice(promoDiscount)}
             </dd>
           </div>
         )}
 
-        <div className="flex justify-between text-neutral-600 dark:text-neutral-400">
+        <div className="flex justify-between text-[#736B63]">
           <dt>Shipping</dt>
-          <dd className="font-semibold">Free</dd>
+          <dd className="font-semibold text-[#2C2724] dark:text-[#F7F5F0]">Complimentary</dd>
         </div>
 
-        <div className="border-t border-neutral-100 pt-3 flex justify-between text-sm font-bold text-neutral-900 dark:border-neutral-800 dark:text-neutral-100">
+        <div className="border-t border-[#EADBCC] pt-3 flex justify-between text-sm font-bold text-[#2C2724] dark:border-[#332C27] dark:text-[#F7F5F0]">
           <dt>Total</dt>
           <dd>{formatPrice(totalPrice)}</dd>
         </div>
       </dl>
 
-      <div className="mt-5 space-y-2">
+      <div className="mt-5 space-y-2.5">
         <Link
           to="/checkout"
-          className="flex w-full items-center justify-center rounded-lg bg-neutral-900 py-2.5 text-xs font-semibold text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-950 transition"
+          className="flex w-full items-center justify-center rounded-lg bg-[#8C6D58] hover:bg-[#735744] py-2.5 px-4 text-xs font-medium text-white transition-colors"
         >
-          Checkout
+          Proceed to Checkout
         </Link>
         <Link
           to="/"
-          className="block text-center text-xs text-neutral-500 hover:text-neutral-900 dark:hover:text-white"
+          className="block text-center text-xs text-[#736B63] hover:text-[#2C2724] dark:hover:text-white"
         >
-          Continue Shopping
+          Continue Browsing
         </Link>
       </div>
     </div>

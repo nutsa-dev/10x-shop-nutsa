@@ -16,21 +16,16 @@ export const Navbar = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-neutral-200/80 bg-white/90 backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-950/90 transition-colors">
-      <div className="container mx-auto flex h-14 items-center justify-between px-4 sm:px-6">
+    <header className="sticky top-0 z-40 w-full border-b border-[#EADBCC] bg-[#F7F5F0]/90 backdrop-blur-md transition-colors dark:border-[#332C27] dark:bg-[#191614]/90">
+      <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6">
         
-        {/* Brand & Links */}
-        <div className="flex items-center gap-6 sm:gap-8">
+        {/* Brand & Navigation Links */}
+        <div className="flex items-center gap-5 sm:gap-8">
           <Link
             to="/"
-            className="flex items-center gap-2 text-sm font-extrabold tracking-tight text-neutral-950 dark:text-white"
+            className="flex items-center gap-2 text-xs sm:text-sm font-bold tracking-wider uppercase text-[#2C2724] dark:text-[#F7F5F0]"
           >
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-neutral-950 text-[11px] font-black text-white dark:bg-white dark:text-neutral-950">
-              10X
-            </span>
-            <span className="tracking-widest uppercase text-xs font-bold text-neutral-900 dark:text-white">
-              Alpine
-            </span>
+            <span>KURA // Atelier Objects</span>
           </Link>
 
           <nav className="flex items-center gap-1">
@@ -38,22 +33,22 @@ export const Navbar = () => {
               to="/"
               end
               className={({ isActive }) =>
-                `rounded-md px-2.5 py-1 text-xs font-semibold transition ${
+                `rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
                   isActive
-                    ? "bg-neutral-100 text-neutral-950 dark:bg-neutral-900 dark:text-white"
-                    : "text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
+                    ? "bg-[#EADBCC]/60 text-[#2C2724] dark:bg-[#2C2724] dark:text-[#F7F5F0]"
+                    : "text-[#736B63] hover:text-[#2C2724] dark:text-[#A39A90] dark:hover:text-[#F7F5F0]"
                 }`
               }
             >
-              Catalog
+              Collection
             </NavLink>
             <NavLink
               to="/orders"
               className={({ isActive }) =>
-                `rounded-md px-2.5 py-1 text-xs font-semibold transition ${
+                `rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
                   isActive
-                    ? "bg-neutral-100 text-neutral-950 dark:bg-neutral-900 dark:text-white"
-                    : "text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
+                    ? "bg-[#EADBCC]/60 text-[#2C2724] dark:bg-[#2C2724] dark:text-[#F7F5F0]"
+                    : "text-[#736B63] hover:text-[#2C2724] dark:text-[#A39A90] dark:hover:text-[#F7F5F0]"
                 }`
               }
             >
@@ -69,7 +64,7 @@ export const Navbar = () => {
             type="button"
             onClick={toggleTheme}
             aria-label="Toggle theme"
-            className="flex h-8 w-8 items-center justify-center rounded-lg border border-neutral-200 bg-white text-neutral-600 hover:bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800 transition"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#EADBCC] bg-white text-[#736B63] hover:border-[#8C6D58] hover:text-[#2C2724] transition-colors dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#D6CEC5]"
           >
             {theme === "dark" ? (
               <IconSun className="h-3.5 w-3.5" />
@@ -82,10 +77,10 @@ export const Navbar = () => {
           <NavLink
             to="/cart"
             className={({ isActive }) =>
-              `flex h-8 items-center gap-1.5 rounded-lg border px-2.5 text-xs font-semibold transition ${
+              `flex h-9 items-center gap-1.5 rounded-lg border px-3 text-xs font-medium transition-colors ${
                 isActive
-                  ? "border-neutral-900 bg-neutral-900 text-white dark:border-white dark:bg-white dark:text-neutral-950"
-                  : "border-neutral-200 bg-white text-neutral-700 hover:bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800"
+                  ? "border-[#8C6D58] bg-[#8C6D58] text-white"
+                  : "border-[#EADBCC] bg-white text-[#2C2724] hover:border-[#8C6D58] dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#F7F5F0]"
               }`
             }
           >
@@ -99,15 +94,15 @@ export const Navbar = () => {
             <div className="flex items-center gap-1.5 pl-1">
               <NavLink
                 to="/profile"
-                className="flex h-8 items-center gap-1.5 rounded-lg border border-neutral-200 px-2 text-xs font-medium text-neutral-700 hover:bg-neutral-50 dark:border-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-800"
+                className="flex h-9 items-center gap-1.5 rounded-lg border border-[#EADBCC] bg-white px-2.5 text-xs font-medium text-[#2C2724] hover:border-[#8C6D58] transition-colors dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#F7F5F0]"
               >
-                <IconUser className="h-3.5 w-3.5" />
+                <IconUser className="h-3.5 w-3.5 text-[#8C6D58]" />
                 <span className="max-w-[70px] truncate">{user?.username}</span>
               </NavLink>
               <button
                 type="button"
                 onClick={handleLogout}
-                className="hidden sm:inline-block text-xs font-medium text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white px-1.5"
+                className="hidden sm:inline-block text-xs font-medium text-[#736B63] hover:text-[#2C2724] dark:text-[#A39A90] dark:hover:text-[#F7F5F0] px-1.5"
               >
                 Logout
               </button>
@@ -115,7 +110,7 @@ export const Navbar = () => {
           ) : (
             <Link
               to="/login"
-              className="flex h-8 items-center rounded-lg bg-neutral-900 px-3 text-xs font-semibold text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200 transition"
+              className="flex h-9 items-center rounded-lg bg-[#8C6D58] px-3.5 text-xs font-medium text-white hover:bg-[#735744] transition-colors"
             >
               Sign In
             </Link>

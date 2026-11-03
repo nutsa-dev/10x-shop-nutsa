@@ -7,7 +7,7 @@ import { ProtectedRoute } from "@/routes/ProtectedRoute";
 import { Layout } from "@/components/layout/Layout";
 import { ErrorBoundary } from "@/components/layout/ErrorBoundary";
 
-// Route-level code splitting (React.lazy) per PRD Architecture
+// Route-level code splitting (React.lazy)
 const CatalogPage = lazy(() =>
   import("@/pages/CatalogPage").then((m) => ({ default: m.CatalogPage }))
 );
@@ -36,8 +36,8 @@ const NotFoundPage = lazy(() =>
 const RouteLoadingFallback = () => (
   <div className="flex min-h-[50vh] items-center justify-center">
     <div className="flex flex-col items-center gap-2">
-      <div className="h-6 w-6 animate-spin rounded-full border-2 border-neutral-900 border-t-transparent dark:border-white" />
-      <span className="text-xs text-neutral-500 dark:text-neutral-400">
+      <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#8C6D58] border-t-transparent" />
+      <span className="text-xs text-[#736B63]">
         Loading...
       </span>
     </div>

@@ -80,19 +80,19 @@ export const OrdersPage = () => {
   if (orders.length === 0) {
     return (
       <div className="container mx-auto px-4 py-20 text-center">
-        <div className="mx-auto max-w-sm rounded-xl border border-neutral-200 bg-white p-10 dark:border-neutral-800 dark:bg-neutral-900">
-          <h1 className="text-base font-bold text-neutral-900 dark:text-neutral-100">
+        <div className="mx-auto max-w-sm rounded-2xl border border-[#EADBCC] bg-white p-10 shadow-[0_4px_20px_rgba(44,39,36,0.04)] dark:border-[#332C27] dark:bg-[#24201D]">
+          <h1 className="text-base font-bold text-[#2C2724] dark:text-[#F7F5F0]">
             No Orders Yet
           </h1>
-          <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+          <p className="mt-1 text-xs text-[#736B63]">
             Orders you place will appear here with live simulation tracking.
           </p>
           <div className="mt-5">
             <Link
               to="/"
-              className="inline-flex rounded-lg bg-neutral-900 px-4 py-2 text-xs font-semibold text-white dark:bg-white dark:text-neutral-950 transition hover:bg-neutral-800"
+              className="inline-flex rounded-lg bg-[#8C6D58] hover:bg-[#735744] px-4 py-2.5 text-xs font-medium text-white transition-colors"
             >
-              Browse Equipment
+              Explore Collection
             </Link>
           </div>
         </div>
@@ -102,18 +102,18 @@ export const OrdersPage = () => {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
-      <div className="mb-6 flex items-center justify-between border-b border-neutral-200/80 pb-4 dark:border-neutral-800">
+      <div className="mb-6 flex items-center justify-between border-b border-[#EADBCC] pb-4 dark:border-[#332C27]">
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
+          <h1 className="text-xl font-bold tracking-tight text-[#2C2724] dark:text-[#F7F5F0]">
             Orders & Tracking
           </h1>
-          <p className="text-xs text-neutral-500 dark:text-neutral-400">
+          <p className="text-xs text-[#736B63]">
             {orders.length} {orders.length === 1 ? "order" : "orders"}
           </p>
         </div>
 
-        <Link to="/" className="text-xs text-neutral-500 hover:text-neutral-900 dark:hover:text-white">
-          ← Catalog
+        <Link to="/" className="text-xs text-[#736B63] hover:text-[#2C2724] dark:hover:text-white">
+          ← Collection
         </Link>
       </div>
 
@@ -126,27 +126,27 @@ export const OrdersPage = () => {
           return (
             <div
               key={order.id}
-              className="rounded-xl border border-neutral-200/90 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-900"
+              className="rounded-2xl border border-[#EADBCC] bg-white p-5 shadow-[0_4px_20px_rgba(44,39,36,0.04)] dark:border-[#332C27] dark:bg-[#24201D]"
             >
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between border-b border-neutral-100 pb-4 dark:border-neutral-800">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between border-b border-[#EADBCC]/70 pb-4 dark:border-[#332C27]">
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-sm font-bold text-neutral-900 dark:text-neutral-100">
+                    <span className="font-mono text-sm font-bold text-[#2C2724] dark:text-[#F7F5F0]">
                       #{order.number}
                     </span>
-                    <span className="rounded-md bg-neutral-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
+                    <span className="rounded-md bg-[#F2EFE9] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#8C6D58] dark:bg-[#191614]">
                       {currentStatus}
                     </span>
                   </div>
-                  <p className="mt-0.5 text-[11px] text-neutral-400">
+                  <p className="mt-0.5 text-[11px] text-[#736B63]">
                     Placed {formatDate(order.placedAt)} • To: {order.shipping.fullName}
                   </p>
                 </div>
 
                 <div className="flex items-center gap-4">
                   <div className="text-left sm:text-right">
-                    <span className="text-[10px] uppercase text-neutral-400">Total</span>
-                    <p className="text-sm font-bold text-neutral-900 dark:text-neutral-100">
+                    <span className="text-[10px] uppercase text-[#736B63]">Total</span>
+                    <p className="text-sm font-bold text-[#2C2724] dark:text-[#F7F5F0]">
                       {formatPrice(order.total)}
                     </p>
                   </div>
@@ -155,14 +155,14 @@ export const OrdersPage = () => {
                     <button
                       type="button"
                       onClick={() => handleReorder(order)}
-                      className="rounded-md bg-neutral-900 px-2.5 py-1 text-xs font-semibold text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-950"
+                      className="rounded-lg bg-[#8C6D58] hover:bg-[#735744] px-3 py-1.5 text-xs font-medium text-white transition-colors"
                     >
                       Reorder
                     </button>
                     <button
                       type="button"
                       onClick={() => handleCycleStatus(order.id)}
-                      className="rounded-md border border-neutral-200 px-2 py-1 text-xs text-neutral-600 hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-300"
+                      className="rounded-lg border border-[#EADBCC] px-2.5 py-1.5 text-xs text-[#736B63] hover:border-[#8C6D58] hover:text-[#2C2724] dark:border-[#332C27] dark:text-[#A39A90]"
                     >
                       Simulate ↻
                     </button>
@@ -171,7 +171,7 @@ export const OrdersPage = () => {
               </div>
 
               {/* Minimal Timeline */}
-              <div className="py-4 border-b border-neutral-100 dark:border-neutral-800">
+              <div className="py-4 border-b border-[#EADBCC]/70 dark:border-[#332C27]">
                 <div className="flex items-center justify-between max-w-md mx-auto">
                   {STATUS_STEPS.map((step, idx) => {
                     const isPassed = idx <= currentStepIndex;
@@ -182,13 +182,13 @@ export const OrdersPage = () => {
                         <div
                           className={`flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold transition ${
                             isPassed
-                              ? "bg-neutral-900 text-white dark:bg-white dark:text-neutral-950"
-                              : "border border-neutral-300 text-neutral-400 dark:border-neutral-700"
-                          } ${isCurrent ? "ring-2 ring-neutral-400" : ""}`}
+                              ? "bg-[#8C6D58] text-white"
+                              : "border border-[#EADBCC] text-[#736B63] dark:border-[#332C27]"
+                          } ${isCurrent ? "ring-2 ring-[#EADBCC]" : ""}`}
                         >
                           {isPassed ? <IconCheck className="h-3 w-3" /> : idx + 1}
                         </div>
-                        <span className={`mt-1.5 text-[11px] font-medium ${isCurrent ? "font-bold text-neutral-900 dark:text-white" : "text-neutral-400"}`}>
+                        <span className={`mt-1.5 text-[11px] font-medium ${isCurrent ? "font-bold text-[#2C2724] dark:text-[#F7F5F0]" : "text-[#736B63]"}`}>
                           {step}
                         </span>
                       </div>
@@ -202,23 +202,23 @@ export const OrdersPage = () => {
                 <button
                   type="button"
                   onClick={() => toggleExpand(order.id)}
-                  className="font-medium text-neutral-600 hover:underline dark:text-neutral-400"
+                  className="font-medium text-[#8C6D58] hover:underline"
                 >
-                  {isExpanded ? "Hide items" : `View ${order.items.length} items`}
+                  {isExpanded ? "Hide objects" : `View ${order.items.length} objects`}
                 </button>
-                <span className="text-neutral-400 text-[11px]">
+                <span className="text-[#736B63] text-[11px]">
                   {order.shipping.address}, {order.shipping.city}
                 </span>
               </div>
 
               {isExpanded && (
-                <div className="mt-3 space-y-2 rounded-lg bg-neutral-50 p-3 text-xs dark:bg-neutral-800/50">
+                <div className="mt-3 space-y-2 rounded-xl bg-[#F7F5F0] p-3.5 text-xs dark:bg-[#191614]">
                   {order.items.map((item) => (
                     <div key={item.productId} className="flex justify-between items-center">
-                      <span className="truncate pr-2">
+                      <span className="truncate pr-2 text-[#2C2724] dark:text-[#F7F5F0]">
                         {item.quantity}× {item.title}
                       </span>
-                      <span className="font-semibold">
+                      <span className="font-semibold text-[#2C2724] dark:text-[#F7F5F0]">
                         {formatPrice(getDiscountedPrice(item.price, item.discountPercentage) * item.quantity)}
                       </span>
                     </div>

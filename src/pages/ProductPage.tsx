@@ -103,14 +103,14 @@ export const ProductPage = () => {
   if (loading) {
     return (
       <div className="container mx-auto px-4 sm:px-6 py-8 animate-pulse">
-        <div className="h-4 w-32 rounded bg-neutral-200 dark:bg-neutral-800" />
+        <div className="h-4 w-32 rounded bg-[#EADBCC]/60 dark:bg-[#332C27]" />
         <div className="mt-6 grid grid-cols-1 gap-8 md:grid-cols-2">
-          <div className="aspect-square w-full rounded-xl bg-neutral-200 dark:bg-neutral-800" />
+          <div className="aspect-square w-full rounded-2xl bg-[#F2EFE9] dark:bg-[#24201D]" />
           <div className="space-y-4">
-            <div className="h-3 w-20 rounded bg-neutral-200 dark:bg-neutral-800" />
-            <div className="h-6 w-3/4 rounded bg-neutral-200 dark:bg-neutral-800" />
-            <div className="h-5 w-28 rounded bg-neutral-200 dark:bg-neutral-800" />
-            <div className="h-20 w-full rounded bg-neutral-200 dark:bg-neutral-800" />
+            <div className="h-3 w-20 rounded bg-[#EADBCC]/60 dark:bg-[#332C27]" />
+            <div className="h-6 w-3/4 rounded bg-[#EADBCC]/60 dark:bg-[#332C27]" />
+            <div className="h-5 w-28 rounded bg-[#EADBCC]/60 dark:bg-[#332C27]" />
+            <div className="h-20 w-full rounded bg-[#EADBCC]/60 dark:bg-[#332C27]" />
           </div>
         </div>
       </div>
@@ -120,19 +120,19 @@ export const ProductPage = () => {
   if (error || !product) {
     return (
       <div className="container mx-auto px-4 sm:px-6 py-16 text-center">
-        <div className="mx-auto max-w-sm rounded-xl border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-neutral-900">
-          <h2 className="text-base font-bold text-neutral-900 dark:text-neutral-100">
-            Product Not Found
+        <div className="mx-auto max-w-sm rounded-2xl border border-[#EADBCC] bg-white p-8 dark:border-[#332C27] dark:bg-[#24201D]">
+          <h2 className="text-base font-bold text-[#2C2724] dark:text-[#F7F5F0]">
+            Object Not Found
           </h2>
-          <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-            {error || "The requested piece of gear could not be found."}
+          <p className="mt-1 text-xs text-[#736B63]">
+            {error || "The requested atelier object could not be found."}
           </p>
           <Link
             to="/"
-            className="mt-5 inline-flex items-center gap-1.5 rounded-lg bg-neutral-900 px-4 py-2 text-xs font-semibold text-white dark:bg-white dark:text-neutral-950 transition"
+            className="mt-5 inline-flex items-center gap-1.5 rounded-lg bg-[#8C6D58] hover:bg-[#735744] px-4 py-2.5 text-xs font-medium text-white transition-colors"
           >
             <IconArrowLeft className="h-3 w-3" />
-            <span>Return to Catalog</span>
+            <span>Return to Collection</span>
           </Link>
         </div>
       </div>
@@ -147,16 +147,16 @@ export const ProductPage = () => {
   return (
     <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
       {/* Breadcrumb */}
-      <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-xs text-neutral-500 dark:text-neutral-400">
-        <Link to="/" className="hover:text-neutral-900 dark:hover:text-white flex items-center gap-1">
+      <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-xs text-[#736B63]">
+        <Link to="/" className="hover:text-[#2C2724] dark:hover:text-[#F7F5F0] flex items-center gap-1">
           <IconArrowLeft className="h-3 w-3" />
-          <span>Catalog</span>
+          <span>Collection</span>
         </Link>
         <span>/</span>
-        <span className="capitalize">{product.category}</span>
+        <span className="capitalize">{product.category.replace("-", " ")}</span>
         <span>/</span>
-        <span className="truncate text-neutral-900 dark:text-neutral-200 font-medium">
-          {product.brand ? `${product.brand} ${product.title}` : product.title}
+        <span className="truncate text-[#2C2724] dark:text-[#F7F5F0] font-medium">
+          {product.title}
         </span>
       </nav>
 
@@ -164,7 +164,7 @@ export const ProductPage = () => {
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
         {/* Left: Gallery */}
         <div className="space-y-3">
-          <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-neutral-200/90 bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900 flex items-center justify-center p-4">
+          <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-[#EADBCC] bg-[#F2EFE9] dark:border-[#332C27] dark:bg-[#24201D] flex items-center justify-center p-6">
             <img
               src={activeImage || product.thumbnail}
               alt={product.title}
@@ -179,51 +179,49 @@ export const ProductPage = () => {
                   key={idx}
                   type="button"
                   onClick={() => setActiveImage(img)}
-                  className={`relative aspect-square h-14 w-14 shrink-0 overflow-hidden rounded-lg border p-1 bg-white dark:bg-neutral-900 transition ${
+                  className={`relative aspect-square h-16 w-16 shrink-0 overflow-hidden rounded-xl border p-1.5 bg-[#F2EFE9] dark:bg-[#24201D] transition ${
                     activeImage === img
-                      ? "border-neutral-900 dark:border-white"
-                      : "border-neutral-200 opacity-60 dark:border-neutral-800"
+                      ? "border-[#8C6D58]"
+                      : "border-[#EADBCC] opacity-60 dark:border-[#332C27]"
                   }`}
                 >
-                  <img src={img} alt={`${product.title} ${idx + 1}`} className="h-full w-full object-cover" />
+                  <img src={img} alt={`${product.title} ${idx + 1}`} className="h-full w-full object-contain" />
                 </button>
               ))}
             </div>
           )}
         </div>
 
-        {/* Right: Info (Evo / Backcountry Specs Layout) */}
+        {/* Right: Info */}
         <div className="flex flex-col">
-          {product.brand && (
-            <span className="text-xs font-black uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
-              {product.brand}
-            </span>
-          )}
+          <span className="text-[11px] uppercase tracking-widest text-[#8C6D58] font-medium">
+            {product.brand || product.category.replace("-", " ")}
+          </span>
 
-          <h1 className="mt-1 text-xl sm:text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
+          <h1 className="mt-1.5 text-xl sm:text-3xl font-bold tracking-tight text-[#2C2724] dark:text-[#F7F5F0]">
             {product.title}
           </h1>
 
           {/* Rating */}
-          <div className="mt-2 flex items-center gap-1.5 text-xs text-neutral-500">
-            <div className="flex items-center gap-0.5 text-neutral-700 dark:text-neutral-300">
-              <IconStar className="h-3.5 w-3.5 fill-current text-neutral-400" />
+          <div className="mt-2 flex items-center gap-1.5 text-xs text-[#736B63]">
+            <div className="flex items-center gap-0.5 text-[#2C2724] dark:text-[#F7F5F0]">
+              <IconStar className="h-3.5 w-3.5 fill-current text-[#8C6D58]" />
               <span className="font-semibold">{product.rating.toFixed(1)}</span>
             </div>
-            <span>• {product.reviews?.length || 0} customer reviews</span>
+            <span>• {product.reviews?.length || 0} client reviews</span>
           </div>
 
           {/* Price */}
-          <div className="mt-4 flex items-baseline gap-2.5 border-y border-neutral-100 py-3 dark:border-neutral-800">
-            <span className="text-2xl font-extrabold text-neutral-900 dark:text-neutral-100">
+          <div className="mt-5 flex items-baseline gap-2.5 border-y border-[#EADBCC] py-4 dark:border-[#332C27]">
+            <span className="text-2xl font-bold text-[#2C2724] dark:text-[#F7F5F0]">
               {formatPrice(discountedPrice)}
             </span>
             {hasDiscount && (
               <>
-                <span className="text-xs text-neutral-400 line-through">
+                <span className="text-sm text-[#736B63] line-through">
                   {formatPrice(product.price)}
                 </span>
-                <span className="rounded bg-neutral-900 px-1.5 py-0.5 text-[10px] font-bold text-white dark:bg-white dark:text-neutral-950">
+                <span className="rounded-md bg-[#8C6D58]/15 px-2 py-0.5 text-[11px] font-semibold text-[#8C6D58]">
                   Save {formatPrice(product.price - discountedPrice)}
                 </span>
               </>
@@ -235,55 +233,38 @@ export const ProductPage = () => {
             {isOutOfStock ? (
               <span className="font-semibold text-rose-600 dark:text-rose-400">Out of stock</span>
             ) : (
-              <span className="font-medium text-neutral-600 dark:text-neutral-400">
-                In stock ({product.stock} units available)
+              <span className="font-medium text-[#736B63]">
+                In stock ({product.stock} pieces available)
               </span>
             )}
           </div>
 
           {/* Description */}
-          <p className="mt-4 text-xs leading-relaxed text-neutral-600 dark:text-neutral-300">
+          <p className="mt-4 text-sm leading-relaxed text-[#736B63] dark:text-[#D6CEC5]">
             {product.description}
           </p>
 
-          {/* Evo / Backcountry Technical Specs Table */}
-          {product.specs && Object.keys(product.specs).length > 0 && (
-            <div className="mt-5 border-t border-neutral-100 pt-4 dark:border-neutral-800">
-              <h2 className="text-[11px] font-bold uppercase tracking-wider text-neutral-400 mb-2.5">
-                Technical Specifications
-              </h2>
-              <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-xs">
-                {Object.entries(product.specs).map(([key, val]) => (
-                  <div key={key} className="flex justify-between border-b border-neutral-100 pb-1.5 dark:border-neutral-800/60">
-                    <dt className="text-neutral-500 dark:text-neutral-400">{key}:</dt>
-                    <dd className="font-semibold text-neutral-800 dark:text-neutral-200 text-right">{val}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          )}
-
           {/* Actions */}
           <div className="mt-6 space-y-3">
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-3">
               {/* Stepper */}
-              <div className="flex h-10 items-center rounded-lg border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900">
+              <div className="flex h-11 items-center rounded-lg border border-[#EADBCC] bg-white dark:border-[#332C27] dark:bg-[#24201D]">
                 <button
                   type="button"
                   disabled={isOutOfStock || quantity <= 1}
                   onClick={() => handleQuantityChange(-1)}
-                  className="flex h-10 w-9 items-center justify-center text-neutral-600 hover:bg-neutral-100 disabled:opacity-40 dark:text-neutral-400 dark:hover:bg-neutral-800"
+                  className="flex h-11 w-10 items-center justify-center text-[#736B63] hover:text-[#2C2724] disabled:opacity-40"
                 >
                   −
                 </button>
-                <span className="w-8 text-center text-xs font-bold text-neutral-900 dark:text-neutral-100">
+                <span className="w-8 text-center text-xs font-bold text-[#2C2724] dark:text-[#F7F5F0]">
                   {quantity}
                 </span>
                 <button
                   type="button"
                   disabled={isOutOfStock || quantity >= product.stock}
                   onClick={() => handleQuantityChange(1)}
-                  className="flex h-10 w-9 items-center justify-center text-neutral-600 hover:bg-neutral-100 disabled:opacity-40 dark:text-neutral-400 dark:hover:bg-neutral-800"
+                  className="flex h-11 w-10 items-center justify-center text-[#736B63] hover:text-[#2C2724] disabled:opacity-40"
                 >
                   +
                 </button>
@@ -294,16 +275,16 @@ export const ProductPage = () => {
                 type="button"
                 disabled={isOutOfStock}
                 onClick={handleAddToCart}
-                className="flex h-10 flex-1 items-center justify-center gap-1.5 rounded-lg bg-neutral-900 px-5 text-xs font-semibold text-white hover:bg-neutral-800 disabled:opacity-40 dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-200 transition"
+                className="flex h-11 flex-1 items-center justify-center gap-2 rounded-lg bg-[#8C6D58] hover:bg-[#735744] px-5 text-xs font-medium text-white disabled:opacity-40 transition-colors"
               >
                 {addedToast ? (
                   <>
-                    <IconCheck className="h-3.5 w-3.5" />
+                    <IconCheck className="h-4 w-4" />
                     <span>Added to Cart</span>
                   </>
                 ) : (
                   <>
-                    <IconCart className="h-3.5 w-3.5" />
+                    <IconCart className="h-4 w-4" />
                     <span>Add to Cart • {formatPrice(discountedPrice * quantity)}</span>
                   </>
                 )}
@@ -311,9 +292,9 @@ export const ProductPage = () => {
             </div>
 
             {addedToast && (
-              <div className="flex items-center justify-between rounded-lg border border-neutral-200 bg-neutral-100 p-2.5 text-xs text-neutral-900 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100">
-                <span>{quantity}x added to cart</span>
-                <Link to="/cart" className="font-bold underline">
+              <div className="flex items-center justify-between rounded-lg border border-[#EADBCC] bg-white p-3 text-xs text-[#2C2724] dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#F7F5F0]">
+                <span>{quantity}× added to cart</span>
+                <Link to="/cart" className="font-semibold text-[#8C6D58] underline">
                   View Cart →
                 </Link>
               </div>
@@ -324,25 +305,25 @@ export const ProductPage = () => {
 
       {/* Customer Reviews */}
       {product.reviews && product.reviews.length > 0 && (
-        <section className="mt-12 border-t border-neutral-200/80 pt-8 dark:border-neutral-800">
-          <h2 className="text-sm font-bold uppercase tracking-wider text-neutral-900 dark:text-neutral-100">
-            Customer Reviews ({product.reviews.length})
+        <section className="mt-12 border-t border-[#EADBCC] pt-8 dark:border-[#332C27]">
+          <h2 className="text-xs font-bold uppercase tracking-widest text-[#2C2724] dark:text-[#F7F5F0]">
+            Client Reviews ({product.reviews.length})
           </h2>
 
-          <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
             {product.reviews.map((rev, idx) => (
               <div
                 key={idx}
-                className="rounded-lg border border-neutral-200/80 bg-white p-3.5 text-xs dark:border-neutral-800 dark:bg-neutral-900"
+                className="rounded-xl border border-[#EADBCC] bg-white p-4 text-xs dark:border-[#332C27] dark:bg-[#24201D]"
               >
-                <div className="flex items-center justify-between font-semibold">
+                <div className="flex items-center justify-between font-semibold text-[#2C2724] dark:text-[#F7F5F0]">
                   <span>{rev.reviewerName}</span>
-                  <span className="text-neutral-500">★ {rev.rating}</span>
+                  <span className="text-[#8C6D58]">★ {rev.rating}</span>
                 </div>
-                <p className="mt-1.5 text-neutral-600 dark:text-neutral-400">
+                <p className="mt-1.5 text-[#736B63]">
                   "{rev.comment}"
                 </p>
-                <p className="mt-2 text-[10px] text-neutral-400">
+                <p className="mt-2 text-[10px] text-[#736B63]/80">
                   {formatDate(rev.date)}
                 </p>
               </div>
@@ -353,9 +334,9 @@ export const ProductPage = () => {
 
       {/* Related Products */}
       {relatedProducts.length > 0 && (
-        <section className="mt-12 border-t border-neutral-200/80 pt-8 dark:border-neutral-800">
-          <h2 className="mb-4 text-sm font-bold uppercase tracking-wider text-neutral-900 dark:text-neutral-100">
-            Related Gear
+        <section className="mt-12 border-t border-[#EADBCC] pt-8 dark:border-[#332C27]">
+          <h2 className="mb-4 text-xs font-bold uppercase tracking-widest text-[#2C2724] dark:text-[#F7F5F0]">
+            Related Objects
           </h2>
           <ProductGrid products={relatedProducts} />
         </section>

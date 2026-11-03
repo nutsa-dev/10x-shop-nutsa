@@ -5,7 +5,7 @@ import { ScrollToTop } from "./ScrollToTop";
 
 export const Layout = () => {
   return (
-    <div className="flex min-h-screen flex-col bg-neutral-50 text-neutral-900 transition-colors dark:bg-neutral-950 dark:text-neutral-100">
+    <div className="relative flex min-h-screen flex-col bg-[#F7F5F0] text-[#2C2724] transition-colors dark:bg-[#191614] dark:text-[#F7F5F0]">
       <ScrollToTop />
       <Navbar />
       <main className="flex-1">

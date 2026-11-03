@@ -41,53 +41,53 @@ export const ProfilePage = () => {
 
   return (
     <div className="container mx-auto max-w-2xl px-4 sm:px-6 py-6 sm:py-10">
-      <div className="mb-6 border-b border-neutral-200/80 pb-4 dark:border-neutral-800">
-        <h1 className="text-xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
+      <div className="mb-6 border-b border-[#EADBCC] pb-4 dark:border-[#332C27]">
+        <h1 className="text-xl font-bold tracking-tight text-[#2C2724] dark:text-[#F7F5F0]">
           Account & Settings
         </h1>
-        <p className="text-xs text-neutral-500 dark:text-neutral-400">
-          Logged in as <strong className="text-neutral-900 dark:text-white">{user?.username}</strong>
+        <p className="text-xs text-[#736B63]">
+          Logged in as <strong className="text-[#2C2724] dark:text-[#F7F5F0]">{user?.username}</strong>
         </p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-3">
-        <div className="rounded-lg border border-neutral-200 bg-white p-3 text-center dark:border-neutral-800 dark:bg-neutral-900">
-          <span className="text-lg font-bold text-neutral-900 dark:text-neutral-100">
+        <div className="rounded-xl border border-[#EADBCC] bg-white p-3.5 text-center dark:border-[#332C27] dark:bg-[#24201D]">
+          <span className="text-lg font-bold text-[#2C2724] dark:text-[#F7F5F0]">
             {orders.length}
           </span>
-          <p className="text-[10px] uppercase text-neutral-400">Orders</p>
+          <p className="text-[10px] uppercase tracking-wider text-[#736B63]">Orders</p>
         </div>
-        <div className="rounded-lg border border-neutral-200 bg-white p-3 text-center dark:border-neutral-800 dark:bg-neutral-900">
-          <span className="text-lg font-bold text-neutral-900 dark:text-neutral-100">
+        <div className="rounded-xl border border-[#EADBCC] bg-white p-3.5 text-center dark:border-[#332C27] dark:bg-[#24201D]">
+          <span className="text-lg font-bold text-[#2C2724] dark:text-[#F7F5F0]">
             {totalItems}
           </span>
-          <p className="text-[10px] uppercase text-neutral-400">Cart Items</p>
+          <p className="text-[10px] uppercase tracking-wider text-[#736B63]">Cart Objects</p>
         </div>
-        <div className="rounded-lg border border-neutral-200 bg-white p-3 text-center dark:border-neutral-800 dark:bg-neutral-900">
-          <span className="text-lg font-bold text-neutral-900 dark:text-neutral-100">
+        <div className="rounded-xl border border-[#EADBCC] bg-white p-3.5 text-center dark:border-[#332C27] dark:bg-[#24201D]">
+          <span className="text-lg font-bold text-[#2C2724] dark:text-[#F7F5F0]">
             {formatPrice(totalSpent)}
           </span>
-          <p className="text-[10px] uppercase text-neutral-400">Spent</p>
+          <p className="text-[10px] uppercase tracking-wider text-[#736B63]">Spent</p>
         </div>
       </div>
 
       {/* Settings */}
       <div className="mt-6 space-y-3">
         {/* Theme */}
-        <div className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900">
+        <div className="flex items-center justify-between rounded-xl border border-[#EADBCC] bg-white p-4 dark:border-[#332C27] dark:bg-[#24201D]">
           <div>
-            <p className="text-xs font-semibold text-neutral-900 dark:text-neutral-100">
+            <p className="text-xs font-semibold text-[#2C2724] dark:text-[#F7F5F0]">
               Appearance
             </p>
-            <p className="text-[11px] text-neutral-500">
+            <p className="text-[11px] text-[#736B63]">
               {theme === "dark" ? "Dark mode active" : "Light mode active"}
             </p>
           </div>
           <button
             type="button"
             onClick={toggleTheme}
-            className="flex items-center gap-1.5 rounded-md border border-neutral-200 px-3 py-1.5 text-xs font-medium text-neutral-700 hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800"
+            className="flex items-center gap-1.5 rounded-lg border border-[#EADBCC] px-3 py-1.5 text-xs font-medium text-[#2C2724] hover:border-[#8C6D58] dark:border-[#332C27] dark:text-[#F7F5F0]"
           >
             {theme === "dark" ? <IconSun className="h-3.5 w-3.5" /> : <IconMoon className="h-3.5 w-3.5" />}
             <span className="capitalize">{theme} Mode</span>
@@ -95,44 +95,44 @@ export const ProfilePage = () => {
         </div>
 
         {/* Orders link */}
-        <div className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900">
+        <div className="flex items-center justify-between rounded-xl border border-[#EADBCC] bg-white p-4 dark:border-[#332C27] dark:bg-[#24201D]">
           <div>
-            <p className="text-xs font-semibold text-neutral-900 dark:text-neutral-100">
+            <p className="text-xs font-semibold text-[#2C2724] dark:text-[#F7F5F0]">
               Order Tracking
             </p>
-            <p className="text-[11px] text-neutral-500">
+            <p className="text-[11px] text-[#736B63]">
               Check delivery status and timeline
             </p>
           </div>
           <Link
             to="/orders"
-            className="rounded-md bg-neutral-900 px-3 py-1.5 text-xs font-semibold text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-950"
+            className="rounded-lg bg-[#8C6D58] hover:bg-[#735744] px-3.5 py-1.5 text-xs font-medium text-white transition-colors"
           >
             Orders →
           </Link>
         </div>
 
         {/* Reset Demo Data */}
-        <div className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900">
+        <div className="flex items-center justify-between rounded-xl border border-[#EADBCC] bg-white p-4 dark:border-[#332C27] dark:bg-[#24201D]">
           <div>
-            <p className="text-xs font-semibold text-neutral-900 dark:text-neutral-100">
+            <p className="text-xs font-semibold text-[#2C2724] dark:text-[#F7F5F0]">
               Reset Demo Data
             </p>
-            <p className="text-[11px] text-neutral-500">
+            <p className="text-[11px] text-[#736B63]">
               Clear demo orders and local cart
             </p>
           </div>
           <button
             type="button"
             onClick={handleResetData}
-            className="rounded-md border border-neutral-300 px-3 py-1.5 text-xs text-neutral-700 hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800"
+            className="rounded-lg border border-[#EADBCC] px-3 py-1.5 text-xs text-[#736B63] hover:border-[#8C6D58] hover:text-[#2C2724] dark:border-[#332C27] dark:text-[#D6CEC5]"
           >
             Reset
           </button>
         </div>
 
         {resetMessage && (
-          <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
+          <p className="text-xs font-medium text-[#8C6D58]">
             ✓ {resetMessage}
           </p>
         )}
@@ -141,7 +141,7 @@ export const ProfilePage = () => {
           <button
             type="button"
             onClick={handleLogout}
-            className="w-full rounded-lg border border-neutral-200 py-2 text-xs font-medium text-neutral-700 hover:bg-neutral-100 dark:border-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-800"
+            className="w-full rounded-lg border border-[#EADBCC] bg-white py-2.5 text-xs font-medium text-[#2C2724] hover:border-[#8C6D58] dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#F7F5F0]"
           >
             Sign Out
           </button>

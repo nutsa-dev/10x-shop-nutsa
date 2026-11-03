@@ -54,7 +54,7 @@ export const CheckoutPage = () => {
       await new Promise((resolve) => setTimeout(resolve, 500));
 
       const orderId = Date.now();
-      const orderNumber = `ALP-${Math.floor(100000 + Math.random() * 900000)}`;
+      const orderNumber = `KURA-${Math.floor(100000 + Math.random() * 900000)}`;
 
       const newOrder: Order = {
         id: orderId,
@@ -86,51 +86,51 @@ export const CheckoutPage = () => {
   if (placedOrder) {
     return (
       <div className="container mx-auto px-4 py-16">
-        <div className="mx-auto max-w-lg rounded-xl border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-neutral-900">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 mb-4">
+        <div className="mx-auto max-w-lg rounded-2xl border border-[#EADBCC] bg-white p-8 shadow-[0_4px_20px_rgba(44,39,36,0.04)] dark:border-[#332C27] dark:bg-[#24201D]">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#8C6D58] text-white mb-4">
             <IconCheck className="h-6 w-6" />
           </div>
 
-          <h1 className="text-xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
+          <h1 className="text-xl font-bold tracking-tight text-[#2C2724] dark:text-[#F7F5F0]">
             Order Confirmed
           </h1>
-          <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-            Order #{placedOrder.number} has been placed successfully.
+          <p className="mt-1 text-xs text-[#736B63]">
+            Order #{placedOrder.number} has been placed with KURA // Atelier Objects.
           </p>
 
-          <div className="mt-6 border-t border-neutral-100 pt-4 text-xs space-y-2 dark:border-neutral-800">
+          <div className="mt-6 border-t border-[#EADBCC] pt-4 text-xs space-y-2 dark:border-[#332C27]">
             <div className="flex justify-between">
-              <span className="text-neutral-500">Recipient</span>
-              <span className="font-semibold text-neutral-900 dark:text-neutral-100">
+              <span className="text-[#736B63]">Recipient</span>
+              <span className="font-semibold text-[#2C2724] dark:text-[#F7F5F0]">
                 {placedOrder.shipping.fullName}
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-neutral-500">Destination</span>
-              <span className="font-semibold text-neutral-900 dark:text-neutral-100">
+              <span className="text-[#736B63]">Destination</span>
+              <span className="font-semibold text-[#2C2724] dark:text-[#F7F5F0]">
                 {placedOrder.shipping.address}, {placedOrder.shipping.city}
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-neutral-500">Total Paid</span>
-              <span className="font-bold text-neutral-900 dark:text-neutral-100">
+              <span className="text-[#736B63]">Total Paid</span>
+              <span className="font-bold text-[#2C2724] dark:text-[#F7F5F0]">
                 {formatPrice(placedOrder.total)}
               </span>
             </div>
           </div>
 
-          <div className="mt-6 flex gap-2">
+          <div className="mt-6 flex gap-2.5">
             <Link
               to="/orders"
-              className="flex-1 rounded-lg bg-neutral-900 py-2.5 text-center text-xs font-semibold text-white dark:bg-white dark:text-neutral-950 hover:bg-neutral-800 transition"
+              className="flex-1 rounded-lg bg-[#8C6D58] hover:bg-[#735744] py-2.5 text-center text-xs font-medium text-white transition-colors"
             >
               Track Order
             </Link>
             <Link
               to="/"
-              className="rounded-lg border border-neutral-200 px-4 py-2.5 text-xs font-semibold text-neutral-700 hover:bg-neutral-100 dark:border-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-800 transition"
+              className="rounded-lg border border-[#EADBCC] px-4 py-2.5 text-xs font-medium text-[#2C2724] hover:border-[#8C6D58] transition-colors dark:border-[#332C27] dark:text-[#F7F5F0]"
             >
-              Catalog
+              Collection
             </Link>
           </div>
         </div>
@@ -141,14 +141,14 @@ export const CheckoutPage = () => {
   if (items.length === 0) {
     return (
       <div className="container mx-auto px-4 py-16 text-center">
-        <h2 className="text-base font-bold text-neutral-900 dark:text-neutral-100">
+        <h2 className="text-base font-bold text-[#2C2724] dark:text-[#F7F5F0]">
           Your Cart is Empty
         </h2>
         <Link
           to="/"
-          className="mt-4 inline-flex rounded-lg bg-neutral-900 px-4 py-2 text-xs font-semibold text-white dark:bg-white dark:text-neutral-900"
+          className="mt-4 inline-flex rounded-lg bg-[#8C6D58] hover:bg-[#735744] px-4 py-2.5 text-xs font-medium text-white transition-colors"
         >
-          Browse Equipment
+          Explore Collection
         </Link>
       </div>
     );
@@ -158,26 +158,26 @@ export const CheckoutPage = () => {
     <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
       <Link
         to="/cart"
-        className="inline-flex items-center gap-1 text-xs text-neutral-500 hover:text-neutral-900 dark:hover:text-white mb-4"
+        className="inline-flex items-center gap-1 text-xs text-[#736B63] hover:text-[#2C2724] dark:hover:text-white mb-4"
       >
         <IconArrowLeft className="h-3.5 w-3.5" />
         <span>Back to cart</span>
       </Link>
 
-      <h1 className="text-xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100 mb-6">
+      <h1 className="text-xl font-bold tracking-tight text-[#2C2724] dark:text-[#F7F5F0] mb-6">
         Checkout
       </h1>
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-start">
         {/* Form */}
-        <div className="rounded-xl border border-neutral-200 bg-white p-6 lg:col-span-7 dark:border-neutral-800 dark:bg-neutral-900">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-4">
+        <div className="rounded-2xl border border-[#EADBCC] bg-white p-6 lg:col-span-7 shadow-[0_4px_20px_rgba(44,39,36,0.04)] dark:border-[#332C27] dark:bg-[#24201D]">
+          <h2 className="text-[11px] font-bold uppercase tracking-widest text-[#8C6D58] mb-4">
             Shipping Information
           </h2>
 
-          <form onSubmit={formik.handleSubmit} className="space-y-3.5">
+          <form onSubmit={formik.handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="fullName" className="block text-xs font-medium text-neutral-700 dark:text-neutral-300">
+              <label htmlFor="fullName" className="block text-xs font-medium text-[#2C2724] dark:text-[#F7F5F0]">
                 Full Name
               </label>
               <input
@@ -188,7 +188,7 @@ export const CheckoutPage = () => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.fullName}
-                className="mt-1 w-full rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2 text-xs text-neutral-900 outline-none focus:border-neutral-900 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100"
+                className="mt-1.5 w-full rounded-lg border border-[#EADBCC] bg-[#F7F5F0] px-3 py-2 text-xs text-[#2C2724] outline-none focus:border-[#8C6D58] dark:border-[#332C27] dark:bg-[#191614] dark:text-[#F7F5F0]"
               />
               {formik.touched.fullName && formik.errors.fullName && (
                 <p className="mt-1 text-[11px] text-rose-600">{formik.errors.fullName}</p>
@@ -196,7 +196,7 @@ export const CheckoutPage = () => {
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-xs font-medium text-neutral-700 dark:text-neutral-300">
+              <label htmlFor="email" className="block text-xs font-medium text-[#2C2724] dark:text-[#F7F5F0]">
                 Email Address
               </label>
               <input
@@ -207,7 +207,7 @@ export const CheckoutPage = () => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.email}
-                className="mt-1 w-full rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2 text-xs text-neutral-900 outline-none focus:border-neutral-900 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100"
+                className="mt-1.5 w-full rounded-lg border border-[#EADBCC] bg-[#F7F5F0] px-3 py-2 text-xs text-[#2C2724] outline-none focus:border-[#8C6D58] dark:border-[#332C27] dark:bg-[#191614] dark:text-[#F7F5F0]"
               />
               {formik.touched.email && formik.errors.email && (
                 <p className="mt-1 text-[11px] text-rose-600">{formik.errors.email}</p>
@@ -215,7 +215,7 @@ export const CheckoutPage = () => {
             </div>
 
             <div>
-              <label htmlFor="address" className="block text-xs font-medium text-neutral-700 dark:text-neutral-300">
+              <label htmlFor="address" className="block text-xs font-medium text-[#2C2724] dark:text-[#F7F5F0]">
                 Street Address
               </label>
               <input
@@ -226,7 +226,7 @@ export const CheckoutPage = () => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.address}
-                className="mt-1 w-full rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2 text-xs text-neutral-900 outline-none focus:border-neutral-900 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100"
+                className="mt-1.5 w-full rounded-lg border border-[#EADBCC] bg-[#F7F5F0] px-3 py-2 text-xs text-[#2C2724] outline-none focus:border-[#8C6D58] dark:border-[#332C27] dark:bg-[#191614] dark:text-[#F7F5F0]"
               />
               {formik.touched.address && formik.errors.address && (
                 <p className="mt-1 text-[11px] text-rose-600">{formik.errors.address}</p>
@@ -234,7 +234,7 @@ export const CheckoutPage = () => {
             </div>
 
             <div>
-              <label htmlFor="city" className="block text-xs font-medium text-neutral-700 dark:text-neutral-300">
+              <label htmlFor="city" className="block text-xs font-medium text-[#2C2724] dark:text-[#F7F5F0]">
                 City / Region
               </label>
               <input
@@ -245,7 +245,7 @@ export const CheckoutPage = () => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.city}
-                className="mt-1 w-full rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2 text-xs text-neutral-900 outline-none focus:border-neutral-900 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100"
+                className="mt-1.5 w-full rounded-lg border border-[#EADBCC] bg-[#F7F5F0] px-3 py-2 text-xs text-[#2C2724] outline-none focus:border-[#8C6D58] dark:border-[#332C27] dark:bg-[#191614] dark:text-[#F7F5F0]"
               />
               {formik.touched.city && formik.errors.city && (
                 <p className="mt-1 text-[11px] text-rose-600">{formik.errors.city}</p>
@@ -256,7 +256,7 @@ export const CheckoutPage = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full rounded-lg bg-neutral-900 py-2.5 text-xs font-semibold text-white hover:bg-neutral-800 disabled:opacity-50 dark:bg-white dark:text-neutral-950 transition"
+                className="w-full rounded-lg bg-[#8C6D58] hover:bg-[#735744] py-2.5 px-4 text-xs font-medium text-white disabled:opacity-50 transition-colors"
               >
                 {isSubmitting ? "Placing Order..." : `Place Order • ${formatPrice(totalPrice)}`}
               </button>
@@ -265,20 +265,20 @@ export const CheckoutPage = () => {
         </div>
 
         {/* Review */}
-        <div className="rounded-xl border border-neutral-200 bg-white p-6 lg:col-span-5 dark:border-neutral-800 dark:bg-neutral-900">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-4">
-            Items ({items.length})
+        <div className="rounded-2xl border border-[#EADBCC] bg-white p-6 lg:col-span-5 shadow-[0_4px_20px_rgba(44,39,36,0.04)] dark:border-[#332C27] dark:bg-[#24201D]">
+          <h2 className="text-[11px] font-bold uppercase tracking-widest text-[#8C6D58] mb-4">
+            Objects ({items.length})
           </h2>
 
-          <div className="divide-y divide-neutral-100 max-h-60 overflow-y-auto pr-1 dark:divide-neutral-800">
+          <div className="divide-y divide-[#EADBCC]/60 max-h-60 overflow-y-auto pr-1 dark:divide-[#332C27]">
             {items.map((item) => {
               const unitPrice = getDiscountedPrice(item.price, item.discountPercentage);
               return (
-                <div key={item.productId} className="flex items-center justify-between py-2 text-xs">
-                  <span className="truncate pr-3 text-neutral-800 dark:text-neutral-200">
+                <div key={item.productId} className="flex items-center justify-between py-2.5 text-xs">
+                  <span className="truncate pr-3 text-[#2C2724] dark:text-[#F7F5F0]">
                     {item.quantity}× {item.title}
                   </span>
-                  <span className="font-semibold text-neutral-900 dark:text-neutral-100">
+                  <span className="font-semibold text-[#2C2724] dark:text-[#F7F5F0]">
                     {formatPrice(unitPrice * item.quantity)}
                   </span>
                 </div>
@@ -286,28 +286,28 @@ export const CheckoutPage = () => {
             })}
           </div>
 
-          <div className="mt-4 border-t border-neutral-100 pt-3 space-y-1.5 text-xs text-neutral-600 dark:border-neutral-800 dark:text-neutral-400">
+          <div className="mt-4 border-t border-[#EADBCC] pt-3 space-y-1.5 text-xs text-[#736B63] dark:border-[#332C27]">
             <div className="flex justify-between">
               <span>Subtotal</span>
-              <span className="font-semibold text-neutral-900 dark:text-neutral-100">{formatPrice(rawSubtotal)}</span>
+              <span className="font-semibold text-[#2C2724] dark:text-[#F7F5F0]">{formatPrice(rawSubtotal)}</span>
             </div>
             {savings > 0 && (
               <div className="flex justify-between">
                 <span>Discounts</span>
-                <span className="font-semibold">-{formatPrice(savings)}</span>
+                <span className="font-semibold text-[#8C6D58]">-{formatPrice(savings)}</span>
               </div>
             )}
             {promoDiscount > 0 && (
               <div className="flex justify-between">
                 <span>Promo Voucher</span>
-                <span className="font-semibold">-{formatPrice(promoDiscount)}</span>
+                <span className="font-semibold text-[#8C6D58]">-{formatPrice(promoDiscount)}</span>
               </div>
             )}
             <div className="flex justify-between">
               <span>Shipping</span>
-              <span className="font-semibold">Free</span>
+              <span className="font-semibold text-[#2C2724] dark:text-[#F7F5F0]">Complimentary</span>
             </div>
-            <div className="border-t border-neutral-100 pt-2 flex justify-between text-sm font-bold text-neutral-900 dark:border-neutral-800 dark:text-neutral-100">
+            <div className="border-t border-[#EADBCC] pt-2.5 flex justify-between text-sm font-bold text-[#2C2724] dark:border-[#332C27] dark:text-[#F7F5F0]">
               <span>Total</span>
               <span>{formatPrice(totalPrice)}</span>
             </div>
