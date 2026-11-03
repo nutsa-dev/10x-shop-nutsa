@@ -128,35 +128,9 @@ export const CatalogPage = () => {
     sortOption !== "featured";
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-10">
-      
-      {/* Minimalist Editorial Woodshop & Winter Market Banner */}
-      <section className="tactile-card rounded-2xl px-6 py-8 sm:px-10 sm:py-11">
-        <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-          <div>
-            <div className="inline-flex items-center gap-2 font-mono text-[11px] font-medium uppercase tracking-widest text-[#2C4032] dark:text-[#D49B4B]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#D49B4B]" />
-              <span>COLLECTION 2026 · NORDIC WOODSHOP & WINTER MARKET</span>
-            </div>
-            <h1 className="font-editorial mt-2 text-3xl sm:text-5xl font-bold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
-              Curated Objects for Mindful Living
-            </h1>
-            <p className="mt-2 max-w-xl text-sm leading-relaxed text-[#5C4938] dark:text-[#D8C2A8]">
-              Handcrafted ceramics, raw wood forms, and sculptural accents sourced for modern interiors.
-            </p>
-          </div>
-
-          {/* Quiet Workshop Craft Passport */}
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-[#E5D5C3] pt-4 font-mono text-[11px] text-[#5C4938] lg:border-t-0 lg:pt-0 dark:border-[#3D2616] dark:text-[#D8C2A8]">
-            <span>• Solid Birch & Oak</span>
-            <span>• Beeswax Finish</span>
-            <span>• Seasonal Gift Craft</span>
-          </div>
-        </div>
-      </section>
-
-      {/* Search & Sort Toolbar */}
-      <div className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-12 sm:items-center">
+    <div className="container mx-auto px-4 sm:px-6 pt-6 pb-10">
+      {/* Search & Sort Toolbar directly on the wooden table */}
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-12 sm:items-center">
         {/* Search Input */}
         <div className="relative sm:col-span-8 lg:col-span-9">
           <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-[#5C4938] dark:text-[#D8C2A8]">
@@ -205,7 +179,7 @@ export const CatalogPage = () => {
       </div>
 
       {/* Workshop Drawer Category Plates & Status Bar */}
-      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 pb-3">
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 pb-2">
         <div className="flex items-center gap-2 overflow-x-auto py-1 scrollbar-none">
           {CATEGORY_OPTIONS.map((cat) => {
             const isActive = selectedCategory === cat.value;
