@@ -4,8 +4,6 @@ import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import { IconCart, IconMoon, IconSun, IconUser } from "@/components/ui/Icons";
 
-const BULB_COUNT = 18;
-
 export const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
   const { user, isLoggedIn, logout } = useAuth();
@@ -117,30 +115,6 @@ export const Navbar = () => {
           )}
         </div>
 
-      </div>
-
-      {/* Minimalist Winter Market Warm String Lights hanging along the wooden beam */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 -bottom-3 z-30 overflow-hidden h-5 flex items-start justify-around px-2 sm:px-6"
-      >
-        {Array.from({ length: BULB_COUNT }).map((_, i) => (
-          <div
-            key={i}
-            className={`flex flex-col items-center ${
-              i % 2 === 1 ? "hidden sm:flex" : "flex"
-            }`}
-          >
-            {/* Tiny dark brass cord & socket */}
-            <span className="h-1.5 w-[1.5px] bg-[#3A2412] dark:bg-[#1A0F07]" />
-            <span className="h-1 w-1.5 rounded-t-[1px] bg-[#5C3D22]" />
-            {/* Warm glowing Edison bulb */}
-            <span
-              style={{ animationDelay: `${(i % 5) * 0.55}s` }}
-              className="market-light-bulb h-2.5 w-2 rounded-full"
-            />
-          </div>
-        ))}
       </div>
     </header>
   );
