@@ -4,10 +4,14 @@
 
 @theme {
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-mono: 'JetBrains Mono', monospace;
   --color-canvas: #DEC6A7;
   --color-charcoal: #26170C;
   --color-muted: #5C4938;
   --color-sand: #C8AB89;
+  --color-spruce: #2C4032;
+  --color-beeswax: #D49B4B;
   --color-terracotta: #8C6D58;
   --color-terracotta-hover: #735744;
   --color-gallery: #F7F2E9;
@@ -34,19 +38,20 @@
   }
 
   /*
-   * Site Background: Natural Light Oak Wood (Light) / Smoked Walnut Wood (Dark)
+   * Site Background: Light Oak Wood (Light) / Smoked Walnut Wood (Dark)
+   * with a soft studio spotlight vignette for visual calm and focus.
    */
   .nordic-wood-bg {
     background-color: #DEC6A7;
     background-image:
-      linear-gradient(
-        180deg,
-        rgba(248, 241, 230, 0.12) 0%,
-        rgba(220, 195, 165, 0.10) 100%
+      radial-gradient(
+        ellipse at 50% 15%,
+        rgba(255, 249, 238, 0.24) 0%,
+        rgba(38, 22, 9, 0.12) 100%
       ),
       url("/nordic-wood.jpg");
-    background-repeat: repeat;
-    background-size: auto, 520px auto;
+    background-repeat: no-repeat, repeat;
+    background-size: 100% 100%, 520px auto;
     background-attachment: fixed;
   }
 
@@ -63,14 +68,14 @@
   .dark .nordic-wood-bg {
     background-color: #361F0E;
     background-image:
-      linear-gradient(
-        180deg,
-        rgba(24, 14, 8, 0.16) 0%,
-        rgba(18, 10, 5, 0.22) 100%
+      radial-gradient(
+        ellipse at 50% 12%,
+        rgba(212, 155, 75, 0.10) 0%,
+        rgba(12, 7, 4, 0.36) 100%
       ),
       url("/nordic-wood-dark.jpg");
-    background-repeat: repeat;
-    background-size: auto, 520px auto;
+    background-repeat: no-repeat, repeat;
+    background-size: 100% 100%, 520px auto;
     background-attachment: fixed;
   }
 
@@ -91,26 +96,29 @@
   }
 }
 
+.font-editorial {
+  font-family: var(--font-serif);
+}
+
 /*
- * Wooden Header & Footer Plank Bars
+ * Wooden Header & Footer Plank Bars with subtle warm winter market glow
  */
 .wood-plank-header {
   background-color: #D6BA96;
   background-image:
     linear-gradient(
       180deg,
-      rgba(255, 248, 236, 0.28) 0%,
+      rgba(255, 248, 236, 0.30) 0%,
       rgba(168, 130, 90, 0.22) 100%
     ),
     url("/nordic-wood.jpg");
   background-repeat: repeat;
   background-size: auto, 420px auto;
-  border-bottom: 2px solid #A8845E;
+  border-bottom: 1.5px solid #9E7952;
   box-shadow:
-    0 8px 24px -4px rgba(38, 22, 9, 0.28),
-    0 2px 6px rgba(38, 22, 9, 0.18),
-    inset 0 1px 0 rgba(255, 250, 240, 0.65),
-    inset 0 -1px 0 rgba(74, 45, 20, 0.25);
+    0 10px 28px -6px rgba(38, 22, 9, 0.26),
+    0 1px 0 rgba(212, 155, 75, 0.35),
+    inset 0 1px 0 rgba(255, 250, 240, 0.7);
 }
 
 .dark .wood-plank-header {
@@ -119,16 +127,16 @@
     linear-gradient(
       180deg,
       rgba(70, 44, 24, 0.22) 0%,
-      rgba(18, 10, 5, 0.45) 100%
+      rgba(18, 10, 5, 0.48) 100%
     ),
     url("/nordic-wood-dark.jpg");
   background-repeat: repeat;
   background-size: auto, 420px auto;
-  border-bottom: 2px solid #1A0E06;
+  border-bottom: 1.5px solid #5A3A1E;
   box-shadow:
-    0 10px 28px -4px rgba(0, 0, 0, 0.65),
-    inset 0 1px 0 rgba(255, 215, 175, 0.14),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.7);
+    0 12px 32px -4px rgba(0, 0, 0, 0.68),
+    0 2px 16px rgba(212, 155, 75, 0.16),
+    inset 0 1px 0 rgba(255, 215, 175, 0.14);
 }
 
 .wood-plank-footer {
@@ -142,9 +150,9 @@
     url("/nordic-wood.jpg");
   background-repeat: repeat;
   background-size: auto, 420px auto;
-  border-top: 2px solid #A8845E;
+  border-top: 1.5px solid #9E7952;
   box-shadow:
-    0 -8px 24px -4px rgba(38, 22, 9, 0.22),
+    0 -8px 24px -4px rgba(38, 22, 9, 0.20),
     inset 0 1px 0 rgba(255, 250, 240, 0.6);
 }
 
@@ -159,7 +167,7 @@
     url("/nordic-wood-dark.jpg");
   background-repeat: repeat;
   background-size: auto, 420px auto;
-  border-top: 2px solid #1A0E06;
+  border-top: 1.5px solid #4A2F18;
   box-shadow:
     0 -10px 28px -4px rgba(0, 0, 0, 0.6),
     inset 0 1px 0 rgba(255, 215, 175, 0.12);
@@ -169,47 +177,65 @@
  * Tactile 3D Cards resting on the wooden surface
  */
 .tactile-card {
-  background-color: #FAF6F0;
-  border: 1px solid #CBB092;
+  background-color: #FAF7F2;
+  border: 1px solid rgba(196, 168, 136, 0.75);
   box-shadow:
-    0 14px 32px -6px rgba(42, 25, 11, 0.26),
-    0 5px 12px -2px rgba(42, 25, 11, 0.16),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    0 12px 28px -6px rgba(42, 25, 11, 0.22),
+    0 4px 10px -2px rgba(42, 25, 11, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92);
 }
 
 .tactile-card:hover {
   box-shadow:
-    0 20px 40px -8px rgba(42, 25, 11, 0.34),
-    0 8px 18px -3px rgba(42, 25, 11, 0.20),
-    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    0 18px 36px -8px rgba(42, 25, 11, 0.30),
+    0 6px 14px -3px rgba(42, 25, 11, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.96);
 }
 
 .dark .tactile-card {
-  background-color: #23160D;
-  border: 1px solid #4A301D;
+  background-color: #21150C;
+  border: 1px solid rgba(94, 62, 38, 0.65);
   box-shadow:
-    0 16px 36px -6px rgba(0, 0, 0, 0.65),
-    0 6px 14px -2px rgba(0, 0, 0, 0.45),
+    0 16px 34px -6px rgba(0, 0, 0, 0.62),
+    0 5px 12px -2px rgba(0, 0, 0, 0.42),
     inset 0 1px 0 rgba(255, 220, 185, 0.08);
 }
 
 .dark .tactile-card:hover {
+  border-color: rgba(138, 94, 59, 0.75);
   box-shadow:
-    0 22px 44px -6px rgba(0, 0, 0, 0.78),
-    0 8px 18px -2px rgba(0, 0, 0, 0.55),
+    0 20px 42px -6px rgba(0, 0, 0, 0.75),
+    0 8px 16px -2px rgba(0, 0, 0, 0.50),
     inset 0 1px 0 rgba(255, 220, 185, 0.14);
+}
+
+/*
+ * Museum / Workshop Image Stage (warm spotlight in Dark Mode)
+ */
+.atelier-image-stage {
+  background-color: #F1ECE2;
+  box-shadow: inset 0 1px 3px rgba(42, 25, 11, 0.06);
+}
+
+.dark .atelier-image-stage {
+  background: radial-gradient(
+    circle at 50% 50%,
+    #352315 0%,
+    #1B110A 100%
+  );
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.45);
 }
 
 /*
  * Engraved / Carved in Wood Text Effect (ხეზე ამოტვიფრული სტილი)
  */
 .wood-engraved {
-  color: #2B1608;
+  color: #281407;
   font-weight: 800;
   letter-spacing: 0.04em;
   text-shadow:
     0 1px 0 rgba(255, 248, 235, 0.82),
-    0 -1px 1px rgba(24, 11, 2, 0.45);
+    0 -1px 1px rgba(24, 11, 2, 0.42);
 }
 
 .dark .wood-engraved {
@@ -228,24 +254,24 @@
   background-image:
     linear-gradient(
       180deg,
-      rgba(255, 248, 235, 0.32) 0%,
-      rgba(160, 118, 76, 0.28) 100%
+      rgba(255, 248, 235, 0.34) 0%,
+      rgba(160, 118, 76, 0.26) 100%
     ),
     url("/nordic-wood.jpg");
   background-repeat: repeat;
   background-size: auto, 260px auto;
   border: 1px solid #96704B;
   color: #281407;
-  font-weight: 800;
-  letter-spacing: 0.03em;
+  font-weight: 700;
+  letter-spacing: 0.025em;
   text-shadow:
     0 1px 0 rgba(255, 247, 232, 0.85),
-    0 -1px 1px rgba(30, 14, 4, 0.5);
+    0 -1px 1px rgba(30, 14, 4, 0.45);
   box-shadow:
-    0 4px 10px -1px rgba(42, 24, 9, 0.28),
-    0 2px 4px rgba(42, 24, 9, 0.18),
-    inset 0 1px 1px rgba(255, 250, 240, 0.75),
-    inset 0 -2px 2px rgba(58, 34, 14, 0.35);
+    0 3px 8px -1px rgba(42, 24, 9, 0.24),
+    0 1px 3px rgba(42, 24, 9, 0.16),
+    inset 0 1px 0 rgba(255, 250, 240, 0.75),
+    inset 0 -1.5px 2px rgba(58, 34, 14, 0.32);
   transition: all 0.18s ease;
 }
 
@@ -253,24 +279,24 @@
   background-image:
     linear-gradient(
       180deg,
-      rgba(255, 244, 225, 0.22) 0%,
-      rgba(140, 96, 56, 0.38) 100%
+      rgba(255, 244, 225, 0.24) 0%,
+      rgba(140, 96, 56, 0.36) 100%
     ),
     url("/nordic-wood.jpg");
   border-color: #7D5A38;
   transform: translateY(-1px);
   box-shadow:
-    0 6px 14px -1px rgba(42, 24, 9, 0.34),
-    0 3px 6px rgba(42, 24, 9, 0.22),
-    inset 0 1px 1px rgba(255, 250, 240, 0.8),
-    inset 0 -2px 3px rgba(58, 34, 14, 0.45);
+    0 5px 12px -1px rgba(42, 24, 9, 0.30),
+    0 2px 5px rgba(42, 24, 9, 0.20),
+    inset 0 1px 0 rgba(255, 250, 240, 0.8),
+    inset 0 -2px 2px rgba(58, 34, 14, 0.40);
 }
 
 .wood-btn:active:not(:disabled) {
   transform: translateY(1px);
   box-shadow:
-    0 1px 3px rgba(42, 24, 9, 0.25),
-    inset 0 2px 4px rgba(42, 24, 9, 0.45);
+    0 1px 2px rgba(42, 24, 9, 0.22),
+    inset 0 2px 4px rgba(42, 24, 9, 0.42);
 }
 
 /*
@@ -290,16 +316,16 @@
   background-size: auto, 260px auto;
   border: 1px solid #2A1609;
   color: #F3DFC3;
-  font-weight: 800;
-  letter-spacing: 0.03em;
+  font-weight: 700;
+  letter-spacing: 0.025em;
   text-shadow:
     0 -1px 1px rgba(0, 0, 0, 0.95),
-    0 1px 0 rgba(255, 220, 175, 0.28);
+    0 1px 0 rgba(255, 220, 175, 0.26);
   box-shadow:
-    0 5px 12px -1px rgba(28, 15, 6, 0.42),
-    0 2px 4px rgba(0, 0, 0, 0.32),
-    inset 0 1px 1px rgba(255, 222, 185, 0.22),
-    inset 0 -2px 3px rgba(0, 0, 0, 0.65);
+    0 4px 10px -1px rgba(28, 15, 6, 0.38),
+    0 2px 4px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 222, 185, 0.20),
+    inset 0 -2px 2px rgba(0, 0, 0, 0.60);
 }
 
 .wood-btn-walnut:hover:not(:disabled),

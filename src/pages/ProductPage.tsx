@@ -164,7 +164,7 @@ export const ProductPage = () => {
       <div className="tactile-card rounded-2xl p-6 sm:p-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
         {/* Left: Gallery */}
         <div className="space-y-3">
-          <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-[#CBB092] bg-[#EFE8DC] dark:border-[#4A301D] dark:bg-[#19100A] flex items-center justify-center p-6 shadow-inner">
+          <div className="atelier-image-stage relative aspect-square w-full overflow-hidden rounded-2xl border border-[#CBB092] dark:border-[#4A301D] flex items-center justify-center p-6">
             <img
               src={activeImage || product.thumbnail}
               alt={product.title}
@@ -179,7 +179,7 @@ export const ProductPage = () => {
                   key={idx}
                   type="button"
                   onClick={() => setActiveImage(img)}
-                  className={`relative aspect-square h-16 w-16 shrink-0 overflow-hidden rounded-xl border p-1.5 bg-[#EFE8DC] dark:bg-[#19100A] transition ${
+                  className={`atelier-image-stage relative aspect-square h-16 w-16 shrink-0 overflow-hidden rounded-xl border p-1.5 transition ${
                     activeImage === img
                       ? "border-[#8C6D58] ring-2 ring-[#8C6D58]/40"
                       : "border-[#CBB092] opacity-60 dark:border-[#4A301D]"
@@ -194,11 +194,11 @@ export const ProductPage = () => {
 
         {/* Right: Info */}
         <div className="flex flex-col">
-          <span className="text-[11px] uppercase tracking-widest text-[#8C6D58] font-bold">
+          <span className="font-mono text-[11px] uppercase tracking-widest text-[#8C6D58] font-semibold">
             {product.brand || product.category.replace("-", " ")}
           </span>
 
-          <h1 className="mt-1.5 text-xl sm:text-3xl font-extrabold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
+          <h1 className="font-editorial mt-1.5 text-2xl sm:text-4xl font-bold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
             {product.title}
           </h1>
 

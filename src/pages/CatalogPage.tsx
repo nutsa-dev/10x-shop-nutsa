@@ -12,11 +12,11 @@ import type { Product } from "@/types/product";
 const PAGE_LIMIT = 16;
 
 const CATEGORY_OPTIONS = [
-  { value: "home-decoration", label: "All Atelier & Home Decor" },
+  { value: "home-decoration", label: "All Atelier Objects" },
   { value: "wooden-toys", label: "Wooden Toys" },
-  { value: "holiday-decor", label: "Holiday Decorations" },
-  { value: "furniture", label: "Furniture" },
-  { value: "kitchen-accessories", label: "Kitchen Accessories" },
+  { value: "holiday-decor", label: "Holiday Market" },
+  { value: "furniture", label: "Wood Furniture" },
+  { value: "kitchen-accessories", label: "Tableware & Kitchen" },
 ] as const;
 
 type SortOption = "featured" | "price-asc" | "price-desc" | "rating-desc";
@@ -130,21 +130,33 @@ export const CatalogPage = () => {
   return (
     <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-10">
       
-      {/* Editorial Hero / Header Banner */}
-      <section className="tactile-card rounded-2xl px-6 py-8 sm:px-10 sm:py-12">
-        <span className="inline-block text-[11px] font-bold uppercase tracking-widest text-[#8C6D58]">
-          COLLECTION 2026
-        </span>
-        <h1 className="mt-2.5 text-2xl sm:text-4xl font-extrabold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
-          Curated Objects for Mindful Living
-        </h1>
-        <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-[#5C4938] dark:text-[#D8C2A8]">
-          Handcrafted ceramics, raw wood forms, and sculptural accents sourced for modern interiors.
-        </p>
+      {/* Minimalist Editorial Woodshop & Winter Market Banner */}
+      <section className="tactile-card rounded-2xl px-6 py-8 sm:px-10 sm:py-11">
+        <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+          <div>
+            <div className="inline-flex items-center gap-2 font-mono text-[11px] font-medium uppercase tracking-widest text-[#2C4032] dark:text-[#D49B4B]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#D49B4B]" />
+              <span>COLLECTION 2026 · NORDIC WOODSHOP & WINTER MARKET</span>
+            </div>
+            <h1 className="font-editorial mt-2 text-3xl sm:text-5xl font-bold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
+              Curated Objects for Mindful Living
+            </h1>
+            <p className="mt-2 max-w-xl text-sm leading-relaxed text-[#5C4938] dark:text-[#D8C2A8]">
+              Handcrafted ceramics, raw wood forms, and sculptural accents sourced for modern interiors.
+            </p>
+          </div>
+
+          {/* Quiet Workshop Craft Passport */}
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-[#E5D5C3] pt-4 font-mono text-[11px] text-[#5C4938] lg:border-t-0 lg:pt-0 dark:border-[#3D2616] dark:text-[#D8C2A8]">
+            <span>• Solid Birch & Oak</span>
+            <span>• Beeswax Finish</span>
+            <span>• Seasonal Gift Craft</span>
+          </div>
+        </div>
       </section>
 
       {/* Filter, Category Select & Sort Toolbar */}
-      <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-12 sm:items-center">
+      <div className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-12 sm:items-center">
         {/* Search Input */}
         <div className="relative sm:col-span-5 lg:col-span-6">
           <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-[#5C4938] dark:text-[#D8C2A8]">
@@ -209,8 +221,8 @@ export const CatalogPage = () => {
         </div>
       </div>
 
-      {/* Category Wooden Engraved Buttons & Status Bar */}
-      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 pb-4">
+      {/* Workshop Drawer Category Plates & Status Bar */}
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 pb-3">
         <div className="flex items-center gap-2 overflow-x-auto py-1 scrollbar-none">
           {CATEGORY_OPTIONS.map((cat) => {
             const isActive = selectedCategory === cat.value;
@@ -231,8 +243,8 @@ export const CatalogPage = () => {
 
         <div className="flex items-center gap-3 text-xs">
           {!loading && (
-            <span className="wood-engraved text-xs">
-              {total} objects
+            <span className="wood-engraved font-mono text-xs">
+              [{total} OBJECTS]
             </span>
           )}
           {hasActiveFilters && (
@@ -241,7 +253,7 @@ export const CatalogPage = () => {
               onClick={handleClearFilters}
               className="wood-btn rounded-lg px-3 py-1.5 text-xs"
             >
-              Reset filters
+              Reset
             </button>
           )}
         </div>
@@ -270,7 +282,7 @@ export const CatalogPage = () => {
           </div>
         ) : sortedProducts.length === 0 ? (
           <div className="tactile-card rounded-2xl p-12 text-center">
-            <h3 className="text-sm font-bold text-[#26170C] dark:text-[#F5EBE0]">
+            <h3 className="font-editorial text-lg font-bold text-[#26170C] dark:text-[#F5EBE0]">
               No objects found
             </h3>
             <p className="mt-1 text-xs text-[#5C4938] dark:text-[#D8C2A8]">
@@ -302,8 +314,8 @@ export const CatalogPage = () => {
                 >
                   Previous
                 </button>
-                <span className="wood-engraved px-3 text-xs">
-                  Page {page} of {totalPages}
+                <span className="wood-engraved font-mono px-3 text-xs">
+                  {page} / {totalPages}
                 </span>
                 <button
                   type="button"
