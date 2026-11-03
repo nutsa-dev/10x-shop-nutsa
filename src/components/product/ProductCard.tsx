@@ -14,6 +14,13 @@ export const ProductCard = ({ product, onAdd }: ProductCardProps) => {
   const { addItem } = useCart();
   const [isAdded, setIsAdded] = useState(false);
 
+  // Build unique gallery images (up to 4 photos) from product.images + thumbnail
+  const galleryImages = Array.from(
+    new Set([product.thumbnail, ...(product.images || [])].filter(Boolean))
+  ).slice(0, 4);
+
+  const [selectedIdx, setSelectedIdx] = useState<number>(0);
+
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -32,15 +39,34 @@ export const ProductCard = ({ product, onAdd }: ProductCardProps) => {
     : product.price;
 
   const isOutOfStock = product.stock === 0;
+  const currentImage = galleryImages[selectedIdx] || product.thumbnail;
 
   return (
     <article className="group flex flex-col justify-between bg-white rounded-2xl border border-[#EADBCC] p-4 shadow-[0_4px_20px_rgba(44,39,36,0.04)] hover:shadow-[0_8px_30px_rgba(44,39,36,0.08)] transition-all duration-300 dark:bg-[#24201D] dark:border-[#332C27]">
       <div>
         {/* Product Image Container */}
-        <div className="relative aspect-square w-full bg-[#F2EFE9] rounded-xl overflow-hidden flex items-center justify-center p-4 dark:bg-[#191614]">
+        <div
+          className="relative aspect-square w-full bg-[#F2EFE9] rounded-xl overflow-hidden flex items-center justify-center p-4 dark:bg-[#191614]"
+          onMouseEnter={() => {
+            if (galleryImages.length > 1 && selectedIdx === 0) {
+              setSelectedIdx(1);
+            }
+          }}
+          onMouseLeave={() => {
+            if (galleryImages.length > 1 && selectedIdx === 1) {
+              setSelectedIdx(0);
+            }
+          }}
+        >
           {hasDiscount && (
             <span className="absolute left-2.5 top-2.5 z-10 rounded-md bg-[#2C2724] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white">
               -{Math.round(product.discountPercentage)}%
+            </span>
+          )}
+
+          {galleryImages.length > 1 && (
+            <span className="absolute right-2.5 top-2.5 z-10 rounded-md bg-white/85 backdrop-blur-xs px-1.5 py-0.5 text-[10px] font-medium text-[#736B63] border border-[#EADBCC]/80 dark:bg-[#24201D]/85 dark:border-[#332C27]">
+              {selectedIdx + 1}/{galleryImages.length}
             </span>
           )}
 
@@ -49,7 +75,7 @@ export const ProductCard = ({ product, onAdd }: ProductCardProps) => {
             className="flex h-full w-full items-center justify-center"
           >
             <img
-              src={product.thumbnail}
+              src={currentImage}
               alt={product.title}
               width={240}
               height={240}
@@ -59,8 +85,37 @@ export const ProductCard = ({ product, onAdd }: ProductCardProps) => {
           </Link>
         </div>
 
+        {/* 3-4 Photo Mini Gallery Thumbnails */}
+        {galleryImages.length > 1 && (
+          <div className="mt-2 flex items-center gap-1.5">
+            {galleryImages.map((imgUrl, idx) => (
+              <button
+                key={idx}
+                type="button"
+                aria-label={`View angle ${idx + 1}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSelectedIdx(idx);
+                }}
+                className={`h-9 w-9 overflow-hidden rounded-lg border p-0.5 bg-[#F2EFE9] transition-all dark:bg-[#191614] ${
+                  selectedIdx === idx
+                    ? "border-[#8C6D58] ring-1 ring-[#8C6D58]/40"
+                    : "border-[#EADBCC] opacity-65 hover:opacity-100 dark:border-[#332C27]"
+                }`}
+              >
+                <img
+                  src={imgUrl}
+                  alt={`${product.title} view ${idx + 1}`}
+                  loading="lazy"
+                  className="h-full w-full object-contain"
+                />
+              </button>
+            ))}
+          </div>
+        )}
+
         {/* Category & Rating */}
-        <div className="mt-3.5 flex items-center justify-between">
+        <div className="mt-3 flex items-center justify-between">
           <span className="text-[11px] uppercase tracking-widest text-[#8C6D58] font-medium">
             {product.category.replace("-", " ")}
           </span>

@@ -9,12 +9,14 @@ import { IconClose, IconSearch } from "@/components/ui/Icons";
 import { getDiscountedPrice } from "@/utils/format";
 import type { Product } from "@/types/product";
 
-const PAGE_LIMIT = 12;
+const PAGE_LIMIT = 16;
 
 const CATEGORY_OPTIONS = [
-  { value: "home-decoration", label: "Home Decoration" },
+  { value: "home-decoration", label: "All Atelier & Home Decor" },
+  { value: "wooden-toys", label: "Wooden Toys" },
+  { value: "holiday-decor", label: "Holiday Decorations" },
+  { value: "furniture", label: "Furniture" },
   { value: "kitchen-accessories", label: "Kitchen Accessories" },
-  { value: "all", label: "All Atelier Objects" },
 ] as const;
 
 type SortOption = "featured" | "price-asc" | "price-desc" | "rating-desc";
@@ -150,7 +152,7 @@ export const CatalogPage = () => {
           </span>
           <input
             type="text"
-            placeholder="Search ceramics, lamps, planters, kitchenware..."
+            placeholder="Search wooden toys, holiday decor, furniture, ceramics..."
             value={searchInput}
             onChange={(e) => {
               setSearchInput(e.target.value);
