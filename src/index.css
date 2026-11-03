@@ -214,69 +214,73 @@
 
 /*
  * Tactile 3D Cards resting on the wooden surface
- * Borderless, texture-free warm wood-toned tile matching the searchbar palette
+ * Light Nordic Birch / Warm Parchment tone — distinctly lighter than the oak background
+ * so cards and their wooden CTA buttons both pop with clear hierarchy
  */
 .tactile-card {
-  background-color: #D6B997;
+  background-color: #EDE1CE;
   background-image: linear-gradient(
     180deg,
-    #DFC5A6 0%,
-    #D2B490 100%
+    #F2E8D8 0%,
+    #E8D9C2 100%
   );
-  border: none;
+  border: 1px solid rgba(138, 101, 66, 0.38);
   box-shadow:
-    0 14px 30px -6px rgba(38, 20, 7, 0.28),
-    0 4px 10px -2px rgba(38, 20, 7, 0.16),
-    inset 0 1px 0 rgba(255, 250, 240, 0.72),
-    inset 0 -1.5px 2px rgba(42, 22, 6, 0.18);
+    0 14px 30px -6px rgba(38, 18, 5, 0.28),
+    0 3px 8px -1px rgba(38, 18, 5, 0.18),
+    inset 0 1px 0 rgba(255, 252, 245, 0.88),
+    inset 0 -1px 2px rgba(42, 22, 6, 0.12);
   transition:
     background-color 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
     color 0.5s ease;
 }
 
 .tactile-card:hover {
+  border-color: rgba(120, 85, 52, 0.52);
   box-shadow:
-    0 20px 38px -8px rgba(38, 20, 7, 0.35),
-    0 6px 14px -3px rgba(38, 20, 7, 0.20),
-    inset 0 1px 0 rgba(255, 250, 240, 0.82),
-    inset 0 -1.5px 2px rgba(42, 22, 6, 0.22);
+    0 20px 38px -8px rgba(38, 18, 5, 0.34),
+    0 6px 14px -3px rgba(38, 18, 5, 0.20),
+    inset 0 1px 0 rgba(255, 252, 245, 0.94),
+    inset 0 -1.5px 2px rgba(42, 22, 6, 0.16);
 }
 
 .dark .tactile-card {
-  background-color: #23140B;
+  background-color: #26160C;
   background-image: linear-gradient(
     180deg,
-    #2A180D 0%,
-    #1D1008 100%
+    #2E1B10 0%,
+    #20120A 100%
   );
-  border: none;
+  border: 1px solid rgba(120, 82, 50, 0.38);
   box-shadow:
-    0 16px 34px -6px rgba(0, 0, 0, 0.68),
+    0 16px 34px -6px rgba(0, 0, 0, 0.70),
     0 5px 12px -2px rgba(0, 0, 0, 0.48),
-    inset 0 1px 0 rgba(255, 220, 185, 0.12),
+    inset 0 1px 0 rgba(255, 220, 185, 0.14),
     inset 0 -1.5px 2px rgba(0, 0, 0, 0.55);
 }
 
 .dark .tactile-card:hover {
+  border-color: rgba(155, 108, 68, 0.52);
   box-shadow:
     0 22px 44px -6px rgba(0, 0, 0, 0.78),
     0 8px 16px -2px rgba(0, 0, 0, 0.54),
-    inset 0 1px 0 rgba(255, 220, 185, 0.18),
+    inset 0 1px 0 rgba(255, 220, 185, 0.20),
     inset 0 -1.5px 2px rgba(0, 0, 0, 0.65);
 }
 
 /*
- * Museum / Workshop Image Stage (warm ivory passpartout in Light Mode, spotlight in Dark Mode)
+ * Museum / Workshop Image Stage (warm milk-ivory passpartout in Light Mode, spotlight in Dark Mode)
  */
 .atelier-image-stage {
   position: relative;
-  background-color: #F8F3EA;
+  background-color: #FAF6F0;
   border: none;
   box-shadow:
-    inset 0 2px 5px rgba(38, 19, 5, 0.14),
-    0 1px 0 rgba(255, 250, 240, 0.65);
+    inset 0 1.5px 4px rgba(38, 19, 5, 0.11),
+    0 1px 0 rgba(255, 252, 245, 0.80);
   transition:
     background-color 0.65s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.65s cubic-bezier(0.22, 1, 0.36, 1);
@@ -286,35 +290,35 @@
   background-color: #190F08;
   background-image: radial-gradient(
     circle at 50% 50%,
-    #2E1C10 0%,
-    #150C06 100%
+    #321F12 0%,
+    #160D07 100%
   );
   box-shadow:
     inset 0 2px 6px rgba(0, 0, 0, 0.65),
-    0 1px 0 rgba(255, 218, 180, 0.08);
+    0 1px 0 rgba(255, 218, 180, 0.09);
 }
 
 /*
- * Recessed / Carved-In Wood Input & Select (ხეში ჩაღრმავებული, ტექსტურის გარეშე)
+ * Recessed / Carved-In Wood Input & Select (ხეში ჩაღრმავებული, გაღიავებული არყის ტონით)
  */
 .wood-input {
-  background-color: #D2B490;
+  background-color: #EDE1CE;
   background-image: linear-gradient(
     180deg,
-    #C7A782 0%,
-    #D6B997 45%,
-    #DFC5A6 100%
+    #E2D1B7 0%,
+    #ECE0CD 45%,
+    #F3E9D9 100%
   );
-  border-top: 1px solid #86613E;
-  border-left: 1px solid #9B744F;
-  border-right: 1px solid #9B744F;
-  border-bottom: 1px solid #F7EBD9;
+  border-top: 1px solid #9A744C;
+  border-left: 1px solid #B08B63;
+  border-right: 1px solid #B08B63;
+  border-bottom: 1px solid #FFF8EE;
   color: #261306;
   box-shadow:
-    inset 0 3px 6px rgba(38, 19, 5, 0.34),
-    inset 0 1px 2px rgba(38, 19, 5, 0.26),
-    inset 0 -1px 1px rgba(255, 248, 235, 0.45),
-    0 1px 0 rgba(255, 250, 240, 0.80);
+    inset 0 2.5px 5px rgba(38, 19, 5, 0.24),
+    inset 0 1px 2px rgba(38, 19, 5, 0.18),
+    0 2px 6px rgba(38, 18, 5, 0.10),
+    0 1px 0 rgba(255, 252, 245, 0.85);
   transition:
     background-color 0.6s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.4s ease,
@@ -323,21 +327,21 @@
 }
 
 .wood-input::placeholder {
-  color: #593E28;
-  opacity: 0.85;
+  color: #5C412B;
+  opacity: 0.82;
 }
 
 .wood-input:focus {
-  border-top-color: #6E4D2E;
+  border-top-color: #7D5B38;
   box-shadow:
-    inset 0 4px 8px rgba(38, 19, 5, 0.42),
-    inset 0 1px 3px rgba(38, 19, 5, 0.30),
-    0 1px 0 rgba(255, 250, 240, 0.90),
-    0 0 0 2px rgba(134, 97, 62, 0.22);
+    inset 0 3px 6px rgba(38, 19, 5, 0.30),
+    inset 0 1px 2px rgba(38, 19, 5, 0.22),
+    0 1px 0 rgba(255, 252, 245, 0.92),
+    0 0 0 2px rgba(138, 101, 66, 0.22);
 }
 
 .wood-input option {
-  background-color: #D6B997;
+  background-color: #EDE1CE;
   color: #261306;
 }
 
