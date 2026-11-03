@@ -128,7 +128,7 @@ export const CatalogPage = () => {
     sortOption !== "featured";
 
   return (
-    <div className="mx-auto max-w-[1240px] px-6 sm:px-10 lg:px-16 pt-8 pb-14">
+    <div className="mx-auto max-w-[1380px] px-5 sm:px-8 lg:px-10 pt-7 pb-12">
       {/* Search & Sort Toolbar directly on the wooden table */}
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-12 sm:items-center">
         {/* Search Input */}

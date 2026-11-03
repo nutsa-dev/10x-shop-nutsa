@@ -45,14 +45,13 @@ export const Navbar = () => {
 
   return (
     <header className="wood-plank-header sticky top-0 z-40 w-full">
-      <div className="relative z-10 mx-auto flex h-[68px] max-w-[1240px] items-center justify-between px-6 sm:px-10 lg:px-16">
+      <div className="relative z-10 mx-auto flex h-[68px] max-w-[1380px] items-center justify-between px-5 sm:px-8 lg:px-10">
         
         {/* Left Zone: Editorial Brand Identity */}
         <Link
           to="/"
-          className="group flex items-center gap-2.5"
+          className="flex items-center"
         >
-          <span className="h-2 w-2 rounded-full bg-[#2C4032] transition-transform duration-300 group-hover:scale-125 dark:bg-[#D49B4B]" />
           <span className="font-editorial text-lg sm:text-xl font-bold tracking-[0.12em] uppercase text-[#26170C] dark:text-[#F5EBE0]">
             WOODWORK
           </span>
@@ -87,61 +86,56 @@ export const Navbar = () => {
           </NavLink>
         </nav>
 
-        {/* Right Zone: Recessed Sensory Capsule + Cart & Auth */}
-        <div className="flex items-center gap-2.5 sm:gap-3">
-          {/* Unified Recessed Capsule for Bell (Sound) & Lightbulb (Theme) */}
-          <div className="wood-input flex items-center gap-0.5 rounded-full px-1.5 py-0.5">
-            {/* Graphic Bell Sound Toggle */}
-            <button
-              type="button"
-              data-sound-ignore="true"
-              onClick={handleToggleSound}
-              aria-label={soundOn ? "Mute woodshop sound" : "Enable woodshop sound"}
-              title={soundOn ? "Wood sound: ON (Click to mute)" : "Wood sound: OFF (Click to enable)"}
-              className="relative flex h-8 w-8 items-center justify-center rounded-full text-[#281407] opacity-80 hover:opacity-100 transition-transform duration-300 active:scale-90 dark:text-[#F2DEC4]"
-            >
-              <IconSoundOn
-                className={`absolute h-4 w-4 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                  soundOn
-                    ? "scale-100 opacity-100"
-                    : "scale-75 opacity-0"
-                }`}
-              />
-              <IconSoundOff
-                className={`absolute h-4 w-4 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                  !soundOn
-                    ? "scale-100 opacity-55"
-                    : "scale-75 opacity-0"
-                }`}
-              />
-            </button>
+        {/* Right Zone: 2 Independent Buttons (Bell & Lightbulb) + Cart & Auth */}
+        <div className="flex items-center gap-2 sm:gap-2.5">
+          {/* Independent Graphic Bell Sound Toggle */}
+          <button
+            type="button"
+            data-sound-ignore="true"
+            onClick={handleToggleSound}
+            aria-label={soundOn ? "Mute woodshop sound" : "Enable woodshop sound"}
+            title={soundOn ? "Wood sound: ON (Click to mute)" : "Wood sound: OFF (Click to enable)"}
+            className="wood-input relative flex h-9 w-9 items-center justify-center rounded-full text-[#281407] opacity-85 hover:opacity-100 transition-transform duration-300 active:scale-90 dark:text-[#F2DEC4]"
+          >
+            <IconSoundOn
+              className={`absolute h-4 w-4 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                soundOn
+                  ? "scale-100 opacity-100"
+                  : "scale-75 opacity-0"
+              }`}
+            />
+            <IconSoundOff
+              className={`absolute h-4 w-4 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                !soundOn
+                  ? "scale-100 opacity-55"
+                  : "scale-75 opacity-0"
+              }`}
+            />
+          </button>
 
-            <span className="h-3.5 w-[1px] bg-[#9A744C]/30 dark:bg-[#5C3B21]/60" />
-
-            {/* Realistic Edison Lightbulb Theme Switcher */}
-            <button
-              type="button"
-              onClick={toggleTheme}
-              aria-label={theme === "light" ? "Turn off light (Dark mode)" : "Turn on light (Light mode)"}
-              title={theme === "light" ? "Turn off light (Dark mode)" : "Turn on light (Light mode)"}
-              className="relative flex h-8 w-8 items-center justify-center rounded-full transition-transform duration-500 hover:scale-110 active:scale-95"
-            >
-              <IconBulbOn
-                className={`absolute h-6 w-6 drop-shadow-[0_0_8px_rgba(251,191,36,0.9)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                  theme === "light"
-                    ? "scale-100 opacity-100"
-                    : "scale-75 opacity-0"
-                }`}
-              />
-              <IconBulbOff
-                className={`absolute h-6 w-6 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                  theme === "dark"
-                    ? "scale-100 opacity-100"
-                    : "scale-75 opacity-0"
-                }`}
-              />
-            </button>
-          </div>
+          {/* Independent Realistic Edison Lightbulb Theme Switcher */}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={theme === "light" ? "Turn off light (Dark mode)" : "Turn on light (Light mode)"}
+            title={theme === "light" ? "Turn off light (Dark mode)" : "Turn on light (Light mode)"}
+            className="wood-input relative flex h-9 w-9 items-center justify-center rounded-full transition-transform duration-500 hover:scale-105 active:scale-95"
+          >
+            <IconBulbOn
+              className={`absolute h-6 w-6 drop-shadow-[0_0_8px_rgba(251,191,36,0.9)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                theme === "light"
+                  ? "scale-100 opacity-100"
+                  : "scale-75 opacity-0"
+              }`}
+            />
+            <IconBulbOff
+              className={`absolute h-6 w-6 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                theme === "dark"
+                  ? "scale-100 opacity-100"
+                  : "scale-75 opacity-0"
+              }`}
+            />
+          </button>
 
           {/* Primary Tactile Cart Badge */}
           <NavLink

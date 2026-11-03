@@ -145,7 +145,7 @@ export const ProductPage = () => {
   const images = product.images && product.images.length > 0 ? product.images : [product.thumbnail];
 
   return (
-    <div className="mx-auto max-w-[1240px] px-6 sm:px-10 lg:px-16 py-8 sm:py-10">
+    <div className="mx-auto max-w-[1380px] px-5 sm:px-8 lg:px-10 py-7 sm:py-9">
       {/* Breadcrumb */}
       <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs">
         <Link to="/" className="wood-btn inline-flex items-center gap-1 rounded-md px-2.5 py-1 text-xs">
