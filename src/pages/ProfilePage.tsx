@@ -140,9 +140,9 @@ export const ProfilePage = () => {
             className="wood-btn flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs"
           >
             {soundOn ? (
-              <IconSoundOn className="h-3.5 w-3.5" />
+              <IconSoundOn className="h-5 w-5" />
             ) : (
-              <IconSoundOff className="h-3.5 w-3.5 opacity-60" />
+              <IconSoundOff className="h-5 w-5 opacity-70" />
             )}
             <span>{soundOn ? "Sound On" : "Muted"}</span>
           </button>
