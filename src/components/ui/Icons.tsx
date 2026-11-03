@@ -290,15 +290,82 @@ export const IconUser = (props: SVGProps<SVGSVGElement>) => (
   <svg
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="h-4 w-4"
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-5 w-5"
     {...props}
   >
-    <circle cx="12" cy="8" r="5" />
-    <path d="M20 21a8 8 0 0 0-16 0" />
+    <defs>
+      {/* Real wood texture pattern matching .wood-btn */}
+      <pattern
+        id="userWoodPattern"
+        patternUnits="userSpaceOnUse"
+        width="24"
+        height="24"
+      >
+        <image
+          href="/nordic-wood.jpg"
+          x="0"
+          y="0"
+          width="24"
+          height="24"
+          preserveAspectRatio="xMidYMid slice"
+        />
+      </pattern>
+      {/* 3D Turned Oak Shading Overlay */}
+      <linearGradient id="woodUserBevel" x1="15%" y1="0%" x2="85%" y2="100%">
+        <stop offset="0%" stopColor="#FFF7EB" stopOpacity="0.45" />
+        <stop offset="45%" stopColor="#D4B58E" stopOpacity="0.15" />
+        <stop offset="100%" stopColor="#4A2C11" stopOpacity="0.55" />
+      </linearGradient>
+    </defs>
+
+    {/* Wooden Head (classic user head circle with real wood texture & 3D bevel) */}
+    <circle
+      cx="12"
+      cy="7.5"
+      r="4.5"
+      fill="url(#userWoodPattern)"
+      stroke="#6E4B2A"
+      strokeWidth="1.1"
+    />
+    <circle
+      cx="12"
+      cy="7.5"
+      r="4.5"
+      fill="url(#woodUserBevel)"
+      stroke="#6E4B2A"
+      strokeWidth="0.9"
+    />
+    <path
+      d="M9.5 5.6A3.1 3.1 0 0 1 13.5 4.6"
+      stroke="#FFF9F0"
+      strokeWidth="0.85"
+      strokeLinecap="round"
+      strokeOpacity="0.8"
+    />
+
+    {/* Wooden Shoulders (classic user arch shape with real wood texture & 3D bevel) */}
+    <path
+      d="M4.2 20.2c0-3.8 3.5-6.6 7.8-6.6s7.8 2.8 7.8 6.6c0 .65-.5 1.15-1.15 1.15h-13.3c-.65 0-1.15-.5-1.15-1.15Z"
+      fill="url(#userWoodPattern)"
+      stroke="#6E4B2A"
+      strokeWidth="1.1"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M4.2 20.2c0-3.8 3.5-6.6 7.8-6.6s7.8 2.8 7.8 6.6c0 .65-.5 1.15-1.15 1.15h-13.3c-.65 0-1.15-.5-1.15-1.15Z"
+      fill="url(#woodUserBevel)"
+      stroke="#6E4B2A"
+      strokeWidth="0.9"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M6.8 17.2c1.5-1.6 3.8-2.3 6.4-2.1"
+      stroke="#FFF9F0"
+      strokeWidth="0.85"
+      strokeLinecap="round"
+      strokeOpacity="0.75"
+    />
   </svg>
 );
 
@@ -462,4 +529,3 @@ export const IconArrowLeft = (props: SVGProps<SVGSVGElement>) => (
     <path d="M19 12H5" />
   </svg>
 );
-

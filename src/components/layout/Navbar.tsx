@@ -156,9 +156,9 @@ export const Navbar = () => {
             <div className="flex items-center gap-2.5 pl-1">
               <NavLink
                 to="/profile"
-                className="flex items-center gap-1.5 text-xs font-bold text-[#26170C] opacity-85 hover:opacity-100 dark:text-[#F5EBE0]"
+                className="group flex items-center gap-1.5 text-xs font-bold text-[#26170C] opacity-90 hover:opacity-100 dark:text-[#F5EBE0]"
               >
-                <IconUser className="h-3.5 w-3.5" />
+                <IconUser className="h-5 w-5 drop-shadow-[0_2px_3px_rgba(42,22,6,0.28)] transition-transform duration-300 group-hover:scale-105" />
                 <span className="max-w-[75px] truncate">{user?.username}</span>
               </NavLink>
               <button
