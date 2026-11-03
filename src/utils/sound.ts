@@ -1,8 +1,38 @@
 // Realistic Acoustic Hardwood Tap Synthesizer (Impulse-Excited Modal Filter Bank)
 // Produces an authentic, dry, warm wooden "tok" without synthetic oscillator sweep.
 
+const SOUND_STORAGE_KEY = "shop_sound_enabled";
+const SOUND_CHANGE_EVENT = "woodwork:sound-change";
+
 let audioCtx: AudioContext | null = null;
 let sharedImpulseBuffer: AudioBuffer | null = null;
+
+export function isSoundEnabled(): boolean {
+  try {
+    const saved = localStorage.getItem(SOUND_STORAGE_KEY);
+    return saved === null ? true : saved === "true";
+  } catch {
+    return true;
+  }
+}
+
+export function setSoundEnabled(enabled: boolean): void {
+  try {
+    localStorage.setItem(SOUND_STORAGE_KEY, String(enabled));
+    window.dispatchEvent(new CustomEvent(SOUND_CHANGE_EVENT, { detail: enabled }));
+  } catch {
+    // Ignore storage errors
+  }
+}
+
+export function subscribeSoundEnabled(callback: (enabled: boolean) => void): () => void {
+  const handler = (e: Event) => {
+    const customEvent = e as CustomEvent<boolean>;
+    callback(customEvent.detail);
+  };
+  window.addEventListener(SOUND_CHANGE_EVENT, handler);
+  return () => window.removeEventListener(SOUND_CHANGE_EVENT, handler);
+}
 
 function getAudioContext(): AudioContext | null {
   if (typeof window === "undefined") return null;
@@ -118,8 +148,12 @@ function triggerWoodGrainStrike(
  * - "deep": heavier walnut block tap (primary actions / add to cart)
  * - "switch": two-part mechanical wooden lamp switch click
  */
-export function playWoodTap(variant: "soft" | "deep" | "switch" = "soft"): void {
+export function playWoodTap(
+  variant: "soft" | "deep" | "switch" = "soft",
+  force = false
+): void {
   try {
+    if (!force && !isSoundEnabled()) return;
     const ctx = getAudioContext();
     if (!ctx) return;
 

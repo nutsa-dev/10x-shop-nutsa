@@ -1,10 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import { useTheme } from "@/context/ThemeContext";
 import { formatPrice } from "@/utils/format";
-import { IconBulbOff, IconBulbOn } from "@/components/ui/Icons";
+import {
+  IconBulbOff,
+  IconBulbOn,
+  IconSoundOff,
+  IconSoundOn,
+} from "@/components/ui/Icons";
+import {
+  isSoundEnabled,
+  playWoodTap,
+  setSoundEnabled,
+  subscribeSoundEnabled,
+} from "@/utils/sound";
 import type { Order } from "@/types/order";
 
 export const ProfilePage = () => {
@@ -12,6 +23,20 @@ export const ProfilePage = () => {
   const { totalItems, clearCart } = useCart();
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
+  const [soundOn, setSoundOn] = useState<boolean>(() => isSoundEnabled());
+
+  useEffect(() => {
+    return subscribeSoundEnabled(setSoundOn);
+  }, []);
+
+  const handleToggleSound = () => {
+    const next = !soundOn;
+    setSoundEnabled(next);
+    setSoundOn(next);
+    if (next) {
+      playWoodTap("soft", true);
+    }
+  };
 
   const [orders, setOrders] = useState<Order[]>(() => {
     try {
@@ -95,6 +120,31 @@ export const ProfilePage = () => {
               <IconBulbOff className="h-5 w-5" />
             )}
             <span className="capitalize">{theme} Mode</span>
+          </button>
+        </div>
+
+        {/* Wood Tap Sound Effects */}
+        <div className="tactile-card flex items-center justify-between rounded-xl p-4">
+          <div>
+            <p className="text-xs font-bold text-[#26170C] dark:text-[#F5EBE0]">
+              Tactile Wood Sound
+            </p>
+            <p className="text-[11px] text-[#5C4938] dark:text-[#D8C2A8]">
+              {soundOn ? "Acoustic wood knock active on click" : "Sound effects muted"}
+            </p>
+          </div>
+          <button
+            type="button"
+            data-sound-ignore="true"
+            onClick={handleToggleSound}
+            className="wood-btn flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs"
+          >
+            {soundOn ? (
+              <IconSoundOn className="h-3.5 w-3.5" />
+            ) : (
+              <IconSoundOff className="h-3.5 w-3.5 opacity-60" />
+            )}
+            <span>{soundOn ? "Sound On" : "Muted"}</span>
           </button>
         </div>
 

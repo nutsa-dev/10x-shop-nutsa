@@ -17,7 +17,13 @@ export const Layout = () => {
         'button, a, select, input[type="checkbox"], input[type="radio"], [role="button"]'
       ) as HTMLElement | null;
 
-      if (!interactive || (interactive as HTMLButtonElement).disabled) return;
+      if (
+        !interactive ||
+        (interactive as HTMLButtonElement).disabled ||
+        interactive.getAttribute("data-sound-ignore") === "true"
+      ) {
+        return;
+      }
 
       if (interactive.getAttribute("aria-label")?.toLowerCase().includes("light")) {
         playWoodTap("switch");

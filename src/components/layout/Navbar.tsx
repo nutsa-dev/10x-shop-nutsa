@@ -1,14 +1,42 @@
+import { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useTheme } from "@/context/ThemeContext";
 import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
-import { IconBulbOff, IconBulbOn, IconCart, IconUser } from "@/components/ui/Icons";
+import {
+  IconBulbOff,
+  IconBulbOn,
+  IconCart,
+  IconSoundOff,
+  IconSoundOn,
+  IconUser,
+} from "@/components/ui/Icons";
+import {
+  isSoundEnabled,
+  playWoodTap,
+  setSoundEnabled,
+  subscribeSoundEnabled,
+} from "@/utils/sound";
 
 export const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
   const { user, isLoggedIn, logout } = useAuth();
   const { totalItems } = useCart();
   const navigate = useNavigate();
+  const [soundOn, setSoundOn] = useState<boolean>(() => isSoundEnabled());
+
+  useEffect(() => {
+    return subscribeSoundEnabled(setSoundOn);
+  }, []);
+
+  const handleToggleSound = () => {
+    const next = !soundOn;
+    setSoundEnabled(next);
+    setSoundOn(next);
+    if (next) {
+      playWoodTap("soft", true);
+    }
+  };
 
   const handleLogout = () => {
     logout();
@@ -58,7 +86,23 @@ export const Navbar = () => {
         </div>
 
         {/* Right Actions: Clean Balance */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          {/* Minimalist Wood Sound Effect Toggle (Mute / Unmute) */}
+          <button
+            type="button"
+            data-sound-ignore="true"
+            onClick={handleToggleSound}
+            aria-label={soundOn ? "Mute wood tap sound" : "Enable wood tap sound"}
+            title={soundOn ? "Wood sound: ON (Click to mute)" : "Wood sound: OFF (Click to enable)"}
+            className="wood-engraved relative flex h-9 w-9 items-center justify-center rounded-full opacity-75 hover:opacity-100 transition-all duration-300 active:scale-90"
+          >
+            {soundOn ? (
+              <IconSoundOn className="h-4 w-4" />
+            ) : (
+              <IconSoundOff className="h-4 w-4 opacity-55" />
+            )}
+          </button>
+
           {/* Realistic Edison Lightbulb Theme Switcher (Lit on Light Mode, Unlit on Dark Mode) */}
           <button
             type="button"
