@@ -3,8 +3,8 @@ import { IconArrowLeft } from "@/components/ui/Icons";
 
 export const NotFoundPage = () => {
   return (
-    <div className="container mx-auto flex min-h-[60vh] flex-col items-center justify-center px-4 py-16 text-center">
-      <div className="tactile-card rounded-2xl p-10 max-w-sm w-full">
+    <div className="mx-auto flex min-h-[60vh] flex-col items-center justify-center px-3.5 sm:px-4 py-12 sm:py-16 text-center">
+      <div className="tactile-card rounded-2xl p-7 sm:p-10 max-w-sm w-full">
         <span className="wood-engraved font-mono text-5xl">
           404
         </span>

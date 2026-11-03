@@ -39,8 +39,8 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="flex min-h-[70vh] items-center justify-center px-4 py-12">
-      <div className="tactile-card w-full max-w-sm rounded-2xl p-6">
+    <div className="flex min-h-[70vh] items-center justify-center px-3.5 sm:px-4 py-8 sm:py-12">
+      <div className="tactile-card w-full max-w-sm rounded-2xl p-5 sm:p-6">
         <Link
           to="/"
           className="wood-btn inline-flex items-center gap-1 rounded-md px-2.5 py-1 text-xs mb-4"

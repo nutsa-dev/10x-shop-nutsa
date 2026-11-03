@@ -89,6 +89,24 @@
   .dark ::-webkit-scrollbar-thumb {
     background: #5E3D24;
   }
+
+  /* Responsive touch ergonomics for mobile & tablet */
+  button,
+  a,
+  select,
+  input,
+  [role="button"] {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }
 
 .font-editorial {

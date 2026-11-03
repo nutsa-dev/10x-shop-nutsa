@@ -246,25 +246,25 @@ export const ProductPage = () => {
 
           {/* Actions */}
           <div className="mt-5 sm:mt-6 space-y-3">
-            <div className="flex items-center gap-2.5 sm:gap-3">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2.5 sm:gap-3">
               {/* Stepper */}
-              <div className="flex h-11 shrink-0 items-center rounded-lg border border-[#CBB092] bg-[#EFE8DC] dark:border-[#4A301D] dark:bg-[#19100A]">
+              <div className="flex h-11 w-full sm:w-auto shrink-0 items-center justify-between sm:justify-start rounded-lg border border-[#CBB092] bg-[#EFE8DC] dark:border-[#4A301D] dark:bg-[#19100A]">
                 <button
                   type="button"
                   disabled={isOutOfStock || quantity <= 1}
                   onClick={() => handleQuantityChange(-1)}
-                  className="wood-btn flex h-11 w-9 sm:w-10 items-center justify-center rounded-l-lg disabled:opacity-40"
+                  className="wood-btn flex h-11 w-12 sm:w-10 items-center justify-center rounded-l-lg disabled:opacity-40"
                 >
                   −
                 </button>
-                <span className="w-8 sm:w-9 text-center text-xs font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
+                <span className="w-10 sm:w-9 text-center text-xs font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
                   {quantity}
                 </span>
                 <button
                   type="button"
                   disabled={isOutOfStock || quantity >= product.stock}
                   onClick={() => handleQuantityChange(1)}
-                  className="wood-btn flex h-11 w-9 sm:w-10 items-center justify-center rounded-r-lg disabled:opacity-40"
+                  className="wood-btn flex h-11 w-12 sm:w-10 items-center justify-center rounded-r-lg disabled:opacity-40"
                 >
                   +
                 </button>
@@ -275,13 +275,13 @@ export const ProductPage = () => {
                 type="button"
                 disabled={isOutOfStock}
                 onClick={handleAddToCart}
-                className={`flex h-11 flex-1 items-center justify-center gap-1.5 sm:gap-2 rounded-lg px-3.5 sm:px-5 text-xs disabled:opacity-40 ${
+                className={`flex h-11 w-full sm:flex-1 items-center justify-center gap-2 rounded-lg px-4 sm:px-5 text-xs disabled:opacity-40 ${
                   addedToast ? "wood-btn-walnut" : "wood-btn"
                 }`}
               >
                 {addedToast ? (
                   <>
-                    <IconCheck className="h-4 w-4" />
+                    <IconCheck className="h-4 w-4 shrink-0" />
                     <span>Added to Cart</span>
                   </>
                 ) : (

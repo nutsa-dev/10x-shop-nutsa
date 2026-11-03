@@ -198,15 +198,15 @@ export const OrdersPage = () => {
               </div>
 
               {/* Expand Toggle */}
-              <div className="mt-3 flex items-center justify-between text-xs">
+              <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs">
                 <button
                   type="button"
                   onClick={() => toggleExpand(order.id)}
-                  className="wood-btn rounded-md px-2.5 py-1 text-xs"
+                  className="wood-btn shrink-0 rounded-md px-2.5 py-1 text-xs"
                 >
                   {isExpanded ? "Hide objects" : `View ${order.items.length} objects`}
                 </button>
-                <span className="text-[#5C4938] text-[11px] dark:text-[#D8C2A8]">
+                <span className="truncate text-[#5C4938] text-[11px] dark:text-[#D8C2A8]">
                   {order.shipping.address}, {order.shipping.city}
                 </span>
               </div>

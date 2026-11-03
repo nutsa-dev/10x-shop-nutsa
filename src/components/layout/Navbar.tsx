@@ -160,7 +160,7 @@ export const Navbar = () => {
                 className="group flex items-center gap-1 sm:gap-1.5 text-xs font-bold text-[#26170C] opacity-95 hover:opacity-100 dark:text-[#F5EBE0]"
               >
                 <IconUser className="h-5 w-5 sm:h-6 sm:w-6 drop-shadow-[0_2px_3px_rgba(42,22,6,0.28)] transition-transform duration-300 group-hover:scale-110" />
-                <span className="hidden xs:inline max-w-[60px] sm:max-w-[75px] truncate">{user?.username}</span>
+                <span className="hidden sm:inline max-w-[75px] truncate">{user?.username}</span>
               </NavLink>
               <button
                 type="button"
@@ -173,7 +173,7 @@ export const Navbar = () => {
           ) : (
             <Link
               to="/login"
-              className="wood-btn-walnut flex h-8 sm:h-9 items-center rounded-lg px-2.5 sm:px-3.5 text-[11px] sm:text-xs"
+              className="wood-btn-walnut flex h-8 sm:h-9 shrink-0 items-center rounded-lg px-2.5 sm:px-3.5 text-[11px] sm:text-xs"
             >
               Sign In
             </Link>
@@ -185,13 +185,13 @@ export const Navbar = () => {
       {/* Mobile Sub-Navigation Strip (< 768px) */}
       <nav
         aria-label="Mobile navigation"
-        className="relative z-10 flex md:hidden items-center justify-center gap-6 border-t border-[#9A744C]/25 py-1.5 px-4 dark:border-[#7A5030]/30"
+        className="relative z-10 flex md:hidden items-center justify-center gap-5 border-t border-[#9A744C]/25 py-2 px-3.5 overflow-x-auto scrollbar-none dark:border-[#7A5030]/30"
       >
         <NavLink
           to="/"
           end
           className={({ isActive }) =>
-            `relative py-0.5 text-[10px] font-bold tracking-[0.14em] uppercase transition-all ${
+            `relative shrink-0 py-0.5 text-[10px] font-bold tracking-[0.14em] uppercase transition-all ${
               isActive
                 ? "text-[#26170C] dark:text-[#F5EBE0] after:absolute after:inset-x-0 after:-bottom-0.5 after:h-[1.5px] after:rounded-full after:bg-[#2C4032] dark:after:bg-[#D49B4B]"
                 : "text-[#5C4938]/85 dark:text-[#D8C2A8]/75"
@@ -203,7 +203,7 @@ export const Navbar = () => {
         <NavLink
           to="/orders"
           className={({ isActive }) =>
-            `relative py-0.5 text-[10px] font-bold tracking-[0.14em] uppercase transition-all ${
+            `relative shrink-0 py-0.5 text-[10px] font-bold tracking-[0.14em] uppercase transition-all ${
               isActive
                 ? "text-[#26170C] dark:text-[#F5EBE0] after:absolute after:inset-x-0 after:-bottom-0.5 after:h-[1.5px] after:rounded-full after:bg-[#2C4032] dark:after:bg-[#D49B4B]"
                 : "text-[#5C4938]/85 dark:text-[#D8C2A8]/75"
@@ -217,7 +217,7 @@ export const Navbar = () => {
             <NavLink
               to="/profile"
               className={({ isActive }) =>
-                `relative py-0.5 text-[10px] font-bold tracking-[0.14em] uppercase transition-all ${
+                `relative shrink-0 py-0.5 text-[10px] font-bold tracking-[0.14em] uppercase transition-all ${
                   isActive
                     ? "text-[#26170C] dark:text-[#F5EBE0] after:absolute after:inset-x-0 after:-bottom-0.5 after:h-[1.5px] after:rounded-full after:bg-[#2C4032] dark:after:bg-[#D49B4B]"
                     : "text-[#5C4938]/85 dark:text-[#D8C2A8]/75"
@@ -229,7 +229,7 @@ export const Navbar = () => {
             <button
               type="button"
               onClick={handleLogout}
-              className="py-0.5 text-[10px] font-bold tracking-[0.14em] uppercase text-[#5C4938]/85 dark:text-[#D8C2A8]/75"
+              className="shrink-0 py-0.5 text-[10px] font-bold tracking-[0.14em] uppercase text-[#5C4938]/85 dark:text-[#D8C2A8]/75"
             >
               Logout
             </button>
