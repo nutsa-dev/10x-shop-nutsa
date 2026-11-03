@@ -86,28 +86,28 @@ export const Navbar = () => {
           </NavLink>
         </nav>
 
-        {/* Right Zone: 2 Independent Buttons (Bell & Lightbulb) + Cart & Auth */}
-        <div className="flex items-center gap-2 sm:gap-2.5">
-          {/* Independent Graphic Bell Sound Toggle */}
+        {/* Right Zone: Independent Icons (Bell, Lightbulb) + Cart & Auth */}
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          {/* Independent Wooden Bell Sound Toggle (No circle container) */}
           <button
             type="button"
             data-sound-ignore="true"
             onClick={handleToggleSound}
             aria-label={soundOn ? "Mute woodshop sound" : "Enable woodshop sound"}
             title={soundOn ? "Wood sound: ON (Click to mute)" : "Wood sound: OFF (Click to enable)"}
-            className="wood-input relative flex h-9 w-9 items-center justify-center rounded-full text-[#281407] opacity-85 hover:opacity-100 transition-transform duration-300 active:scale-90 dark:text-[#F2DEC4]"
+            className="relative flex h-9 w-9 items-center justify-center text-[#5E3D20] transition-transform duration-300 hover:scale-110 active:scale-90 dark:text-[#D8C2A8]"
           >
             <IconSoundOn
-              className={`absolute h-4 w-4 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              className={`absolute h-6 w-6 drop-shadow-[0_2px_3px_rgba(42,22,6,0.28)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                 soundOn
                   ? "scale-100 opacity-100"
                   : "scale-75 opacity-0"
               }`}
             />
             <IconSoundOff
-              className={`absolute h-4 w-4 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              className={`absolute h-6 w-6 drop-shadow-[0_2px_3px_rgba(42,22,6,0.22)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                 !soundOn
-                  ? "scale-100 opacity-55"
+                  ? "scale-100 opacity-75"
                   : "scale-75 opacity-0"
               }`}
             />
@@ -119,17 +119,17 @@ export const Navbar = () => {
             onClick={toggleTheme}
             aria-label={theme === "light" ? "Turn off light (Dark mode)" : "Turn on light (Light mode)"}
             title={theme === "light" ? "Turn off light (Dark mode)" : "Turn on light (Light mode)"}
-            className="wood-input relative flex h-9 w-9 items-center justify-center rounded-full transition-transform duration-500 hover:scale-105 active:scale-95"
+            className="relative flex h-9 w-9 items-center justify-center transition-transform duration-500 hover:scale-110 active:scale-95"
           >
             <IconBulbOn
-              className={`absolute h-6 w-6 drop-shadow-[0_0_8px_rgba(251,191,36,0.9)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              className={`absolute h-7 w-7 drop-shadow-[0_0_8px_rgba(251,191,36,0.9)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                 theme === "light"
                   ? "scale-100 opacity-100"
                   : "scale-75 opacity-0"
               }`}
             />
             <IconBulbOff
-              className={`absolute h-6 w-6 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              className={`absolute h-7 w-7 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                 theme === "dark"
                   ? "scale-100 opacity-100"
                   : "scale-75 opacity-0"
@@ -156,9 +156,9 @@ export const Navbar = () => {
             <div className="flex items-center gap-2.5 pl-1">
               <NavLink
                 to="/profile"
-                className="group flex items-center gap-1.5 text-xs font-bold text-[#26170C] opacity-90 hover:opacity-100 dark:text-[#F5EBE0]"
+                className="group flex items-center gap-1.5 text-xs font-bold text-[#26170C] opacity-95 hover:opacity-100 dark:text-[#F5EBE0]"
               >
-                <IconUser className="h-5 w-5 drop-shadow-[0_2px_3px_rgba(42,22,6,0.28)] transition-transform duration-300 group-hover:scale-105" />
+                <IconUser className="h-6 w-6 drop-shadow-[0_2px_3px_rgba(42,22,6,0.28)] transition-transform duration-300 group-hover:scale-110" />
                 <span className="max-w-[75px] truncate">{user?.username}</span>
               </NavLink>
               <button

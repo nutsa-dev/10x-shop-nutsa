@@ -202,20 +202,78 @@ export const IconSoundOn = (props: SVGProps<SVGSVGElement>) => (
   <svg
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
-    strokeWidth={1.9}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="h-4 w-4"
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-6 w-6"
     {...props}
   >
-    {/* Graphic bell dome */}
-    <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
-    {/* Bell clapper */}
-    <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
-    {/* Minimalist ringing arcs */}
-    <path d="M4 2C2.8 3.7 2 5.7 2 8" />
-    <path d="M20 2c1.2 1.7 2 3.7 2 6" />
+    <defs>
+      <pattern
+        id="bellWoodPatternOn"
+        patternUnits="userSpaceOnUse"
+        width="24"
+        height="24"
+      >
+        <image
+          href="/nordic-wood.jpg"
+          x="0"
+          y="0"
+          width="24"
+          height="24"
+          preserveAspectRatio="xMidYMid slice"
+        />
+      </pattern>
+      <linearGradient id="woodBellBevelOn" x1="15%" y1="0%" x2="85%" y2="100%">
+        <stop offset="0%" stopColor="#FFF7EB" stopOpacity="0.45" />
+        <stop offset="45%" stopColor="#D4B58E" stopOpacity="0.15" />
+        <stop offset="100%" stopColor="#4A2C11" stopOpacity="0.55" />
+      </linearGradient>
+    </defs>
+
+    {/* Ringing sound arcs */}
+    <path
+      d="M4 2.5C2.8 4.2 2 6.2 2 8.5"
+      stroke="currentColor"
+      strokeWidth={1.8}
+      strokeLinecap="round"
+    />
+    <path
+      d="M20 2.5c1.2 1.7 2 3.7 2 6"
+      stroke="currentColor"
+      strokeWidth={1.8}
+      strokeLinecap="round"
+    />
+
+    {/* Carved Wooden Bell Dome */}
+    <path
+      d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9Z"
+      fill="url(#bellWoodPatternOn)"
+      stroke="#6E4B2A"
+      strokeWidth="1.1"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9Z"
+      fill="url(#woodBellBevelOn)"
+      stroke="#6E4B2A"
+      strokeWidth="0.9"
+      strokeLinejoin="round"
+    />
+    {/* Top-left wood bevel highlight */}
+    <path
+      d="M8.2 7.5c0-2.2 1.4-3.8 3.3-4.2"
+      stroke="#FFF9F0"
+      strokeWidth="0.9"
+      strokeLinecap="round"
+      strokeOpacity="0.8"
+    />
+
+    {/* Wooden Bell Clapper */}
+    <path
+      d="M9.8 17.5a2.2 2.2 0 0 0 4.4 0H9.8Z"
+      fill="url(#bellWoodPatternOn)"
+      stroke="#6E4B2A"
+      strokeWidth="1"
+    />
   </svg>
 );
 
@@ -223,18 +281,66 @@ export const IconSoundOff = (props: SVGProps<SVGSVGElement>) => (
   <svg
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
-    strokeWidth={1.9}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="h-4 w-4"
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-6 w-6"
     {...props}
   >
-    {/* Graphic muted bell with slash */}
-    <path d="M8.7 3A6 6 0 0 1 18 8a21.3 21.3 0 0 0 .6 5" />
-    <path d="M17 17H3s3-2 3-9a4.67 4.67 0 0 1 .3-1.7" />
-    <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
-    <line x1="2" y1="2" x2="22" y2="22" />
+    <defs>
+      <pattern
+        id="bellWoodPatternOff"
+        patternUnits="userSpaceOnUse"
+        width="24"
+        height="24"
+      >
+        <image
+          href="/nordic-wood.jpg"
+          x="0"
+          y="0"
+          width="24"
+          height="24"
+          preserveAspectRatio="xMidYMid slice"
+        />
+      </pattern>
+      <linearGradient id="woodBellBevelOff" x1="15%" y1="0%" x2="85%" y2="100%">
+        <stop offset="0%" stopColor="#FFF7EB" stopOpacity="0.35" />
+        <stop offset="100%" stopColor="#3B230E" stopOpacity="0.65" />
+      </linearGradient>
+    </defs>
+
+    {/* Carved Wooden Bell Dome */}
+    <path
+      d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9Z"
+      fill="url(#bellWoodPatternOff)"
+      stroke="#6E4B2A"
+      strokeWidth="1.1"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9Z"
+      fill="url(#woodBellBevelOff)"
+      stroke="#6E4B2A"
+      strokeWidth="0.9"
+      strokeLinejoin="round"
+    />
+
+    {/* Wooden Bell Clapper */}
+    <path
+      d="M9.8 17.5a2.2 2.2 0 0 0 4.4 0H9.8Z"
+      fill="url(#bellWoodPatternOff)"
+      stroke="#6E4B2A"
+      strokeWidth="1"
+    />
+
+    {/* Diagonal Mute Line */}
+    <line
+      x1="3"
+      y1="3"
+      x2="21"
+      y2="21"
+      stroke="#5E3D20"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
   </svg>
 );
 
