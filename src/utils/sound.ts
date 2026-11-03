@@ -1,7 +1,8 @@
-// Minimalist Web Audio API Acoustic Wood Knock / Tap Synthesizer
-// Zero external audio files required — uses modal hardwood resonance synthesis.
+// Realistic Acoustic Hardwood Tap Synthesizer (Impulse-Excited Modal Filter Bank)
+// Produces an authentic, dry, warm wooden "tok" without synthetic oscillator sweep.
 
 let audioCtx: AudioContext | null = null;
+let sharedImpulseBuffer: AudioBuffer | null = null;
 
 function getAudioContext(): AudioContext | null {
   if (typeof window === "undefined") return null;
@@ -20,8 +21,102 @@ function getAudioContext(): AudioContext | null {
 }
 
 /**
- * Plays a subtle, warm, organic wooden knock/tap sound.
- * Uses 2 hardwood resonant modes (1 : 2.15 ratio) + a soft 8ms filtered transient impact.
+ * Creates a short 18ms physical wooden mallet/knuckle strike impulse buffer.
+ * When fed into high-Q resonant bandpass filters, it rings like real dry oak/walnut.
+ */
+function getStrikeBuffer(ctx: AudioContext): AudioBuffer {
+  if (sharedImpulseBuffer && sharedImpulseBuffer.sampleRate === ctx.sampleRate) {
+    return sharedImpulseBuffer;
+  }
+
+  const duration = 0.018;
+  const length = Math.floor(ctx.sampleRate * duration);
+  const buffer = ctx.createBuffer(1, length, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+
+  for (let i = 0; i < length; i++) {
+    const t = i / length;
+    // Sharp initial attack followed by rapid exponential damping
+    const env = Math.pow(1 - t, 4.5);
+    // Mix of initial Dirac-like click + warm pink-ish grain
+    const click = i < 12 ? Math.cos((i / 12) * Math.PI * 0.5) * 1.4 : 0;
+    const grain = (Math.random() * 2 - 1) * 0.65;
+    data[i] = (click + grain) * env;
+  }
+
+  sharedImpulseBuffer = buffer;
+  return buffer;
+}
+
+function triggerWoodGrainStrike(
+  ctx: AudioContext,
+  startTime: number,
+  fundamentalHz: number,
+  volume: number
+): void {
+  const strike = ctx.createBufferSource();
+  strike.buffer = getStrikeBuffer(ctx);
+
+  // Master envelope for this strike
+  const outGain = ctx.createGain();
+  outGain.gain.setValueAtTime(volume, startTime);
+  outGain.gain.exponentialRampToValueAtTime(0.0008, startTime + 0.055);
+
+  // Soft lowpass to remove digital harshness
+  const warmthFilter = ctx.createBiquadFilter();
+  warmthFilter.type = "lowpass";
+  warmthFilter.frequency.setValueAtTime(2400, startTime);
+  warmthFilter.Q.setValueAtTime(0.7, startTime);
+
+  outGain.connect(warmthFilter);
+  warmthFilter.connect(ctx.destination);
+
+  // 3 acoustic hardwood formant modes (measured oak/walnut block ratios: 1 : 1.54 : 2.36)
+  const modes = [
+    { ratio: 1.0, q: 14, gain: 1.0, decay: 0.048 },   // Warm hollow wood body
+    { ratio: 1.54, q: 16, gain: 0.72, decay: 0.036 }, // Crisp woody knock core ("tok")
+    { ratio: 2.36, q: 12, gain: 0.38, decay: 0.022 }, // Surface grain articulation
+  ];
+
+  for (const mode of modes) {
+    const filter = ctx.createBiquadFilter();
+    filter.type = "bandpass";
+    filter.frequency.setValueAtTime(fundamentalHz * mode.ratio, startTime);
+    filter.Q.setValueAtTime(mode.q, startTime);
+
+    const modeGain = ctx.createGain();
+    modeGain.gain.setValueAtTime(mode.gain, startTime);
+    modeGain.gain.exponentialRampToValueAtTime(0.001, startTime + mode.decay);
+
+    strike.connect(filter);
+    filter.connect(modeGain);
+    modeGain.connect(outGain);
+  }
+
+  // Subtle low-end wooden table thump (short damped sine at 0.5x fundamental)
+  const bodyOsc = ctx.createOscillator();
+  const bodyGain = ctx.createGain();
+  bodyOsc.type = "sine";
+  bodyOsc.frequency.setValueAtTime(fundamentalHz * 0.52, startTime);
+  bodyOsc.frequency.exponentialRampToValueAtTime(fundamentalHz * 0.36, startTime + 0.024);
+
+  bodyGain.gain.setValueAtTime(volume * 0.22, startTime);
+  bodyGain.gain.exponentialRampToValueAtTime(0.0005, startTime + 0.026);
+
+  bodyOsc.connect(bodyGain);
+  bodyGain.connect(warmthFilter);
+
+  strike.start(startTime);
+  strike.stop(startTime + 0.055);
+  bodyOsc.start(startTime);
+  bodyOsc.stop(startTime + 0.028);
+}
+
+/**
+ * Plays a realistic, dry, tactile wooden tap sound.
+ * - "soft": light oak button / link tap
+ * - "deep": heavier walnut block tap (primary actions / add to cart)
+ * - "switch": two-part mechanical wooden lamp switch click
  */
 export function playWoodTap(variant: "soft" | "deep" | "switch" = "soft"): void {
   try {
@@ -29,90 +124,25 @@ export function playWoodTap(variant: "soft" | "deep" | "switch" = "soft"): void 
     if (!ctx) return;
 
     const now = ctx.currentTime;
-    // Slight natural pitch variation (±3.5%) so consecutive taps feel organic
-    const jitter = 0.965 + Math.random() * 0.07;
+    // Micro-variation (±2.5%) so consecutive taps sound naturally human
+    const jitter = 0.975 + Math.random() * 0.05;
 
-    const baseFreq =
-      variant === "deep"
-        ? 235 * jitter
-        : variant === "switch"
-          ? 340 * jitter
-          : 285 * jitter;
-
-    // Master output gain (kept minimalist and gentle)
-    const masterGain = ctx.createGain();
-    masterGain.gain.setValueAtTime(0.18, now);
-    masterGain.connect(ctx.destination);
-
-    // 1. Primary Hardwood Cavity Resonance (Fundamental mode)
-    const osc1 = ctx.createOscillator();
-    const gain1 = ctx.createGain();
-    osc1.type = "triangle";
-    osc1.frequency.setValueAtTime(baseFreq * 1.45, now);
-    osc1.frequency.exponentialRampToValueAtTime(baseFreq, now + 0.014);
-    osc1.frequency.exponentialRampToValueAtTime(baseFreq * 0.92, now + 0.065);
-
-    gain1.gain.setValueAtTime(0.001, now);
-    gain1.gain.linearRampToValueAtTime(0.85, now + 0.002);
-    gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.065);
-
-    // Low-pass filter to keep the wood tone warm and matte (never harsh)
-    const woodFilter = ctx.createBiquadFilter();
-    woodFilter.type = "lowpass";
-    woodFilter.frequency.setValueAtTime(1100, now);
-    woodFilter.Q.setValueAtTime(1.8, now);
-
-    osc1.connect(gain1);
-    gain1.connect(woodFilter);
-    woodFilter.connect(masterGain);
-
-    osc1.start(now);
-    osc1.stop(now + 0.07);
-
-    // 2. Secondary Woodblock Overtone Mode (~2.18x fundamental, decays faster)
-    const osc2 = ctx.createOscillator();
-    const gain2 = ctx.createGain();
-    osc2.type = "sine";
-    osc2.frequency.setValueAtTime(baseFreq * 2.18, now);
-    osc2.frequency.exponentialRampToValueAtTime(baseFreq * 2.05, now + 0.032);
-
-    gain2.gain.setValueAtTime(0.001, now);
-    gain2.gain.linearRampToValueAtTime(0.35, now + 0.0015);
-    gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.032);
-
-    osc2.connect(gain2);
-    gain2.connect(woodFilter);
-
-    osc2.start(now);
-    osc2.stop(now + 0.036);
-
-    // 3. Tiny Tactile Knuckle/Finger Impact Transient (8ms bandpass noise burst)
-    const bufferSize = Math.floor(ctx.sampleRate * 0.012);
-    const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-    const output = noiseBuffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) {
-      output[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.3));
+    if (variant === "switch") {
+      // Crisp 2-part vintage lamp pull/toggle click
+      triggerWoodGrainStrike(ctx, now, 520 * jitter, 0.42);
+      triggerWoodGrainStrike(ctx, now + 0.022, 690 * jitter, 0.55);
+      return;
     }
 
-    const noise = ctx.createBufferSource();
-    noise.buffer = noiseBuffer;
+    if (variant === "deep") {
+      // Deeper, denser walnut block knock
+      triggerWoodGrainStrike(ctx, now, 390 * jitter, 0.65);
+      return;
+    }
 
-    const bandpass = ctx.createBiquadFilter();
-    bandpass.type = "bandpass";
-    bandpass.frequency.setValueAtTime(baseFreq * 2.6, now);
-    bandpass.Q.setValueAtTime(3.2, now);
-
-    const noiseGain = ctx.createGain();
-    noiseGain.gain.setValueAtTime(0.35, now);
-    noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.012);
-
-    noise.connect(bandpass);
-    bandpass.connect(noiseGain);
-    noiseGain.connect(masterGain);
-
-    noise.start(now);
-    noise.stop(now + 0.012);
+    // Standard crisp Nordic oak tap
+    triggerWoodGrainStrike(ctx, now, 475 * jitter, 0.52);
   } catch {
-    // Ignore audio context restrictions if blocked
+    // Ignore audio context restrictions if blocked by browser policy
   }
 }

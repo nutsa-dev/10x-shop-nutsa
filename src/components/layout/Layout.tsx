@@ -6,9 +6,10 @@ import { ScrollToTop } from "./ScrollToTop";
 import { playWoodTap } from "@/utils/sound";
 
 export const Layout = () => {
-  // Global minimalist wooden knock sound on interactive clicks
+  // Global minimalist wooden knock sound on interactive press (pointerdown for zero latency)
   useEffect(() => {
-    const handleGlobalClick = (e: MouseEvent) => {
+    const handlePointerDown = (e: PointerEvent) => {
+      if (e.button !== 0) return;
       const target = e.target as HTMLElement | null;
       if (!target) return;
 
@@ -27,8 +28,8 @@ export const Layout = () => {
       }
     };
 
-    document.addEventListener("click", handleGlobalClick, { passive: true });
-    return () => document.removeEventListener("click", handleGlobalClick);
+    document.addEventListener("pointerdown", handlePointerDown, { passive: true });
+    return () => document.removeEventListener("pointerdown", handlePointerDown);
   }, []);
 
   return (
