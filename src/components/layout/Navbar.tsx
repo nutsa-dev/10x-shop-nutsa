@@ -16,8 +16,8 @@ export const Navbar = () => {
   };
 
   return (
-    <header className="wood-plank-header sticky top-0 z-40 w-full transition-colors">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6">
+    <header className="wood-plank-header sticky top-0 z-40 w-full">
+      <div className="relative z-10 container mx-auto flex h-16 items-center justify-between px-4 sm:px-6">
         
         {/* Brand & Engraved Plank Navigation Links */}
         <div className="flex items-center gap-6 sm:gap-9">
@@ -33,9 +33,9 @@ export const Navbar = () => {
               to="/"
               end
               className={({ isActive }) =>
-                `wood-engraved relative py-1 text-xs uppercase transition-opacity ${
+                `wood-engraved relative py-1 text-xs uppercase transition-opacity duration-300 ${
                   isActive
-                    ? "opacity-100 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-[#2C4032] dark:after:bg-[#D49B4B]"
+                    ? "opacity-100 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-[#2C4032] after:transition-colors after:duration-500 dark:after:bg-[#D49B4B]"
                     : "opacity-65 hover:opacity-100"
                 }`
               }
@@ -45,9 +45,9 @@ export const Navbar = () => {
             <NavLink
               to="/orders"
               className={({ isActive }) =>
-                `wood-engraved relative py-1 text-xs uppercase transition-opacity ${
+                `wood-engraved relative py-1 text-xs uppercase transition-opacity duration-300 ${
                   isActive
-                    ? "opacity-100 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-[#2C4032] dark:after:bg-[#D49B4B]"
+                    ? "opacity-100 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-[#2C4032] after:transition-colors after:duration-500 dark:after:bg-[#D49B4B]"
                     : "opacity-65 hover:opacity-100"
                 }`
               }
@@ -59,18 +59,27 @@ export const Navbar = () => {
 
         {/* Right Actions: Clean Balance */}
         <div className="flex items-center gap-3">
-          {/* Minimalist Theme Toggle on Plank */}
+          {/* Animated Sun / Moon Theme Switcher */}
           <button
             type="button"
             onClick={toggleTheme}
             aria-label="Toggle theme"
-            className="wood-engraved flex h-8 w-8 items-center justify-center rounded-full opacity-75 hover:opacity-100 transition-opacity"
+            className="wood-engraved relative flex h-9 w-9 items-center justify-center rounded-full opacity-80 hover:opacity-100 transition-transform duration-500 active:scale-90"
           >
-            {theme === "dark" ? (
-              <IconSun className="h-4 w-4" />
-            ) : (
-              <IconMoon className="h-4 w-4" />
-            )}
+            <IconSun
+              className={`absolute h-4 w-4 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                theme === "dark"
+                  ? "rotate-0 scale-100 opacity-100"
+                  : "rotate-90 scale-0 opacity-0"
+              }`}
+            />
+            <IconMoon
+              className={`absolute h-4 w-4 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                theme === "dark"
+                  ? "-rotate-90 scale-0 opacity-0"
+                  : "rotate-0 scale-100 opacity-100"
+              }`}
+            />
           </button>
 
           {/* Primary Tactile Cart Badge */}
