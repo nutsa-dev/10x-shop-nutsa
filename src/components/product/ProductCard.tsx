@@ -109,17 +109,17 @@ export const ProductCard = ({ product, index, onAdd }: ProductCardProps) => {
         {/* Workshop Index, Category & Rating */}
         <div className="mt-3.5 flex items-center justify-between">
           <div className="flex items-center gap-1.5">
-            <span className="font-mono text-[10px] text-[#736B63] dark:text-[#A8927B]">
+            <span className="font-mono text-[10px] text-[#593E28] dark:text-[#A8927B]">
               {catalogIndex}
             </span>
-            <span className="text-[#C8AB89] dark:text-[#5E3D24]">·</span>
-            <span className="text-[10px] uppercase tracking-widest text-[#8C6D58] font-semibold">
+            <span className="text-[#8A6542] dark:text-[#5E3D24]">·</span>
+            <span className="text-[10px] uppercase tracking-widest text-[#593E28] font-bold dark:text-[#C8B29B]">
               {product.category.replace("-", " ")}
             </span>
           </div>
-          <div className="flex items-center gap-1 text-xs text-[#5C4938] dark:text-[#D8C2A8]">
-            <IconStar className="h-3 w-3 fill-current text-[#D49B4B]" />
-            <span className="font-mono text-[11px] font-medium text-[#26170C] dark:text-[#F5EBE0]">
+          <div className="flex items-center gap-1 text-xs text-[#4A321F] dark:text-[#D8C2A8]">
+            <IconStar className="h-3 w-3 fill-current text-[#B45309] dark:text-[#D49B4B]" />
+            <span className="font-mono text-[11px] font-semibold text-[#26170C] dark:text-[#F5EBE0]">
               {product.rating.toFixed(1)}
             </span>
           </div>
@@ -127,20 +127,20 @@ export const ProductCard = ({ product, index, onAdd }: ProductCardProps) => {
 
         {/* Product Title (Editorial Serif) */}
         <h3 className="font-editorial mt-1 text-lg font-bold tracking-tight text-[#26170C] line-clamp-1 leading-snug dark:text-[#F5EBE0]">
-          <Link to={`/products/${product.id}`} className="hover:text-[#8C6D58] transition-colors">
+          <Link to={`/products/${product.id}`} className="hover:text-[#593E28] dark:hover:text-[#D49B4B] transition-colors">
             {product.title}
           </Link>
         </h3>
       </div>
 
       {/* Price Block & Engraved Wooden CTA Button */}
-      <div className="mt-3.5 flex items-center justify-between gap-2 border-t border-[#E5D5C3] pt-3 dark:border-[#3D2616]">
+      <div className="mt-3.5 flex items-center justify-between gap-2 border-t border-[#B89670]/55 pt-3 dark:border-[#3D2616]">
         <div className="flex flex-wrap items-baseline gap-1.5 font-mono">
           <span className="text-sm font-semibold text-[#26170C] dark:text-[#F5EBE0]">
             {formatPrice(discountedPrice)}
           </span>
           {hasDiscount && (
-            <span className="text-[11px] text-[#736B63] line-through">
+            <span className="text-[11px] text-[#5E432C] line-through dark:text-[#9A826B]">
               {formatPrice(product.price)}
             </span>
           )}
