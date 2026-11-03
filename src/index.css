@@ -276,78 +276,87 @@
 }
 
 /*
- * Solid Wood-Toned Surface Input / Select (texture-free matte wood finish)
+ * Recessed / Carved-In Wood Input & Select (ხეში ჩაღრმავებული, ტექსტურის გარეშე)
  */
 .wood-input {
-  background-color: #E4CCB0;
+  background-color: #D2B490;
   background-image: linear-gradient(
     180deg,
-    #EAD5BC 0%,
-    #DEC3A3 100%
+    #C7A782 0%,
+    #D6B997 45%,
+    #DFC5A6 100%
   );
-  border: 1px solid #A8825B;
-  color: #281407;
+  border-top: 1px solid #86613E;
+  border-left: 1px solid #9B744F;
+  border-right: 1px solid #9B744F;
+  border-bottom: 1px solid #F7EBD9;
+  color: #261306;
   box-shadow:
-    0 6px 16px -4px rgba(42, 24, 9, 0.20),
-    0 2px 5px -1px rgba(42, 24, 9, 0.12),
-    inset 0 1px 0 rgba(255, 248, 238, 0.65),
-    inset 0 -1px 2px rgba(58, 34, 14, 0.14);
+    inset 0 3px 6px rgba(38, 19, 5, 0.34),
+    inset 0 1px 2px rgba(38, 19, 5, 0.26),
+    inset 0 -1px 1px rgba(255, 248, 235, 0.45),
+    0 1px 0 rgba(255, 250, 240, 0.80);
   transition:
     background-color 0.6s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.4s ease,
-    box-shadow 0.4s ease,
+    box-shadow 0.35s ease,
     color 0.5s ease;
 }
 
 .wood-input::placeholder {
-  color: #634832;
+  color: #593E28;
   opacity: 0.85;
 }
 
 .wood-input:focus {
-  border-color: #785534;
+  border-top-color: #6E4D2E;
   box-shadow:
-    0 8px 20px -4px rgba(42, 24, 9, 0.26),
-    0 0 0 2px rgba(140, 109, 88, 0.25),
-    inset 0 1px 0 rgba(255, 248, 238, 0.75);
+    inset 0 4px 8px rgba(38, 19, 5, 0.42),
+    inset 0 1px 3px rgba(38, 19, 5, 0.30),
+    0 1px 0 rgba(255, 250, 240, 0.90),
+    0 0 0 2px rgba(134, 97, 62, 0.22);
 }
 
 .wood-input option {
-  background-color: #E4CCB0;
-  color: #281407;
+  background-color: #D6B997;
+  color: #261306;
 }
 
 .dark .wood-input {
-  background-color: #2C1A0E;
+  background-color: #1D1108;
   background-image: linear-gradient(
     180deg,
-    #342012 0%,
-    #25160B 100%
+    #160C05 0%,
+    #1F1209 50%,
+    #27170C 100%
   );
-  border: 1px solid #5C3B21;
+  border-top: 1px solid #0E0703;
+  border-left: 1px solid #2A190D;
+  border-right: 1px solid #2A190D;
+  border-bottom: 1px solid rgba(255, 215, 175, 0.22);
   color: #F2DEC4;
   box-shadow:
-    0 8px 20px -4px rgba(0, 0, 0, 0.58),
-    0 2px 6px rgba(0, 0, 0, 0.38),
-    inset 0 1px 0 rgba(255, 220, 185, 0.12),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.45);
+    inset 0 3px 7px rgba(0, 0, 0, 0.82),
+    inset 0 1px 3px rgba(0, 0, 0, 0.68),
+    0 1px 0 rgba(255, 218, 180, 0.16);
 }
 
 .dark .wood-input::placeholder {
-  color: #B59B80;
+  color: #B0957A;
   opacity: 0.8;
 }
 
 .dark .wood-input:focus {
-  border-color: #8C623E;
+  border-bottom-color: rgba(212, 155, 75, 0.45);
   box-shadow:
-    0 10px 24px -4px rgba(0, 0, 0, 0.68),
-    0 0 0 2px rgba(212, 155, 75, 0.22),
-    inset 0 1px 0 rgba(255, 220, 185, 0.16);
+    inset 0 4px 9px rgba(0, 0, 0, 0.90),
+    inset 0 1px 3px rgba(0, 0, 0, 0.75),
+    0 1px 0 rgba(255, 218, 180, 0.24),
+    0 0 0 2px rgba(212, 155, 75, 0.20);
 }
 
 .dark .wood-input option {
-  background-color: #2C1A0E;
+  background-color: #1F1209;
   color: #F2DEC4;
 }
 
