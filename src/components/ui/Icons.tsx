@@ -1,5 +1,57 @@
 import type { SVGProps } from "react";
 
+export const IconBulbOn = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={1.8}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="h-4 w-4"
+    {...props}
+  >
+    {/* Warm glowing glass fill */}
+    <path
+      d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"
+      fill="#FBBF24"
+      fillOpacity={0.85}
+    />
+    {/* Filament */}
+    <path d="M10 14v-2.5a2 2 0 1 1 4 0V14" strokeWidth={1.5} />
+    {/* Base threads */}
+    <path d="M9 18h6" />
+    <path d="M10 21h4" />
+    {/* Light rays */}
+    <path d="M12 1v1.5" />
+    <path d="M4.22 4.22l1.06 1.06" />
+    <path d="M19.78 4.22l-1.06 1.06" />
+    <path d="M1.5 9H3" />
+    <path d="M21 9h1.5" />
+  </svg>
+);
+
+export const IconBulbOff = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={1.8}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="h-4 w-4"
+    {...props}
+  >
+    {/* Unlit glass outline */}
+    <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
+    {/* Unlit filament */}
+    <path d="M10 14v-2a2 2 0 1 1 4 0v2" strokeOpacity={0.45} strokeWidth={1.4} />
+    {/* Base threads */}
+    <path d="M9 18h6" />
+    <path d="M10 21h4" />
+  </svg>
+);
+
 export const IconSun = (props: SVGProps<SVGSVGElement>) => (
   <svg
     viewBox="0 0 24 24"

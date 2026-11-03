@@ -4,7 +4,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import { useTheme } from "@/context/ThemeContext";
 import { formatPrice } from "@/utils/format";
-import { IconSun, IconMoon } from "@/components/ui/Icons";
+import { IconBulbOff, IconBulbOn } from "@/components/ui/Icons";
 import type { Order } from "@/types/order";
 
 export const ProfilePage = () => {
@@ -89,7 +89,11 @@ export const ProfilePage = () => {
             onClick={toggleTheme}
             className="wood-btn flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs"
           >
-            {theme === "dark" ? <IconSun className="h-3.5 w-3.5" /> : <IconMoon className="h-3.5 w-3.5" />}
+            {theme === "light" ? (
+              <IconBulbOn className="h-4 w-4 text-[#B45309] drop-shadow-[0_0_6px_rgba(251,191,36,0.85)]" />
+            ) : (
+              <IconBulbOff className="h-4 w-4 opacity-75" />
+            )}
             <span className="capitalize">{theme} Mode</span>
           </button>
         </div>

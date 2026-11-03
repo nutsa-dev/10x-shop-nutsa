@@ -2,7 +2,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useTheme } from "@/context/ThemeContext";
 import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
-import { IconCart, IconMoon, IconSun, IconUser } from "@/components/ui/Icons";
+import { IconBulbOff, IconBulbOn, IconCart, IconUser } from "@/components/ui/Icons";
 
 export const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
@@ -59,25 +59,26 @@ export const Navbar = () => {
 
         {/* Right Actions: Clean Balance */}
         <div className="flex items-center gap-3">
-          {/* Animated Sun / Moon Theme Switcher */}
+          {/* Animated Lightbulb Theme Switcher (Lit on Light Mode, Unlit on Dark Mode) */}
           <button
             type="button"
             onClick={toggleTheme}
-            aria-label="Toggle theme"
-            className="wood-engraved relative flex h-9 w-9 items-center justify-center rounded-full opacity-80 hover:opacity-100 transition-transform duration-500 active:scale-90"
+            aria-label={theme === "light" ? "Turn off light (Dark mode)" : "Turn on light (Light mode)"}
+            title={theme === "light" ? "Turn off light (Dark mode)" : "Turn on light (Light mode)"}
+            className="wood-engraved relative flex h-9 w-9 items-center justify-center rounded-full opacity-90 hover:opacity-100 transition-transform duration-500 active:scale-90"
           >
-            <IconSun
-              className={`absolute h-4 w-4 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                theme === "dark"
-                  ? "rotate-0 scale-100 opacity-100"
-                  : "rotate-90 scale-0 opacity-0"
+            <IconBulbOn
+              className={`absolute h-[19px] w-[19px] text-[#B45309] drop-shadow-[0_0_8px_rgba(251,191,36,0.9)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                theme === "light"
+                  ? "scale-100 opacity-100"
+                  : "scale-75 opacity-0"
               }`}
             />
-            <IconMoon
-              className={`absolute h-4 w-4 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            <IconBulbOff
+              className={`absolute h-[18px] w-[18px] text-[#C8B29B] opacity-70 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                 theme === "dark"
-                  ? "-rotate-90 scale-0 opacity-0"
-                  : "rotate-0 scale-100 opacity-100"
+                  ? "scale-100 opacity-80"
+                  : "scale-75 opacity-0"
               }`}
             />
           </button>
