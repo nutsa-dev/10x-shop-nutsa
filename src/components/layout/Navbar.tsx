@@ -16,7 +16,7 @@ export const Navbar = () => {
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[#EADBCC] bg-[#F7F5F0]/90 backdrop-blur-md transition-colors dark:border-[#332C27] dark:bg-[#191614]/90">
+    <header className="sticky top-0 z-40 w-full border-b border-[#D5BC9D] bg-[#F7F2EA]/85 backdrop-blur-md transition-colors dark:border-[#332C27] dark:bg-[#191614]/90">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6">
         
         {/* Brand & Navigation Links */}
@@ -35,8 +35,8 @@ export const Navbar = () => {
               className={({ isActive }) =>
                 `rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
                   isActive
-                    ? "bg-[#EADBCC]/60 text-[#2C2724] dark:bg-[#2C2724] dark:text-[#F7F5F0]"
-                    : "text-[#736B63] hover:text-[#2C2724] dark:text-[#A39A90] dark:hover:text-[#F7F5F0]"
+                    ? "bg-[#8C6D58] text-white"
+                    : "text-[#5C5248] hover:text-[#2C2724] dark:text-[#A39A90] dark:hover:text-[#F7F5F0]"
                 }`
               }
             >
@@ -47,8 +47,8 @@ export const Navbar = () => {
               className={({ isActive }) =>
                 `rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
                   isActive
-                    ? "bg-[#EADBCC]/60 text-[#2C2724] dark:bg-[#2C2724] dark:text-[#F7F5F0]"
-                    : "text-[#736B63] hover:text-[#2C2724] dark:text-[#A39A90] dark:hover:text-[#F7F5F0]"
+                    ? "bg-[#8C6D58] text-white"
+                    : "text-[#5C5248] hover:text-[#2C2724] dark:text-[#A39A90] dark:hover:text-[#F7F5F0]"
                 }`
               }
             >
@@ -64,7 +64,7 @@ export const Navbar = () => {
             type="button"
             onClick={toggleTheme}
             aria-label="Toggle theme"
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#EADBCC] bg-white text-[#736B63] hover:border-[#8C6D58] hover:text-[#2C2724] transition-colors dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#D6CEC5]"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#EADBCC] bg-white/95 text-[#736B63] hover:border-[#8C6D58] hover:text-[#2C2724] transition-colors dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#D6CEC5]"
           >
             {theme === "dark" ? (
               <IconSun className="h-3.5 w-3.5" />
@@ -80,7 +80,7 @@ export const Navbar = () => {
               `flex h-9 items-center gap-1.5 rounded-lg border px-3 text-xs font-medium transition-colors ${
                 isActive
                   ? "border-[#8C6D58] bg-[#8C6D58] text-white"
-                  : "border-[#EADBCC] bg-white text-[#2C2724] hover:border-[#8C6D58] dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#F7F5F0]"
+                  : "border-[#EADBCC] bg-white/95 text-[#2C2724] hover:border-[#8C6D58] dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#F7F5F0]"
               }`
             }
           >
@@ -94,7 +94,7 @@ export const Navbar = () => {
             <div className="flex items-center gap-1.5 pl-1">
               <NavLink
                 to="/profile"
-                className="flex h-9 items-center gap-1.5 rounded-lg border border-[#EADBCC] bg-white px-2.5 text-xs font-medium text-[#2C2724] hover:border-[#8C6D58] transition-colors dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#F7F5F0]"
+                className="flex h-9 items-center gap-1.5 rounded-lg border border-[#EADBCC] bg-white/95 px-2.5 text-xs font-medium text-[#2C2724] hover:border-[#8C6D58] transition-colors dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#F7F5F0]"
               >
                 <IconUser className="h-3.5 w-3.5 text-[#8C6D58]" />
                 <span className="max-w-[70px] truncate">{user?.username}</span>
@@ -102,7 +102,7 @@ export const Navbar = () => {
               <button
                 type="button"
                 onClick={handleLogout}
-                className="hidden sm:inline-block text-xs font-medium text-[#736B63] hover:text-[#2C2724] dark:text-[#A39A90] dark:hover:text-[#F7F5F0] px-1.5"
+                className="hidden sm:inline-block text-xs font-medium text-[#5C5248] hover:text-[#2C2724] dark:text-[#A39A90] dark:hover:text-[#F7F5F0] px-1.5"
               >
                 Logout
               </button>

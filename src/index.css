@@ -4,23 +4,27 @@
 
 @theme {
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --color-canvas: #F3EDE2;
+  --color-canvas: #DEC6A7;
   --color-charcoal: #2C2724;
-  --color-muted: #736B63;
-  --color-sand: #E5D5C3;
+  --color-muted: #5C5248;
+  --color-sand: #D5BC9D;
   --color-terracotta: #8C6D58;
   --color-terracotta-hover: #735744;
-  --color-gallery: #F2EFE9;
+  --color-gallery: #F5F0E8;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    background-color: #F3EDE2;
+    background-color: #DEC6A7;
   }
 
   body {
-    background-color: #F3EDE2;
+    background-color: #DEC6A7;
+    background-image: url("/nordic-wood.jpg");
+    background-repeat: repeat;
+    background-size: 520px auto;
+    background-attachment: fixed;
     color: #2C2724;
     font-family: var(--font-sans);
     letter-spacing: -0.01em;
@@ -30,69 +34,42 @@
   }
 
   /*
-   * Nordic Aesthetic Light Birch / Whitewashed Ash Wood Texture
-   * Uses anisotropic SVG turbulence (stretched horizontally/vertically like natural wood fibers)
-   * layered over warm Scandinavian birch & pale honey-oak gradients.
+   * Nordic Light Oak Wood Texture (using the uploaded oak grain texture)
+   * with a very subtle warm glaze so cards and typography pop cleanly.
    */
   .nordic-wood-bg {
-    background-color: #F3EDE2;
+    background-color: #DEC6A7;
     background-image:
-      /* Soft natural sunlight warmth across the wood surface */
-      radial-gradient(ellipse at 20% 0%, rgba(255, 252, 245, 0.7) 0%, transparent 65%),
-      radial-gradient(ellipse at 85% 100%, rgba(226, 208, 184, 0.45) 0%, transparent 60%),
-      /* Subtle wide Nordic plank join lines */
-      repeating-linear-gradient(
-        90deg,
-        rgba(180, 152, 120, 0.06) 0px,
-        rgba(180, 152, 120, 0.06) 1px,
-        transparent 1px,
-        transparent 220px
+      linear-gradient(
+        180deg,
+        rgba(247, 240, 229, 0.18) 0%,
+        rgba(235, 218, 195, 0.12) 100%
       ),
-      /* Fine organic wood grain striations */
-      repeating-linear-gradient(
-        90deg,
-        rgba(255, 250, 242, 0.28) 0px,
-        rgba(234, 219, 200, 0.22) 14px,
-        rgba(246, 239, 228, 0.3) 32px,
-        rgba(229, 212, 190, 0.18) 54px
-      );
-  }
-
-  /* Anisotropic SVG wood-fiber grain overlay */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    opacity: 0.22;
-    mix-blend-mode: multiply;
-    background-size: 420px 420px;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='nordicWood'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.065 0.004' numOctaves='4' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0.35 0 0 0 0.72  0.28 0 0 0 0.64  0.20 0 0 0 0.53  0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23nordicWood)'/%3E%3C/svg%3E");
+      url("/nordic-wood.jpg");
+    background-repeat: repeat;
+    background-size: auto, 520px auto;
+    background-attachment: fixed;
   }
 
   .dark html,
   .dark body {
     background-color: #191614;
+    background-image: none;
     color: #F7F5F0;
   }
 
   .dark .nordic-wood-bg {
     background-color: #191614;
     background-image:
-      radial-gradient(ellipse at 20% 0%, rgba(44, 39, 36, 0.55) 0%, transparent 65%),
-      repeating-linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0.02) 0px,
-        rgba(255, 255, 255, 0.02) 1px,
-        transparent 1px,
-        transparent 220px
-      );
-  }
-
-  .dark body::before {
-    opacity: 0.08;
-    mix-blend-mode: screen;
+      linear-gradient(
+        180deg,
+        rgba(25, 22, 20, 0.88) 0%,
+        rgba(25, 22, 20, 0.92) 100%
+      ),
+      url("/nordic-wood.jpg");
+    background-repeat: repeat;
+    background-size: auto, 520px auto;
+    background-attachment: fixed;
   }
 
   /* Minimal custom scrollbar */
@@ -104,7 +81,7 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: #D8C5B0;
+    background: #B89B78;
     border-radius: 9999px;
   }
   .dark ::-webkit-scrollbar-thumb {
