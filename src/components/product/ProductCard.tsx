@@ -42,11 +42,11 @@ export const ProductCard = ({ product, onAdd }: ProductCardProps) => {
   const currentImage = galleryImages[selectedIdx] || product.thumbnail;
 
   return (
-    <article className="group flex flex-col justify-between bg-white rounded-2xl border border-[#EADBCC] p-4 shadow-[0_4px_20px_rgba(44,39,36,0.04)] hover:shadow-[0_8px_30px_rgba(44,39,36,0.08)] transition-all duration-300 dark:bg-[#24201D] dark:border-[#332C27]">
+    <article className="tactile-card group flex flex-col justify-between rounded-2xl p-4 transition-all duration-300">
       <div>
         {/* Product Image Container */}
         <div
-          className="relative aspect-square w-full bg-[#F2EFE9] rounded-xl overflow-hidden flex items-center justify-center p-4 dark:bg-[#191614]"
+          className="relative aspect-square w-full bg-[#EFE8DC] rounded-xl overflow-hidden flex items-center justify-center p-4 shadow-inner dark:bg-[#19100A]"
           onMouseEnter={() => {
             if (galleryImages.length > 1 && selectedIdx === 0) {
               setSelectedIdx(1);
@@ -59,13 +59,13 @@ export const ProductCard = ({ product, onAdd }: ProductCardProps) => {
           }}
         >
           {hasDiscount && (
-            <span className="absolute left-2.5 top-2.5 z-10 rounded-md bg-[#2C2724] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white">
+            <span className="wood-btn-walnut absolute left-2.5 top-2.5 z-10 rounded-md px-2 py-0.5 text-[10px] uppercase">
               -{Math.round(product.discountPercentage)}%
             </span>
           )}
 
           {galleryImages.length > 1 && (
-            <span className="absolute right-2.5 top-2.5 z-10 rounded-md bg-white/85 backdrop-blur-xs px-1.5 py-0.5 text-[10px] font-medium text-[#736B63] border border-[#EADBCC]/80 dark:bg-[#24201D]/85 dark:border-[#332C27]">
+            <span className="absolute right-2.5 top-2.5 z-10 rounded-md bg-white/85 backdrop-blur-xs px-1.5 py-0.5 text-[10px] font-semibold text-[#5C4938] border border-[#CBB092] dark:bg-[#23160D]/85 dark:border-[#4A301D] dark:text-[#D8C2A8]">
               {selectedIdx + 1}/{galleryImages.length}
             </span>
           )}
@@ -87,7 +87,7 @@ export const ProductCard = ({ product, onAdd }: ProductCardProps) => {
 
         {/* 3-4 Photo Mini Gallery Thumbnails */}
         {galleryImages.length > 1 && (
-          <div className="mt-2 flex items-center gap-1.5">
+          <div className="mt-2.5 flex items-center gap-1.5">
             {galleryImages.map((imgUrl, idx) => (
               <button
                 key={idx}
@@ -97,10 +97,10 @@ export const ProductCard = ({ product, onAdd }: ProductCardProps) => {
                   e.preventDefault();
                   setSelectedIdx(idx);
                 }}
-                className={`h-9 w-9 overflow-hidden rounded-lg border p-0.5 bg-[#F2EFE9] transition-all dark:bg-[#191614] ${
+                className={`h-9 w-9 overflow-hidden rounded-lg border p-0.5 bg-[#EFE8DC] transition-all dark:bg-[#19100A] ${
                   selectedIdx === idx
-                    ? "border-[#8C6D58] ring-1 ring-[#8C6D58]/40"
-                    : "border-[#EADBCC] opacity-65 hover:opacity-100 dark:border-[#332C27]"
+                    ? "border-[#8C6D58] ring-2 ring-[#8C6D58]/40"
+                    : "border-[#CBB092] opacity-65 hover:opacity-100 dark:border-[#4A301D]"
                 }`}
               >
                 <img
@@ -116,29 +116,29 @@ export const ProductCard = ({ product, onAdd }: ProductCardProps) => {
 
         {/* Category & Rating */}
         <div className="mt-3 flex items-center justify-between">
-          <span className="text-[11px] uppercase tracking-widest text-[#8C6D58] font-medium">
+          <span className="text-[11px] uppercase tracking-widest text-[#8C6D58] font-semibold">
             {product.category.replace("-", " ")}
           </span>
-          <div className="flex items-center gap-1 text-xs text-[#736B63]">
+          <div className="flex items-center gap-1 text-xs text-[#5C4938] dark:text-[#D8C2A8]">
             <IconStar className="h-3 w-3 fill-current text-[#8C6D58]" />
-            <span className="font-medium text-[#2C2724] dark:text-[#D6CEC5]">
+            <span className="font-semibold text-[#26170C] dark:text-[#F5EBE0]">
               {product.rating.toFixed(1)}
             </span>
           </div>
         </div>
 
         {/* Product Title */}
-        <h3 className="mt-1.5 text-sm font-semibold text-[#2C2724] line-clamp-1 leading-snug dark:text-[#F7F5F0]">
+        <h3 className="mt-1.5 text-sm font-bold text-[#26170C] line-clamp-1 leading-snug dark:text-[#F5EBE0]">
           <Link to={`/products/${product.id}`} className="hover:text-[#8C6D58] transition-colors">
             {product.title}
           </Link>
         </h3>
       </div>
 
-      {/* Price Block & CTA Button */}
-      <div className="mt-4 flex items-center justify-between gap-2 border-t border-[#EADBCC]/70 pt-3.5 dark:border-[#332C27]">
+      {/* Price Block & Engraved Wooden CTA Button */}
+      <div className="mt-4 flex items-center justify-between gap-2 border-t border-[#D8C2A8] pt-3.5 dark:border-[#3D2616]">
         <div className="flex flex-wrap items-baseline gap-1.5">
-          <span className="text-base font-bold text-[#2C2724] dark:text-[#F7F5F0]">
+          <span className="text-base font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
             {formatPrice(discountedPrice)}
           </span>
           {hasDiscount && (
@@ -152,7 +152,9 @@ export const ProductCard = ({ product, onAdd }: ProductCardProps) => {
           type="button"
           disabled={isOutOfStock}
           onClick={handleAddToCart}
-          className="rounded-lg py-2.5 px-4 bg-[#8C6D58] hover:bg-[#735744] text-white text-xs font-medium transition-colors disabled:opacity-40 shrink-0"
+          className={`rounded-lg py-2 px-3.5 text-xs disabled:opacity-40 shrink-0 ${
+            isAdded ? "wood-btn-walnut" : "wood-btn"
+          }`}
         >
           {isAdded ? (
             <span className="flex items-center gap-1">

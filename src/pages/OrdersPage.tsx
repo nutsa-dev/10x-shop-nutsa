@@ -80,17 +80,17 @@ export const OrdersPage = () => {
   if (orders.length === 0) {
     return (
       <div className="container mx-auto px-4 py-20 text-center">
-        <div className="mx-auto max-w-sm rounded-2xl border border-[#EADBCC] bg-white p-10 shadow-[0_4px_20px_rgba(44,39,36,0.04)] dark:border-[#332C27] dark:bg-[#24201D]">
-          <h1 className="text-base font-bold text-[#2C2724] dark:text-[#F7F5F0]">
+        <div className="tactile-card mx-auto max-w-sm rounded-2xl p-10">
+          <h1 className="text-base font-bold text-[#26170C] dark:text-[#F5EBE0]">
             No Orders Yet
           </h1>
-          <p className="mt-1 text-xs text-[#736B63]">
+          <p className="mt-1 text-xs text-[#5C4938] dark:text-[#D8C2A8]">
             Orders you place will appear here with live simulation tracking.
           </p>
           <div className="mt-5">
             <Link
               to="/"
-              className="inline-flex rounded-lg bg-[#8C6D58] hover:bg-[#735744] px-4 py-2.5 text-xs font-medium text-white transition-colors"
+              className="wood-btn inline-flex rounded-lg px-4 py-2.5 text-xs"
             >
               Explore Collection
             </Link>
@@ -102,17 +102,17 @@ export const OrdersPage = () => {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
-      <div className="mb-6 flex items-center justify-between border-b border-[#EADBCC] pb-4 dark:border-[#332C27]">
+      <div className="tactile-card mb-6 flex items-center justify-between rounded-2xl px-6 py-4">
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-[#2C2724] dark:text-[#F7F5F0]">
+          <h1 className="text-xl font-extrabold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
             Orders & Tracking
           </h1>
-          <p className="text-xs text-[#736B63]">
+          <p className="text-xs text-[#5C4938] dark:text-[#D8C2A8]">
             {orders.length} {orders.length === 1 ? "order" : "orders"}
           </p>
         </div>
 
-        <Link to="/" className="text-xs text-[#736B63] hover:text-[#2C2724] dark:hover:text-white">
+        <Link to="/" className="wood-btn rounded-lg px-3 py-1.5 text-xs">
           ← Collection
         </Link>
       </div>
@@ -126,27 +126,27 @@ export const OrdersPage = () => {
           return (
             <div
               key={order.id}
-              className="rounded-2xl border border-[#EADBCC] bg-white p-5 shadow-[0_4px_20px_rgba(44,39,36,0.04)] dark:border-[#332C27] dark:bg-[#24201D]"
+              className="tactile-card rounded-2xl p-5"
             >
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between border-b border-[#EADBCC]/70 pb-4 dark:border-[#332C27]">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between border-b border-[#D8C2A8] pb-4 dark:border-[#3D2616]">
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-sm font-bold text-[#2C2724] dark:text-[#F7F5F0]">
+                    <span className="font-mono text-sm font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
                       #{order.number}
                     </span>
-                    <span className="rounded-md bg-[#F2EFE9] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#8C6D58] dark:bg-[#191614]">
+                    <span className="wood-btn rounded-md px-2 py-0.5 text-[10px] uppercase">
                       {currentStatus}
                     </span>
                   </div>
-                  <p className="mt-0.5 text-[11px] text-[#736B63]">
+                  <p className="mt-0.5 text-[11px] text-[#5C4938] dark:text-[#D8C2A8]">
                     Placed {formatDate(order.placedAt)} • To: {order.shipping.fullName}
                   </p>
                 </div>
 
                 <div className="flex items-center gap-4">
                   <div className="text-left sm:text-right">
-                    <span className="text-[10px] uppercase text-[#736B63]">Total</span>
-                    <p className="text-sm font-bold text-[#2C2724] dark:text-[#F7F5F0]">
+                    <span className="text-[10px] uppercase text-[#5C4938] dark:text-[#D8C2A8]">Total</span>
+                    <p className="text-sm font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
                       {formatPrice(order.total)}
                     </p>
                   </div>
@@ -155,14 +155,14 @@ export const OrdersPage = () => {
                     <button
                       type="button"
                       onClick={() => handleReorder(order)}
-                      className="rounded-lg bg-[#8C6D58] hover:bg-[#735744] px-3 py-1.5 text-xs font-medium text-white transition-colors"
+                      className="wood-btn rounded-lg px-3 py-1.5 text-xs"
                     >
                       Reorder
                     </button>
                     <button
                       type="button"
                       onClick={() => handleCycleStatus(order.id)}
-                      className="rounded-lg border border-[#EADBCC] px-2.5 py-1.5 text-xs text-[#736B63] hover:border-[#8C6D58] hover:text-[#2C2724] dark:border-[#332C27] dark:text-[#A39A90]"
+                      className="wood-btn-walnut rounded-lg px-2.5 py-1.5 text-xs"
                     >
                       Simulate ↻
                     </button>
@@ -171,7 +171,7 @@ export const OrdersPage = () => {
               </div>
 
               {/* Minimal Timeline */}
-              <div className="py-4 border-b border-[#EADBCC]/70 dark:border-[#332C27]">
+              <div className="py-4 border-b border-[#D8C2A8] dark:border-[#3D2616]">
                 <div className="flex items-center justify-between max-w-md mx-auto">
                   {STATUS_STEPS.map((step, idx) => {
                     const isPassed = idx <= currentStepIndex;
@@ -182,13 +182,13 @@ export const OrdersPage = () => {
                         <div
                           className={`flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold transition ${
                             isPassed
-                              ? "bg-[#8C6D58] text-white"
-                              : "border border-[#EADBCC] text-[#736B63] dark:border-[#332C27]"
-                          } ${isCurrent ? "ring-2 ring-[#EADBCC]" : ""}`}
+                              ? "wood-btn"
+                              : "border border-[#CBB092] text-[#5C4938] dark:border-[#4A301D] dark:text-[#D8C2A8]"
+                          } ${isCurrent ? "ring-2 ring-[#8C6D58]" : ""}`}
                         >
                           {isPassed ? <IconCheck className="h-3 w-3" /> : idx + 1}
                         </div>
-                        <span className={`mt-1.5 text-[11px] font-medium ${isCurrent ? "font-bold text-[#2C2724] dark:text-[#F7F5F0]" : "text-[#736B63]"}`}>
+                        <span className={`mt-1.5 text-[11px] font-medium ${isCurrent ? "font-extrabold text-[#26170C] dark:text-[#F5EBE0]" : "text-[#5C4938] dark:text-[#D8C2A8]"}`}>
                           {step}
                         </span>
                       </div>
@@ -202,23 +202,23 @@ export const OrdersPage = () => {
                 <button
                   type="button"
                   onClick={() => toggleExpand(order.id)}
-                  className="font-medium text-[#8C6D58] hover:underline"
+                  className="wood-btn rounded-md px-2.5 py-1 text-xs"
                 >
                   {isExpanded ? "Hide objects" : `View ${order.items.length} objects`}
                 </button>
-                <span className="text-[#736B63] text-[11px]">
+                <span className="text-[#5C4938] text-[11px] dark:text-[#D8C2A8]">
                   {order.shipping.address}, {order.shipping.city}
                 </span>
               </div>
 
               {isExpanded && (
-                <div className="mt-3 space-y-2 rounded-xl bg-[#F7F5F0] p-3.5 text-xs dark:bg-[#191614]">
+                <div className="mt-3 space-y-2 rounded-xl bg-[#EFE8DC] p-3.5 text-xs dark:bg-[#19100A]">
                   {order.items.map((item) => (
                     <div key={item.productId} className="flex justify-between items-center">
-                      <span className="truncate pr-2 text-[#2C2724] dark:text-[#F7F5F0]">
+                      <span className="truncate pr-2 text-[#26170C] dark:text-[#F5EBE0]">
                         {item.quantity}× {item.title}
                       </span>
-                      <span className="font-semibold text-[#2C2724] dark:text-[#F7F5F0]">
+                      <span className="font-bold text-[#26170C] dark:text-[#F5EBE0]">
                         {formatPrice(getDiscountedPrice(item.price, item.discountPercentage) * item.quantity)}
                       </span>
                     </div>

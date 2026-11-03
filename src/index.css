@@ -5,12 +5,12 @@
 @theme {
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --color-canvas: #DEC6A7;
-  --color-charcoal: #2C2724;
-  --color-muted: #5C5248;
-  --color-sand: #D5BC9D;
+  --color-charcoal: #26170C;
+  --color-muted: #5C4938;
+  --color-sand: #C8AB89;
   --color-terracotta: #8C6D58;
   --color-terracotta-hover: #735744;
-  --color-gallery: #F5F0E8;
+  --color-gallery: #F7F2E9;
 }
 
 @layer base {
@@ -25,7 +25,7 @@
     background-repeat: repeat;
     background-size: 520px auto;
     background-attachment: fixed;
-    color: #2C2724;
+    color: #26170C;
     font-family: var(--font-sans);
     letter-spacing: -0.01em;
     -webkit-font-smoothing: antialiased;
@@ -34,15 +34,15 @@
   }
 
   /*
-   * Light Mode: Nordic Light Oak Wood Texture
+   * Site Background: Natural Light Oak Wood (Light) / Smoked Walnut Wood (Dark)
    */
   .nordic-wood-bg {
     background-color: #DEC6A7;
     background-image:
       linear-gradient(
         180deg,
-        rgba(247, 240, 229, 0.14) 0%,
-        rgba(235, 218, 195, 0.10) 100%
+        rgba(248, 241, 230, 0.12) 0%,
+        rgba(220, 195, 165, 0.10) 100%
       ),
       url("/nordic-wood.jpg");
     background-repeat: repeat;
@@ -50,9 +50,6 @@
     background-attachment: fixed;
   }
 
-  /*
-   * Dark Mode: Deep Smoked Walnut / Dark Oak Wood Texture
-   */
   .dark html,
   .dark body {
     background-color: #361F0E;
@@ -60,7 +57,7 @@
     background-repeat: repeat;
     background-size: 520px auto;
     background-attachment: fixed;
-    color: #F7F5F0;
+    color: #F5EBE0;
   }
 
   .dark .nordic-wood-bg {
@@ -68,8 +65,8 @@
     background-image:
       linear-gradient(
         180deg,
-        rgba(28, 18, 11, 0.18) 0%,
-        rgba(22, 14, 9, 0.24) 100%
+        rgba(24, 14, 8, 0.16) 0%,
+        rgba(18, 10, 5, 0.22) 100%
       ),
       url("/nordic-wood-dark.jpg");
     background-repeat: repeat;
@@ -92,4 +89,229 @@
   .dark ::-webkit-scrollbar-thumb {
     background: #5E3D24;
   }
+}
+
+/*
+ * Wooden Header & Footer Plank Bars
+ */
+.wood-plank-header {
+  background-color: #D6BA96;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(255, 248, 236, 0.28) 0%,
+      rgba(168, 130, 90, 0.22) 100%
+    ),
+    url("/nordic-wood.jpg");
+  background-repeat: repeat;
+  background-size: auto, 420px auto;
+  border-bottom: 2px solid #A8845E;
+  box-shadow:
+    0 8px 24px -4px rgba(38, 22, 9, 0.28),
+    0 2px 6px rgba(38, 22, 9, 0.18),
+    inset 0 1px 0 rgba(255, 250, 240, 0.65),
+    inset 0 -1px 0 rgba(74, 45, 20, 0.25);
+}
+
+.dark .wood-plank-header {
+  background-color: #2E1A0C;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(70, 44, 24, 0.22) 0%,
+      rgba(18, 10, 5, 0.45) 100%
+    ),
+    url("/nordic-wood-dark.jpg");
+  background-repeat: repeat;
+  background-size: auto, 420px auto;
+  border-bottom: 2px solid #1A0E06;
+  box-shadow:
+    0 10px 28px -4px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 215, 175, 0.14),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.7);
+}
+
+.wood-plank-footer {
+  background-color: #D6BA96;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(168, 130, 90, 0.20) 0%,
+      rgba(255, 248, 236, 0.18) 100%
+    ),
+    url("/nordic-wood.jpg");
+  background-repeat: repeat;
+  background-size: auto, 420px auto;
+  border-top: 2px solid #A8845E;
+  box-shadow:
+    0 -8px 24px -4px rgba(38, 22, 9, 0.22),
+    inset 0 1px 0 rgba(255, 250, 240, 0.6);
+}
+
+.dark .wood-plank-footer {
+  background-color: #2E1A0C;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(18, 10, 5, 0.4) 0%,
+      rgba(55, 34, 18, 0.25) 100%
+    ),
+    url("/nordic-wood-dark.jpg");
+  background-repeat: repeat;
+  background-size: auto, 420px auto;
+  border-top: 2px solid #1A0E06;
+  box-shadow:
+    0 -10px 28px -4px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 215, 175, 0.12);
+}
+
+/*
+ * Tactile 3D Cards resting on the wooden surface
+ */
+.tactile-card {
+  background-color: #FAF6F0;
+  border: 1px solid #CBB092;
+  box-shadow:
+    0 14px 32px -6px rgba(42, 25, 11, 0.26),
+    0 5px 12px -2px rgba(42, 25, 11, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.tactile-card:hover {
+  box-shadow:
+    0 20px 40px -8px rgba(42, 25, 11, 0.34),
+    0 8px 18px -3px rgba(42, 25, 11, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.dark .tactile-card {
+  background-color: #23160D;
+  border: 1px solid #4A301D;
+  box-shadow:
+    0 16px 36px -6px rgba(0, 0, 0, 0.65),
+    0 6px 14px -2px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 220, 185, 0.08);
+}
+
+.dark .tactile-card:hover {
+  box-shadow:
+    0 22px 44px -6px rgba(0, 0, 0, 0.78),
+    0 8px 18px -2px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 220, 185, 0.14);
+}
+
+/*
+ * Engraved / Carved in Wood Text Effect (ხეზე ამოტვიფრული სტილი)
+ */
+.wood-engraved {
+  color: #2B1608;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-shadow:
+    0 1px 0 rgba(255, 248, 235, 0.82),
+    0 -1px 1px rgba(24, 11, 2, 0.45);
+}
+
+.dark .wood-engraved {
+  color: #F2DEC4;
+  text-shadow:
+    0 -1px 1px rgba(0, 0, 0, 0.95),
+    0 1px 0 rgba(255, 220, 175, 0.25);
+}
+
+/*
+ * Wooden Button with Carved / Engraved Text (.wood-btn)
+ */
+.wood-btn {
+  position: relative;
+  background-color: #D4B58E;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(255, 248, 235, 0.32) 0%,
+      rgba(160, 118, 76, 0.28) 100%
+    ),
+    url("/nordic-wood.jpg");
+  background-repeat: repeat;
+  background-size: auto, 260px auto;
+  border: 1px solid #96704B;
+  color: #281407;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-shadow:
+    0 1px 0 rgba(255, 247, 232, 0.85),
+    0 -1px 1px rgba(30, 14, 4, 0.5);
+  box-shadow:
+    0 4px 10px -1px rgba(42, 24, 9, 0.28),
+    0 2px 4px rgba(42, 24, 9, 0.18),
+    inset 0 1px 1px rgba(255, 250, 240, 0.75),
+    inset 0 -2px 2px rgba(58, 34, 14, 0.35);
+  transition: all 0.18s ease;
+}
+
+.wood-btn:hover:not(:disabled) {
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(255, 244, 225, 0.22) 0%,
+      rgba(140, 96, 56, 0.38) 100%
+    ),
+    url("/nordic-wood.jpg");
+  border-color: #7D5A38;
+  transform: translateY(-1px);
+  box-shadow:
+    0 6px 14px -1px rgba(42, 24, 9, 0.34),
+    0 3px 6px rgba(42, 24, 9, 0.22),
+    inset 0 1px 1px rgba(255, 250, 240, 0.8),
+    inset 0 -2px 3px rgba(58, 34, 14, 0.45);
+}
+
+.wood-btn:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow:
+    0 1px 3px rgba(42, 24, 9, 0.25),
+    inset 0 2px 4px rgba(42, 24, 9, 0.45);
+}
+
+/*
+ * Deep Roasted Walnut Button Variant (for active states or dark mode)
+ */
+.wood-btn-walnut,
+.dark .wood-btn {
+  background-color: #462915;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(95, 60, 34, 0.28) 0%,
+      rgba(20, 11, 5, 0.52) 100%
+    ),
+    url("/nordic-wood-dark.jpg");
+  background-repeat: repeat;
+  background-size: auto, 260px auto;
+  border: 1px solid #2A1609;
+  color: #F3DFC3;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-shadow:
+    0 -1px 1px rgba(0, 0, 0, 0.95),
+    0 1px 0 rgba(255, 220, 175, 0.28);
+  box-shadow:
+    0 5px 12px -1px rgba(28, 15, 6, 0.42),
+    0 2px 4px rgba(0, 0, 0, 0.32),
+    inset 0 1px 1px rgba(255, 222, 185, 0.22),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.65);
+}
+
+.wood-btn-walnut:hover:not(:disabled),
+.dark .wood-btn:hover:not(:disabled) {
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(115, 74, 42, 0.32) 0%,
+      rgba(15, 8, 3, 0.58) 100%
+    ),
+    url("/nordic-wood-dark.jpg");
+  border-color: #6E472B;
+  color: #FFF3E0;
+  transform: translateY(-1px);
 }

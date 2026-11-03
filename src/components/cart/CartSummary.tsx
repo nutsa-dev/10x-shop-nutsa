@@ -41,23 +41,23 @@ export const CartSummary = ({
   };
 
   return (
-    <div className="rounded-2xl border border-[#EADBCC] bg-white p-5 shadow-[0_4px_20px_rgba(44,39,36,0.04)] dark:border-[#332C27] dark:bg-[#24201D]">
-      <h2 className="text-sm font-bold tracking-tight text-[#2C2724] dark:text-[#F7F5F0]">
+    <div className="tactile-card rounded-2xl p-5">
+      <h2 className="text-sm font-extrabold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
         Order Summary
       </h2>
 
       {/* Promo */}
-      <div className="mt-4 border-b border-[#EADBCC] pb-4 dark:border-[#332C27]">
+      <div className="mt-4 border-b border-[#D8C2A8] pb-4 dark:border-[#3D2616]">
         {promoCode ? (
-          <div className="flex items-center justify-between rounded-lg bg-[#F2EFE9] px-3 py-2 text-xs font-semibold text-[#2C2724] dark:bg-[#191614] dark:text-[#F7F5F0]">
+          <div className="flex items-center justify-between rounded-lg bg-[#EFE8DC] px-3 py-2 text-xs font-semibold text-[#26170C] dark:bg-[#19100A] dark:text-[#F5EBE0]">
             <span>Promo {promoCode} (-10%)</span>
             <button
               type="button"
               onClick={onRemovePromo}
               aria-label="Remove promo"
-              className="text-[#736B63] hover:text-[#2C2724] dark:hover:text-white"
+              className="wood-btn flex h-6 w-6 items-center justify-center rounded"
             >
-              <IconClose className="h-3.5 w-3.5" />
+              <IconClose className="h-3 w-3" />
             </button>
           </div>
         ) : (
@@ -71,11 +71,11 @@ export const CartSummary = ({
                   setInputCode(e.target.value);
                   if (promoError) setPromoError(null);
                 }}
-                className="w-full rounded-lg border border-[#EADBCC] bg-[#F7F5F0] px-2.5 py-2 text-xs uppercase text-[#2C2724] outline-none focus:border-[#8C6D58] dark:border-[#332C27] dark:bg-[#191614] dark:text-[#F7F5F0]"
+                className="w-full rounded-lg border border-[#CBB092] bg-[#EFE8DC] px-2.5 py-2 text-xs uppercase text-[#26170C] outline-none focus:border-[#8C6D58] dark:border-[#4A301D] dark:bg-[#19100A] dark:text-[#F5EBE0]"
               />
               <button
                 type="submit"
-                className="rounded-lg bg-[#8C6D58] hover:bg-[#735744] px-3.5 py-2 text-xs font-medium text-white transition-colors"
+                className="wood-btn rounded-lg px-3.5 py-2 text-xs"
               >
                 Apply
               </button>
@@ -91,37 +91,37 @@ export const CartSummary = ({
 
       {/* Breakdown */}
       <dl className="mt-4 space-y-2 text-xs">
-        <div className="flex justify-between text-[#736B63]">
+        <div className="flex justify-between text-[#5C4938] dark:text-[#D8C2A8]">
           <dt>Subtotal</dt>
-          <dd className="font-semibold text-[#2C2724] dark:text-[#F7F5F0]">
+          <dd className="font-bold text-[#26170C] dark:text-[#F5EBE0]">
             {formatPrice(rawSubtotal)}
           </dd>
         </div>
 
         {savings > 0 && (
-          <div className="flex justify-between text-[#736B63]">
+          <div className="flex justify-between text-[#5C4938] dark:text-[#D8C2A8]">
             <dt>Discounts</dt>
-            <dd className="font-semibold text-[#8C6D58]">
+            <dd className="font-bold text-[#8C6D58]">
               -{formatPrice(rawSubtotal - subtotal)}
             </dd>
           </div>
         )}
 
         {promoDiscount > 0 && (
-          <div className="flex justify-between text-[#736B63]">
+          <div className="flex justify-between text-[#5C4938] dark:text-[#D8C2A8]">
             <dt>Promo Voucher</dt>
-            <dd className="font-semibold text-[#8C6D58]">
+            <dd className="font-bold text-[#8C6D58]">
               -{formatPrice(promoDiscount)}
             </dd>
           </div>
         )}
 
-        <div className="flex justify-between text-[#736B63]">
+        <div className="flex justify-between text-[#5C4938] dark:text-[#D8C2A8]">
           <dt>Shipping</dt>
-          <dd className="font-semibold text-[#2C2724] dark:text-[#F7F5F0]">Complimentary</dd>
+          <dd className="font-bold text-[#26170C] dark:text-[#F5EBE0]">Complimentary</dd>
         </div>
 
-        <div className="border-t border-[#EADBCC] pt-3 flex justify-between text-sm font-bold text-[#2C2724] dark:border-[#332C27] dark:text-[#F7F5F0]">
+        <div className="border-t border-[#D8C2A8] pt-3 flex justify-between text-sm font-extrabold text-[#26170C] dark:border-[#3D2616] dark:text-[#F5EBE0]">
           <dt>Total</dt>
           <dd>{formatPrice(totalPrice)}</dd>
         </div>
@@ -130,13 +130,13 @@ export const CartSummary = ({
       <div className="mt-5 space-y-2.5">
         <Link
           to="/checkout"
-          className="flex w-full items-center justify-center rounded-lg bg-[#8C6D58] hover:bg-[#735744] py-2.5 px-4 text-xs font-medium text-white transition-colors"
+          className="wood-btn flex w-full items-center justify-center rounded-lg py-2.5 px-4 text-xs"
         >
           Proceed to Checkout
         </Link>
         <Link
           to="/"
-          className="block text-center text-xs text-[#736B63] hover:text-[#2C2724] dark:hover:text-white"
+          className="wood-btn-walnut flex w-full items-center justify-center rounded-lg py-2 px-4 text-xs"
         >
           Continue Browsing
         </Link>

@@ -120,16 +120,16 @@ export const ProductPage = () => {
   if (error || !product) {
     return (
       <div className="container mx-auto px-4 sm:px-6 py-16 text-center">
-        <div className="mx-auto max-w-sm rounded-2xl border border-[#EADBCC] bg-white p-8 dark:border-[#332C27] dark:bg-[#24201D]">
-          <h2 className="text-base font-bold text-[#2C2724] dark:text-[#F7F5F0]">
+        <div className="tactile-card mx-auto max-w-sm rounded-2xl p-8">
+          <h2 className="text-base font-bold text-[#26170C] dark:text-[#F5EBE0]">
             Object Not Found
           </h2>
-          <p className="mt-1 text-xs text-[#736B63]">
+          <p className="mt-1 text-xs text-[#5C4938] dark:text-[#D8C2A8]">
             {error || "The requested atelier object could not be found."}
           </p>
           <Link
             to="/"
-            className="mt-5 inline-flex items-center gap-1.5 rounded-lg bg-[#8C6D58] hover:bg-[#735744] px-4 py-2.5 text-xs font-medium text-white transition-colors"
+            className="wood-btn mt-5 inline-flex items-center gap-1.5 rounded-lg px-4 py-2.5 text-xs"
           >
             <IconArrowLeft className="h-3 w-3" />
             <span>Return to Collection</span>
@@ -147,24 +147,24 @@ export const ProductPage = () => {
   return (
     <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
       {/* Breadcrumb */}
-      <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-xs text-[#736B63]">
-        <Link to="/" className="hover:text-[#2C2724] dark:hover:text-[#F7F5F0] flex items-center gap-1">
+      <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs">
+        <Link to="/" className="wood-btn inline-flex items-center gap-1 rounded-md px-2.5 py-1 text-xs">
           <IconArrowLeft className="h-3 w-3" />
           <span>Collection</span>
         </Link>
-        <span>/</span>
-        <span className="capitalize">{product.category.replace("-", " ")}</span>
-        <span>/</span>
-        <span className="truncate text-[#2C2724] dark:text-[#F7F5F0] font-medium">
+        <span className="wood-engraved">/</span>
+        <span className="wood-engraved capitalize">{product.category.replace("-", " ")}</span>
+        <span className="wood-engraved">/</span>
+        <span className="wood-engraved truncate">
           {product.title}
         </span>
       </nav>
 
-      {/* Main Showcase */}
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
+      {/* Main Showcase Card */}
+      <div className="tactile-card rounded-2xl p-6 sm:p-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
         {/* Left: Gallery */}
         <div className="space-y-3">
-          <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-[#EADBCC] bg-[#F2EFE9] dark:border-[#332C27] dark:bg-[#24201D] flex items-center justify-center p-6">
+          <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-[#CBB092] bg-[#EFE8DC] dark:border-[#4A301D] dark:bg-[#19100A] flex items-center justify-center p-6 shadow-inner">
             <img
               src={activeImage || product.thumbnail}
               alt={product.title}
@@ -179,10 +179,10 @@ export const ProductPage = () => {
                   key={idx}
                   type="button"
                   onClick={() => setActiveImage(img)}
-                  className={`relative aspect-square h-16 w-16 shrink-0 overflow-hidden rounded-xl border p-1.5 bg-[#F2EFE9] dark:bg-[#24201D] transition ${
+                  className={`relative aspect-square h-16 w-16 shrink-0 overflow-hidden rounded-xl border p-1.5 bg-[#EFE8DC] dark:bg-[#19100A] transition ${
                     activeImage === img
-                      ? "border-[#8C6D58]"
-                      : "border-[#EADBCC] opacity-60 dark:border-[#332C27]"
+                      ? "border-[#8C6D58] ring-2 ring-[#8C6D58]/40"
+                      : "border-[#CBB092] opacity-60 dark:border-[#4A301D]"
                   }`}
                 >
                   <img src={img} alt={`${product.title} ${idx + 1}`} className="h-full w-full object-contain" />
@@ -194,17 +194,17 @@ export const ProductPage = () => {
 
         {/* Right: Info */}
         <div className="flex flex-col">
-          <span className="text-[11px] uppercase tracking-widest text-[#8C6D58] font-medium">
+          <span className="text-[11px] uppercase tracking-widest text-[#8C6D58] font-bold">
             {product.brand || product.category.replace("-", " ")}
           </span>
 
-          <h1 className="mt-1.5 text-xl sm:text-3xl font-bold tracking-tight text-[#2C2724] dark:text-[#F7F5F0]">
+          <h1 className="mt-1.5 text-xl sm:text-3xl font-extrabold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
             {product.title}
           </h1>
 
           {/* Rating */}
-          <div className="mt-2 flex items-center gap-1.5 text-xs text-[#736B63]">
-            <div className="flex items-center gap-0.5 text-[#2C2724] dark:text-[#F7F5F0]">
+          <div className="mt-2 flex items-center gap-1.5 text-xs text-[#5C4938] dark:text-[#D8C2A8]">
+            <div className="flex items-center gap-0.5 text-[#26170C] dark:text-[#F5EBE0]">
               <IconStar className="h-3.5 w-3.5 fill-current text-[#8C6D58]" />
               <span className="font-semibold">{product.rating.toFixed(1)}</span>
             </div>
@@ -212,8 +212,8 @@ export const ProductPage = () => {
           </div>
 
           {/* Price */}
-          <div className="mt-5 flex items-baseline gap-2.5 border-y border-[#EADBCC] py-4 dark:border-[#332C27]">
-            <span className="text-2xl font-bold text-[#2C2724] dark:text-[#F7F5F0]">
+          <div className="mt-5 flex items-baseline gap-2.5 border-y border-[#D8C2A8] py-4 dark:border-[#3D2616]">
+            <span className="text-2xl font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
               {formatPrice(discountedPrice)}
             </span>
             {hasDiscount && (
@@ -221,7 +221,7 @@ export const ProductPage = () => {
                 <span className="text-sm text-[#736B63] line-through">
                   {formatPrice(product.price)}
                 </span>
-                <span className="rounded-md bg-[#8C6D58]/15 px-2 py-0.5 text-[11px] font-semibold text-[#8C6D58]">
+                <span className="wood-btn rounded-md px-2 py-0.5 text-[11px]">
                   Save {formatPrice(product.price - discountedPrice)}
                 </span>
               </>
@@ -233,14 +233,14 @@ export const ProductPage = () => {
             {isOutOfStock ? (
               <span className="font-semibold text-rose-600 dark:text-rose-400">Out of stock</span>
             ) : (
-              <span className="font-medium text-[#736B63]">
+              <span className="font-medium text-[#5C4938] dark:text-[#D8C2A8]">
                 In stock ({product.stock} pieces available)
               </span>
             )}
           </div>
 
           {/* Description */}
-          <p className="mt-4 text-sm leading-relaxed text-[#736B63] dark:text-[#D6CEC5]">
+          <p className="mt-4 text-sm leading-relaxed text-[#5C4938] dark:text-[#D8C2A8]">
             {product.description}
           </p>
 
@@ -248,23 +248,23 @@ export const ProductPage = () => {
           <div className="mt-6 space-y-3">
             <div className="flex items-center gap-3">
               {/* Stepper */}
-              <div className="flex h-11 items-center rounded-lg border border-[#EADBCC] bg-white dark:border-[#332C27] dark:bg-[#24201D]">
+              <div className="flex h-11 items-center rounded-lg border border-[#CBB092] bg-[#EFE8DC] dark:border-[#4A301D] dark:bg-[#19100A]">
                 <button
                   type="button"
                   disabled={isOutOfStock || quantity <= 1}
                   onClick={() => handleQuantityChange(-1)}
-                  className="flex h-11 w-10 items-center justify-center text-[#736B63] hover:text-[#2C2724] disabled:opacity-40"
+                  className="wood-btn flex h-11 w-10 items-center justify-center rounded-l-lg disabled:opacity-40"
                 >
                   −
                 </button>
-                <span className="w-8 text-center text-xs font-bold text-[#2C2724] dark:text-[#F7F5F0]">
+                <span className="w-9 text-center text-xs font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
                   {quantity}
                 </span>
                 <button
                   type="button"
                   disabled={isOutOfStock || quantity >= product.stock}
                   onClick={() => handleQuantityChange(1)}
-                  className="flex h-11 w-10 items-center justify-center text-[#736B63] hover:text-[#2C2724] disabled:opacity-40"
+                  className="wood-btn flex h-11 w-10 items-center justify-center rounded-r-lg disabled:opacity-40"
                 >
                   +
                 </button>
@@ -275,7 +275,9 @@ export const ProductPage = () => {
                 type="button"
                 disabled={isOutOfStock}
                 onClick={handleAddToCart}
-                className="flex h-11 flex-1 items-center justify-center gap-2 rounded-lg bg-[#8C6D58] hover:bg-[#735744] px-5 text-xs font-medium text-white disabled:opacity-40 transition-colors"
+                className={`flex h-11 flex-1 items-center justify-center gap-2 rounded-lg px-5 text-xs disabled:opacity-40 ${
+                  addedToast ? "wood-btn-walnut" : "wood-btn"
+                }`}
               >
                 {addedToast ? (
                   <>
@@ -292,9 +294,9 @@ export const ProductPage = () => {
             </div>
 
             {addedToast && (
-              <div className="flex items-center justify-between rounded-lg border border-[#EADBCC] bg-white p-3 text-xs text-[#2C2724] dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#F7F5F0]">
+              <div className="flex items-center justify-between rounded-lg border border-[#CBB092] bg-[#EFE8DC] p-3 text-xs text-[#26170C] dark:border-[#4A301D] dark:bg-[#19100A] dark:text-[#F5EBE0]">
                 <span>{quantity}× added to cart</span>
-                <Link to="/cart" className="font-semibold text-[#8C6D58] underline">
+                <Link to="/cart" className="wood-btn rounded-md px-2.5 py-1 text-xs">
                   View Cart →
                 </Link>
               </div>
@@ -305,25 +307,25 @@ export const ProductPage = () => {
 
       {/* Customer Reviews */}
       {product.reviews && product.reviews.length > 0 && (
-        <section className="mt-12 border-t border-[#EADBCC] pt-8 dark:border-[#332C27]">
-          <h2 className="text-xs font-bold uppercase tracking-widest text-[#2C2724] dark:text-[#F7F5F0]">
+        <section className="mt-10">
+          <h2 className="wood-engraved mb-4 text-xs uppercase">
             Client Reviews ({product.reviews.length})
           </h2>
 
-          <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {product.reviews.map((rev, idx) => (
               <div
                 key={idx}
-                className="rounded-xl border border-[#EADBCC] bg-white p-4 text-xs dark:border-[#332C27] dark:bg-[#24201D]"
+                className="tactile-card rounded-xl p-4 text-xs"
               >
-                <div className="flex items-center justify-between font-semibold text-[#2C2724] dark:text-[#F7F5F0]">
+                <div className="flex items-center justify-between font-bold text-[#26170C] dark:text-[#F5EBE0]">
                   <span>{rev.reviewerName}</span>
                   <span className="text-[#8C6D58]">★ {rev.rating}</span>
                 </div>
-                <p className="mt-1.5 text-[#736B63]">
+                <p className="mt-1.5 text-[#5C4938] dark:text-[#D8C2A8]">
                   "{rev.comment}"
                 </p>
-                <p className="mt-2 text-[10px] text-[#736B63]/80">
+                <p className="mt-2 text-[10px] text-[#736B63]">
                   {formatDate(rev.date)}
                 </p>
               </div>
@@ -334,8 +336,8 @@ export const ProductPage = () => {
 
       {/* Related Products */}
       {relatedProducts.length > 0 && (
-        <section className="mt-12 border-t border-[#EADBCC] pt-8 dark:border-[#332C27]">
-          <h2 className="mb-4 text-xs font-bold uppercase tracking-widest text-[#2C2724] dark:text-[#F7F5F0]">
+        <section className="mt-10">
+          <h2 className="wood-engraved mb-4 text-xs uppercase">
             Related Objects
           </h2>
           <ProductGrid products={relatedProducts} />

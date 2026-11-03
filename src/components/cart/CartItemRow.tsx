@@ -16,11 +16,11 @@ export const CartItemRow = ({ item, onUpdateQuantity, onRemove }: CartItemRowPro
   const isMaxStock = item.quantity >= item.stock;
 
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-[#EADBCC] bg-white p-4 shadow-[0_4px_20px_rgba(44,39,36,0.04)] dark:border-[#332C27] dark:bg-[#24201D]">
+    <div className="tactile-card flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl p-4">
       <div className="flex items-center gap-3.5">
         <Link
           to={`/products/${item.productId}`}
-          className="relative aspect-square h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-[#EADBCC] bg-[#F2EFE9] p-1.5 flex items-center justify-center dark:border-[#332C27] dark:bg-[#191614]"
+          className="relative aspect-square h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-[#CBB092] bg-[#EFE8DC] p-1.5 flex items-center justify-center dark:border-[#4A301D] dark:bg-[#19100A]"
         >
           <img
             src={item.thumbnail}
@@ -30,14 +30,14 @@ export const CartItemRow = ({ item, onUpdateQuantity, onRemove }: CartItemRowPro
         </Link>
 
         <div>
-          <h3 className="text-xs font-semibold text-[#2C2724] dark:text-[#F7F5F0]">
+          <h3 className="text-xs font-bold text-[#26170C] dark:text-[#F5EBE0]">
             <Link to={`/products/${item.productId}`} className="hover:text-[#8C6D58] line-clamp-1">
               {item.title}
             </Link>
           </h3>
 
           <div className="mt-0.5 flex items-baseline gap-1.5">
-            <span className="text-xs font-bold text-[#2C2724] dark:text-[#F7F5F0]">
+            <span className="text-xs font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
               {formatPrice(unitPrice)}
             </span>
             {hasDiscount && (
@@ -55,17 +55,17 @@ export const CartItemRow = ({ item, onUpdateQuantity, onRemove }: CartItemRowPro
         </div>
       </div>
 
-      <div className="flex items-center justify-between sm:justify-end gap-5 border-t border-[#EADBCC]/60 pt-2.5 sm:border-t-0 sm:pt-0 dark:border-[#332C27]">
-        <div className="flex h-8 items-center rounded-lg border border-[#EADBCC] bg-white dark:border-[#332C27] dark:bg-[#191614]">
+      <div className="flex items-center justify-between sm:justify-end gap-4 border-t border-[#D8C2A8] pt-2.5 sm:border-t-0 sm:pt-0 dark:border-[#3D2616]">
+        <div className="flex h-8 items-center rounded-lg border border-[#CBB092] bg-[#EFE8DC] dark:border-[#4A301D] dark:bg-[#19100A]">
           <button
             type="button"
             aria-label="Decrease quantity"
             onClick={() => onUpdateQuantity(item.productId, item.quantity - 1)}
-            className="flex h-8 w-8 items-center justify-center text-[#736B63] hover:text-[#2C2724]"
+            className="wood-btn flex h-8 w-8 items-center justify-center rounded-l-lg text-xs"
           >
             −
           </button>
-          <span className="w-6 text-center text-xs font-bold text-[#2C2724] dark:text-[#F7F5F0]">
+          <span className="w-7 text-center text-xs font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
             {item.quantity}
           </span>
           <button
@@ -73,14 +73,14 @@ export const CartItemRow = ({ item, onUpdateQuantity, onRemove }: CartItemRowPro
             aria-label="Increase quantity"
             disabled={isMaxStock}
             onClick={() => onUpdateQuantity(item.productId, item.quantity + 1)}
-            className="flex h-8 w-8 items-center justify-center text-[#736B63] hover:text-[#2C2724] disabled:opacity-40"
+            className="wood-btn flex h-8 w-8 items-center justify-center rounded-r-lg text-xs disabled:opacity-40"
           >
             +
           </button>
         </div>
 
         <div className="w-16 text-right">
-          <span className="text-xs font-bold text-[#2C2724] dark:text-[#F7F5F0]">
+          <span className="text-xs font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
             {formatPrice(itemTotal)}
           </span>
         </div>
@@ -89,7 +89,7 @@ export const CartItemRow = ({ item, onUpdateQuantity, onRemove }: CartItemRowPro
           type="button"
           aria-label={`Remove ${item.title}`}
           onClick={() => onRemove(item.productId)}
-          className="text-[#736B63] hover:text-[#2C2724] dark:hover:text-white"
+          className="wood-btn flex h-7 w-7 items-center justify-center rounded-md"
         >
           <IconClose className="h-3.5 w-3.5" />
         </button>

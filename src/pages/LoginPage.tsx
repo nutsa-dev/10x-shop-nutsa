@@ -40,19 +40,19 @@ export const LoginPage = () => {
 
   return (
     <div className="flex min-h-[70vh] items-center justify-center px-4 py-12">
-      <div className="w-full max-w-sm rounded-2xl border border-[#EADBCC] bg-white p-6 shadow-[0_4px_20px_rgba(44,39,36,0.04)] dark:border-[#332C27] dark:bg-[#24201D]">
+      <div className="tactile-card w-full max-w-sm rounded-2xl p-6">
         <Link
           to="/"
-          className="inline-flex items-center gap-1 text-xs text-[#736B63] hover:text-[#2C2724] dark:hover:text-white mb-4"
+          className="wood-btn inline-flex items-center gap-1 rounded-md px-2.5 py-1 text-xs mb-4"
         >
           <IconArrowLeft className="h-3.5 w-3.5" />
           <span>Collection</span>
         </Link>
 
-        <h1 className="text-xl font-bold tracking-tight text-[#2C2724] dark:text-[#F7F5F0]">
+        <h1 className="text-xl font-extrabold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
           Sign In
         </h1>
-        <p className="mt-0.5 text-xs text-[#736B63]">
+        <p className="mt-0.5 text-xs text-[#5C4938] dark:text-[#D8C2A8]">
           Access your KURA // Atelier Objects account
         </p>
 
@@ -60,7 +60,7 @@ export const LoginPage = () => {
           <div>
             <label
               htmlFor="username"
-              className="block text-xs font-medium text-[#2C2724] dark:text-[#F7F5F0]"
+              className="block text-xs font-semibold text-[#26170C] dark:text-[#F5EBE0]"
             >
               Username
             </label>
@@ -73,7 +73,7 @@ export const LoginPage = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               placeholder="e.g. emilys"
-              className="mt-1.5 w-full rounded-lg border border-[#EADBCC] bg-[#F7F5F0] px-3 py-2 text-xs text-[#2C2724] outline-none focus:border-[#8C6D58] dark:border-[#332C27] dark:bg-[#191614] dark:text-[#F7F5F0]"
+              className="mt-1.5 w-full rounded-lg border border-[#CBB092] bg-[#EFE8DC] px-3 py-2 text-xs text-[#26170C] outline-none focus:border-[#8C6D58] dark:border-[#4A301D] dark:bg-[#19100A] dark:text-[#F5EBE0]"
             />
             {formik.touched.username && formik.errors.username && (
               <p className="mt-1 text-[11px] text-rose-600">
@@ -85,7 +85,7 @@ export const LoginPage = () => {
           <div>
             <label
               htmlFor="password"
-              className="block text-xs font-medium text-[#2C2724] dark:text-[#F7F5F0]"
+              className="block text-xs font-semibold text-[#26170C] dark:text-[#F5EBE0]"
             >
               Password
             </label>
@@ -98,7 +98,7 @@ export const LoginPage = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               placeholder="••••••••"
-              className="mt-1.5 w-full rounded-lg border border-[#EADBCC] bg-[#F7F5F0] px-3 py-2 text-xs text-[#2C2724] outline-none focus:border-[#8C6D58] dark:border-[#332C27] dark:bg-[#191614] dark:text-[#F7F5F0]"
+              className="mt-1.5 w-full rounded-lg border border-[#CBB092] bg-[#EFE8DC] px-3 py-2 text-xs text-[#26170C] outline-none focus:border-[#8C6D58] dark:border-[#4A301D] dark:bg-[#19100A] dark:text-[#F5EBE0]"
             />
             {formik.touched.password && formik.errors.password && (
               <p className="mt-1 text-[11px] text-rose-600">
@@ -109,19 +109,19 @@ export const LoginPage = () => {
 
           <button
             type="submit"
-            className="w-full rounded-lg bg-[#8C6D58] hover:bg-[#735744] py-2.5 px-4 text-xs font-medium text-white transition-colors"
+            className="wood-btn w-full rounded-lg py-2.5 px-4 text-xs"
           >
             Sign In
           </button>
         </form>
 
-        <div className="mt-4 border-t border-[#EADBCC] pt-3 text-center dark:border-[#332C27]">
+        <div className="mt-4 border-t border-[#D8C2A8] pt-3 text-center dark:border-[#3D2616]">
           <button
             type="button"
             onClick={handleFillDemo}
-            className="text-xs text-[#736B63] hover:text-[#2C2724] dark:hover:text-white"
+            className="wood-btn rounded-md px-3 py-1 text-xs"
           >
-            Use demo login (<span className="font-mono text-[#8C6D58]">emilys</span>)
+            Use demo login (<span className="font-mono">emilys</span>)
           </button>
         </div>
       </div>

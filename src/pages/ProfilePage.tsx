@@ -41,53 +41,53 @@ export const ProfilePage = () => {
 
   return (
     <div className="container mx-auto max-w-2xl px-4 sm:px-6 py-6 sm:py-10">
-      <div className="mb-6 border-b border-[#EADBCC] pb-4 dark:border-[#332C27]">
-        <h1 className="text-xl font-bold tracking-tight text-[#2C2724] dark:text-[#F7F5F0]">
+      <div className="tactile-card mb-6 rounded-2xl px-6 py-4">
+        <h1 className="text-xl font-extrabold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
           Account & Settings
         </h1>
-        <p className="text-xs text-[#736B63]">
-          Logged in as <strong className="text-[#2C2724] dark:text-[#F7F5F0]">{user?.username}</strong>
+        <p className="text-xs text-[#5C4938] dark:text-[#D8C2A8]">
+          Logged in as <strong className="text-[#26170C] dark:text-[#F5EBE0]">{user?.username}</strong>
         </p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-3">
-        <div className="rounded-xl border border-[#EADBCC] bg-white p-3.5 text-center dark:border-[#332C27] dark:bg-[#24201D]">
-          <span className="text-lg font-bold text-[#2C2724] dark:text-[#F7F5F0]">
+        <div className="tactile-card rounded-xl p-3.5 text-center">
+          <span className="text-lg font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
             {orders.length}
           </span>
-          <p className="text-[10px] uppercase tracking-wider text-[#736B63]">Orders</p>
+          <p className="text-[10px] uppercase tracking-wider text-[#5C4938] dark:text-[#D8C2A8]">Orders</p>
         </div>
-        <div className="rounded-xl border border-[#EADBCC] bg-white p-3.5 text-center dark:border-[#332C27] dark:bg-[#24201D]">
-          <span className="text-lg font-bold text-[#2C2724] dark:text-[#F7F5F0]">
+        <div className="tactile-card rounded-xl p-3.5 text-center">
+          <span className="text-lg font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
             {totalItems}
           </span>
-          <p className="text-[10px] uppercase tracking-wider text-[#736B63]">Cart Objects</p>
+          <p className="text-[10px] uppercase tracking-wider text-[#5C4938] dark:text-[#D8C2A8]">Cart Objects</p>
         </div>
-        <div className="rounded-xl border border-[#EADBCC] bg-white p-3.5 text-center dark:border-[#332C27] dark:bg-[#24201D]">
-          <span className="text-lg font-bold text-[#2C2724] dark:text-[#F7F5F0]">
+        <div className="tactile-card rounded-xl p-3.5 text-center">
+          <span className="text-lg font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
             {formatPrice(totalSpent)}
           </span>
-          <p className="text-[10px] uppercase tracking-wider text-[#736B63]">Spent</p>
+          <p className="text-[10px] uppercase tracking-wider text-[#5C4938] dark:text-[#D8C2A8]">Spent</p>
         </div>
       </div>
 
       {/* Settings */}
       <div className="mt-6 space-y-3">
         {/* Theme */}
-        <div className="flex items-center justify-between rounded-xl border border-[#EADBCC] bg-white p-4 dark:border-[#332C27] dark:bg-[#24201D]">
+        <div className="tactile-card flex items-center justify-between rounded-xl p-4">
           <div>
-            <p className="text-xs font-semibold text-[#2C2724] dark:text-[#F7F5F0]">
+            <p className="text-xs font-bold text-[#26170C] dark:text-[#F5EBE0]">
               Appearance
             </p>
-            <p className="text-[11px] text-[#736B63]">
-              {theme === "dark" ? "Dark mode active" : "Light mode active"}
+            <p className="text-[11px] text-[#5C4938] dark:text-[#D8C2A8]">
+              {theme === "dark" ? "Dark Walnut Wood active" : "Light Nordic Oak active"}
             </p>
           </div>
           <button
             type="button"
             onClick={toggleTheme}
-            className="flex items-center gap-1.5 rounded-lg border border-[#EADBCC] px-3 py-1.5 text-xs font-medium text-[#2C2724] hover:border-[#8C6D58] dark:border-[#332C27] dark:text-[#F7F5F0]"
+            className="wood-btn flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs"
           >
             {theme === "dark" ? <IconSun className="h-3.5 w-3.5" /> : <IconMoon className="h-3.5 w-3.5" />}
             <span className="capitalize">{theme} Mode</span>
@@ -95,44 +95,44 @@ export const ProfilePage = () => {
         </div>
 
         {/* Orders link */}
-        <div className="flex items-center justify-between rounded-xl border border-[#EADBCC] bg-white p-4 dark:border-[#332C27] dark:bg-[#24201D]">
+        <div className="tactile-card flex items-center justify-between rounded-xl p-4">
           <div>
-            <p className="text-xs font-semibold text-[#2C2724] dark:text-[#F7F5F0]">
+            <p className="text-xs font-bold text-[#26170C] dark:text-[#F5EBE0]">
               Order Tracking
             </p>
-            <p className="text-[11px] text-[#736B63]">
+            <p className="text-[11px] text-[#5C4938] dark:text-[#D8C2A8]">
               Check delivery status and timeline
             </p>
           </div>
           <Link
             to="/orders"
-            className="rounded-lg bg-[#8C6D58] hover:bg-[#735744] px-3.5 py-1.5 text-xs font-medium text-white transition-colors"
+            className="wood-btn rounded-lg px-3.5 py-1.5 text-xs"
           >
             Orders →
           </Link>
         </div>
 
         {/* Reset Demo Data */}
-        <div className="flex items-center justify-between rounded-xl border border-[#EADBCC] bg-white p-4 dark:border-[#332C27] dark:bg-[#24201D]">
+        <div className="tactile-card flex items-center justify-between rounded-xl p-4">
           <div>
-            <p className="text-xs font-semibold text-[#2C2724] dark:text-[#F7F5F0]">
+            <p className="text-xs font-bold text-[#26170C] dark:text-[#F5EBE0]">
               Reset Demo Data
             </p>
-            <p className="text-[11px] text-[#736B63]">
+            <p className="text-[11px] text-[#5C4938] dark:text-[#D8C2A8]">
               Clear demo orders and local cart
             </p>
           </div>
           <button
             type="button"
             onClick={handleResetData}
-            className="rounded-lg border border-[#EADBCC] px-3 py-1.5 text-xs text-[#736B63] hover:border-[#8C6D58] hover:text-[#2C2724] dark:border-[#332C27] dark:text-[#D6CEC5]"
+            className="wood-btn rounded-lg px-3 py-1.5 text-xs"
           >
             Reset
           </button>
         </div>
 
         {resetMessage && (
-          <p className="text-xs font-medium text-[#8C6D58]">
+          <p className="wood-engraved text-xs">
             ✓ {resetMessage}
           </p>
         )}
@@ -141,7 +141,7 @@ export const ProfilePage = () => {
           <button
             type="button"
             onClick={handleLogout}
-            className="w-full rounded-lg border border-[#EADBCC] bg-white py-2.5 text-xs font-medium text-[#2C2724] hover:border-[#8C6D58] dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#F7F5F0]"
+            className="wood-btn-walnut w-full rounded-lg py-2.5 text-xs"
           >
             Sign Out
           </button>

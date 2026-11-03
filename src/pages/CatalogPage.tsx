@@ -131,14 +131,14 @@ export const CatalogPage = () => {
     <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-10">
       
       {/* Editorial Hero / Header Banner */}
-      <section className="rounded-2xl border border-[#EADBCC] bg-white px-6 py-8 sm:px-10 sm:py-12 shadow-[0_4px_20px_rgba(44,39,36,0.04)] dark:border-[#332C27] dark:bg-[#24201D]">
-        <span className="inline-block text-[11px] font-semibold uppercase tracking-widest text-[#8C6D58]">
+      <section className="tactile-card rounded-2xl px-6 py-8 sm:px-10 sm:py-12">
+        <span className="inline-block text-[11px] font-bold uppercase tracking-widest text-[#8C6D58]">
           COLLECTION 2026
         </span>
-        <h1 className="mt-2.5 text-2xl sm:text-4xl font-bold tracking-tight text-[#2C2724] dark:text-[#F7F5F0]">
+        <h1 className="mt-2.5 text-2xl sm:text-4xl font-extrabold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
           Curated Objects for Mindful Living
         </h1>
-        <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-[#736B63] dark:text-[#A39A90]">
+        <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-[#5C4938] dark:text-[#D8C2A8]">
           Handcrafted ceramics, raw wood forms, and sculptural accents sourced for modern interiors.
         </p>
       </section>
@@ -147,7 +147,7 @@ export const CatalogPage = () => {
       <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-12 sm:items-center">
         {/* Search Input */}
         <div className="relative sm:col-span-5 lg:col-span-6">
-          <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-[#736B63]">
+          <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-[#5C4938] dark:text-[#D8C2A8]">
             <IconSearch className="h-4 w-4" />
           </span>
           <input
@@ -158,7 +158,7 @@ export const CatalogPage = () => {
               setSearchInput(e.target.value);
               setPage(1);
             }}
-            className="w-full rounded-xl border border-[#EADBCC] bg-white py-2.5 pl-10 pr-8 text-xs text-[#2C2724] placeholder-[#736B63] outline-none transition focus:border-[#8C6D58] dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#F7F5F0]"
+            className="tactile-card w-full rounded-xl py-2.5 pl-10 pr-8 text-xs font-medium text-[#26170C] placeholder-[#736B63] outline-none transition focus:border-[#8C6D58] dark:text-[#F5EBE0]"
           />
           {searchInput && (
             <button
@@ -168,7 +168,7 @@ export const CatalogPage = () => {
                 setPage(1);
               }}
               aria-label="Clear search"
-              className="absolute inset-y-0 right-0 flex items-center pr-3 text-[#736B63] hover:text-[#2C2724] dark:hover:text-[#F7F5F0]"
+              className="absolute inset-y-0 right-0 flex items-center pr-3 text-[#5C4938] hover:text-[#26170C] dark:text-[#D8C2A8]"
             >
               <IconClose className="h-3.5 w-3.5" />
             </button>
@@ -182,7 +182,7 @@ export const CatalogPage = () => {
             aria-label="Select category"
             value={selectedCategory}
             onChange={(e) => handleCategoryChange(e.target.value)}
-            className="w-full rounded-xl border border-[#EADBCC] bg-white px-3.5 py-2.5 text-xs font-medium text-[#2C2724] outline-none transition focus:border-[#8C6D58] dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#F7F5F0]"
+            className="tactile-card w-full rounded-xl px-3.5 py-2.5 text-xs font-semibold text-[#26170C] outline-none transition focus:border-[#8C6D58] dark:text-[#F5EBE0]"
           >
             {CATEGORY_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value}>
@@ -199,7 +199,7 @@ export const CatalogPage = () => {
             aria-label="Sort products"
             value={sortOption}
             onChange={(e) => handleSortChange(e.target.value as SortOption)}
-            className="w-full rounded-xl border border-[#EADBCC] bg-white px-3.5 py-2.5 text-xs font-medium text-[#2C2724] outline-none transition focus:border-[#8C6D58] dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#F7F5F0]"
+            className="tactile-card w-full rounded-xl px-3.5 py-2.5 text-xs font-semibold text-[#26170C] outline-none transition focus:border-[#8C6D58] dark:text-[#F5EBE0]"
           >
             <option value="featured">Sort: Featured</option>
             <option value="price-asc">Price: Low to High</option>
@@ -209,9 +209,9 @@ export const CatalogPage = () => {
         </div>
       </div>
 
-      {/* Category Quick Pills & Status Bar */}
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-b border-[#EADBCC] pb-4 dark:border-[#332C27]">
-        <div className="flex items-center gap-2 overflow-x-auto scrollbar-none">
+      {/* Category Wooden Engraved Buttons & Status Bar */}
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 pb-4">
+        <div className="flex items-center gap-2 overflow-x-auto py-1 scrollbar-none">
           {CATEGORY_OPTIONS.map((cat) => {
             const isActive = selectedCategory === cat.value;
             return (
@@ -219,10 +219,8 @@ export const CatalogPage = () => {
                 key={cat.value}
                 type="button"
                 onClick={() => handleCategoryChange(cat.value)}
-                className={`shrink-0 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
-                  isActive
-                    ? "bg-[#8C6D58] text-white"
-                    : "border border-[#EADBCC] bg-white text-[#736B63] hover:border-[#8C6D58] hover:text-[#2C2724] dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#A39A90]"
+                className={`shrink-0 rounded-lg px-3.5 py-2 text-xs ${
+                  isActive ? "wood-btn-walnut" : "wood-btn"
                 }`}
               >
                 {cat.label}
@@ -231,13 +229,17 @@ export const CatalogPage = () => {
           })}
         </div>
 
-        <div className="flex items-center gap-3 text-xs text-[#736B63]">
-          {!loading && <span>{total} objects</span>}
+        <div className="flex items-center gap-3 text-xs">
+          {!loading && (
+            <span className="wood-engraved text-xs">
+              {total} objects
+            </span>
+          )}
           {hasActiveFilters && (
             <button
               type="button"
               onClick={handleClearFilters}
-              className="font-medium text-[#8C6D58] hover:text-[#735744] underline"
+              className="wood-btn rounded-lg px-3 py-1.5 text-xs"
             >
               Reset filters
             </button>
@@ -246,7 +248,7 @@ export const CatalogPage = () => {
       </div>
 
       {/* Products Grid */}
-      <div className="mt-6">
+      <div className="mt-4">
         {loading ? (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {Array.from({ length: 8 }).map((_, index) => (
@@ -254,30 +256,30 @@ export const CatalogPage = () => {
             ))}
           </div>
         ) : error ? (
-          <div className="rounded-2xl border border-[#EADBCC] bg-white p-10 text-center dark:border-[#332C27] dark:bg-[#24201D]">
-            <p className="text-xs font-medium text-[#2C2724] dark:text-[#F7F5F0]">
+          <div className="tactile-card rounded-2xl p-10 text-center">
+            <p className="text-xs font-medium text-[#26170C] dark:text-[#F5EBE0]">
               {error}
             </p>
             <button
               type="button"
               onClick={fetchProducts}
-              className="mt-4 rounded-lg bg-[#8C6D58] hover:bg-[#735744] px-4 py-2 text-xs font-medium text-white transition-colors"
+              className="wood-btn mt-4 rounded-lg px-4 py-2 text-xs"
             >
               Retry
             </button>
           </div>
         ) : sortedProducts.length === 0 ? (
-          <div className="rounded-2xl border border-[#EADBCC] bg-white p-12 text-center dark:border-[#332C27] dark:bg-[#24201D]">
-            <h3 className="text-sm font-semibold text-[#2C2724] dark:text-[#F7F5F0]">
+          <div className="tactile-card rounded-2xl p-12 text-center">
+            <h3 className="text-sm font-bold text-[#26170C] dark:text-[#F5EBE0]">
               No objects found
             </h3>
-            <p className="mt-1 text-xs text-[#736B63]">
+            <p className="mt-1 text-xs text-[#5C4938] dark:text-[#D8C2A8]">
               Try adjusting your search query or switching categories.
             </p>
             <button
               type="button"
               onClick={handleClearFilters}
-              className="mt-4 rounded-lg bg-[#8C6D58] hover:bg-[#735744] px-4 py-2 text-xs font-medium text-white transition-colors"
+              className="wood-btn mt-4 rounded-lg px-4 py-2 text-xs"
             >
               Reset filters
             </button>
@@ -291,23 +293,23 @@ export const CatalogPage = () => {
 
             {/* Pagination Controls */}
             {totalPages > 1 && (
-              <div className="mt-8 flex items-center justify-center gap-2">
+              <div className="mt-8 flex items-center justify-center gap-3">
                 <button
                   type="button"
                   disabled={page <= 1}
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
-                  className="rounded-lg border border-[#EADBCC] bg-white px-3.5 py-2 text-xs font-medium text-[#2C2724] hover:border-[#8C6D58] disabled:opacity-40 transition-colors dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#F7F5F0]"
+                  className="wood-btn rounded-lg px-4 py-2 text-xs disabled:opacity-40"
                 >
                   Previous
                 </button>
-                <span className="px-3 text-xs font-medium text-[#736B63]">
+                <span className="wood-engraved px-3 text-xs">
                   Page {page} of {totalPages}
                 </span>
                 <button
                   type="button"
                   disabled={page >= totalPages}
                   onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                  className="rounded-lg border border-[#EADBCC] bg-white px-3.5 py-2 text-xs font-medium text-[#2C2724] hover:border-[#8C6D58] disabled:opacity-40 transition-colors dark:border-[#332C27] dark:bg-[#24201D] dark:text-[#F7F5F0]"
+                  className="wood-btn rounded-lg px-4 py-2 text-xs disabled:opacity-40"
                 >
                   Next
                 </button>
