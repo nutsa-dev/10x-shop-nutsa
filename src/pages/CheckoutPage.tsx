@@ -54,7 +54,7 @@ export const CheckoutPage = () => {
       await new Promise((resolve) => setTimeout(resolve, 500));
 
       const orderId = Date.now();
-      const orderNumber = `KURA-${Math.floor(100000 + Math.random() * 900000)}`;
+      const orderNumber = `WW-${Math.floor(100000 + Math.random() * 900000)}`;
 
       const newOrder: Order = {
         id: orderId,
@@ -85,7 +85,7 @@ export const CheckoutPage = () => {
 
   if (placedOrder) {
     return (
-      <div className="container mx-auto px-4 py-16">
+      <div className="mx-auto max-w-[1380px] px-5 sm:px-8 lg:px-10 py-16">
         <div className="tactile-card mx-auto max-w-lg rounded-2xl p-8">
           <div className="wood-btn flex h-12 w-12 items-center justify-center rounded-full mb-4">
             <IconCheck className="h-6 w-6" />
@@ -95,7 +95,7 @@ export const CheckoutPage = () => {
             Order Confirmed
           </h1>
           <p className="mt-1 text-xs text-[#5C4938] dark:text-[#D8C2A8]">
-            Order #{placedOrder.number} has been placed with KURA // Atelier Objects.
+            Order #{placedOrder.number} has been placed with WOODWORK.
           </p>
 
           <div className="mt-6 border-t border-[#D8C2A8] pt-4 text-xs space-y-2 dark:border-[#3D2616]">
@@ -140,7 +140,7 @@ export const CheckoutPage = () => {
 
   if (items.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-16 text-center">
+      <div className="mx-auto max-w-[1380px] px-5 sm:px-8 lg:px-10 py-16 text-center">
         <div className="tactile-card mx-auto max-w-sm rounded-2xl p-8">
           <h2 className="text-base font-bold text-[#26170C] dark:text-[#F5EBE0]">
             Your Cart is Empty
@@ -157,7 +157,7 @@ export const CheckoutPage = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+    <div className="mx-auto max-w-[1380px] px-5 sm:px-8 lg:px-10 py-7 sm:py-9">
       <Link
         to="/cart"
         className="wood-btn inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs mb-4"

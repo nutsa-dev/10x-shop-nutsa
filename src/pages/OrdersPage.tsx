@@ -79,7 +79,7 @@ export const OrdersPage = () => {
 
   if (orders.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-20 text-center">
+      <div className="mx-auto max-w-[1380px] px-5 sm:px-8 lg:px-10 py-20 text-center">
         <div className="tactile-card mx-auto max-w-sm rounded-2xl p-10">
           <h1 className="text-base font-bold text-[#26170C] dark:text-[#F5EBE0]">
             No Orders Yet
@@ -101,7 +101,7 @@ export const OrdersPage = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+    <div className="mx-auto max-w-[1380px] px-5 sm:px-8 lg:px-10 py-7 sm:py-9">
       <div className="tactile-card mb-6 flex items-center justify-between rounded-2xl px-6 py-4">
         <div>
           <h1 className="text-xl font-extrabold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">

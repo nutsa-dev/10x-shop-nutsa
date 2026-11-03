@@ -102,7 +102,7 @@ export const ProductPage = () => {
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 sm:px-6 py-8 animate-pulse">
+      <div className="mx-auto max-w-[1380px] px-5 sm:px-8 lg:px-10 py-8 animate-pulse">
         <div className="h-4 w-32 rounded bg-[#EADBCC]/60 dark:bg-[#332C27]" />
         <div className="mt-6 grid grid-cols-1 gap-8 md:grid-cols-2">
           <div className="aspect-square w-full rounded-2xl bg-[#F2EFE9] dark:bg-[#24201D]" />
@@ -119,7 +119,7 @@ export const ProductPage = () => {
 
   if (error || !product) {
     return (
-      <div className="container mx-auto px-4 sm:px-6 py-16 text-center">
+      <div className="mx-auto max-w-[1380px] px-5 sm:px-8 lg:px-10 py-16 text-center">
         <div className="tactile-card mx-auto max-w-sm rounded-2xl p-8">
           <h2 className="text-base font-bold text-[#26170C] dark:text-[#F5EBE0]">
             Object Not Found
