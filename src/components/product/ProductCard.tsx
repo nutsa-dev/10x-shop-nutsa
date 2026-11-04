@@ -104,7 +104,7 @@ export const ProductCard = ({ product, index, onAdd }: ProductCardProps) => {
               src={currentImage}
               alt={product.title}
               loading="lazy"
-              className="h-full w-full object-contain transition-transform duration-500 ease-out group-hover:scale-105"
+              className="h-full w-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
             />
           </Link>
         </div>
