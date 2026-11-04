@@ -13,11 +13,11 @@
 | :--- | :---: | :---: | :--- |
 | **Authentication & Protection** | CORE | **Completed** | Simulated `AuthContext`, Formik + Yup login validation (`username`, `password` ≥ 6), `ProtectedRoute` with redirect back to target route. |
 | **Product Catalog** | CORE + FULL | **Completed** | Full DummyJSON API integration (`limit=12`, `skip`, server search `?q=`, dynamic categories), 400ms debounced search, 5 sort criteria, URL persistence (`useSearchParams`), `AbortController`. |
-| **Product Details** | CORE + FULL | **Completed** | Dynamic route `/products/:id`, gallery, stock indicator (`In stock` / `Only N left!` / `Out of stock`), stepper, client reviews, related products, numeric ID validation with 404 fallback. |
+| **Product Details** | CORE + FULL | **Completed** | Dynamic route `/products/:id`, multi-photo gallery, stock indicator (`In stock` / `Only N left!` / `Out of stock`), quantity stepper, tabbed specifications/description/reviews (F-P3-02), "Write a review" modal with rating composer (F-P3-03), related products, numeric ID validation with 404 fallback. |
 | **Shopping Cart** | CORE + FULL | **Completed** | `CartContext` with safe `localStorage` sync, quantity stepper (`1 ≤ qty ≤ stock`), clear confirmation modal, promo code `10X10` (-10%), exact cent-accurate subtotal. |
 | **Checkout Flow** | CORE | **Completed** | Formik + Yup shipping form, empty cart redirect to `/cart`, order summary, local placement to `shop_orders`, "Thank you! Your order has been placed." confirmation screen. |
-| **Orders Management** | FULL | **Completed** | `/orders` with status simulation timeline (< 1 min `Processing` ➔ 1–3 min `Shipped` ➔ > 3 min `Delivered`), 30s clock interval, and "Reorder" action. |
-| **User Profile & Theming** | FULL | **Completed** | `/profile` with user statistics, Dark/Light theme toggle via Tailwind CSS `@theme`, zero-flash inline script, "Reset Demo Data" capability. |
+| **Orders Management** | FULL | **Completed** | `/orders` and dynamic `/orders/:id` deep link route (F-P6-04) with status simulation timeline (< 1 min `Processing` ➔ 1–3 min `Shipped` ➔ > 3 min `Delivered`), 30s clock interval, and "Reorder" action. |
+| **User Profile & Theming** | FULL | **Completed** | `/profile` with user statistics, Formik + Yup Edit Profile form updating localStorage (F-P7-01), Dark/Light theme toggle via Tailwind CSS `@theme`, zero-flash inline script, "Reset Demo Data" capability. |
 | **Performance & Code Splitting** | FULL | **Completed** | `React.lazy` + `Suspense` route-level splitting, image lazy loading, 0 TypeScript errors with `tsc -b`. |
 | **Resilience & Hosting** | CORE + FULL | **Completed** | Class-based `ErrorBoundary` with reload fallback, `vercel.json` SPA rewrite rules. |
 
@@ -57,12 +57,10 @@
 
 1. **Real Backend Payment Gateway / Stripe Integration:**  
    *Reason:* PRD requirement P5 explicitly dictates that checkout must be simulated locally ("სიმულირებული შეკვეთა, ბარათის მონაცემების შეყვანა და რეალური გადახდა არ კეთდება"). Checkout collects shipping details, saves the order to `shop_orders`, and renders an instant local confirmation.
-2. **Real Backend Authentication API:**  
-   *Reason:* PRD requirement P1 specifies an in-browser simulated session. Authentic user credentials (`username` / `password`) are validated via Formik + Yup, and user identity is persisted in `localStorage` under `shop_user` without calling an external auth provider.
+2. **Real Backend Authentication API / Database:**  
+   *Reason:* PRD requirement P1 specifies an in-browser simulated session. Authentic user credentials (`username` / `password`) are validated via Formik + Yup, and user identity is persisted in `localStorage` under `shop_user` without calling an external auth server.
 3. **OOP Class Hierarchies for Services:**  
    *Reason:* Modern React 19 / TypeScript best practices favor functional composition, modular API functions (`products.api.ts`, `storage.ts`), and React custom hooks over classical object-oriented inheritance. This keeps the bundle size under 90 kB gzip and eliminates boilerplate while providing 100% type safety.
-4. **Interactive Review Creation Form:**  
-   *Reason:* DummyJSON is a read-only mock API that does not persist POST mutations to product reviews. Therefore, client-side review authoring was omitted in favor of robustly displaying DummyJSON customer reviews and ratings on product pages.
 
 ---
 

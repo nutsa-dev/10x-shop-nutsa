@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import {
   ALL_CATEGORY,
-  DEFAULT_CATEGORIES,
-  getCategories,
   getProducts,
   type SortOption,
 } from "@/api/products.api";
@@ -31,29 +29,17 @@ interface CatalogResult {
   error: string | null;
 }
 
-function formatCategoryName(slug: string): string {
-  return slug
-    .split("-")
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(" ");
-}
+const STORE_CATEGORIES = [
+  { value: ALL_CATEGORY, label: "All", selectLabel: "All categories" },
+  { value: "furniture", label: "Furniture", selectLabel: "Furniture" },
+  { value: "home-decoration", label: "Home Decor", selectLabel: "Home Decor" },
+  { value: "christmas-market", label: "Christmas Market", selectLabel: "Christmas Market" },
+  { value: "wooden-toys", label: "Wooden Toys", selectLabel: "Wooden Toys" },
+] as const;
 
 export const CatalogPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { addItem } = useCart();
-
-  const [categories, setCategories] = useState<string[]>(DEFAULT_CATEGORIES);
-
-  // Dynamic category list from DummyJSON API
-  useEffect(() => {
-    const controller = new AbortController();
-    getCategories(controller.signal).then((list) => {
-      if (list && list.length > 0) {
-        setCategories(list);
-      }
-    });
-    return () => controller.abort();
-  }, []);
 
   // URL is the single source of truth → browser Back / Forward restores state
   const selectedCategory = searchParams.get("category") || ALL_CATEGORY;
@@ -185,11 +171,6 @@ export const CatalogPage = () => {
     searchParam.trim() !== "" ||
     sortOption !== "featured";
 
-  const categoryOptions = [
-    { value: ALL_CATEGORY, label: "All categories" },
-    ...categories.map((c) => ({ value: c, label: formatCategoryName(c) })),
-  ];
-
   return (
     <div className="mx-auto max-w-[1380px] px-3.5 sm:px-8 lg:px-10 pt-5 sm:pt-7 pb-10 sm:pb-12">
       {/* Search & Sort Toolbar */}
@@ -251,9 +232,9 @@ export const CatalogPage = () => {
             onChange={(e) => handleCategoryChange(e.target.value)}
             className="wood-input w-full cursor-pointer rounded-xl px-3.5 py-2.5 text-xs font-bold outline-none"
           >
-            {categoryOptions.map((cat) => (
+            {STORE_CATEGORIES.map((cat) => (
               <option key={cat.value} value={cat.value}>
-                {cat.label}
+                {cat.selectLabel}
               </option>
             ))}
           </select>
@@ -261,7 +242,7 @@ export const CatalogPage = () => {
 
         {/* Desktop / Tablet Category Buttons (>= 640px) */}
         <div className="hidden sm:flex items-center gap-2 overflow-x-auto py-1 scrollbar-none">
-          {categoryOptions.slice(0, 8).map((cat) => {
+          {STORE_CATEGORIES.map((cat) => {
             const isActive = selectedCategory === cat.value;
             return (
               <button

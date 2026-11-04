@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import { formatPrice, formatDate, getDiscountedPrice } from "@/utils/format";
@@ -44,7 +44,8 @@ export const OrdersPage = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const [expandedOrderId, setExpandedOrderId] = useState<number | null>(null);
+  const { id: paramOrderId } = useParams<{ id?: string }>();
+  const [userExpandedOrderId, setUserExpandedOrderId] = useState<number | null>(null);
   const { addItem } = useCart();
   const navigate = useNavigate();
 
@@ -99,7 +100,7 @@ export const OrdersPage = () => {
   };
 
   const toggleExpand = (orderId: number) => {
-    setExpandedOrderId((prev) => (prev === orderId ? null : orderId));
+    setUserExpandedOrderId((prev) => (prev === orderId ? null : orderId));
   };
 
   if (visibleOrders.length === 0) {
@@ -145,16 +146,31 @@ export const OrdersPage = () => {
         </Link>
       </div>
 
+      {paramOrderId && (
+        <div className="mb-4 flex items-center justify-between rounded-xl border border-[#CBB092] bg-[#EFE8DC] p-3 text-xs dark:border-[#4A301D] dark:bg-[#19100A]">
+          <span>
+            Viewing details for Order <strong className="font-mono">#{paramOrderId}</strong>
+          </span>
+          <Link to="/orders" className="wood-btn rounded-md px-2.5 py-1 text-xs">
+            Show all orders
+          </Link>
+        </div>
+      )}
+
       <div className="space-y-4">
         {visibleOrders.map((order) => {
           const currentStatus = getSimulatedStatus(order, now);
           const currentStepIndex = STATUS_STEPS.indexOf(currentStatus);
-          const isExpanded = expandedOrderId === order.id;
+          const isTargeted =
+            Boolean(paramOrderId && (String(order.id) === paramOrderId || order.number === paramOrderId));
+          const isExpanded = userExpandedOrderId !== null ? userExpandedOrderId === order.id : isTargeted;
 
           return (
             <div
               key={order.id}
-              className="tactile-card rounded-2xl p-4 sm:p-5"
+              className={`tactile-card rounded-2xl p-4 sm:p-5 transition ${
+                isTargeted ? "ring-2 ring-[#8C6D58]" : ""
+              }`}
             >
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-[#D8C2A8] pb-4 dark:border-[#3D2616]">
                 <div>

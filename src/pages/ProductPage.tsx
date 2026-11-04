@@ -11,13 +11,24 @@ import {
   IconStar,
   IconArrowLeft,
 } from "@/components/ui/Icons";
-import type { Product } from "@/types/product";
+import type { Product, Review } from "@/types/product";
+
+type ProductTab = "description" | "specifications" | "reviews";
 
 export const ProductPage = () => {
   const { id } = useParams<{ id: string }>();
   const { addItem, items } = useCart();
 
   const [product, setProduct] = useState<Product | null>(null);
+  const [reviewsList, setReviewsList] = useState<Review[]>([]);
+  const [activeTab, setActiveTab] = useState<ProductTab>("description");
+  const [showReviewModal, setShowReviewModal] = useState<boolean>(false);
+  const [reviewerName, setReviewerName] = useState<string>("");
+  const [reviewerRating, setReviewerRating] = useState<number>(5);
+  const [reviewerComment, setReviewerComment] = useState<string>("");
+  const [reviewError, setReviewError] = useState<string | null>(null);
+  const [reviewSuccess, setReviewSuccess] = useState<string | null>(null);
+
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   const [activeImage, setActiveImage] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(1);
@@ -55,6 +66,7 @@ export const ProductPage = () => {
         if (!isMounted) return;
 
         setProduct(data);
+        setReviewsList(data.reviews || []);
         setActiveImage(data.images?.[0] || data.thumbnail);
 
         try {
@@ -120,6 +132,36 @@ export const ProductPage = () => {
       if (next > remainingStock) return remainingStock;
       return next;
     });
+  };
+
+  const handleAddReview = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!reviewerName.trim()) {
+      setReviewError("Please enter your name");
+      return;
+    }
+    if (!reviewerComment.trim()) {
+      setReviewError("Please write a review comment");
+      return;
+    }
+
+    const newRev: Review = {
+      reviewerName: reviewerName.trim(),
+      rating: Number(reviewerRating),
+      comment: reviewerComment.trim(),
+      date: new Date().toISOString(),
+    };
+
+    setReviewsList((prev) => [newRev, ...prev]);
+    setReviewSuccess("Review submitted successfully! Thank you for your feedback.");
+    setReviewError(null);
+    setReviewerName("");
+    setReviewerComment("");
+    setReviewerRating(5);
+    setTimeout(() => {
+      setShowReviewModal(false);
+      setReviewSuccess(null);
+    }, 1500);
   };
 
   if (loading) {
@@ -211,7 +253,7 @@ export const ProductPage = () => {
               <IconStar className="h-3.5 w-3.5 fill-current text-[#8C6D58]" />
               <span className="font-semibold">{product.rating.toFixed(1)}</span>
             </div>
-            <span>• {product.reviews?.length || 0} client reviews</span>
+            <span>• {reviewsList.length} client reviews</span>
           </div>
 
           {/* Price */}
@@ -322,33 +364,239 @@ export const ProductPage = () => {
         </div>
       </div>
 
-      {/* Customer Reviews */}
-      {product.reviews && product.reviews.length > 0 && (
-        <section className="mt-10">
-          <h2 className="wood-engraved mb-4 text-xs uppercase">
-            Client Reviews ({product.reviews.length})
-          </h2>
+      {/* Product Detail Tabs (PRD F-P3-02 & F-P3-03) */}
+      <section className="mt-8 sm:mt-12 tactile-card rounded-2xl p-4 sm:p-7">
+        <div className="flex border-b border-[#D8C2A8] dark:border-[#3D2616] gap-2 pb-2">
+          <button
+            type="button"
+            onClick={() => setActiveTab("description")}
+            className={`rounded-lg px-4 py-2 text-xs font-bold transition ${
+              activeTab === "description" ? "wood-btn-walnut" : "wood-btn opacity-80"
+            }`}
+          >
+            Description
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("specifications")}
+            className={`rounded-lg px-4 py-2 text-xs font-bold transition ${
+              activeTab === "specifications" ? "wood-btn-walnut" : "wood-btn opacity-80"
+            }`}
+          >
+            Specifications
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("reviews")}
+            className={`rounded-lg px-4 py-2 text-xs font-bold transition ${
+              activeTab === "reviews" ? "wood-btn-walnut" : "wood-btn opacity-80"
+            }`}
+          >
+            Reviews ({reviewsList.length})
+          </button>
+        </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {product.reviews.map((rev, idx) => (
-              <div
-                key={`${rev.reviewerName}-${rev.date}-${idx}`}
-                className="tactile-card rounded-xl p-4 text-xs"
-              >
-                <div className="flex items-center justify-between font-bold text-[#26170C] dark:text-[#F5EBE0]">
-                  <span>{rev.reviewerName}</span>
-                  <span className="text-[#8C6D58]">★ {rev.rating}</span>
-                </div>
-                <p className="mt-1.5 text-[#5C4938] dark:text-[#D8C2A8]">
-                  "{rev.comment}"
-                </p>
-                <p className="mt-2 text-[10px] text-[#736B63]">
-                  {formatDate(rev.date)}
+        {/* Tab: Description */}
+        {activeTab === "description" && (
+          <div className="pt-5 space-y-3">
+            <h3 className="text-xs font-bold text-[#26170C] dark:text-[#F5EBE0] uppercase tracking-wider">
+              About This Artisan Piece
+            </h3>
+            <p className="text-xs sm:text-sm leading-relaxed text-[#5C4938] dark:text-[#D8C2A8]">
+              {product.description}
+            </p>
+            <div className="mt-4 rounded-xl border border-[#CBB092] bg-[#EFE8DC]/50 p-4 dark:border-[#4A301D] dark:bg-[#19100A]/50">
+              <h4 className="text-[11px] font-bold text-[#26170C] dark:text-[#F5EBE0] uppercase">
+                Artisan Quality & Care Guarantee
+              </h4>
+              <p className="mt-1 text-[11px] text-[#5C4938] dark:text-[#D8C2A8]">
+                Crafted using responsibly sourced materials and non-toxic finishes. Wipe gently with a soft dry cloth. Keep away from excessive dampness or direct radiant heat.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Tab: Specifications */}
+        {activeTab === "specifications" && (
+          <div className="pt-5">
+            <h3 className="text-xs font-bold text-[#26170C] dark:text-[#F5EBE0] uppercase tracking-wider mb-3">
+              Item Specifications
+            </h3>
+            <div className="divide-y divide-[#D8C2A8] dark:divide-[#3D2616] text-xs">
+              <div className="py-2.5 flex justify-between">
+                <span className="text-[#5C4938] dark:text-[#D8C2A8]">Brand / Maker</span>
+                <span className="font-semibold text-[#26170C] dark:text-[#F5EBE0]">{product.brand || "10X Atelier"}</span>
+              </div>
+              <div className="py-2.5 flex justify-between">
+                <span className="text-[#5C4938] dark:text-[#D8C2A8]">Category</span>
+                <span className="font-semibold capitalize text-[#26170C] dark:text-[#F5EBE0]">{product.category.replace("-", " ")}</span>
+              </div>
+              <div className="py-2.5 flex justify-between">
+                <span className="text-[#5C4938] dark:text-[#D8C2A8]">Inventory Status</span>
+                <span className="font-semibold text-[#26170C] dark:text-[#F5EBE0]">{product.stock} units available</span>
+              </div>
+              <div className="py-2.5 flex justify-between">
+                <span className="text-[#5C4938] dark:text-[#D8C2A8]">Average Rating</span>
+                <span className="font-semibold text-[#26170C] dark:text-[#F5EBE0]">★ {product.rating.toFixed(1)} / 5.0</span>
+              </div>
+              <div className="py-2.5 flex justify-between">
+                <span className="text-[#5C4938] dark:text-[#D8C2A8]">SKU Identifier</span>
+                <span className="font-mono text-[#26170C] dark:text-[#F5EBE0]">SKU-10X-{product.id}</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Tab: Reviews */}
+        {activeTab === "reviews" && (
+          <div className="pt-5">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+              <div>
+                <h3 className="text-xs font-bold text-[#26170C] dark:text-[#F5EBE0] uppercase tracking-wider">
+                  Client Reviews ({reviewsList.length})
+                </h3>
+                <p className="text-[11px] text-[#5C4938] dark:text-[#D8C2A8]">
+                  Verified buyers and collector community feedback.
                 </p>
               </div>
-            ))}
+              <button
+                type="button"
+                onClick={() => setShowReviewModal(true)}
+                className="wood-btn-walnut self-start sm:self-auto rounded-lg px-4 py-2 text-xs"
+              >
+                Write a review
+              </button>
+            </div>
+
+            {reviewsList.length === 0 ? (
+              <p className="py-6 text-center text-xs text-[#5C4938] dark:text-[#D8C2A8]">
+                No reviews yet for this product. Be the first to share your thoughts!
+              </p>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {reviewsList.map((rev, idx) => (
+                  <div
+                    key={`${rev.reviewerName}-${rev.date}-${idx}`}
+                    className="tactile-card rounded-xl p-4 text-xs"
+                  >
+                    <div className="flex items-center justify-between font-bold text-[#26170C] dark:text-[#F5EBE0]">
+                      <span>{rev.reviewerName}</span>
+                      <span className="text-[#8C6D58]">★ {rev.rating}</span>
+                    </div>
+                    <p className="mt-1.5 text-[#5C4938] dark:text-[#D8C2A8]">
+                      "{rev.comment}"
+                    </p>
+                    <p className="mt-2 text-[10px] text-[#736B63]">
+                      {formatDate(rev.date)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-        </section>
+        )}
+      </section>
+
+      {/* Write a Review Modal */}
+      {showReviewModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+          <div className="tactile-card w-full max-w-md rounded-2xl p-6 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-[#D8C2A8] pb-3 dark:border-[#3D2616]">
+              <h3 className="text-sm font-bold text-[#26170C] dark:text-[#F5EBE0]">
+                Write a Review for {product.title}
+              </h3>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowReviewModal(false);
+                  setReviewError(null);
+                  setReviewSuccess(null);
+                }}
+                className="text-lg text-[#5C4938] hover:text-[#26170C] dark:text-[#D8C2A8]"
+              >
+                ✕
+              </button>
+            </div>
+
+            {reviewSuccess ? (
+              <div className="py-6 text-center">
+                <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400">
+                  ✓ {reviewSuccess}
+                </span>
+              </div>
+            ) : (
+              <form onSubmit={handleAddReview} className="mt-4 space-y-4">
+                {reviewError && (
+                  <p className="text-xs text-rose-600 dark:text-rose-400">
+                    {reviewError}
+                  </p>
+                )}
+
+                <div>
+                  <label htmlFor="reviewerName" className="block text-[11px] font-bold text-[#5C4938] dark:text-[#D8C2A8] mb-1">
+                    Your Name
+                  </label>
+                  <input
+                    id="reviewerName"
+                    type="text"
+                    value={reviewerName}
+                    onChange={(e) => setReviewerName(e.target.value)}
+                    placeholder="e.g. Maya Beridze"
+                    className="wood-input w-full rounded-xl px-3 py-2 text-xs font-medium outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="reviewerRating" className="block text-[11px] font-bold text-[#5C4938] dark:text-[#D8C2A8] mb-1">
+                    Rating (1-5 stars)
+                  </label>
+                  <select
+                    id="reviewerRating"
+                    value={reviewerRating}
+                    onChange={(e) => setReviewerRating(Number(e.target.value))}
+                    className="wood-input w-full rounded-xl px-3 py-2 text-xs font-bold outline-none"
+                  >
+                    <option value={5}>★★★★★ (5 - Excellent)</option>
+                    <option value={4}>★★★★☆ (4 - Very Good)</option>
+                    <option value={3}>★★★☆☆ (3 - Average)</option>
+                    <option value={2}>★★☆☆☆ (2 - Poor)</option>
+                    <option value={1}>★☆☆☆☆ (1 - Terrible)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label htmlFor="reviewerComment" className="block text-[11px] font-bold text-[#5C4938] dark:text-[#D8C2A8] mb-1">
+                    Review Comment
+                  </label>
+                  <textarea
+                    id="reviewerComment"
+                    rows={3}
+                    value={reviewerComment}
+                    onChange={(e) => setReviewerComment(e.target.value)}
+                    placeholder="Share your thoughts about this piece..."
+                    className="wood-input w-full rounded-xl px-3 py-2 text-xs font-medium outline-none resize-none"
+                  />
+                </div>
+
+                <div className="flex items-center justify-end gap-2 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowReviewModal(false)}
+                    className="wood-btn rounded-lg px-4 py-2 text-xs"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="wood-btn-walnut rounded-lg px-4 py-2 text-xs"
+                  >
+                    Submit review
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
       )}
 
       {/* Related Products */}

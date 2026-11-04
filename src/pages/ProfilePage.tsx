@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import { useTheme } from "@/context/ThemeContext";
@@ -19,12 +21,47 @@ import {
 import { storageGetJSON, storageRemove } from "@/utils/storage";
 import type { Order } from "@/types/order";
 
+const profileSchema = Yup.object().shape({
+  firstName: Yup.string()
+    .trim()
+    .min(2, "First name must be at least 2 characters")
+    .required("First name is required"),
+  lastName: Yup.string()
+    .trim()
+    .min(2, "Last name must be at least 2 characters")
+    .required("Last name is required"),
+  email: Yup.string()
+    .trim()
+    .email("Invalid email address")
+    .required("Email is required"),
+});
+
 export const ProfilePage = () => {
-  const { user, logout } = useAuth();
+  const { user, logout, updateUser } = useAuth();
   const { totalItems, clearCart } = useCart();
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const [soundOn, setSoundOn] = useState<boolean>(() => isSoundEnabled());
+  const [profileSuccess, setProfileSuccess] = useState<string | null>(null);
+
+  const formik = useFormik({
+    initialValues: {
+      firstName: user?.firstName || "",
+      lastName: user?.lastName || "",
+      email: user?.email || "",
+    },
+    enableReinitialize: true,
+    validationSchema: profileSchema,
+    onSubmit: (values) => {
+      updateUser({
+        firstName: values.firstName.trim(),
+        lastName: values.lastName.trim(),
+        email: values.email.trim(),
+      });
+      setProfileSuccess("Profile updated successfully!");
+      setTimeout(() => setProfileSuccess(null), 3000);
+    },
+  });
 
   useEffect(() => {
     return subscribeSoundEnabled(setSoundOn);
@@ -92,6 +129,100 @@ export const ProfilePage = () => {
           </span>
           <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-[#5C4938] dark:text-[#D8C2A8]">Spent</p>
         </div>
+      </div>
+
+      {/* Edit Profile Form (PRD F-P7-01) */}
+      <div className="mt-5 sm:mt-6 tactile-card rounded-2xl p-4 sm:p-6">
+        <div className="mb-3">
+          <h2 className="text-xs font-bold text-[#26170C] dark:text-[#F5EBE0] uppercase tracking-wider">
+            Edit Profile
+          </h2>
+          <p className="text-[11px] text-[#5C4938] dark:text-[#D8C2A8]">
+            Update your personal information saved to your device.
+          </p>
+        </div>
+
+        <form onSubmit={formik.handleSubmit} className="space-y-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label htmlFor="firstName" className="block text-[11px] font-bold text-[#5C4938] dark:text-[#D8C2A8] mb-1">
+                First Name
+              </label>
+              <input
+                id="firstName"
+                name="firstName"
+                type="text"
+                value={formik.values.firstName}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                placeholder="e.g. John"
+                className="wood-input w-full rounded-xl px-3 py-2 text-xs font-medium outline-none"
+              />
+              {formik.touched.firstName && formik.errors.firstName && (
+                <p className="mt-1 text-[11px] text-rose-600 dark:text-rose-400">
+                  {formik.errors.firstName}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <label htmlFor="lastName" className="block text-[11px] font-bold text-[#5C4938] dark:text-[#D8C2A8] mb-1">
+                Last Name
+              </label>
+              <input
+                id="lastName"
+                name="lastName"
+                type="text"
+                value={formik.values.lastName}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                placeholder="e.g. Doe"
+                className="wood-input w-full rounded-xl px-3 py-2 text-xs font-medium outline-none"
+              />
+              {formik.touched.lastName && formik.errors.lastName && (
+                <p className="mt-1 text-[11px] text-rose-600 dark:text-rose-400">
+                  {formik.errors.lastName}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="email" className="block text-[11px] font-bold text-[#5C4938] dark:text-[#D8C2A8] mb-1">
+              Email Address
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              placeholder="e.g. user@example.com"
+              className="wood-input w-full rounded-xl px-3 py-2 text-xs font-medium outline-none"
+            />
+            {formik.touched.email && formik.errors.email && (
+              <p className="mt-1 text-[11px] text-rose-600 dark:text-rose-400">
+                {formik.errors.email}
+              </p>
+            )}
+          </div>
+
+          <div className="flex items-center justify-between pt-1">
+            <button
+              type="submit"
+              disabled={formik.isSubmitting}
+              className="wood-btn rounded-lg px-4 py-2 text-xs"
+            >
+              Save Profile
+            </button>
+            {profileSuccess && (
+              <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
+                ✓ {profileSuccess}
+              </span>
+            )}
+          </div>
+        </form>
       </div>
 
       {/* Settings */}

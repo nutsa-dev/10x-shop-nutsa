@@ -7,6 +7,7 @@ interface AuthContextType {
   isLoggedIn: boolean;
   login: (username: string) => void;
   logout: () => void;
+  updateUser: (data: Partial<AuthUser>) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -17,7 +18,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<AuthUser | null>(() => {
     const saved = storageGetJSON<Partial<AuthUser> | null>(USER_STORAGE_KEY, null);
     return saved && typeof saved.username === "string" && saved.username.trim()
-      ? { username: saved.username.trim() }
+      ? {
+          username: saved.username.trim(),
+          firstName: typeof saved.firstName === "string" ? saved.firstName : undefined,
+          lastName: typeof saved.lastName === "string" ? saved.lastName : undefined,
+          email: typeof saved.email === "string" ? saved.email : undefined,
+        }
       : null;
   });
 
@@ -34,6 +40,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     storageRemove(USER_STORAGE_KEY);
   };
 
+  const updateUser = (data: Partial<AuthUser>) => {
+    setUser((prev) => {
+      if (!prev) return null;
+      const updated: AuthUser = {
+        ...prev,
+        ...data,
+      };
+      storageSet(USER_STORAGE_KEY, JSON.stringify(updated));
+      return updated;
+    });
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -41,6 +59,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         isLoggedIn: user !== null,
         login,
         logout,
+        updateUser,
       }}
     >
       {children}

@@ -117,7 +117,7 @@ export const CheckoutPage = () => {
 
           <div className="mt-6 flex gap-2.5">
             <Link
-              to="/orders"
+              to={`/orders/${placedOrder.id}`}
               className="wood-btn flex-1 rounded-lg py-2.5 text-center text-xs"
             >
               Track Order
