@@ -1,8 +1,9 @@
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getProductById, getProducts } from "@/api/products.api";
 import { useCart } from "@/context/CartContext";
 import { ProductGrid } from "@/components/product/ProductGrid";
+import { NotFoundPage } from "@/pages/NotFoundPage";
 import { formatPrice, getDiscountedPrice, formatDate } from "@/utils/format";
 import {
   IconCart,
@@ -14,8 +15,7 @@ import type { Product } from "@/types/product";
 
 export const ProductPage = () => {
   const { id } = useParams<{ id: string }>();
-  const { addItem } = useCart();
-  const [, startTransition] = useTransition();
+  const { addItem, items } = useCart();
 
   const [product, setProduct] = useState<Product | null>(null);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
@@ -24,6 +24,15 @@ export const ProductPage = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [addedToast, setAddedToast] = useState<boolean>(false);
+  const [lastAddedQty, setLastAddedQty] = useState<number>(1);
+
+  const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+    };
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -49,9 +58,10 @@ export const ProductPage = () => {
         setActiveImage(data.images?.[0] || data.thumbnail);
 
         try {
+          // Fetch real related objects for this specific category (not the combined 'all' pool)
           const related = await getProducts({
             category: data.category,
-            limit: 5,
+            limit: 6,
           });
           if (isMounted) {
             setRelatedProducts(
@@ -79,23 +89,35 @@ export const ProductPage = () => {
     };
   }, [id]);
 
+  const inCartQty = product
+    ? items.find((i) => i.productId === product.id)?.quantity ?? 0
+    : 0;
+  const remainingStock = product ? Math.max(0, product.stock - inCartQty) : 0;
+  const isOutOfStock = !product || product.stock <= 0;
+  const isMaxInCart = !isOutOfStock && remainingStock <= 0;
+
   const handleAddToCart = () => {
-    if (!product || product.stock <= 0) return;
-    addItem(product, quantity);
+    if (!product || isOutOfStock || isMaxInCart) return;
+    const toAdd = Math.min(quantity, remainingStock);
+    if (toAdd <= 0) return;
+
+    addItem(product, toAdd);
+    setLastAddedQty(toAdd);
     setAddedToast(true);
-    setTimeout(() => {
-      startTransition(() => {
-        setAddedToast(false);
-      });
+    setQuantity(1);
+
+    if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+    toastTimerRef.current = setTimeout(() => {
+      setAddedToast(false);
     }, 2200);
   };
 
   const handleQuantityChange = (delta: number) => {
-    if (!product) return;
+    if (!product || remainingStock <= 0) return;
     setQuantity((prev) => {
       const next = prev + delta;
       if (next < 1) return 1;
-      if (next > product.stock) return product.stock;
+      if (next > remainingStock) return remainingStock;
       return next;
     });
   };
@@ -118,30 +140,11 @@ export const ProductPage = () => {
   }
 
   if (error || !product) {
-    return (
-      <div className="mx-auto max-w-[1380px] px-5 sm:px-8 lg:px-10 py-16 text-center">
-        <div className="tactile-card mx-auto max-w-sm rounded-2xl p-8">
-          <h2 className="text-base font-bold text-[#26170C] dark:text-[#F5EBE0]">
-            Object Not Found
-          </h2>
-          <p className="mt-1 text-xs text-[#5C4938] dark:text-[#D8C2A8]">
-            {error || "The requested atelier object could not be found."}
-          </p>
-          <Link
-            to="/"
-            className="wood-btn mt-5 inline-flex items-center gap-1.5 rounded-lg px-4 py-2.5 text-xs"
-          >
-            <IconArrowLeft className="h-3 w-3" />
-            <span>Return to Collection</span>
-          </Link>
-        </div>
-      </div>
-    );
+    return <NotFoundPage />;
   }
 
   const hasDiscount = product.discountPercentage > 1;
   const discountedPrice = getDiscountedPrice(product.price, product.discountPercentage);
-  const isOutOfStock = product.stock <= 0;
   const images = product.images && product.images.length > 0 ? product.images : [product.thumbnail];
 
   return (
@@ -150,7 +153,7 @@ export const ProductPage = () => {
       <nav aria-label="Breadcrumb" className="mb-4 sm:mb-6 flex items-center gap-1.5 sm:gap-2 text-xs overflow-hidden">
         <Link to="/" className="wood-btn shrink-0 inline-flex items-center gap-1 rounded-md px-2.5 py-1 text-xs">
           <IconArrowLeft className="h-3 w-3" />
-          <span>Collection</span>
+          <span>Back to catalog</span>
         </Link>
         <span className="wood-engraved shrink-0">/</span>
         <span className="wood-engraved hidden sm:inline shrink-0 capitalize">{product.category.replace("-", " ")}</span>
@@ -176,7 +179,7 @@ export const ProductPage = () => {
             <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
               {images.map((img, idx) => (
                 <button
-                  key={idx}
+                  key={img}
                   type="button"
                   onClick={() => setActiveImage(img)}
                   className={`atelier-image-stage relative aspect-square h-14 w-14 sm:h-16 sm:w-16 shrink-0 overflow-hidden rounded-xl border p-1.5 transition ${
@@ -232,9 +235,17 @@ export const ProductPage = () => {
           <div className="mt-3 text-xs">
             {isOutOfStock ? (
               <span className="font-semibold text-rose-600 dark:text-rose-400">Out of stock</span>
+            ) : isMaxInCart ? (
+              <span className="font-semibold text-[#8C6D58]">
+                All {product.stock} pieces in cart
+              </span>
+            ) : product.stock <= 5 ? (
+              <span className="font-semibold text-amber-600 dark:text-amber-400">
+                Only {product.stock} left!
+              </span>
             ) : (
               <span className="font-medium text-[#5C4938] dark:text-[#D8C2A8]">
-                In stock ({product.stock} pieces available)
+                In stock ({product.stock} available{inCartQty > 0 ? `, ${inCartQty} in cart` : ""})
               </span>
             )}
           </div>
@@ -251,7 +262,8 @@ export const ProductPage = () => {
               <div className="flex h-11 w-full sm:w-auto shrink-0 items-center justify-between sm:justify-start rounded-lg border border-[#CBB092] bg-[#EFE8DC] dark:border-[#4A301D] dark:bg-[#19100A]">
                 <button
                   type="button"
-                  disabled={isOutOfStock || quantity <= 1}
+                  aria-label="Decrease quantity"
+                  disabled={isOutOfStock || isMaxInCart || quantity <= 1}
                   onClick={() => handleQuantityChange(-1)}
                   className="wood-btn flex h-11 w-12 sm:w-10 items-center justify-center rounded-l-lg disabled:opacity-40"
                 >
@@ -262,7 +274,8 @@ export const ProductPage = () => {
                 </span>
                 <button
                   type="button"
-                  disabled={isOutOfStock || quantity >= product.stock}
+                  aria-label="Increase quantity"
+                  disabled={isOutOfStock || isMaxInCart || quantity >= remainingStock}
                   onClick={() => handleQuantityChange(1)}
                   className="wood-btn flex h-11 w-12 sm:w-10 items-center justify-center rounded-r-lg disabled:opacity-40"
                 >
@@ -273,7 +286,7 @@ export const ProductPage = () => {
               {/* Add to Cart */}
               <button
                 type="button"
-                disabled={isOutOfStock}
+                disabled={isOutOfStock || isMaxInCart}
                 onClick={handleAddToCart}
                 className={`flex h-11 w-full sm:flex-1 items-center justify-center gap-2 rounded-lg px-4 sm:px-5 text-xs disabled:opacity-40 ${
                   addedToast ? "wood-btn-walnut" : "wood-btn"
@@ -284,6 +297,10 @@ export const ProductPage = () => {
                     <IconCheck className="h-4 w-4 shrink-0" />
                     <span>Added to Cart</span>
                   </>
+                ) : isOutOfStock ? (
+                  "Out of stock"
+                ) : isMaxInCart ? (
+                  "Max stock in cart"
                 ) : (
                   <>
                     <IconCart className="h-4 w-4 shrink-0" />
@@ -295,7 +312,7 @@ export const ProductPage = () => {
 
             {addedToast && (
               <div className="flex items-center justify-between rounded-lg border border-[#CBB092] bg-[#EFE8DC] p-3 text-xs text-[#26170C] dark:border-[#4A301D] dark:bg-[#19100A] dark:text-[#F5EBE0]">
-                <span>{quantity}× added to cart</span>
+                <span>{lastAddedQty}× added to cart</span>
                 <Link to="/cart" className="wood-btn rounded-md px-2.5 py-1 text-xs">
                   View Cart →
                 </Link>
@@ -315,7 +332,7 @@ export const ProductPage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {product.reviews.map((rev, idx) => (
               <div
-                key={idx}
+                key={`${rev.reviewerName}-${rev.date}-${idx}`}
                 className="tactile-card rounded-xl p-4 text-xs"
               >
                 <div className="flex items-center justify-between font-bold text-[#26170C] dark:text-[#F5EBE0]">

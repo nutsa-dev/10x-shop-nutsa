@@ -59,7 +59,7 @@
 * **ფიქსი (Fix & Commit):**  
   [ProductPage.tsx](file:///c:/Users/user/Desktop/Exam/10x-shop-nutsa/src/pages/ProductPage.tsx)-ში დაემატა მყისიერი შემოწმება:  
   `const numericId = Number(id); if (!id || isNaN(numericId) || numericId <= 0 || !Number.isInteger(numericId)) { setError("Product not found"); setLoading(false); return; }`  
-  *Commit:* `fix(product): add instant numeric id validation before network fetch`
+  *Commit:* `feat(product): implement comprehensive ProductPage with gallery, stepper, reviews, and related products` (`b1505f1`)
 * **რა ვისწავლე (Lesson Learned):**  
   კლიენტის მხარეს მარტივი პარამეტრის ვალიდაცია თავიდან აგვაცილებს ზედმეტ ასინქრონულ ქსელურ ტრაფიკს და აუმჯობესებს UX-ს.
 
@@ -98,6 +98,6 @@
   SPA (Single Page Application) იყენებს HTML5 History API-ს (`BrowserRouter`). სერვერმა ყველა უცნობი მარშრუტი უნდა გადაამისამართოს root `index.html`-ზე.
 * **ფიქსი (Fix & Commit):**  
   შეიქმნა `vercel.json` წესით: `{ "rewrites": [{ "source": "/(.*)", "destination": "/" }] }`.  
-  *Commit:* `chore(deploy): add vercel.json SPA rewrite rule`
+  *Commit:* `docs & feat: add ErrorBoundary, vercel rewrite, PLAN, REPORT, DEBUG-LOG, and COMPATIBILITY docs per PRD` (`60fc89b`)
 * **რა ვისწავლე (Lesson Learned):**  
   SPA აპლიკაციების დეპლოისას აუცილებელია სერვერული Rewrite კონფიგურაცია, რათა კლიენტის მხარის როუტერი სწორად ინიციალიზდეს ნებისმიერ URL-ზე.

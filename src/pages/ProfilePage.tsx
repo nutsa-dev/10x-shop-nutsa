@@ -16,6 +16,7 @@ import {
   setSoundEnabled,
   subscribeSoundEnabled,
 } from "@/utils/sound";
+import { storageGetJSON, storageRemove } from "@/utils/storage";
 import type { Order } from "@/types/order";
 
 export const ProfilePage = () => {
@@ -39,12 +40,8 @@ export const ProfilePage = () => {
   };
 
   const [orders, setOrders] = useState<Order[]>(() => {
-    try {
-      const saved = localStorage.getItem("shop_orders");
-      return saved ? (JSON.parse(saved) as Order[]) : [];
-    } catch {
-      return [];
-    }
+    const all = storageGetJSON<Order[]>("shop_orders", []);
+    return all.filter((o) => o.username === user?.username || !o.username);
   });
 
   const [resetMessage, setResetMessage] = useState<string | null>(null);
@@ -52,7 +49,7 @@ export const ProfilePage = () => {
   const totalSpent = orders.reduce((acc, curr) => acc + curr.total, 0);
 
   const handleResetData = () => {
-    localStorage.removeItem("shop_orders");
+    storageRemove("shop_orders");
     clearCart();
     setOrders([]);
     setResetMessage("All demo orders and cart data have been reset.");

@@ -4,11 +4,19 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="WOODWORK — Handcrafted wooden toys, seasonal winter decor, and minimalist furniture." />
-    <title>WOODWORK — Nordic Woodshop & Winter Market</title>
+    <meta name="description" content="10X Shop — Handcrafted wooden toys, seasonal winter decor, and minimalist furniture." />
+    <title>10X Shop</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      try {
+        if (localStorage.getItem('shop_theme') === 'dark') {
+          document.documentElement.classList.add('dark');
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      } catch (_) {}
+    </script>
   </head>
   <body class="bg-[#DEC6A7] font-sans text-[#26170C] antialiased selection:bg-[#2C4032] selection:text-white dark:bg-[#361F0E] dark:text-[#F5EBE0]">
     <div id="root"></div>

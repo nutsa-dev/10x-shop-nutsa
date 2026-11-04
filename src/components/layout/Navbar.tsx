@@ -53,7 +53,7 @@ export const Navbar = () => {
           className="flex shrink-0 items-center"
         >
           <span className="font-editorial text-base sm:text-xl font-extrabold tracking-[0.11em] sm:tracking-[0.14em] uppercase text-[#26170C] dark:text-[#F5EBE0]">
-            WOODWORK
+            10X Shop
           </span>
         </Link>
 
@@ -70,7 +70,7 @@ export const Navbar = () => {
               }`
             }
           >
-            Collection
+            Catalog
           </NavLink>
           <NavLink
             to="/orders"
@@ -148,7 +148,9 @@ export const Navbar = () => {
           >
             <IconCart className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Cart</span>
-            <span className="font-mono text-[11px]">({totalItems})</span>
+            {totalItems > 0 && (
+              <span className="font-mono text-[11px]">({totalItems})</span>
+            )}
           </NavLink>
 
           {/* User Auth */}
@@ -167,7 +169,7 @@ export const Navbar = () => {
                 onClick={handleLogout}
                 className="hidden sm:inline-block text-[11px] font-bold uppercase tracking-wider text-[#5C4938] hover:text-[#26170C] dark:text-[#D8C2A8] dark:hover:text-[#F5EBE0]"
               >
-                Logout
+                Log out
               </button>
             </div>
           ) : (
@@ -175,7 +177,7 @@ export const Navbar = () => {
               to="/login"
               className="wood-btn-walnut flex h-8 sm:h-9 shrink-0 items-center rounded-lg px-2.5 sm:px-3.5 text-[11px] sm:text-xs"
             >
-              Sign In
+              Log in
             </Link>
           )}
         </div>
@@ -198,7 +200,7 @@ export const Navbar = () => {
             }`
           }
         >
-          Collection
+          Catalog
         </NavLink>
         <NavLink
           to="/orders"
@@ -231,7 +233,7 @@ export const Navbar = () => {
               onClick={handleLogout}
               className="shrink-0 py-0.5 text-[10px] font-bold tracking-[0.14em] uppercase text-[#5C4938]/85 dark:text-[#D8C2A8]/75"
             >
-              Logout
+              Log out
             </button>
           </>
         )}

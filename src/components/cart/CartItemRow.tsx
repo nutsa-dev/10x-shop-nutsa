@@ -60,8 +60,9 @@ export const CartItemRow = ({ item, onUpdateQuantity, onRemove }: CartItemRowPro
           <button
             type="button"
             aria-label="Decrease quantity"
+            disabled={item.quantity <= 1}
             onClick={() => onUpdateQuantity(item.productId, item.quantity - 1)}
-            className="wood-btn flex h-8 w-8 items-center justify-center rounded-l-lg text-xs"
+            className="wood-btn flex h-8 w-8 items-center justify-center rounded-l-lg text-xs disabled:opacity-40"
           >
             −
           </button>

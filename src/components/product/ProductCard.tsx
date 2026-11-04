@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "@/context/CartContext";
 import { IconCheck, IconStar } from "@/components/ui/Icons";
-import { formatPrice } from "@/utils/format";
+import { formatPrice, getDiscountedPrice } from "@/utils/format";
 import type { Product } from "@/types/product";
 
 interface ProductCardProps {
@@ -14,6 +14,13 @@ interface ProductCardProps {
 export const ProductCard = ({ product, index, onAdd }: ProductCardProps) => {
   const { addItem } = useCart();
   const [isAdded, setIsAdded] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
 
   // Build unique gallery images (up to 4 photos) from product.images + thumbnail
   const galleryImages = Array.from(
@@ -31,15 +38,13 @@ export const ProductCard = ({ product, index, onAdd }: ProductCardProps) => {
       addItem(product);
     }
     setIsAdded(true);
-    setTimeout(() => setIsAdded(false), 1200);
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => setIsAdded(false), 1200);
   };
 
   const hasDiscount = product.discountPercentage > 1;
-  const discountedPrice = hasDiscount
-    ? product.price * (1 - product.discountPercentage / 100)
-    : product.price;
-
-  const isOutOfStock = product.stock === 0;
+  const discountedPrice = getDiscountedPrice(product.price, product.discountPercentage);
+  const isOutOfStock = product.stock <= 0;
   const currentImage = galleryImages[selectedIdx] || product.thumbnail;
   const catalogIndex =
     typeof index === "number" ? `N° ${String(index + 1).padStart(2, "0")}` : `N° ${String(product.id).slice(-2)}`;
@@ -114,7 +119,7 @@ export const ProductCard = ({ product, index, onAdd }: ProductCardProps) => {
             </span>
             <span className="text-[#8A6542] dark:text-[#5E3D24]">·</span>
             <span className="truncate text-[10px] uppercase tracking-widest text-[#593E28] font-bold dark:text-[#C8B29B]">
-              {product.category.replace("-", " ")}
+              {product.category.replace("-", " ")}{product.brand ? ` · ${product.brand}` : ""}
             </span>
           </div>
           <div className="flex shrink-0 items-center gap-1 text-xs text-[#4A321F] dark:text-[#D8C2A8]">
@@ -131,6 +136,23 @@ export const ProductCard = ({ product, index, onAdd }: ProductCardProps) => {
             {product.title}
           </Link>
         </h3>
+
+        {/* Stock Badge */}
+        <div className="mt-1">
+          {product.stock <= 0 ? (
+            <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400">
+              Out of stock
+            </span>
+          ) : product.stock <= 5 ? (
+            <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400">
+              Only {product.stock} left!
+            </span>
+          ) : (
+            <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+              In stock
+            </span>
+          )}
+        </div>
       </div>
 
       {/* Price Block & Engraved Wooden CTA Button */}

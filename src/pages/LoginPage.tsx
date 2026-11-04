@@ -46,14 +46,14 @@ export const LoginPage = () => {
           className="wood-btn inline-flex items-center gap-1 rounded-md px-2.5 py-1 text-xs mb-4"
         >
           <IconArrowLeft className="h-3.5 w-3.5" />
-          <span>Collection</span>
+          <span>Back to catalog</span>
         </Link>
 
         <h1 className="text-xl font-extrabold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
-          Sign In
+          Log in
         </h1>
         <p className="mt-0.5 text-xs text-[#5C4938] dark:text-[#D8C2A8]">
-          Access your WOODWORK account
+          Enter your credentials to access your account
         </p>
 
         <form onSubmit={formik.handleSubmit} noValidate className="mt-5 space-y-4">
@@ -111,7 +111,7 @@ export const LoginPage = () => {
             type="submit"
             className="wood-btn w-full rounded-lg py-2.5 px-4 text-xs"
           >
-            Sign In
+            Log in
           </button>
         </form>
 

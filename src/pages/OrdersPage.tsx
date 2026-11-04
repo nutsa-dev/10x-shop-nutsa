@@ -1,25 +1,63 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import { formatPrice, formatDate, getDiscountedPrice } from "@/utils/format";
+import { storageGetJSON, storageSet } from "@/utils/storage";
 import { IconCheck } from "@/components/ui/Icons";
 import type { Order, OrderStatus } from "@/types/order";
 
 const STATUS_STEPS: OrderStatus[] = ["Processing", "Shipped", "Delivered"];
 
+/**
+ * Pure function: calculates simulated status from explicit timestamp, without calling Date.now() during render.
+ */
+function getSimulatedStatus(order: Order, currentTime: number): OrderStatus {
+  if (order.status) return order.status;
+  const elapsedMinutes = (currentTime - new Date(order.placedAt).getTime()) / (1000 * 60);
+  if (elapsedMinutes < 1) return "Processing";
+  if (elapsedMinutes < 3) return "Shipped";
+  return "Delivered";
+}
+
+function isOrder(val: unknown): val is Order {
+  if (!val || typeof val !== "object") return false;
+  const obj = val as Record<string, unknown>;
+  return typeof obj.id === "number" && typeof obj.number === "string" && Array.isArray(obj.items);
+}
+
 export const OrdersPage = () => {
-  const [orders, setOrders] = useState<Order[]>(() => {
-    try {
-      const saved = localStorage.getItem("shop_orders");
-      return saved ? (JSON.parse(saved) as Order[]) : [];
-    } catch {
-      return [];
-    }
+  const { user, isLoggedIn } = useAuth();
+  const [allOrders, setAllOrders] = useState<Order[]>(() => {
+    const parsed = storageGetJSON<unknown>("shop_orders", []);
+    return Array.isArray(parsed) ? parsed.filter(isOrder) : [];
   });
+
+  // State-driven clock (updates every 30s as per PRD F-P6-03) ensures the timeline advances automatically
+  // while keeping renders 100% pure (satisfies React purity rules).
+  const [now, setNow] = useState<number>(() => Date.now());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setNow(Date.now());
+    }, 30000);
+    return () => clearInterval(timer);
+  }, []);
 
   const [expandedOrderId, setExpandedOrderId] = useState<number | null>(null);
   const { addItem } = useCart();
   const navigate = useNavigate();
+
+  // Filter orders by logged-in user so orders are private to each account
+  const visibleOrders = useMemo(() => {
+    if (!isLoggedIn || !user?.username) {
+      // If guest/logged out, show only guest orders without a username attached
+      return allOrders.filter((o) => !o.username || o.username === "guest");
+    }
+    return allOrders.filter(
+      (o) => o.username === user.username || !o.username
+    );
+  }, [allOrders, isLoggedIn, user]);
 
   const handleReorder = (order: Order) => {
     for (const item of order.items) {
@@ -43,19 +81,11 @@ export const OrdersPage = () => {
     navigate("/cart");
   };
 
-  const getSimulatedStatus = (order: Order): OrderStatus => {
-    if (order.status) return order.status;
-    const elapsedMinutes = (Date.now() - new Date(order.placedAt).getTime()) / (1000 * 60);
-    if (elapsedMinutes < 2) return "Processing";
-    if (elapsedMinutes < 5) return "Shipped";
-    return "Delivered";
-  };
-
   const handleCycleStatus = (orderId: number) => {
-    setOrders((prevOrders) => {
+    setAllOrders((prevOrders) => {
       const updated = prevOrders.map((o) => {
         if (o.id === orderId) {
-          const current = getSimulatedStatus(o);
+          const current = getSimulatedStatus(o, now);
           const currentIndex = STATUS_STEPS.indexOf(current);
           const nextStatus = STATUS_STEPS[(currentIndex + 1) % STATUS_STEPS.length];
           return { ...o, status: nextStatus };
@@ -63,12 +93,7 @@ export const OrdersPage = () => {
         return o;
       });
 
-      try {
-        localStorage.setItem("shop_orders", JSON.stringify(updated));
-      } catch (e) {
-        console.error("Failed to save updated orders", e);
-      }
-
+      storageSet("shop_orders", JSON.stringify(updated));
       return updated;
     });
   };
@@ -77,7 +102,7 @@ export const OrdersPage = () => {
     setExpandedOrderId((prev) => (prev === orderId ? null : orderId));
   };
 
-  if (orders.length === 0) {
+  if (visibleOrders.length === 0) {
     return (
       <div className="mx-auto max-w-[1380px] px-3.5 sm:px-8 lg:px-10 py-14 sm:py-20 text-center">
         <div className="tactile-card mx-auto max-w-sm rounded-2xl p-7 sm:p-10">
@@ -85,14 +110,16 @@ export const OrdersPage = () => {
             No Orders Yet
           </h1>
           <p className="mt-1 text-xs text-[#5C4938] dark:text-[#D8C2A8]">
-            Orders you place will appear here with live simulation tracking.
+            {isLoggedIn
+              ? `No orders placed under @${user?.username} yet.`
+              : "Orders you place will appear here with live simulation tracking."}
           </p>
           <div className="mt-5">
             <Link
               to="/"
               className="wood-btn inline-flex rounded-lg px-4 py-2.5 text-xs"
             >
-              Explore Collection
+              Browse products
             </Link>
           </div>
         </div>
@@ -108,18 +135,19 @@ export const OrdersPage = () => {
             Orders & Tracking
           </h1>
           <p className="text-xs text-[#5C4938] dark:text-[#D8C2A8]">
-            {orders.length} {orders.length === 1 ? "order" : "orders"}
+            {visibleOrders.length} {visibleOrders.length === 1 ? "order" : "orders"}
+            {isLoggedIn && ` for ${user?.username}`}
           </p>
         </div>
 
         <Link to="/" className="wood-btn rounded-lg px-3 py-1.5 text-xs">
-          ← Collection
+          ← Catalog
         </Link>
       </div>
 
       <div className="space-y-4">
-        {orders.map((order) => {
-          const currentStatus = getSimulatedStatus(order);
+        {visibleOrders.map((order) => {
+          const currentStatus = getSimulatedStatus(order, now);
           const currentStepIndex = STATUS_STEPS.indexOf(currentStatus);
           const isExpanded = expandedOrderId === order.id;
 

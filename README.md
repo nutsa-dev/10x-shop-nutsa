@@ -2,7 +2,7 @@
 
 > **Front-end Diploma Project | 10X Developer Program 2026**  
 > Built with **React 19**, **TypeScript** (strict mode), and **Tailwind CSS v4** powered by the **DummyJSON API**.  
-> 🔗 **Live URL:** [https://10x-shop-nutsa.vercel.app/](https://10x-shop-nutsa.vercel.app/)
+> 🔗 **Live URL:** https://10x-shop-nutsa.vercel.app/ ([Vercel Deployment](https://10x-shop-nutsa.vercel.app/))
 
 ---
 
@@ -135,7 +135,7 @@ npm run lint       # Runs ESLint code style and hook rules check
 
 ## 👤 Test Credentials & Live Demo
 
-- **Live Deployment:** [https://10x-shop-nutsa.vercel.app/](https://10x-shop-nutsa.vercel.app/)
+- **Live Deployment:** https://10x-shop-nutsa.vercel.app/ ([Open Application](https://10x-shop-nutsa.vercel.app/))
 - **Demo User Account:**
   - **Username:** `emilys`
   - **Password:** `emilyspass` *(or any valid credentials ≥ 6 characters)*

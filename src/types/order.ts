@@ -12,6 +12,7 @@ export interface ShippingInfo {
 export interface Order {
   id: number;
   number: string;
+  username?: string;
   items: CartItem[];
   shipping: ShippingInfo;
   subtotal: number;

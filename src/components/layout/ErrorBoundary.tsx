@@ -10,8 +10,8 @@ interface State {
 }
 
 /**
- * ErrorBoundary - კლასური კომპონენტი PRD P0.6 და O2 მოთხოვნების მიხედვით.
- * იჭერს გაუთვალისწინებელ JavaScript შეცდომებს React-ის ხეში.
+ * ErrorBoundary - catches unexpected JavaScript runtime errors in the React tree
+ * and presents a graceful tactile WOODWORK recovery screen.
  */
 export class ErrorBoundary extends Component<Props, State> {
   public state: State = {
@@ -31,32 +31,46 @@ export class ErrorBoundary extends Component<Props, State> {
     window.location.reload();
   };
 
+  private handleReturnHome = () => {
+    this.setState({ hasError: false, error: null });
+    window.location.href = "/";
+  };
+
   public render() {
     if (this.state.hasError) {
       return (
         <div className="flex min-h-[70vh] flex-col items-center justify-center px-4 py-16 text-center">
-          <div className="mx-auto max-w-md rounded-3xl border border-stone-200 bg-white p-8 shadow-sm dark:border-stone-800 dark:bg-stone-900">
-            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-rose-100 text-2xl text-rose-600 dark:bg-rose-950/50 dark:text-rose-400">
+          <div className="tactile-card mx-auto max-w-md rounded-2xl p-8">
+            <div className="wood-btn mx-auto flex h-12 w-12 items-center justify-center rounded-full text-xl mb-4">
               ⚠️
             </div>
-            <h1 className="mt-4 text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-100">
-              Something went wrong.
+            <h1 className="font-editorial text-xl font-extrabold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
+              Something went wrong
             </h1>
-            <p className="mt-2 text-xs leading-relaxed text-stone-500 dark:text-stone-400">
-              An unexpected application error occurred. You can reload the page to continue.
+            <p className="mt-1.5 text-xs leading-relaxed text-[#5C4938] dark:text-[#D8C2A8]">
+              An unexpected atelier error occurred. You can reload the page or return to the collection.
             </p>
             {this.state.error && (
-              <p className="mt-3 rounded-lg bg-stone-100 p-2 text-left font-mono text-[11px] text-stone-700 dark:bg-stone-800 dark:text-stone-300 overflow-x-auto">
+              <p className="mt-3 rounded-lg bg-[#EFE8DC] p-2.5 text-left font-mono text-[11px] text-[#26170C] dark:bg-[#19100A] dark:text-[#F5EBE0] overflow-x-auto">
                 {this.state.error.message}
               </p>
             )}
-            <button
-              type="button"
-              onClick={this.handleReload}
-              className="mt-6 inline-flex items-center rounded-xl bg-stone-900 px-6 py-2.5 text-xs font-semibold text-white transition hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200"
-            >
-              Reload
-            </button>
+            <div className="mt-6 flex gap-2.5 justify-center">
+              <button
+                type="button"
+                onClick={this.handleReload}
+                className="wood-btn rounded-lg px-4 py-2 text-xs"
+              >
+                Reload Page
+              </button>
+              <button
+                type="button"
+                onClick={this.handleReturnHome}
+                className="wood-btn-walnut rounded-lg px-4 py-2 text-xs"
+              >
+                Return to Shop
+              </button>
+            </div>
           </div>
         </div>
       );

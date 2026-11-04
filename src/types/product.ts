@@ -18,7 +18,6 @@ export interface Product {
   thumbnail: string;
   images: string[];
   reviews: Review[];
-  specs?: Record<string, string>;
 }
 
 export interface ProductsResponse {
@@ -26,10 +25,4 @@ export interface ProductsResponse {
   total: number;
   skip: number;
   limit: number;
-}
-
-export interface Category {
-  slug: string;
-  name: string;
-  url: string;
 }
