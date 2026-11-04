@@ -2,38 +2,376 @@ import type { Product } from "@/types/product";
 
 /**
  * ============================================================================
- * 📸 NEW PRODUCT PHOTOS (ახალი ფოტოების სია)
+ * 10X SHOP — პროდუქციის და ფოტოების მონაცემთა ბაზა (PRODUCTS & IMAGES REGISTRY)
  * ============================================================================
- * აქ შეგიძლიათ უბრალოდ ჩაამატოთ ახალი ფოტოების URL-ები ან ფაილის მისამართები.
- * სურვილისამებრ შეგიძლიათ მიუთითოთ კატეგორიაც.
- * როდესაც ჩაამატებთ, მომწერეთ და მე ამ ფოტოებს დავასათაურებ,
- * დავუწერ აღწერას, ფასს და განვათავსებ შესაბამის კატეგორიაში!
+ * 
+ * ინსტრუქცია:
+ * 1. აქ მოცემულია მაღაზიის ყველა პროდუქტი თავისი ფოტოებით (thumbnail და images).
+ * 2. თუ გსურთ ახალი ფოტოების დამატება, შეგიძლიათ უბრალოდ ჩაწეროთ მათი ლინკები
+ *    ქვემოთ მოცემულ NEW_PRODUCT_PHOTOS სიაში ან პირდაპირ STORE_PRODUCTS-ში.
+ * 3. შეინახეთ ფაილი, მომწერეთ და მე მათ მომენტალურად დავასათაურებ, აღვწერ
+ *    და განვათავსებ შესაბამის კატეგორიაში!
  * ============================================================================
  */
-export interface NewPhotoEntry {
-  url: string;
-  category?: "furniture" | "home-decoration" | "christmas-market" | "wooden-toys";
-  title?: string;
-  notes?: string;
-}
 
-export const NEW_PRODUCT_PHOTOS: NewPhotoEntry[] = [
-  // 👇 ჩაამატეთ თქვენი ახალი ფოტოები აქ (მაგალითები):
-  // { url: "https://images.unsplash.com/your-photo-1.jpg", category: "wooden-toys" },
-  // { url: "https://images.unsplash.com/your-photo-2.jpg", category: "christmas-market" },
-  // { url: "https://images.unsplash.com/your-photo-3.jpg", category: "furniture" },
-  // { url: "https://images.unsplash.com/your-photo-4.jpg", category: "home-decoration" },
+/**
+ * ⬇️ ახალი ფოტოების სია (დაამატეთ აქ თქვენი ფოტოების ლინკები) ⬇️
+ */
+export const NEW_PRODUCT_PHOTOS: Array<{
+  imageUrl: string;
+  suggestedCategory?: "furniture" | "home-decoration" | "christmas-market" | "wooden-toys";
+  title?: string;
+  description?: string;
+}> = [
+  // მაგალითად:
+  // { imageUrl: "https://images.unsplash.com/...", suggestedCategory: "furniture" },
 ];
 
 /**
- * ============================================================================
- * 🪵 STORE PRODUCTS CATALOG (არსებული კოლექცია კატეგორიების მიხედვით)
- * ============================================================================
+ * მაღაზიის ყველა აქტიური პროდუქტი 4 კატეგორიის მიხედვით
  */
-export const STORE_CATALOG_PRODUCTS: Product[] = [
-  // --------------------------------------------------------------------------
-  // 1. WOODEN TOYS (ხის სათამაშოები)
-  // --------------------------------------------------------------------------
+export const STORE_PRODUCTS: Product[] = [
+  // ==========================================================================
+  // 1. FURNITURE (ავეჯი)
+  // ==========================================================================
+  {
+    id: 11,
+    title: "Annibale Colombo Handcrafted Bed",
+    description:
+      "Solid ash wood headboard with artisanal mortise-and-tenon joints, organic natural timber wax finish, and breathable posture slat support.",
+    price: 1899,
+    discountPercentage: 10,
+    rating: 4.8,
+    stock: 6,
+    brand: "Annibale Colombo",
+    category: "furniture",
+    thumbnail:
+      "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Bed/thumbnail.png",
+    images: [
+      "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Bed/1.png",
+      "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Bed/2.png",
+      "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Bed/3.png",
+    ],
+    reviews: [
+      {
+        rating: 5,
+        comment: "Exceptional solid wood craft and flawless joinery.",
+        date: "2026-01-14T10:00:00.000Z",
+        reviewerName: "Nino G.",
+      },
+    ],
+  },
+  {
+    id: 12,
+    title: "Annibale Colombo Atelier Sofa",
+    description:
+      "Sculptural curved timber frame with tactile woven linen upholstery, dense resilient foam, and raw brass ferrule foot accents.",
+    price: 2499,
+    discountPercentage: 15,
+    rating: 4.9,
+    stock: 4,
+    brand: "Annibale Colombo",
+    category: "furniture",
+    thumbnail:
+      "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Sofa/thumbnail.png",
+    images: [
+      "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Sofa/1.png",
+      "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Sofa/2.png",
+    ],
+    reviews: [
+      {
+        rating: 5,
+        comment: "A magnificent statement piece for any minimalist space.",
+        date: "2026-01-20T14:15:00.000Z",
+        reviewerName: "David K.",
+      },
+    ],
+  },
+  {
+    id: 13,
+    title: "Bedside Table African Cherry Wood",
+    description:
+      "Artisan nightstand milled from solid African cherry hardwood with soft-close finger-jointed drawer and brushed bronze hardware.",
+    price: 299,
+    discountPercentage: 8,
+    rating: 4.7,
+    stock: 12,
+    brand: "10X Woodcraft",
+    category: "furniture",
+    thumbnail:
+      "https://cdn.dummyjson.com/products/images/furniture/Bedside%20Table%20African%20Cherry/thumbnail.png",
+    images: [
+      "https://cdn.dummyjson.com/products/images/furniture/Bedside%20Table%20African%20Cherry/1.png",
+      "https://cdn.dummyjson.com/products/images/furniture/Bedside%20Table%20African%20Cherry/2.png",
+    ],
+    reviews: [],
+  },
+  {
+    id: 14,
+    title: "Knoll Executive Conference Chair",
+    description:
+      "Ergonomic molded timber shell with vegetable-tanned aniline leather cushions and 360-degree silent walnut swivel base.",
+    price: 499,
+    discountPercentage: 12,
+    rating: 4.8,
+    stock: 8,
+    brand: "Knoll",
+    category: "furniture",
+    thumbnail:
+      "https://cdn.dummyjson.com/products/images/furniture/Knoll%20Saarinen%20Executive%20Conference%20Chair/thumbnail.png",
+    images: [
+      "https://cdn.dummyjson.com/products/images/furniture/Knoll%20Saarinen%20Executive%20Conference%20Chair/1.png",
+      "https://cdn.dummyjson.com/products/images/furniture/Knoll%20Saarinen%20Executive%20Conference%20Chair/2.png",
+    ],
+    reviews: [],
+  },
+  {
+    id: 15,
+    title: "Wooden Bathroom Vanity with Stone Sink & Mirror",
+    description:
+      "Moisture-sealed teak vanity console featuring a natural vessel stone basin and matching beveled floating mirror.",
+    price: 799,
+    discountPercentage: 10,
+    rating: 4.9,
+    stock: 5,
+    brand: "10X Atelier",
+    category: "furniture",
+    thumbnail:
+      "https://cdn.dummyjson.com/products/images/furniture/Wooden%20Bathroom%20Sink%20With%20Mirror/thumbnail.png",
+    images: [
+      "https://cdn.dummyjson.com/products/images/furniture/Wooden%20Bathroom%20Sink%20With%20Mirror/1.png",
+      "https://cdn.dummyjson.com/products/images/furniture/Wooden%20Bathroom%20Sink%20With%20Mirror/2.png",
+    ],
+    reviews: [],
+  },
+
+  // ==========================================================================
+  // 2. HOME DECOR (დეკორი)
+  // ==========================================================================
+  {
+    id: 43,
+    title: "Handmade Organic Indoor Decor Swing",
+    description:
+      "Acoustic timber hanging seat crafted with thick nautical cotton ropes and natural birch seating for cozy reading nooks.",
+    price: 119,
+    discountPercentage: 10,
+    rating: 4.8,
+    stock: 9,
+    brand: "10X Living",
+    category: "home-decoration",
+    thumbnail:
+      "https://cdn.dummyjson.com/products/images/home-decoration/Decoration%20Swing/thumbnail.png",
+    images: [
+      "https://cdn.dummyjson.com/products/images/home-decoration/Decoration%20Swing/1.png",
+      "https://cdn.dummyjson.com/products/images/home-decoration/Decoration%20Swing/2.png",
+    ],
+    reviews: [],
+  },
+  {
+    id: 44,
+    title: "Family Heirloom Wooden Photo Frame",
+    description:
+      "Solid walnut gallery picture frame with matte acid-free museum matting and anti-glare protective glass.",
+    price: 49,
+    discountPercentage: 8,
+    rating: 4.7,
+    stock: 22,
+    brand: "10X Living",
+    category: "home-decoration",
+    thumbnail:
+      "https://cdn.dummyjson.com/products/images/home-decoration/Family%20Tree%20Photo%20Frame/thumbnail.png",
+    images: [
+      "https://cdn.dummyjson.com/products/images/home-decoration/Family%20Tree%20Photo%20Frame/1.png",
+    ],
+    reviews: [],
+  },
+  {
+    id: 45,
+    title: "House Showpiece Botanical Planter",
+    description:
+      "Handcrafted terracotta urn with natural aged patina and raw timber drainage saucer.",
+    price: 39,
+    discountPercentage: 5,
+    rating: 4.8,
+    stock: 18,
+    brand: "10X Living",
+    category: "home-decoration",
+    thumbnail:
+      "https://cdn.dummyjson.com/products/images/home-decoration/House%20Showpiece%20Plant/thumbnail.png",
+    images: [
+      "https://cdn.dummyjson.com/products/images/home-decoration/House%20Showpiece%20Plant/1.png",
+      "https://cdn.dummyjson.com/products/images/home-decoration/House%20Showpiece%20Plant/2.png",
+    ],
+    reviews: [],
+  },
+  {
+    id: 46,
+    title: "Artisanal Glazed Ceramic Plant Pot",
+    description:
+      "Textured studio stoneware with tactile earth glaze, ideal for succulents, bonsai, and interior greenery.",
+    price: 35,
+    discountPercentage: 7,
+    rating: 4.6,
+    stock: 25,
+    brand: "10X Living",
+    category: "home-decoration",
+    thumbnail:
+      "https://cdn.dummyjson.com/products/images/home-decoration/Plant%20Pot/thumbnail.png",
+    images: [
+      "https://cdn.dummyjson.com/products/images/home-decoration/Plant%20Pot/1.png",
+    ],
+    reviews: [],
+  },
+  {
+    id: 47,
+    title: "Solid Turned Oak Atelier Table Lamp",
+    description:
+      "Warm accent ambient lamp turned from a single block of English oak with hand-pleated flax linen shade and brass dimmer switch.",
+    price: 89,
+    discountPercentage: 12,
+    rating: 4.9,
+    stock: 15,
+    brand: "10X Living",
+    category: "home-decoration",
+    thumbnail:
+      "https://cdn.dummyjson.com/products/images/home-decoration/Table%20Lamp/thumbnail.png",
+    images: [
+      "https://cdn.dummyjson.com/products/images/home-decoration/Table%20Lamp/1.png",
+    ],
+    reviews: [],
+  },
+
+  // ==========================================================================
+  // 3. CHRISTMAS MARKET (საახალწლო მარკეტი)
+  // ==========================================================================
+  {
+    id: 2004,
+    title: "Handcrafted Holiday Pine & Ornament Tree Set",
+    description:
+      "Artisanal winter holiday centerpiece with warm ceramic and brushed brass ornaments, natural pine cones, and woven linen ribbons.",
+    price: 89,
+    discountPercentage: 15,
+    rating: 4.9,
+    stock: 20,
+    brand: "10X Seasonal",
+    category: "christmas-market",
+    thumbnail:
+      "https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=800&h=800&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=800&h=800&q=80",
+      "https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=800&h=800&q=80",
+      "https://images.unsplash.com/photo-1634507708682-f37ef194ed13?auto=format&fit=crop&w=800&h=800&q=80",
+    ],
+    reviews: [
+      {
+        rating: 5,
+        comment: "Brings such a warm, festive glow to our living room.",
+        date: "2025-12-19T18:00:00.000Z",
+        reviewerName: "Mariam S.",
+      },
+    ],
+  },
+  {
+    id: 2005,
+    title: "Artisanal Wooden Snowflake Ornaments (Set of 6)",
+    description:
+      "Precision laser-cut and hand-finished Scandinavian birch plywood snowflakes with brass wire hangers. Designed to catch soft festive light.",
+    price: 38,
+    discountPercentage: 10,
+    rating: 4.8,
+    stock: 35,
+    brand: "10X Seasonal",
+    category: "christmas-market",
+    thumbnail:
+      "https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=800&h=800&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=800&h=800&q=80",
+      "https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=800&h=800&q=80",
+    ],
+    reviews: [
+      {
+        rating: 5,
+        comment: "Subtle and elegant, far nicer than plastic ornaments.",
+        date: "2025-12-21T11:45:00.000Z",
+        reviewerName: "Giorgi B.",
+      },
+    ],
+  },
+  {
+    id: 2006,
+    title: "Nordic Brass & Cedar Advent Candleholder",
+    description:
+      "Solid turned brass cups nestled into a raw aromatic cedar beam. Four candle chambers for Nordic winter solstice countdown traditions.",
+    price: 64,
+    discountPercentage: 12,
+    rating: 4.9,
+    stock: 16,
+    brand: "10X Seasonal",
+    category: "christmas-market",
+    thumbnail:
+      "https://images.unsplash.com/photo-1513297887119-d46091b24bfa?auto=format&fit=crop&w=800&h=800&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1513297887119-d46091b24bfa?auto=format&fit=crop&w=800&h=800&q=80",
+      "https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=800&h=800&q=80",
+    ],
+    reviews: [
+      {
+        rating: 5,
+        comment: "Heavy, high-quality brass. Smells like fresh cedar wood.",
+        date: "2025-12-23T14:10:00.000Z",
+        reviewerName: "Salome Ch.",
+      },
+    ],
+  },
+  {
+    id: 2007,
+    title: "Hand-Carved Winter Reindeer Figurine",
+    description:
+      "Sculptural minimalist holiday reindeer carved from reclaimed linden wood. Untreated natural grain celebrates organic timber warmth.",
+    price: 42,
+    discountPercentage: 8,
+    rating: 4.8,
+    stock: 22,
+    brand: "10X Seasonal",
+    category: "christmas-market",
+    thumbnail:
+      "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&h=800&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&h=800&q=80",
+      "https://images.unsplash.com/photo-1513297887119-d46091b24bfa?auto=format&fit=crop&w=800&h=800&q=80",
+    ],
+    reviews: [],
+  },
+  {
+    id: 2010,
+    title: "Handmade Wool Felt & Cinnamon Star Garland",
+    description:
+      "Cozy holiday garland strung with hand-felted pure wool stars, natural cinnamon sticks, and dried orange slices for festive warmth and fragrance.",
+    price: 34,
+    discountPercentage: 10,
+    rating: 4.9,
+    stock: 30,
+    brand: "10X Seasonal",
+    category: "christmas-market",
+    thumbnail:
+      "https://images.unsplash.com/photo-1576919228236-a097c32a5cd4?auto=format&fit=crop&w=800&h=800&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1576919228236-a097c32a5cd4?auto=format&fit=crop&w=800&h=800&q=80",
+      "https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=800&h=800&q=80",
+    ],
+    reviews: [
+      {
+        rating: 5,
+        comment: "Fabulous aroma and lovely craftsmanship, looks charming over the fireplace.",
+        date: "2025-12-24T10:15:00.000Z",
+        reviewerName: "Tamar M.",
+      },
+    ],
+  },
+
+  // ==========================================================================
+  // 4. WOODEN TOYS (ხის სათამაშოები)
+  // ==========================================================================
   {
     id: 2001,
     title: "Nordic Birch Wooden Train Set",
@@ -167,361 +505,4 @@ export const STORE_CATALOG_PRODUCTS: Product[] = [
     ],
     reviews: [],
   },
-
-  // --------------------------------------------------------------------------
-  // 2. CHRISTMAS MARKET (საახალწლო კოლექცია)
-  // --------------------------------------------------------------------------
-  {
-    id: 2004,
-    title: "Handcrafted Holiday Pine & Ornament Tree Set",
-    description:
-      "Artisanal winter holiday centerpiece with warm ceramic and brushed brass ornaments, natural pine cones, and woven linen ribbons.",
-    price: 89,
-    discountPercentage: 15,
-    rating: 4.9,
-    stock: 20,
-    brand: "10X Seasonal",
-    category: "christmas-market",
-    thumbnail:
-      "https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=800&h=800&q=80",
-    images: [
-      "https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=800&h=800&q=80",
-      "https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=800&h=800&q=80",
-      "https://images.unsplash.com/photo-1634507708682-f37ef194ed13?auto=format&fit=crop&w=800&h=800&q=80",
-    ],
-    reviews: [
-      {
-        rating: 5,
-        comment: "Brings such a warm, festive glow to our living room.",
-        date: "2025-12-19T18:00:00.000Z",
-        reviewerName: "Mariam S.",
-      },
-    ],
-  },
-  {
-    id: 2005,
-    title: "Artisanal Wooden Snowflake Ornaments (Set of 6)",
-    description:
-      "Precision laser-cut and hand-finished Scandinavian birch plywood snowflakes with brass wire hangers. Designed to catch soft festive light.",
-    price: 38,
-    discountPercentage: 10,
-    rating: 4.8,
-    stock: 35,
-    brand: "10X Seasonal",
-    category: "christmas-market",
-    thumbnail:
-      "https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=800&h=800&q=80",
-    images: [
-      "https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=800&h=800&q=80",
-      "https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=800&h=800&q=80",
-    ],
-    reviews: [
-      {
-        rating: 5,
-        comment: "Subtle and elegant, far nicer than plastic ornaments.",
-        date: "2025-12-21T11:45:00.000Z",
-        reviewerName: "Giorgi B.",
-      },
-    ],
-  },
-  {
-    id: 2006,
-    title: "Nordic Brass & Cedar Advent Candleholder",
-    description:
-      "Solid turned brass cups nestled into a raw aromatic cedar beam. Four candle chambers for Nordic winter solstice countdown traditions.",
-    price: 64,
-    discountPercentage: 12,
-    rating: 4.9,
-    stock: 16,
-    brand: "10X Seasonal",
-    category: "christmas-market",
-    thumbnail:
-      "https://images.unsplash.com/photo-1513297887119-d46091b24bfa?auto=format&fit=crop&w=800&h=800&q=80",
-    images: [
-      "https://images.unsplash.com/photo-1513297887119-d46091b24bfa?auto=format&fit=crop&w=800&h=800&q=80",
-      "https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=800&h=800&q=80",
-    ],
-    reviews: [
-      {
-        rating: 5,
-        comment: "Heavy, high-quality brass. Smells like fresh cedar wood.",
-        date: "2025-12-23T14:10:00.000Z",
-        reviewerName: "Salome Ch.",
-      },
-    ],
-  },
-  {
-    id: 2007,
-    title: "Hand-Carved Winter Reindeer Figurine",
-    description:
-      "Sculptural minimalist holiday reindeer carved from reclaimed linden wood. Untreated natural grain celebrates organic timber warmth.",
-    price: 42,
-    discountPercentage: 8,
-    rating: 4.8,
-    stock: 22,
-    brand: "10X Seasonal",
-    category: "christmas-market",
-    thumbnail:
-      "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&h=800&q=80",
-    images: [
-      "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&h=800&q=80",
-      "https://images.unsplash.com/photo-1513297887119-d46091b24bfa?auto=format&fit=crop&w=800&h=800&q=80",
-    ],
-    reviews: [],
-  },
-  {
-    id: 2010,
-    title: "Handmade Wool Felt & Cinnamon Star Garland",
-    description:
-      "Cozy holiday garland strung with hand-felted pure wool stars, natural cinnamon sticks, and dried orange slices for festive warmth and fragrance.",
-    price: 34,
-    discountPercentage: 10,
-    rating: 4.9,
-    stock: 30,
-    brand: "10X Seasonal",
-    category: "christmas-market",
-    thumbnail:
-      "https://images.unsplash.com/photo-1576919228236-a097c32a5cd4?auto=format&fit=crop&w=800&h=800&q=80",
-    images: [
-      "https://images.unsplash.com/photo-1576919228236-a097c32a5cd4?auto=format&fit=crop&w=800&h=800&q=80",
-      "https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=800&h=800&q=80",
-    ],
-    reviews: [
-      {
-        rating: 5,
-        comment: "Fabulous aroma and lovely craftsmanship, looks charming over the fireplace.",
-        date: "2025-12-24T10:15:00.000Z",
-        reviewerName: "Tamar M.",
-      },
-    ],
-  },
-
-  // --------------------------------------------------------------------------
-  // 3. FURNITURE (ავეჯი)
-  // --------------------------------------------------------------------------
-  {
-    id: 11,
-    title: "Annibale Colombo Bed",
-    description:
-      "The Annibale Colombo Bed is a luxurious and elegant bed frame, crafted with high-quality walnut and timeless Italian artisan lines.",
-    price: 1899,
-    discountPercentage: 10,
-    rating: 4.8,
-    stock: 12,
-    brand: "Annibale Colombo",
-    category: "furniture",
-    thumbnail:
-      "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Bed/thumbnail.png",
-    images: [
-      "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Bed/1.png",
-      "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Bed/2.png",
-      "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Bed/3.png",
-    ],
-    reviews: [
-      {
-        rating: 5,
-        comment: "Exceptional quality and exquisite Italian craftsmanship.",
-        date: "2026-01-15T10:00:00.000Z",
-        reviewerName: "Nutsa B.",
-      },
-    ],
-  },
-  {
-    id: 12,
-    title: "Annibale Colombo Sofa",
-    description:
-      "The Annibale Colombo Sofa is a sophisticated and comfortable seating option with tactile woven upholstery and solid walnut feet.",
-    price: 2499,
-    discountPercentage: 12,
-    rating: 4.9,
-    stock: 8,
-    brand: "Annibale Colombo",
-    category: "furniture",
-    thumbnail:
-      "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Sofa/thumbnail.png",
-    images: [
-      "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Sofa/1.png",
-      "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Sofa/2.png",
-    ],
-    reviews: [],
-  },
-  {
-    id: 13,
-    title: "Bedside Table African Cherry",
-    description:
-      "Minimalist solid African cherry wood bedside table with soft-close dovetail drawers and satin oil finish.",
-    price: 299,
-    discountPercentage: 8,
-    rating: 4.7,
-    stock: 15,
-    brand: "Atelier Wood",
-    category: "furniture",
-    thumbnail:
-      "https://cdn.dummyjson.com/products/images/furniture/Bedside%20Table%20African%20Cherry/thumbnail.png",
-    images: [
-      "https://cdn.dummyjson.com/products/images/furniture/Bedside%20Table%20African%20Cherry/1.png",
-    ],
-    reviews: [],
-  },
-  {
-    id: 14,
-    title: "Knoll Saarinen Executive Conference Chair",
-    description:
-      "Sculptural mid-century modern conference chair with organic curved silhouette, wool fabric, and solid timber legs.",
-    price: 499,
-    discountPercentage: 10,
-    rating: 4.9,
-    stock: 20,
-    brand: "Knoll",
-    category: "furniture",
-    thumbnail:
-      "https://cdn.dummyjson.com/products/images/furniture/Knoll%20Saarinen%20Executive%20Conference%20Chair/thumbnail.png",
-    images: [
-      "https://cdn.dummyjson.com/products/images/furniture/Knoll%20Saarinen%20Executive%20Conference%20Chair/1.png",
-    ],
-    reviews: [],
-  },
-  {
-    id: 15,
-    title: "Wooden Bathroom Sink With Mirror",
-    description:
-      "Artisan water-resistant teak wood vanity with integrated porcelain washbasin and beveled round wooden mirror.",
-    price: 799,
-    discountPercentage: 15,
-    rating: 4.8,
-    stock: 9,
-    brand: "Bath Atelier",
-    category: "furniture",
-    thumbnail:
-      "https://cdn.dummyjson.com/products/images/furniture/Wooden%20Bathroom%20Sink%20With%20Mirror/thumbnail.png",
-    images: [
-      "https://cdn.dummyjson.com/products/images/furniture/Wooden%20Bathroom%20Sink%20With%20Mirror/1.png",
-    ],
-    reviews: [],
-  },
-
-  // --------------------------------------------------------------------------
-  // 4. HOME DECOR (სახლის დეკორი)
-  // --------------------------------------------------------------------------
-  {
-    id: 43,
-    title: "Decoration Swing",
-    description:
-      "Charming indoor macrame and reclaimed timber hanging shelf swing for planters, books, and artisanal curios.",
-    price: 59,
-    discountPercentage: 10,
-    rating: 4.8,
-    stock: 24,
-    brand: "Atelier Home",
-    category: "home-decoration",
-    thumbnail:
-      "https://cdn.dummyjson.com/products/images/home-decoration/Decoration%20Swing/thumbnail.png",
-    images: [
-      "https://cdn.dummyjson.com/products/images/home-decoration/Decoration%20Swing/1.png",
-    ],
-    reviews: [],
-  },
-  {
-    id: 44,
-    title: "Family Tree Photo Frame",
-    description:
-      "Solid beechwood modular multi-aperture photo frame celebrating personal heritage and gallery wall layouts.",
-    price: 45,
-    discountPercentage: 5,
-    rating: 4.7,
-    stock: 30,
-    brand: "Atelier Home",
-    category: "home-decoration",
-    thumbnail:
-      "https://cdn.dummyjson.com/products/images/home-decoration/Family%20Tree%20Photo%20Frame/thumbnail.png",
-    images: [
-      "https://cdn.dummyjson.com/products/images/home-decoration/Family%20Tree%20Photo%20Frame/1.png",
-    ],
-    reviews: [],
-  },
-  {
-    id: 45,
-    title: "House Showpiece Plant",
-    description:
-      "Sculptural botanical display in a terracotta and raw wood vessel bringing organic tranquility into any space.",
-    price: 39,
-    discountPercentage: 8,
-    rating: 4.9,
-    stock: 18,
-    brand: "Flora & Timber",
-    category: "home-decoration",
-    thumbnail:
-      "https://cdn.dummyjson.com/products/images/home-decoration/House%20Showpiece%20Plant/thumbnail.png",
-    images: [
-      "https://cdn.dummyjson.com/products/images/home-decoration/House%20Showpiece%20Plant/1.png",
-    ],
-    reviews: [],
-  },
-  {
-    id: 46,
-    title: "Plant Pot",
-    description:
-      "Handmade textured ceramic plant pot with untreated oak wood saucer for indoor botanicals and succulents.",
-    price: 29,
-    discountPercentage: 10,
-    rating: 4.8,
-    stock: 40,
-    brand: "Flora & Timber",
-    category: "home-decoration",
-    thumbnail:
-      "https://cdn.dummyjson.com/products/images/home-decoration/Plant%20Pot/thumbnail.png",
-    images: [
-      "https://cdn.dummyjson.com/products/images/home-decoration/Plant%20Pot/1.png",
-    ],
-    reviews: [],
-  },
-  {
-    id: 47,
-    title: "Table Lamp",
-    description:
-      "Warm ambient table lamp with turned solid oak base and natural Japanese washi paper shade.",
-    price: 89,
-    discountPercentage: 12,
-    rating: 4.9,
-    stock: 16,
-    brand: "Lumen Wood",
-    category: "home-decoration",
-    thumbnail:
-      "https://cdn.dummyjson.com/products/images/home-decoration/Table%20Lamp/thumbnail.png",
-    images: [
-      "https://cdn.dummyjson.com/products/images/home-decoration/Table%20Lamp/1.png",
-    ],
-    reviews: [],
-  },
 ];
-
-/**
- * Returns all store catalog products, including any new photo entries
- */
-export function getStoreProducts(): Product[] {
-  // If user added photo items in NEW_PRODUCT_PHOTOS, automatically map them into products
-  const userAddedProducts: Product[] = NEW_PRODUCT_PHOTOS.map((entry, index) => {
-    const assignedCategory = entry.category || "wooden-toys";
-    const assignedTitle =
-      entry.title || `Artisan Creation ${index + 1}`;
-    const id = 3000 + index;
-    return {
-      id,
-      title: assignedTitle,
-      description:
-        entry.notes ||
-        `Handcrafted artisan creation made with premium natural materials and timeless Nordic aesthetics.`,
-      price: 49,
-      discountPercentage: 10,
-      rating: 4.9,
-      stock: 15,
-      brand: "10X Atelier",
-      category: assignedCategory,
-      thumbnail: entry.url,
-      images: [entry.url],
-      reviews: [],
-    };
-  });
-
-  return [...STORE_CATALOG_PRODUCTS, ...userAddedProducts];
-}
