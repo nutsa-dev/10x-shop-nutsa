@@ -52,9 +52,9 @@ export const ProductCard = ({ product, index, onAdd }: ProductCardProps) => {
   return (
     <article className="tactile-card group flex flex-col justify-between rounded-2xl p-4 transition-all duration-300">
       <div>
-        {/* Product Image Stage */}
+        {/* Product Image Stage (No inner border, full edge-to-edge display) */}
         <div
-          className="atelier-image-stage relative aspect-square w-full rounded-xl overflow-hidden flex items-center justify-center p-4"
+          className="relative aspect-square w-full rounded-xl overflow-hidden flex items-center justify-center"
           onMouseEnter={() => {
             if (galleryImages.length > 1 && selectedIdx === 0) {
               setSelectedIdx(1);
@@ -103,10 +103,8 @@ export const ProductCard = ({ product, index, onAdd }: ProductCardProps) => {
             <img
               src={currentImage}
               alt={product.title}
-              width={240}
-              height={240}
               loading="lazy"
-              className="object-contain max-h-full rounded-lg transition-transform duration-500 ease-out group-hover:scale-105"
+              className="h-full w-full object-contain transition-transform duration-500 ease-out group-hover:scale-105"
             />
           </Link>
         </div>

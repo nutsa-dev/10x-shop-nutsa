@@ -209,11 +209,11 @@ export const ProductPage = () => {
       <div className="tactile-card rounded-2xl p-4 sm:p-8 grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:gap-12">
         {/* Left: Gallery */}
         <div className="space-y-3">
-          <div className="atelier-image-stage relative aspect-square w-full overflow-hidden rounded-xl sm:rounded-2xl border border-[#CBB092] dark:border-[#4A301D] flex items-center justify-center p-4 sm:p-6">
+          <div className="relative aspect-square w-full overflow-hidden rounded-xl sm:rounded-2xl flex items-center justify-center">
             <img
               src={activeImage || product.thumbnail}
               alt={product.title}
-              className="max-h-full max-w-full object-contain"
+              className="h-full w-full object-contain"
             />
           </div>
 
