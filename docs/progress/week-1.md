@@ -33,3 +33,4 @@ The goal for Week 1 was to establish the architectural foundation of **10X Shop*
 - Connect catalog to DummyJSON API with server-side pagination, search debouncing, and sort parameters.
 - Build interactive product detail view with multi-image gallery.
 - Implement client-side checkout form validation using Formik and Yup.
+

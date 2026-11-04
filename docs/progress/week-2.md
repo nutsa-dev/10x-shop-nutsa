@@ -34,3 +34,4 @@ Week 2 focused on connecting live external product data via DummyJSON API, imple
 - Add dynamic order tracking simulation with 30-second timeline intervals (`Processing` → `Shipped` → `Delivered`).
 - Implement curated artisanal categories (`Christmas Market`, `Wooden Toys`) with high-resolution photography.
 - Add product tabs, write a review modal, profile editor, and deep-link dynamic routes (`/orders/:id`).
+
