@@ -5,27 +5,16 @@ import type { Product } from "@/types/product";
  * 10X SHOP — პროდუქციის და ფოტოების მონაცემთა ბაზა (PRODUCTS & IMAGES REGISTRY)
  * ============================================================================
  * 
- * ინსტრუქცია:
- * 1. აქ მოცემულია მაღაზიის ყველა პროდუქტი თავისი ფოტოებით (thumbnail და images).
- * 2. თუ გსურთ ახალი ფოტოების დამატება, შეგიძლიათ უბრალოდ ჩაწეროთ მათი ლინკები
- *    ქვემოთ მოცემულ NEW_PRODUCT_PHOTOS სიაში ან პირდაპირ STORE_PRODUCTS-ში.
- * 3. შეინახეთ ფაილი, მომწერეთ და მე მათ მომენტალურად დავასათაურებ, აღვწერ
- *    და განვათავსებ შესაბამის კატეგორიაში!
+ * ყველა პროდუქტი ლოკალური და ქურეითიდ ფოტოებით (public/products/ ფოლდერიდან).
  * ============================================================================
  */
 
-/**
- * ⬇️ ახალი ფოტოების სია (დაამატეთ აქ თქვენი ფოტოების ლინკები) ⬇️
- */
 export const NEW_PRODUCT_PHOTOS: Array<{
   imageUrl: string;
   suggestedCategory?: "furniture" | "home-decoration" | "christmas-market" | "wooden-toys";
   title?: string;
   description?: string;
-}> = [
-  // მაგალითად:
-  // { imageUrl: "https://images.unsplash.com/...", suggestedCategory: "furniture" },
-];
+}> = [];
 
 /**
  * მაღაზიის ყველა აქტიური პროდუქტი 4 კატეგორიის მიხედვით
@@ -34,6 +23,37 @@ export const STORE_PRODUCTS: Product[] = [
   // ==========================================================================
   // 1. FURNITURE (ავეჯი)
   // ==========================================================================
+  {
+    id: 3001,
+    title: "Nordic Minimalist Oak Bookcase & Modular Floating Shelves",
+    description:
+      "Handcrafted Scandinavian natural oak floor-to-ceiling shelving library accompanied by floating wall shelves. Built with mortise-and-tenon timber joinery, organic matte wax finish, and ample room for heirloom book collections, art volumes, and studio ceramic display.",
+    price: 890,
+    discountPercentage: 10,
+    rating: 4.9,
+    stock: 5,
+    brand: "10X Atelier",
+    category: "furniture",
+    thumbnail: "/products/Furniture3.jpg",
+    images: [
+      "/products/Furniture3.jpg",
+      "https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?auto=format&fit=crop&w=800&h=800&q=80",
+    ],
+    reviews: [
+      {
+        rating: 5,
+        comment: "Flawless joinery and warm timber grain. Transformed our reading room.",
+        date: "2026-02-12T11:30:00.000Z",
+        reviewerName: "Nino G.",
+      },
+      {
+        rating: 5,
+        comment: "Incredible solid oak quality, feels sturdy and heirloom-grade.",
+        date: "2026-02-18T16:40:00.000Z",
+        reviewerName: "David K.",
+      },
+    ],
+  },
   {
     id: 11,
     title: "Annibale Colombo Handcrafted Bed",
@@ -149,6 +169,31 @@ export const STORE_PRODUCTS: Product[] = [
   // 2. HOME DECOR (დეკორი)
   // ==========================================================================
   {
+    id: 3002,
+    title: "Artisanal Turned Oak Wall Clock, Mirror & Botanical Vases Set",
+    description:
+      "Curated Nordic entryway wall gallery featuring a solid turned oak circular wall clock, matching round beveled timber mirror, hand-lathed wooden bud vases, carved console bowl, and geometric sculptural accents. Infuses warmth, organic textures, and acoustic serenity into any living room or foyer.",
+    price: 165,
+    discountPercentage: 12,
+    rating: 4.9,
+    stock: 14,
+    brand: "10X Living",
+    category: "home-decoration",
+    thumbnail: "/products/Home-decor2.jpg",
+    images: [
+      "/products/Home-decor2.jpg",
+      "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&h=800&q=80",
+    ],
+    reviews: [
+      {
+        rating: 5,
+        comment: "Exquisite craftsmanship, the clock mechanism is completely silent and the wood is silky smooth.",
+        date: "2026-02-15T14:20:00.000Z",
+        reviewerName: "Salome B.",
+      },
+    ],
+  },
+  {
     id: 43,
     title: "Handmade Organic Indoor Decor Swing",
     description:
@@ -244,6 +289,56 @@ export const STORE_PRODUCTS: Product[] = [
   // ==========================================================================
   // 3. CHRISTMAS MARKET (საახალწლო მარკეტი)
   // ==========================================================================
+  {
+    id: 3003,
+    title: "Nordic Wooden Miniature Holiday Village & Tree Ornaments Set",
+    description:
+      "Hand-carved Scandinavian holiday timber village featuring tabletop pine trees, mini chalets with cutout windows, carved forest reindeer, and hanging snowflakes, stars, and wooden angels with natural twine loops.",
+    price: 58,
+    discountPercentage: 15,
+    rating: 4.9,
+    stock: 24,
+    brand: "10X Seasonal",
+    category: "christmas-market",
+    thumbnail: "/products/Christmas-Market.jpeg",
+    images: [
+      "/products/Christmas-Market.jpeg",
+      "https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=800&h=800&q=80",
+    ],
+    reviews: [
+      {
+        rating: 5,
+        comment: "Brings such a heartwarming Nordic festive glow to our holiday table.",
+        date: "2025-12-22T12:00:00.000Z",
+        reviewerName: "Mariam S.",
+      },
+    ],
+  },
+  {
+    id: 3004,
+    title: "Artisanal Timber Candleholders & Winter Solstice Mantelpiece Collection",
+    description:
+      "Solid turned oak and beech taper candleholders accompanied by carved forest reindeer pairs, timber winter angels, snow-dusted wooden cottages, aromatic cinnamon sticks, and pinecone accents.",
+    price: 94,
+    discountPercentage: 10,
+    rating: 5.0,
+    stock: 16,
+    brand: "10X Seasonal",
+    category: "christmas-market",
+    thumbnail: "/products/Christmas-Market3.jpg",
+    images: [
+      "/products/Christmas-Market3.jpg",
+      "https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=800&h=800&q=80",
+    ],
+    reviews: [
+      {
+        rating: 5,
+        comment: "Absolutely stunning centerpiece. The natural wood fragrance and candlelight reflection are magical.",
+        date: "2025-12-24T18:30:00.000Z",
+        reviewerName: "Salome Ch.",
+      },
+    ],
+  },
   {
     id: 2004,
     title: "Handcrafted Holiday Pine & Ornament Tree Set",
@@ -372,6 +467,106 @@ export const STORE_PRODUCTS: Product[] = [
   // ==========================================================================
   // 4. WOODEN TOYS (ხის სათამაშოები)
   // ==========================================================================
+  {
+    id: 3005,
+    title: "Heirloom Montessori Wooden Train & Forest Wildlife Set",
+    description:
+      "Solid beechwood handcrafted locomotive with modular detachable cargo carriages, natural rainbow stacking ring tower, miniature wooden vehicles, and smooth carved woodland animal figures (bear, deer, rabbit, fox). Finished with organic beeswax.",
+    price: 76,
+    discountPercentage: 10,
+    rating: 4.9,
+    stock: 18,
+    brand: "10X Play",
+    category: "wooden-toys",
+    thumbnail: "/products/Wooden-Toys.jpeg",
+    images: [
+      "/products/Wooden-Toys.jpeg",
+      "/products/Wooden-Toys3.jpeg",
+    ],
+    reviews: [
+      {
+        rating: 5,
+        comment: "The quality is simply sublime. Smooth, non-toxic, and our toddler loves it.",
+        date: "2026-02-14T09:20:00.000Z",
+        reviewerName: "Elene M.",
+      },
+    ],
+  },
+  {
+    id: 3006,
+    title: "Artisanal Wooden Vehicle, Rainbow Arch & Playroom Play Set",
+    description:
+      "Premium ecological nursery play collection including red fire engine with swivel ladder, police rescue cruiser, large wooden rainbow stacking arch, Noah's balance ark with animals, wooden tool hammers, and organic timber cookware.",
+    price: 88,
+    discountPercentage: 12,
+    rating: 4.9,
+    stock: 15,
+    brand: "10X Play",
+    category: "wooden-toys",
+    thumbnail: "/products/Wooden-Toys1.jpeg",
+    images: [
+      "/products/Wooden-Toys1.jpeg",
+      "/products/Wooden-Toys2.jpg",
+    ],
+    reviews: [
+      {
+        rating: 5,
+        comment: "Gorgeous colors dyed with water pigments. The rainbow arch and fire truck are heirloom quality.",
+        date: "2026-02-16T11:45:00.000Z",
+        reviewerName: "Levan K.",
+      },
+    ],
+  },
+  {
+    id: 3007,
+    title: "Montessori Wooden Castle Blocks, Shape Sorter & Railway Set",
+    description:
+      "Multi-element architectural nursery fortress featuring pastel turrets, medieval gateway arches, geometric shape sorter with wooden bead maze, biplane, helicopter, wooden railway bridge, and safari figures.",
+    price: 92,
+    discountPercentage: 10,
+    rating: 4.8,
+    stock: 20,
+    brand: "10X Play",
+    category: "wooden-toys",
+    thumbnail: "/products/Wooden-Toys2.jpg",
+    images: [
+      "/products/Wooden-Toys2.jpg",
+      "/products/Wooden-Toys1.jpeg",
+    ],
+    reviews: [
+      {
+        rating: 5,
+        comment: "Endless creative possibilities for spatial development and open-ended play.",
+        date: "2026-02-19T13:10:00.000Z",
+        reviewerName: "Tato J.",
+      },
+    ],
+  },
+  {
+    id: 3008,
+    title: "Nordic Dala Horse, Wooden Cargo Trucks & Wildlife Sensory Set",
+    description:
+      "Authentic Swedish folk-inspired Dala horse figurine paired with natural timber cargo transport trucks, sensory timber stacking rings, modular jigsaw puzzle blocks, and rounded forest creatures.",
+    price: 72,
+    discountPercentage: 8,
+    rating: 4.9,
+    stock: 22,
+    brand: "10X Play",
+    category: "wooden-toys",
+    thumbnail: "/products/Wooden-Toys3.jpeg",
+    images: [
+      "/products/Wooden-Toys3.jpeg",
+      "/products/Wooden-Toys.jpeg",
+    ],
+    reviews: [
+      {
+        rating: 5,
+        comment: "The Dala horse is so charming, and the trucks roll smoothly on hardwood floors.",
+        date: "2026-02-21T15:00:00.000Z",
+        reviewerName: "Ana T.",
+      },
+    ],
+  },
   {
     id: 2001,
     title: "Nordic Birch Wooden Train Set",
@@ -506,4 +701,3 @@ export const STORE_PRODUCTS: Product[] = [
     reviews: [],
   },
 ];
-
