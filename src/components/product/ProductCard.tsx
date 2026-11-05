@@ -29,6 +29,18 @@ export const ProductCard = ({ product, index, onAdd }: ProductCardProps) => {
 
   const [selectedIdx, setSelectedIdx] = useState<number>(0);
 
+  const handlePrevImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setSelectedIdx((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+  };
+
+  const handleNextImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setSelectedIdx((prev) => (prev + 1) % galleryImages.length);
+  };
+
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -53,47 +65,55 @@ export const ProductCard = ({ product, index, onAdd }: ProductCardProps) => {
     <article className="tactile-card group flex flex-col justify-between rounded-2xl p-4 transition-all duration-300">
       <div>
         {/* Product Image Stage (No inner border, full edge-to-edge display) */}
-        <div
-          className="relative aspect-square w-full rounded-xl overflow-hidden flex items-center justify-center"
-          onMouseEnter={() => {
-            if (galleryImages.length > 1 && selectedIdx === 0) {
-              setSelectedIdx(1);
-            }
-          }}
-          onMouseLeave={() => {
-            if (galleryImages.length > 1 && selectedIdx === 1) {
-              setSelectedIdx(0);
-            }
-          }}
-        >
+        <div className="relative aspect-square w-full rounded-xl overflow-hidden flex items-center justify-center">
           {/* Minimalist Nordic Spruce Craft Tag for Discount */}
           {hasDiscount && (
             <span className="absolute left-2.5 top-2.5 z-10 inline-flex items-center gap-1 rounded-md bg-[#2C4032] px-2 py-0.5 font-mono text-[10px] font-medium tracking-wider text-[#F5EBE0] shadow-xs">
-              <span className="h-1 w-1 rounded-full bg-[#D49B4B]" />
               -{Math.round(product.discountPercentage)}%
             </span>
           )}
 
-          {/* Minimal Angle Dots */}
+          {/* Left & Right Navigation Arrows */}
           {galleryImages.length > 1 && (
-            <div className="absolute bottom-2.5 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 rounded-full bg-white/80 px-2 py-1 backdrop-blur-xs dark:bg-[#19100A]/80">
-              {galleryImages.map((_, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  aria-label={`View photo ${idx + 1}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setSelectedIdx(idx);
-                  }}
-                  className={`h-1.5 rounded-full transition-all ${
-                    selectedIdx === idx
-                      ? "w-3.5 bg-[#8C6D58]"
-                      : "w-1.5 bg-[#C8AB89] hover:bg-[#8C6D58]/70 dark:bg-[#5E3D24]"
-                  }`}
-                />
-              ))}
-            </div>
+            <>
+              <button
+                type="button"
+                aria-label="Previous photo"
+                onClick={handlePrevImage}
+                className="absolute left-2 top-1/2 z-10 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-[#F5EBE0]/90 text-[#26170C] shadow-md backdrop-blur-xs transition-all duration-200 hover:scale-105 hover:bg-[#F5EBE0] active:scale-95 md:opacity-0 md:group-hover:opacity-100 dark:bg-[#19100A]/85 dark:text-[#F5EBE0] dark:hover:bg-[#19100A]"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2.2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-3.5 w-3.5 -ml-0.5"
+                >
+                  <path d="m15 18-6-6 6-6" />
+                </svg>
+              </button>
+
+              <button
+                type="button"
+                aria-label="Next photo"
+                onClick={handleNextImage}
+                className="absolute right-2 top-1/2 z-10 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-[#F5EBE0]/90 text-[#26170C] shadow-md backdrop-blur-xs transition-all duration-200 hover:scale-105 hover:bg-[#F5EBE0] active:scale-95 md:opacity-0 md:group-hover:opacity-100 dark:bg-[#19100A]/85 dark:text-[#F5EBE0] dark:hover:bg-[#19100A]"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2.2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-3.5 w-3.5 -mr-0.5"
+                >
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+              </button>
+            </>
           )}
 
           <Link
