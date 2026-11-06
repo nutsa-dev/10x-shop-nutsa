@@ -13,15 +13,15 @@ const validationSchema = Yup.object({
   fullName: Yup.string()
     .trim()
     .min(3, "Full name must be at least 3 characters")
-    .required("Full name is required"),
+    .required("Full name must be at least 3 characters"),
   email: Yup.string()
     .trim()
     .email("Please enter a valid email address")
-    .required("Email address is required"),
+    .required("Please enter a valid email address"),
   address: Yup.string()
     .trim()
     .min(5, "Address must be at least 5 characters")
-    .required("Shipping address is required"),
+    .required("Address must be at least 5 characters"),
   city: Yup.string()
     .trim()
     .min(2, "City is required")
@@ -251,7 +251,7 @@ export const CheckoutPage = () => {
         {/* Review */}
         <div className="tactile-card rounded-2xl p-4 sm:p-6 lg:col-span-5">
           <h2 className="text-[11px] font-bold uppercase tracking-widest text-[#8C6D58] mb-4">
-            Objects ({items.length})
+            Order Summary
           </h2>
 
           <div className="divide-y divide-[#D8C2A8] max-h-60 overflow-y-auto pr-1 dark:divide-[#3D2616]">

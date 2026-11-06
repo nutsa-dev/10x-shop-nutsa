@@ -177,10 +177,14 @@ export const CatalogPage = () => {
       <div className="grid grid-cols-1 gap-2.5 sm:gap-3 sm:grid-cols-12 sm:items-center">
         {/* Search Input */}
         <div className="relative sm:col-span-8 lg:col-span-9">
+          <label htmlFor="catalog-search-input" className="sr-only">
+            Search products
+          </label>
           <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-[#4E3622] dark:text-[#C8B29B]">
             <IconSearch className="h-4 w-4" />
           </span>
           <input
+            id="catalog-search-input"
             type="text"
             aria-label="Search products"
             placeholder="Search products by title, category, or description..."
@@ -272,7 +276,7 @@ export const CatalogPage = () => {
               onClick={handleClearFilters}
               className="wood-btn rounded-lg px-3 py-1.5 text-xs"
             >
-              Reset filters
+              Clear filters
             </button>
           )}
         </div>
@@ -312,7 +316,7 @@ export const CatalogPage = () => {
               onClick={handleClearFilters}
               className="wood-btn mt-4 rounded-lg px-4 py-2 text-xs"
             >
-              Reset filters
+              Clear filters
             </button>
           </div>
         ) : (

@@ -57,7 +57,7 @@ export const CartPage = () => {
         <button
           type="button"
           onClick={() => {
-            if (window.confirm("Empty the cart?")) {
+            if (window.confirm("Clear the cart? This cannot be undone.")) {
               clearCart();
             }
           }}

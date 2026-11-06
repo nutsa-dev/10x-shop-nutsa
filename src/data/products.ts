@@ -24,7 +24,6 @@ export const STORE_PRODUCTS: Product[] = [
   // 1. FURNITURE (ავეჯი)
   // ==========================================================================
   {
-<<<<<<< HEAD
     id: 3009,
     title: "Scandinavian Sculptural Oak Lounge Chair & Low Coffee Table Set",
     description:
@@ -69,8 +68,6 @@ export const STORE_PRODUCTS: Product[] = [
     ],
   },
   {
-=======
->>>>>>> origin/main
     id: 3001,
     title: "Nordic Minimalist Oak Bookcase & Modular Floating Shelves",
     description:
@@ -102,7 +99,6 @@ export const STORE_PRODUCTS: Product[] = [
     ],
   },
   {
-<<<<<<< HEAD
     id: 3011,
     title: "Artisanal Oak Reading Lounge Chair, Shelving & Sideboard Ensemble",
     description:
@@ -125,8 +121,6 @@ export const STORE_PRODUCTS: Product[] = [
     ],
   },
   {
-=======
->>>>>>> origin/main
     id: 11,
     title: "Annibale Colombo Handcrafted Bed",
     description:
@@ -266,7 +260,6 @@ export const STORE_PRODUCTS: Product[] = [
     ],
   },
   {
-<<<<<<< HEAD
     id: 3012,
     title: "Nordic Oak Framed Botanical Art, Taper Candleholders & Sculptural Rings Set",
     description:
@@ -333,8 +326,6 @@ export const STORE_PRODUCTS: Product[] = [
     ],
   },
   {
-=======
->>>>>>> origin/main
     id: 43,
     title: "Handmade Organic Indoor Decor Swing",
     description:
@@ -431,7 +422,6 @@ export const STORE_PRODUCTS: Product[] = [
   // 3. CHRISTMAS MARKET (საახალწლო მარკეტი)
   // ==========================================================================
   {
-<<<<<<< HEAD
     id: 3015,
     title: "Hand-Painted Nordic Folk Wooden Tree Ornaments Set",
     description:
@@ -476,8 +466,6 @@ export const STORE_PRODUCTS: Product[] = [
     ],
   },
   {
-=======
->>>>>>> origin/main
     id: 3003,
     title: "Nordic Wooden Miniature Holiday Village & Tree Ornaments Set",
     description:
@@ -489,14 +477,7 @@ export const STORE_PRODUCTS: Product[] = [
     brand: "10X Seasonal",
     category: "christmas-market",
     thumbnail: "/products/Christmas-Market.jpeg",
-<<<<<<< HEAD
     images: ["/products/Christmas-Market.jpeg"],
-=======
-    images: [
-      "/products/Christmas-Market.jpeg",
-      "https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=800&h=800&q=80",
-    ],
->>>>>>> origin/main
     reviews: [
       {
         rating: 5,
@@ -518,14 +499,7 @@ export const STORE_PRODUCTS: Product[] = [
     brand: "10X Seasonal",
     category: "christmas-market",
     thumbnail: "/products/Christmas-Market3.jpg",
-<<<<<<< HEAD
     images: ["/products/Christmas-Market3.jpg"],
-=======
-    images: [
-      "/products/Christmas-Market3.jpg",
-      "https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=800&h=800&q=80",
-    ],
->>>>>>> origin/main
     reviews: [
       {
         rating: 5,
@@ -550,10 +524,6 @@ export const STORE_PRODUCTS: Product[] = [
       "https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=800&h=800&q=80",
     images: [
       "https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=800&h=800&q=80",
-<<<<<<< HEAD
-=======
-      "https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=800&h=800&q=80",
->>>>>>> origin/main
       "https://images.unsplash.com/photo-1634507708682-f37ef194ed13?auto=format&fit=crop&w=800&h=800&q=80",
     ],
     reviews: [
@@ -580,10 +550,6 @@ export const STORE_PRODUCTS: Product[] = [
       "https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=800&h=800&q=80",
     images: [
       "https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=800&h=800&q=80",
-<<<<<<< HEAD
-=======
-      "https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=800&h=800&q=80",
->>>>>>> origin/main
     ],
     reviews: [
       {
@@ -609,10 +575,6 @@ export const STORE_PRODUCTS: Product[] = [
       "https://images.unsplash.com/photo-1513297887119-d46091b24bfa?auto=format&fit=crop&w=800&h=800&q=80",
     images: [
       "https://images.unsplash.com/photo-1513297887119-d46091b24bfa?auto=format&fit=crop&w=800&h=800&q=80",
-<<<<<<< HEAD
-=======
-      "https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=800&h=800&q=80",
->>>>>>> origin/main
     ],
     reviews: [
       {
@@ -638,10 +600,6 @@ export const STORE_PRODUCTS: Product[] = [
       "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&h=800&q=80",
     images: [
       "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&h=800&q=80",
-<<<<<<< HEAD
-=======
-      "https://images.unsplash.com/photo-1513297887119-d46091b24bfa?auto=format&fit=crop&w=800&h=800&q=80",
->>>>>>> origin/main
     ],
     reviews: [],
   },
@@ -660,10 +618,6 @@ export const STORE_PRODUCTS: Product[] = [
       "https://images.unsplash.com/photo-1576919228236-a097c32a5cd4?auto=format&fit=crop&w=800&h=800&q=80",
     images: [
       "https://images.unsplash.com/photo-1576919228236-a097c32a5cd4?auto=format&fit=crop&w=800&h=800&q=80",
-<<<<<<< HEAD
-=======
-      "https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=800&h=800&q=80",
->>>>>>> origin/main
     ],
     reviews: [
       {
@@ -690,14 +644,7 @@ export const STORE_PRODUCTS: Product[] = [
     brand: "10X Play",
     category: "wooden-toys",
     thumbnail: "/products/Wooden-Toys.jpeg",
-<<<<<<< HEAD
     images: ["/products/Wooden-Toys.jpeg"],
-=======
-    images: [
-      "/products/Wooden-Toys.jpeg",
-      "/products/Wooden-Toys3.jpeg",
-    ],
->>>>>>> origin/main
     reviews: [
       {
         rating: 5,
@@ -719,14 +666,7 @@ export const STORE_PRODUCTS: Product[] = [
     brand: "10X Play",
     category: "wooden-toys",
     thumbnail: "/products/Wooden-Toys1.jpeg",
-<<<<<<< HEAD
     images: ["/products/Wooden-Toys1.jpeg"],
-=======
-    images: [
-      "/products/Wooden-Toys1.jpeg",
-      "/products/Wooden-Toys2.jpg",
-    ],
->>>>>>> origin/main
     reviews: [
       {
         rating: 5,
@@ -748,14 +688,7 @@ export const STORE_PRODUCTS: Product[] = [
     brand: "10X Play",
     category: "wooden-toys",
     thumbnail: "/products/Wooden-Toys2.jpg",
-<<<<<<< HEAD
     images: ["/products/Wooden-Toys2.jpg"],
-=======
-    images: [
-      "/products/Wooden-Toys2.jpg",
-      "/products/Wooden-Toys1.jpeg",
-    ],
->>>>>>> origin/main
     reviews: [
       {
         rating: 5,
@@ -777,14 +710,7 @@ export const STORE_PRODUCTS: Product[] = [
     brand: "10X Play",
     category: "wooden-toys",
     thumbnail: "/products/Wooden-Toys3.jpeg",
-<<<<<<< HEAD
     images: ["/products/Wooden-Toys3.jpeg"],
-=======
-    images: [
-      "/products/Wooden-Toys3.jpeg",
-      "/products/Wooden-Toys.jpeg",
-    ],
->>>>>>> origin/main
     reviews: [
       {
         rating: 5,
@@ -809,11 +735,6 @@ export const STORE_PRODUCTS: Product[] = [
       "https://images.unsplash.com/photo-1558877385-81a1c7e67d72?auto=format&fit=crop&w=800&h=800&q=80",
     images: [
       "https://images.unsplash.com/photo-1558877385-81a1c7e67d72?auto=format&fit=crop&w=800&h=800&q=80",
-<<<<<<< HEAD
-=======
-      "https://images.unsplash.com/photo-1560859251-d563a49c5e4a?auto=format&fit=crop&w=800&h=800&q=80",
-      "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=800&h=800&q=80",
->>>>>>> origin/main
     ],
     reviews: [
       {
@@ -845,11 +766,6 @@ export const STORE_PRODUCTS: Product[] = [
       "https://images.unsplash.com/photo-1560859251-d563a49c5e4a?auto=format&fit=crop&w=800&h=800&q=80",
     images: [
       "https://images.unsplash.com/photo-1560859251-d563a49c5e4a?auto=format&fit=crop&w=800&h=800&q=80",
-<<<<<<< HEAD
-=======
-      "https://images.unsplash.com/photo-1558877385-81a1c7e67d72?auto=format&fit=crop&w=800&h=800&q=80",
-      "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=800&h=800&q=80",
->>>>>>> origin/main
     ],
     reviews: [
       {
@@ -875,11 +791,6 @@ export const STORE_PRODUCTS: Product[] = [
       "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=800&h=800&q=80",
     images: [
       "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=800&h=800&q=80",
-<<<<<<< HEAD
-=======
-      "https://images.unsplash.com/photo-1558877385-81a1c7e67d72?auto=format&fit=crop&w=800&h=800&q=80",
-      "https://images.unsplash.com/photo-1560859251-d563a49c5e4a?auto=format&fit=crop&w=800&h=800&q=80",
->>>>>>> origin/main
     ],
     reviews: [
       {
@@ -905,11 +816,6 @@ export const STORE_PRODUCTS: Product[] = [
       "https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&w=800&h=800&q=80",
     images: [
       "https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&w=800&h=800&q=80",
-<<<<<<< HEAD
-=======
-      "https://images.unsplash.com/photo-1558877385-81a1c7e67d72?auto=format&fit=crop&w=800&h=800&q=80",
-      "https://images.unsplash.com/photo-1560859251-d563a49c5e4a?auto=format&fit=crop&w=800&h=800&q=80",
->>>>>>> origin/main
     ],
     reviews: [
       {
@@ -935,10 +841,6 @@ export const STORE_PRODUCTS: Product[] = [
       "https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=800&h=800&q=80",
     images: [
       "https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=800&h=800&q=80",
-<<<<<<< HEAD
-=======
-      "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=800&h=800&q=80",
->>>>>>> origin/main
     ],
     reviews: [],
   },

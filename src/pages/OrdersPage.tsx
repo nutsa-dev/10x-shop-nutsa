@@ -108,7 +108,7 @@ export const OrdersPage = () => {
       <div className="mx-auto max-w-[1380px] px-3.5 sm:px-8 lg:px-10 py-14 sm:py-20 text-center">
         <div className="tactile-card mx-auto max-w-sm rounded-2xl p-7 sm:p-10">
           <h1 className="text-base font-bold text-[#26170C] dark:text-[#F5EBE0]">
-            No Orders Yet
+            You have no orders yet.
           </h1>
           <p className="mt-1 text-xs text-[#5C4938] dark:text-[#D8C2A8]">
             {isLoggedIn
@@ -243,13 +243,18 @@ export const OrdersPage = () => {
 
               {/* Expand Toggle */}
               <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs">
-                <button
-                  type="button"
-                  onClick={() => toggleExpand(order.id)}
-                  className="wood-btn shrink-0 rounded-md px-2.5 py-1 text-xs"
-                >
-                  {isExpanded ? "Hide objects" : `View ${order.items.length} objects`}
-                </button>
+                {(() => {
+                  const totalQty = order.items.reduce((sum, item) => sum + item.quantity, 0);
+                  return (
+                    <button
+                      type="button"
+                      onClick={() => toggleExpand(order.id)}
+                      className="wood-btn shrink-0 rounded-md px-2.5 py-1 text-xs"
+                    >
+                      {isExpanded ? "Hide items" : `View ${totalQty} ${totalQty === 1 ? "item" : "items"}`}
+                    </button>
+                  );
+                })()}
                 <span className="truncate text-[#5C4938] text-[11px] dark:text-[#D8C2A8]">
                   {order.shipping.address}, {order.shipping.city}
                 </span>

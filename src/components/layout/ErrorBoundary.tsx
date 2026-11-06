@@ -45,7 +45,7 @@ export class ErrorBoundary extends Component<Props, State> {
               ⚠️
             </div>
             <h1 className="font-editorial text-xl font-extrabold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
-              Something went wrong
+              Something went wrong.
             </h1>
             <p className="mt-1.5 text-xs leading-relaxed text-[#5C4938] dark:text-[#D8C2A8]">
               An unexpected atelier error occurred. You can reload the page or return to the collection.
@@ -61,7 +61,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 onClick={this.handleReload}
                 className="wood-btn rounded-lg px-4 py-2 text-xs"
               >
-                Reload Page
+                Reload
               </button>
               <button
                 type="button"
