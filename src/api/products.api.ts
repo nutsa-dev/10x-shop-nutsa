@@ -320,12 +320,46 @@ export async function getProducts(options?: {
       fetchDummyCategory("kitchen-accessories"),
     ]);
 
+<<<<<<< Updated upstream
     pool = [
       ...homeList,
       ...CURATED_ATELIER_PRODUCTS,
       ...furnitureList,
       ...kitchenList,
     ];
+=======
+  if (category === ALL_CATEGORY) {
+    const furniture = STORE_PRODUCTS.filter((p) => p.category === "furniture");
+    const homeDecor = STORE_PRODUCTS.filter((p) => p.category === "home-decoration");
+    const woodenToys = STORE_PRODUCTS.filter((p) => p.category === "wooden-toys");
+    const christmas = STORE_PRODUCTS.filter((p) => p.category === "christmas-market");
+
+    // First 4 cards: 1. Furniture, 2. Home Decor, 3. Furniture, 4. Wooden Toys
+    const firstFour = [
+      furniture[0],
+      homeDecor[0],
+      furniture[1],
+      woodenToys[0],
+    ].filter(Boolean);
+
+    const usedIds = new Set(firstFour.map((p) => p.id));
+    const remainingBuckets = [
+      furniture.filter((p) => !usedIds.has(p.id)),
+      homeDecor.filter((p) => !usedIds.has(p.id)),
+      christmas.filter((p) => !usedIds.has(p.id)),
+      woodenToys.filter((p) => !usedIds.has(p.id)),
+    ];
+    const maxLen = Math.max(...remainingBuckets.map((b) => b.length), 0);
+    const interleaved: Product[] = [...firstFour];
+    for (let i = 0; i < maxLen; i++) {
+      for (const bucket of remainingBuckets) {
+        if (i < bucket.length) {
+          interleaved.push(bucket[i]);
+        }
+      }
+    }
+    pool = interleaved;
+>>>>>>> Stashed changes
   } else {
     pool = await fetchDummyCategory(category);
   }
