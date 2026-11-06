@@ -3,16 +3,12 @@
   <rect width="32" height="32" rx="8" fill="#22130A" />
   <rect x="0.75" y="0.75" width="30.5" height="30.5" rx="7.25" stroke="#8A5C38" stroke-width="1" stroke-opacity="0.4" />
 
-  <!-- Wooden Toy Building Block: Triangular Roof -->
-  <!-- Left lit facet -->
+  <!-- Wooden Toy Triangle Roof Block -->
   <path d="M16 5.5L7 15H16V5.5Z" fill="#D9723D" />
-  <!-- Right shaded facet -->
   <path d="M16 5.5L25 15H16V5.5Z" fill="#AF4C20" />
 
-  <!-- Wooden Toy Building Block: Square House Base -->
+  <!-- Pure Solid Wooden Cube Block -->
   <rect x="8.5" y="16.5" width="15" height="10.5" rx="1.8" fill="#E5A760" />
-  <path d="M8.5 25.2C8.5 26.2 9.3 27 10.3 27H21.7C22.7 27 23.5 26.2 23.5 25.2V27H8.5V25.2Z" fill="#C28237" />
-
-  <!-- Montessori Block Round Window Port -->
-  <circle cx="16" cy="21.7" r="2.2" fill="#22130A" />
+  <path d="M16 16.5H21.7C22.7 16.5 23.5 17.3 23.5 18.3V25.2C23.5 26.2 22.7 27 21.7 27H16V16.5Z" fill="#D2924E" />
+  <path d="M8.5 25.5C8.5 26.3 9.2 27 10 27H22C22.8 27 23.5 26.3 23.5 25.5V27H8.5V25.5Z" fill="#B8772C" />
 </svg>
