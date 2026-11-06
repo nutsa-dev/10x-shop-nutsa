@@ -1,25 +1,64 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import { formatPrice, formatDate, getDiscountedPrice } from "@/utils/format";
+import { storageGetJSON, storageSet } from "@/utils/storage";
 import { IconCheck } from "@/components/ui/Icons";
 import type { Order, OrderStatus } from "@/types/order";
 
 const STATUS_STEPS: OrderStatus[] = ["Processing", "Shipped", "Delivered"];
 
+/**
+ * Pure function: calculates simulated status from explicit timestamp, without calling Date.now() during render.
+ */
+function getSimulatedStatus(order: Order, currentTime: number): OrderStatus {
+  if (order.status) return order.status;
+  const elapsedMinutes = (currentTime - new Date(order.placedAt).getTime()) / (1000 * 60);
+  if (elapsedMinutes < 1) return "Processing";
+  if (elapsedMinutes < 3) return "Shipped";
+  return "Delivered";
+}
+
+function isOrder(val: unknown): val is Order {
+  if (!val || typeof val !== "object") return false;
+  const obj = val as Record<string, unknown>;
+  return typeof obj.id === "number" && typeof obj.number === "string" && Array.isArray(obj.items);
+}
+
 export const OrdersPage = () => {
-  const [orders, setOrders] = useState<Order[]>(() => {
-    try {
-      const saved = localStorage.getItem("shop_orders");
-      return saved ? (JSON.parse(saved) as Order[]) : [];
-    } catch {
-      return [];
-    }
+  const { user, isLoggedIn } = useAuth();
+  const [allOrders, setAllOrders] = useState<Order[]>(() => {
+    const parsed = storageGetJSON<unknown>("shop_orders", []);
+    return Array.isArray(parsed) ? parsed.filter(isOrder) : [];
   });
 
-  const [expandedOrderId, setExpandedOrderId] = useState<number | null>(null);
+  // State-driven clock (updates every 30s as per PRD F-P6-03) ensures the timeline advances automatically
+  // while keeping renders 100% pure (satisfies React purity rules).
+  const [now, setNow] = useState<number>(() => Date.now());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setNow(Date.now());
+    }, 30000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const { id: paramOrderId } = useParams<{ id?: string }>();
+  const [userExpandedOrderId, setUserExpandedOrderId] = useState<number | null>(null);
   const { addItem } = useCart();
   const navigate = useNavigate();
+
+  // Filter orders by logged-in user so orders are private to each account
+  const visibleOrders = useMemo(() => {
+    if (!isLoggedIn || !user?.username) {
+      // If guest/logged out, show only guest orders without a username attached
+      return allOrders.filter((o) => !o.username || o.username === "guest");
+    }
+    return allOrders.filter(
+      (o) => o.username === user.username || !o.username
+    );
+  }, [allOrders, isLoggedIn, user]);
 
   const handleReorder = (order: Order) => {
     for (const item of order.items) {
@@ -43,19 +82,11 @@ export const OrdersPage = () => {
     navigate("/cart");
   };
 
-  const getSimulatedStatus = (order: Order): OrderStatus => {
-    if (order.status) return order.status;
-    const elapsedMinutes = (Date.now() - new Date(order.placedAt).getTime()) / (1000 * 60);
-    if (elapsedMinutes < 2) return "Processing";
-    if (elapsedMinutes < 5) return "Shipped";
-    return "Delivered";
-  };
-
   const handleCycleStatus = (orderId: number) => {
-    setOrders((prevOrders) => {
+    setAllOrders((prevOrders) => {
       const updated = prevOrders.map((o) => {
         if (o.id === orderId) {
-          const current = getSimulatedStatus(o);
+          const current = getSimulatedStatus(o, now);
           const currentIndex = STATUS_STEPS.indexOf(current);
           const nextStatus = STATUS_STEPS[(currentIndex + 1) % STATUS_STEPS.length];
           return { ...o, status: nextStatus };
@@ -63,36 +94,33 @@ export const OrdersPage = () => {
         return o;
       });
 
-      try {
-        localStorage.setItem("shop_orders", JSON.stringify(updated));
-      } catch (e) {
-        console.error("Failed to save updated orders", e);
-      }
-
+      storageSet("shop_orders", JSON.stringify(updated));
       return updated;
     });
   };
 
   const toggleExpand = (orderId: number) => {
-    setExpandedOrderId((prev) => (prev === orderId ? null : orderId));
+    setUserExpandedOrderId((prev) => (prev === orderId ? null : orderId));
   };
 
-  if (orders.length === 0) {
+  if (visibleOrders.length === 0) {
     return (
-      <div className="mx-auto max-w-[1380px] px-5 sm:px-8 lg:px-10 py-20 text-center">
-        <div className="tactile-card mx-auto max-w-sm rounded-2xl p-10">
+      <div className="mx-auto max-w-[1380px] px-3.5 sm:px-8 lg:px-10 py-14 sm:py-20 text-center">
+        <div className="tactile-card mx-auto max-w-sm rounded-2xl p-7 sm:p-10">
           <h1 className="text-base font-bold text-[#26170C] dark:text-[#F5EBE0]">
             No Orders Yet
           </h1>
           <p className="mt-1 text-xs text-[#5C4938] dark:text-[#D8C2A8]">
-            Orders you place will appear here with live simulation tracking.
+            {isLoggedIn
+              ? `No orders placed under @${user?.username} yet.`
+              : "Orders you place will appear here with live simulation tracking."}
           </p>
           <div className="mt-5">
             <Link
               to="/"
               className="wood-btn inline-flex rounded-lg px-4 py-2.5 text-xs"
             >
-              Explore Collection
+              Browse products
             </Link>
           </div>
         </div>
@@ -101,34 +129,50 @@ export const OrdersPage = () => {
   }
 
   return (
-    <div className="mx-auto max-w-[1380px] px-5 sm:px-8 lg:px-10 py-7 sm:py-9">
-      <div className="tactile-card mb-6 flex items-center justify-between rounded-2xl px-6 py-4">
+    <div className="mx-auto max-w-[1380px] px-3.5 sm:px-8 lg:px-10 py-5 sm:py-9">
+      <div className="tactile-card mb-4 sm:mb-6 flex items-center justify-between rounded-2xl px-4 sm:px-6 py-3.5 sm:py-4">
         <div>
-          <h1 className="text-xl font-extrabold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
+          <h1 className="text-lg sm:text-xl font-extrabold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
             Orders & Tracking
           </h1>
           <p className="text-xs text-[#5C4938] dark:text-[#D8C2A8]">
-            {orders.length} {orders.length === 1 ? "order" : "orders"}
+            {visibleOrders.length} {visibleOrders.length === 1 ? "order" : "orders"}
+            {isLoggedIn && ` for ${user?.username}`}
           </p>
         </div>
 
         <Link to="/" className="wood-btn rounded-lg px-3 py-1.5 text-xs">
-          ← Collection
+          ← Catalog
         </Link>
       </div>
 
+      {paramOrderId && (
+        <div className="mb-4 flex items-center justify-between rounded-xl border border-[#CBB092] bg-[#EFE8DC] p-3 text-xs dark:border-[#4A301D] dark:bg-[#19100A]">
+          <span>
+            Viewing details for Order <strong className="font-mono">#{paramOrderId}</strong>
+          </span>
+          <Link to="/orders" className="wood-btn rounded-md px-2.5 py-1 text-xs">
+            Show all orders
+          </Link>
+        </div>
+      )}
+
       <div className="space-y-4">
-        {orders.map((order) => {
-          const currentStatus = getSimulatedStatus(order);
+        {visibleOrders.map((order) => {
+          const currentStatus = getSimulatedStatus(order, now);
           const currentStepIndex = STATUS_STEPS.indexOf(currentStatus);
-          const isExpanded = expandedOrderId === order.id;
+          const isTargeted =
+            Boolean(paramOrderId && (String(order.id) === paramOrderId || order.number === paramOrderId));
+          const isExpanded = userExpandedOrderId !== null ? userExpandedOrderId === order.id : isTargeted;
 
           return (
             <div
               key={order.id}
-              className="tactile-card rounded-2xl p-5"
+              className={`tactile-card rounded-2xl p-4 sm:p-5 transition ${
+                isTargeted ? "ring-2 ring-[#8C6D58]" : ""
+              }`}
             >
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between border-b border-[#D8C2A8] pb-4 dark:border-[#3D2616]">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-[#D8C2A8] pb-4 dark:border-[#3D2616]">
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="font-mono text-sm font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
@@ -143,7 +187,7 @@ export const OrdersPage = () => {
                   </p>
                 </div>
 
-                <div className="flex items-center gap-4">
+                <div className="flex items-center justify-between sm:justify-end gap-4">
                   <div className="text-left sm:text-right">
                     <span className="text-[10px] uppercase text-[#5C4938] dark:text-[#D8C2A8]">Total</span>
                     <p className="text-sm font-extrabold text-[#26170C] dark:text-[#F5EBE0]">
@@ -198,15 +242,15 @@ export const OrdersPage = () => {
               </div>
 
               {/* Expand Toggle */}
-              <div className="mt-3 flex items-center justify-between text-xs">
+              <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs">
                 <button
                   type="button"
                   onClick={() => toggleExpand(order.id)}
-                  className="wood-btn rounded-md px-2.5 py-1 text-xs"
+                  className="wood-btn shrink-0 rounded-md px-2.5 py-1 text-xs"
                 >
                   {isExpanded ? "Hide objects" : `View ${order.items.length} objects`}
                 </button>
-                <span className="text-[#5C4938] text-[11px] dark:text-[#D8C2A8]">
+                <span className="truncate text-[#5C4938] text-[11px] dark:text-[#D8C2A8]">
                   {order.shipping.address}, {order.shipping.city}
                 </span>
               </div>

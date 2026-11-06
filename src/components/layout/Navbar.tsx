@@ -45,20 +45,20 @@ export const Navbar = () => {
 
   return (
     <header className="wood-plank-header sticky top-0 z-40 w-full">
-      <div className="relative z-10 mx-auto flex h-[68px] max-w-[1380px] items-center justify-between px-5 sm:px-8 lg:px-10">
+      <div className="relative z-10 mx-auto flex h-14 sm:h-[68px] max-w-[1380px] items-center justify-between px-3.5 sm:px-8 lg:px-10">
         
         {/* Left Zone: Editorial Brand Identity */}
         <Link
           to="/"
-          className="flex items-center"
+          className="flex shrink-0 items-center"
         >
-          <span className="font-editorial text-lg sm:text-xl font-extrabold tracking-[0.14em] uppercase text-[#26170C] dark:text-[#F5EBE0]">
-            WOODWORK
+          <span className="font-editorial text-base sm:text-xl font-extrabold tracking-[0.11em] sm:tracking-[0.14em] uppercase text-[#26170C] dark:text-[#F5EBE0]">
+            10X Shop
           </span>
         </Link>
 
-        {/* Center Zone: Symmetrical Minimalist Navigation */}
-        <nav className="flex items-center gap-6 sm:gap-8">
+        {/* Center Zone: Symmetrical Minimalist Navigation (Desktop/Tablet) */}
+        <nav className="hidden md:flex items-center gap-8">
           <NavLink
             to="/"
             end
@@ -70,7 +70,7 @@ export const Navbar = () => {
               }`
             }
           >
-            Collection
+            Catalog
           </NavLink>
           <NavLink
             to="/orders"
@@ -87,7 +87,7 @@ export const Navbar = () => {
         </nav>
 
         {/* Right Zone: Independent Icons (Bell, Lightbulb) + Cart & Auth */}
-        <div className="flex items-center gap-2.5 sm:gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-3">
           {/* Independent Wooden Bell Sound Toggle (No circle container) */}
           <button
             type="button"
@@ -95,17 +95,17 @@ export const Navbar = () => {
             onClick={handleToggleSound}
             aria-label={soundOn ? "Mute woodshop sound" : "Enable woodshop sound"}
             title={soundOn ? "Wood sound: ON (Click to mute)" : "Wood sound: OFF (Click to enable)"}
-            className="relative flex h-9 w-9 items-center justify-center text-[#5E3D20] transition-transform duration-300 hover:scale-110 active:scale-90 dark:text-[#D8C2A8]"
+            className="relative flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center text-[#5E3D20] transition-transform duration-300 hover:scale-110 active:scale-90 dark:text-[#D8C2A8]"
           >
             <IconSoundOn
-              className={`absolute h-6 w-6 drop-shadow-[0_2px_3px_rgba(42,22,6,0.28)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              className={`absolute h-5 w-5 sm:h-6 sm:w-6 drop-shadow-[0_2px_3px_rgba(42,22,6,0.28)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                 soundOn
                   ? "scale-100 opacity-100"
                   : "scale-75 opacity-0"
               }`}
             />
             <IconSoundOff
-              className={`absolute h-6 w-6 drop-shadow-[0_2px_3px_rgba(42,22,6,0.22)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              className={`absolute h-5 w-5 sm:h-6 sm:w-6 drop-shadow-[0_2px_3px_rgba(42,22,6,0.22)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                 !soundOn
                   ? "scale-100 opacity-75"
                   : "scale-75 opacity-0"
@@ -119,17 +119,17 @@ export const Navbar = () => {
             onClick={toggleTheme}
             aria-label={theme === "light" ? "Turn off light (Dark mode)" : "Turn on light (Light mode)"}
             title={theme === "light" ? "Turn off light (Dark mode)" : "Turn on light (Light mode)"}
-            className="relative flex h-9 w-9 items-center justify-center transition-transform duration-500 hover:scale-110 active:scale-95"
+            className="relative flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center transition-transform duration-500 hover:scale-110 active:scale-95"
           >
             <IconBulbOn
-              className={`absolute h-7 w-7 drop-shadow-[0_0_8px_rgba(251,191,36,0.9)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              className={`absolute h-6 w-6 sm:h-7 sm:w-7 drop-shadow-[0_0_8px_rgba(251,191,36,0.9)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                 theme === "light"
                   ? "scale-100 opacity-100"
                   : "scale-75 opacity-0"
               }`}
             />
             <IconBulbOff
-              className={`absolute h-7 w-7 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              className={`absolute h-6 w-6 sm:h-7 sm:w-7 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                 theme === "dark"
                   ? "scale-100 opacity-100"
                   : "scale-75 opacity-0"
@@ -141,45 +141,103 @@ export const Navbar = () => {
           <NavLink
             to="/cart"
             className={({ isActive }) =>
-              `flex h-9 items-center gap-1.5 rounded-lg px-3.5 text-xs ${
+              `flex h-8 sm:h-9 items-center gap-1 sm:gap-1.5 rounded-lg px-2.5 sm:px-3.5 text-xs ${
                 isActive ? "wood-btn-walnut" : "wood-btn"
               }`
             }
           >
             <IconCart className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Cart</span>
-            <span className="font-mono text-[11px]">({totalItems})</span>
+            {totalItems > 0 && (
+              <span className="font-mono text-[11px]">({totalItems})</span>
+            )}
           </NavLink>
 
           {/* User Auth */}
           {isLoggedIn ? (
-            <div className="flex items-center gap-2.5 pl-1">
+            <div className="flex items-center gap-1.5 sm:gap-2.5 pl-0.5 sm:pl-1">
               <NavLink
                 to="/profile"
-                className="group flex items-center gap-1.5 text-xs font-bold text-[#26170C] opacity-95 hover:opacity-100 dark:text-[#F5EBE0]"
+                aria-label="Account profile"
+                className="group flex items-center gap-1 sm:gap-1.5 text-xs font-bold text-[#26170C] opacity-95 hover:opacity-100 dark:text-[#F5EBE0]"
               >
-                <IconUser className="h-6 w-6 drop-shadow-[0_2px_3px_rgba(42,22,6,0.28)] transition-transform duration-300 group-hover:scale-110" />
-                <span className="max-w-[75px] truncate">{user?.username}</span>
+                <IconUser className="h-5 w-5 sm:h-6 sm:w-6 drop-shadow-[0_2px_3px_rgba(42,22,6,0.28)] transition-transform duration-300 group-hover:scale-110" />
+                <span className="hidden sm:inline max-w-[75px] truncate">{user?.username}</span>
               </NavLink>
               <button
                 type="button"
                 onClick={handleLogout}
                 className="hidden sm:inline-block text-[11px] font-bold uppercase tracking-wider text-[#5C4938] hover:text-[#26170C] dark:text-[#D8C2A8] dark:hover:text-[#F5EBE0]"
               >
-                Logout
+                Log out
               </button>
             </div>
           ) : (
             <Link
               to="/login"
-              className="wood-btn-walnut flex h-9 items-center rounded-lg px-3.5 text-xs"
+              className="wood-btn-walnut flex h-8 sm:h-9 shrink-0 items-center rounded-lg px-2.5 sm:px-3.5 text-[11px] sm:text-xs"
             >
-              Sign In
+              Log in
             </Link>
           )}
         </div>
 
       </div>
+
+      {/* Mobile Sub-Navigation Strip (< 768px) */}
+      <nav
+        aria-label="Mobile navigation"
+        className="relative z-10 flex md:hidden items-center justify-center gap-5 border-t border-[#9A744C]/25 py-2 px-3.5 overflow-x-auto scrollbar-none dark:border-[#7A5030]/30"
+      >
+        <NavLink
+          to="/"
+          end
+          className={({ isActive }) =>
+            `relative shrink-0 py-0.5 text-[10px] font-bold tracking-[0.14em] uppercase transition-all ${
+              isActive
+                ? "text-[#26170C] dark:text-[#F5EBE0] after:absolute after:inset-x-0 after:-bottom-0.5 after:h-[1.5px] after:rounded-full after:bg-[#2C4032] dark:after:bg-[#D49B4B]"
+                : "text-[#5C4938]/85 dark:text-[#D8C2A8]/75"
+            }`
+          }
+        >
+          Catalog
+        </NavLink>
+        <NavLink
+          to="/orders"
+          className={({ isActive }) =>
+            `relative shrink-0 py-0.5 text-[10px] font-bold tracking-[0.14em] uppercase transition-all ${
+              isActive
+                ? "text-[#26170C] dark:text-[#F5EBE0] after:absolute after:inset-x-0 after:-bottom-0.5 after:h-[1.5px] after:rounded-full after:bg-[#2C4032] dark:after:bg-[#D49B4B]"
+                : "text-[#5C4938]/85 dark:text-[#D8C2A8]/75"
+            }`
+          }
+        >
+          Orders
+        </NavLink>
+        {isLoggedIn && (
+          <>
+            <NavLink
+              to="/profile"
+              className={({ isActive }) =>
+                `relative shrink-0 py-0.5 text-[10px] font-bold tracking-[0.14em] uppercase transition-all ${
+                  isActive
+                    ? "text-[#26170C] dark:text-[#F5EBE0] after:absolute after:inset-x-0 after:-bottom-0.5 after:h-[1.5px] after:rounded-full after:bg-[#2C4032] dark:after:bg-[#D49B4B]"
+                    : "text-[#5C4938]/85 dark:text-[#D8C2A8]/75"
+                }`
+              }
+            >
+              Account
+            </NavLink>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="shrink-0 py-0.5 text-[10px] font-bold tracking-[0.14em] uppercase text-[#5C4938]/85 dark:text-[#D8C2A8]/75"
+            >
+              Log out
+            </button>
+          </>
+        )}
+      </nav>
     </header>
   );
 };

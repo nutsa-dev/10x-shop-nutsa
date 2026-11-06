@@ -66,6 +66,7 @@ export default function App() {
                       }
                     />
                     <Route path="orders" element={<OrdersPage />} />
+                    <Route path="orders/:id" element={<OrdersPage />} />
                     <Route
                       path="profile"
                       element={

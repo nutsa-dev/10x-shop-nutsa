@@ -5,8 +5,6 @@ import { IconClose } from "@/components/ui/Icons";
 
 interface CartSummaryProps {
   subtotal: number;
-  rawSubtotal: number;
-  savings: number;
   promoCode: string | null;
   promoDiscount: number;
   totalPrice: number;
@@ -16,8 +14,6 @@ interface CartSummaryProps {
 
 export const CartSummary = ({
   subtotal,
-  rawSubtotal,
-  savings,
   promoCode,
   promoDiscount,
   totalPrice,
@@ -50,7 +46,7 @@ export const CartSummary = ({
       <div className="mt-4 border-b border-[#D8C2A8] pb-4 dark:border-[#3D2616]">
         {promoCode ? (
           <div className="flex items-center justify-between rounded-lg bg-[#EFE8DC] px-3 py-2 text-xs font-semibold text-[#26170C] dark:bg-[#19100A] dark:text-[#F5EBE0]">
-            <span>Promo {promoCode} (-10%)</span>
+            <span>Discount ({promoCode} −10%)</span>
             <button
               type="button"
               onClick={onRemovePromo}
@@ -94,22 +90,13 @@ export const CartSummary = ({
         <div className="flex justify-between text-[#5C4938] dark:text-[#D8C2A8]">
           <dt>Subtotal</dt>
           <dd className="font-bold text-[#26170C] dark:text-[#F5EBE0]">
-            {formatPrice(rawSubtotal)}
+            {formatPrice(subtotal)}
           </dd>
         </div>
 
-        {savings > 0 && (
-          <div className="flex justify-between text-[#5C4938] dark:text-[#D8C2A8]">
-            <dt>Discounts</dt>
-            <dd className="font-bold text-[#8C6D58]">
-              -{formatPrice(rawSubtotal - subtotal)}
-            </dd>
-          </div>
-        )}
-
         {promoDiscount > 0 && (
           <div className="flex justify-between text-[#5C4938] dark:text-[#D8C2A8]">
-            <dt>Promo Voucher</dt>
+            <dt>Discount ({promoCode} −10%)</dt>
             <dd className="font-bold text-[#8C6D58]">
               -{formatPrice(promoDiscount)}
             </dd>
@@ -132,13 +119,13 @@ export const CartSummary = ({
           to="/checkout"
           className="wood-btn flex w-full items-center justify-center rounded-lg py-2.5 px-4 text-xs"
         >
-          Proceed to Checkout
+          Proceed to checkout
         </Link>
         <Link
           to="/"
           className="wood-btn-walnut flex w-full items-center justify-center rounded-lg py-2 px-4 text-xs"
         >
-          Continue Browsing
+          Continue shopping
         </Link>
       </div>
     </div>

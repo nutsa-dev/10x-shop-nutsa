@@ -1,6 +1,8 @@
 export interface AuthUser {
   username: string;
-  isLoggedIn: boolean;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
 }
 
 export interface LoginFormValues {

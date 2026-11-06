@@ -1,8 +1,10 @@
 /**
- * ფასის ფორმატირება ($X.XX)
+ * ფასის ფორმატირება ($X,XXX.XX)
  */
 export function formatPrice(price: number): string {
-  return `$${price.toFixed(2)}`;
+  const parts = Number(price || 0).toFixed(2).split(".");
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return `$${parts.join(".")}`;
 }
 
 /**

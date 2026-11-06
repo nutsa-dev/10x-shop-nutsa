@@ -1,49 +1,65 @@
 import { createContext, useContext, useState } from "react";
 import type { AuthUser } from "@/types/user";
+import { storageGetJSON, storageRemove, storageSet } from "@/utils/storage";
 
 interface AuthContextType {
   user: AuthUser | null;
   isLoggedIn: boolean;
   login: (username: string) => void;
   logout: () => void;
+  updateUser: (data: Partial<AuthUser>) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const USER_STORAGE_KEY = "shop_user";
+
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<AuthUser | null>(() => {
-    const savedUser = localStorage.getItem("shop_user");
-    if (savedUser) {
-      try {
-        return JSON.parse(savedUser) as AuthUser;
-      } catch {
-        return null;
-      }
-    }
-    return null;
+    const saved = storageGetJSON<Partial<AuthUser> | null>(USER_STORAGE_KEY, null);
+    return saved && typeof saved.username === "string" && saved.username.trim()
+      ? {
+          username: saved.username.trim(),
+          firstName: typeof saved.firstName === "string" ? saved.firstName : undefined,
+          lastName: typeof saved.lastName === "string" ? saved.lastName : undefined,
+          email: typeof saved.email === "string" ? saved.email : undefined,
+        }
+      : null;
   });
 
   const login = (username: string) => {
     const newUser: AuthUser = {
       username: username.trim(),
-      isLoggedIn: true,
     };
     setUser(newUser);
-    localStorage.setItem("shop_user", JSON.stringify(newUser));
+    storageSet(USER_STORAGE_KEY, JSON.stringify(newUser));
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("shop_user");
+    storageRemove(USER_STORAGE_KEY);
+  };
+
+  const updateUser = (data: Partial<AuthUser>) => {
+    setUser((prev) => {
+      if (!prev) return null;
+      const updated: AuthUser = {
+        ...prev,
+        ...data,
+      };
+      storageSet(USER_STORAGE_KEY, JSON.stringify(updated));
+      return updated;
+    });
   };
 
   return (
     <AuthContext.Provider
       value={{
         user,
-        isLoggedIn: Boolean(user?.isLoggedIn),
+        isLoggedIn: user !== null,
         login,
         logout,
+        updateUser,
       }}
     >
       {children}

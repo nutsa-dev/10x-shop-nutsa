@@ -7,9 +7,7 @@ export const CartPage = () => {
   const {
     items,
     totalItems,
-    rawSubtotal,
     subtotal,
-    savings,
     promoCode,
     promoDiscount,
     totalPrice,
@@ -22,20 +20,20 @@ export const CartPage = () => {
 
   if (items.length === 0) {
     return (
-      <div className="mx-auto max-w-[1380px] px-5 sm:px-8 lg:px-10 py-20 text-center">
-        <div className="tactile-card mx-auto max-w-sm rounded-2xl p-10">
+      <div className="mx-auto max-w-[1380px] px-3.5 sm:px-8 lg:px-10 py-14 sm:py-20 text-center">
+        <div className="tactile-card mx-auto max-w-sm rounded-2xl p-7 sm:p-10">
           <h1 className="text-base font-bold text-[#26170C] dark:text-[#F5EBE0]">
-            Your Cart is Empty
+            Your cart is empty.
           </h1>
           <p className="mt-1 text-xs text-[#5C4938] dark:text-[#D8C2A8]">
-            Explore our curated collection of ceramics, raw wood forms, and sculptural objects.
+            Explore our catalog and find something you love.
           </p>
           <div className="mt-5">
             <Link
               to="/"
               className="wood-btn inline-flex rounded-lg px-4 py-2.5 text-xs"
             >
-              Explore Collection
+              Browse products
             </Link>
           </div>
         </div>
@@ -44,15 +42,15 @@ export const CartPage = () => {
   }
 
   return (
-    <div className="mx-auto max-w-[1380px] px-5 sm:px-8 lg:px-10 py-7 sm:py-9">
+    <div className="mx-auto max-w-[1380px] px-3.5 sm:px-8 lg:px-10 py-5 sm:py-9">
       {/* Header */}
-      <div className="tactile-card mb-6 flex items-center justify-between rounded-2xl px-6 py-4">
+      <div className="tactile-card mb-4 sm:mb-6 flex items-center justify-between rounded-2xl px-4 sm:px-6 py-3.5 sm:py-4">
         <div>
-          <h1 className="text-xl font-extrabold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
+          <h1 className="text-lg sm:text-xl font-extrabold tracking-tight text-[#26170C] dark:text-[#F5EBE0]">
             Shopping Cart
           </h1>
           <p className="text-xs text-[#5C4938] dark:text-[#D8C2A8]">
-            {totalItems} {totalItems === 1 ? "object" : "objects"}
+            {totalItems} {totalItems === 1 ? "item" : "items"}
           </p>
         </div>
 
@@ -87,8 +85,6 @@ export const CartPage = () => {
         <div className="lg:col-span-4 lg:sticky lg:top-20">
           <CartSummary
             subtotal={subtotal}
-            rawSubtotal={rawSubtotal}
-            savings={savings}
             promoCode={promoCode}
             promoDiscount={promoDiscount}
             totalPrice={totalPrice}

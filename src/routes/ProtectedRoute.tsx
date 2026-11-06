@@ -12,7 +12,8 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
 
   if (!isLoggedIn) {
-    return <Navigate to="/login" state={{ from: location.pathname }} replace />;
+    const from = `${location.pathname}${location.search}${location.hash}`;
+    return <Navigate to="/login" state={{ from }} replace />;
   }
 
   return <>{children}</>;
