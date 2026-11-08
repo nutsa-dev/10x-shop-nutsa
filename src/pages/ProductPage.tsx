@@ -305,6 +305,7 @@ export const ProductPage = () => {
                 <button
                   type="button"
                   aria-label="Decrease quantity"
+                  title={quantity <= 1 ? "Minimum quantity is 1" : "Decrease quantity"}
                   disabled={isOutOfStock || isMaxInCart || quantity <= 1}
                   onClick={() => handleQuantityChange(-1)}
                   className="wood-btn flex h-11 w-12 sm:w-10 items-center justify-center rounded-l-lg disabled:opacity-40"
@@ -317,6 +318,15 @@ export const ProductPage = () => {
                 <button
                   type="button"
                   aria-label="Increase quantity"
+                  title={
+                    isOutOfStock
+                      ? "Out of stock"
+                      : isMaxInCart
+                      ? `All ${product.stock} items already in cart`
+                      : quantity >= remainingStock
+                      ? `Maximum available stock reached (${remainingStock} available)`
+                      : "Increase quantity"
+                  }
                   disabled={isOutOfStock || isMaxInCart || quantity >= remainingStock}
                   onClick={() => handleQuantityChange(1)}
                   className="wood-btn flex h-11 w-12 sm:w-10 items-center justify-center rounded-r-lg disabled:opacity-40"
@@ -351,6 +361,17 @@ export const ProductPage = () => {
                 )}
               </button>
             </div>
+
+            {/* Stock Limit Notice */}
+            {isMaxInCart ? (
+              <p className="text-[11px] font-medium text-amber-600 dark:text-amber-400">
+                All {product.stock} available pieces are already in your cart.
+              </p>
+            ) : quantity >= remainingStock && !isOutOfStock ? (
+              <p className="text-[11px] font-medium text-amber-600 dark:text-amber-400">
+                Maximum available stock reached ({remainingStock} available{inCartQty > 0 ? `, ${inCartQty} already in cart` : ""}).
+              </p>
+            ) : null}
 
             {addedToast && (
               <div className="flex items-center justify-between rounded-lg border border-[#CBB092] bg-[#EFE8DC] p-3 text-xs text-[#26170C] dark:border-[#4A301D] dark:bg-[#19100A] dark:text-[#F5EBE0]">
