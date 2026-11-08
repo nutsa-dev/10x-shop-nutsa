@@ -7,6 +7,8 @@ interface AuthContextType {
   isLoggedIn: boolean;
   login: (username: string) => void;
   signIn: (username: string) => void;
+  register: (data: { username: string; email?: string; firstName?: string; lastName?: string }) => void;
+  signUp: (data: { username: string; email?: string; firstName?: string; lastName?: string }) => void;
   logout: () => void;
   signOut: () => void;
   updateUser: (data: Partial<AuthUser>) => void;
@@ -37,6 +39,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     storageSet(USER_STORAGE_KEY, JSON.stringify(newUser));
   };
 
+  const register = (data: { username: string; email?: string; firstName?: string; lastName?: string }) => {
+    const newUser: AuthUser = {
+      username: data.username.trim(),
+      email: data.email?.trim(),
+      firstName: data.firstName?.trim(),
+      lastName: data.lastName?.trim(),
+    };
+    setUser(newUser);
+    storageSet(USER_STORAGE_KEY, JSON.stringify(newUser));
+  };
+
   const logout = () => {
     setUser(null);
     storageRemove(USER_STORAGE_KEY);
@@ -61,6 +74,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         isLoggedIn: user !== null,
         login,
         signIn: login,
+        register,
+        signUp: register,
         logout,
         signOut: logout,
         updateUser,
