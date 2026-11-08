@@ -6,7 +6,9 @@ interface AuthContextType {
   user: AuthUser | null;
   isLoggedIn: boolean;
   login: (username: string) => void;
+  signIn: (username: string) => void;
   logout: () => void;
+  signOut: () => void;
   updateUser: (data: Partial<AuthUser>) => void;
 }
 
@@ -58,7 +60,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         user,
         isLoggedIn: user !== null,
         login,
+        signIn: login,
         logout,
+        signOut: logout,
         updateUser,
       }}
     >
