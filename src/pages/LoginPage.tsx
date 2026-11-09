@@ -52,6 +52,7 @@ export const LoginPage = () => {
   const handleFillDemo = () => {
     loginFormik.setFieldValue("username", "emilys");
     loginFormik.setFieldValue("password", "emilyspass");
+    setShowLoginPassword(true);
   };
 
   return (
