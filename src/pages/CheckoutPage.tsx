@@ -1,32 +1,13 @@
 import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
 import { formatPrice, getDiscountedPrice } from "@/utils/format";
 import { storageGetJSON, storageSet } from "@/utils/storage";
 import { IconCheck, IconArrowLeft } from "@/components/ui/Icons";
+import { checkoutSchema } from "@/schemas/checkoutSchema";
 import type { Order, ShippingInfo } from "@/types/order";
-
-const validationSchema = Yup.object({
-  fullName: Yup.string()
-    .trim()
-    .min(3, "Full name must be at least 3 characters")
-    .required("Full name must be at least 3 characters"),
-  email: Yup.string()
-    .trim()
-    .email("Please enter a valid email address")
-    .required("Please enter a valid email address"),
-  address: Yup.string()
-    .trim()
-    .min(5, "Address must be at least 5 characters")
-    .required("Address must be at least 5 characters"),
-  city: Yup.string()
-    .trim()
-    .min(2, "City is required")
-    .required("City is required"),
-});
 
 export const CheckoutPage = () => {
   const { user } = useAuth();
@@ -50,7 +31,7 @@ export const CheckoutPage = () => {
       address: "",
       city: "",
     },
-    validationSchema,
+    validationSchema: checkoutSchema,
     onSubmit: async (values) => {
       await new Promise((resolve) => setTimeout(resolve, 500));
 

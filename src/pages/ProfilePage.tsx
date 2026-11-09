@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import { useTheme } from "@/context/ThemeContext";
@@ -19,22 +18,8 @@ import {
   subscribeSoundEnabled,
 } from "@/utils/sound";
 import { storageGetJSON, storageRemove } from "@/utils/storage";
+import { profileSchema } from "@/schemas/profileSchema";
 import type { Order } from "@/types/order";
-
-const profileSchema = Yup.object().shape({
-  firstName: Yup.string()
-    .trim()
-    .min(2, "First name must be at least 2 characters")
-    .required("First name is required"),
-  lastName: Yup.string()
-    .trim()
-    .min(2, "Last name must be at least 2 characters")
-    .required("Last name is required"),
-  email: Yup.string()
-    .trim()
-    .email("Invalid email address")
-    .required("Email is required"),
-});
 
 export const ProfilePage = () => {
   const { user, logout, updateUser } = useAuth();
