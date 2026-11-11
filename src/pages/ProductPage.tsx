@@ -214,7 +214,7 @@ export const ProductPage = () => {
               src={activeImage || product.thumbnail}
               alt={product.title}
               className="h-full w-full object-cover object-center"
-            />
+              loading="lazy"            />
           </div>
 
           {images.length > 1 && (
@@ -230,7 +230,7 @@ export const ProductPage = () => {
                       : "border-[#CBB092] opacity-60 dark:border-[#4A301D]"
                   }`}
                 >
-                  <img src={img} alt={`${product.title} ${idx + 1}`} className="h-full w-full object-cover object-center" />
+                  <img src={img} loading="lazy" alt={`${product.title} ${idx + 1}`} className="h-full w-full object-cover object-center" />
                 </button>
               ))}
             </div>

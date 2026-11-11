@@ -26,6 +26,7 @@ export const CartItemRow = ({ item, onUpdateQuantity, onRemove }: CartItemRowPro
             src={item.thumbnail}
             alt={item.title}
             className="h-full w-full object-contain"
+            loading="lazy"
           />
         </Link>
 

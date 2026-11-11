@@ -1,15 +1,17 @@
 # Week 3 Progress Note — 10X Shop
 
 **Date:** February 2026  
-**Developer:** Nutsa Beradze  
-**Milestone:** Curated Collections, Order Simulation, Product Tabs & Full Scope Completion  
+**Developer:** Nutsa Kurdadze  
+**Milestone:** Curated Collections, Order Simulation, Product Tabs & Full Scope Completion
 
 ---
 
 ## 1. Objectives & Summary
+
 Week 3 was dedicated to polish, completing all FULL scope features from the Diploma PRD, expanding category choices (`All`, `Furniture`, `Home Decor`, `Christmas Market`, `Wooden Toys`) with high-resolution photography, and passing 100% of the automated grading test suites.
 
 ## 2. Implemented Features
+
 - **Curated Handcrafted Collections:**
   - Added dedicated seasonal categories: `Christmas Market` and `Wooden Toys` alongside `Furniture` and `Home Decor`.
   - Curated 10 bespoke handcrafted items with multi-photo image galleries, authentic customer reviews, and high-resolution Unsplash photography.
@@ -29,5 +31,5 @@ Week 3 was dedicated to polish, completing all FULL scope features from the Dipl
   - Zero TypeScript errors (`tsc -b`), zero ESLint errors (`eslint .`), clean Vite build (`vite build`).
 
 ## 3. Reflection & Diploma Readiness
-The application satisfies both the aesthetic requirements of high-end tactile e-commerce and 100% of the rubric assertions defined in Diploma PRD v1.1 and Annex A auto-grader criteria.
 
+The application satisfies both the aesthetic requirements of high-end tactile e-commerce and 100% of the rubric assertions defined in Diploma PRD v1.1 and Annex A auto-grader criteria.
