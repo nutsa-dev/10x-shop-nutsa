@@ -6,7 +6,7 @@ export const Footer = () => {
       <div className="mx-auto flex max-w-[1380px] flex-col items-center justify-between gap-3.5 sm:gap-4 px-3.5 sm:flex-row sm:px-8 lg:px-10">
         <div className="flex items-center gap-2">
           <span className="font-editorial text-sm font-extrabold tracking-[0.14em] uppercase text-[#26170C] dark:text-[#F5EBE0]">
-            10X Shop
+            WOODWORLD
           </span>
           <span className="hidden sm:inline font-medium text-[#5C4938] dark:text-[#D8C2A8]/80">
             — Front-end Diploma Project
@@ -26,6 +26,9 @@ export const Footer = () => {
           <Link to="/profile" className="text-[11px] font-bold tracking-wider uppercase text-[#5C4938] hover:text-[#26170C] transition-colors dark:text-[#D8C2A8]/80 dark:hover:text-[#F5EBE0]">
             Account
           </Link>
+          <a href="https://www.linkedin.com/in/nutsa-kurdadze/" className="text-[11px] font-bold tracking-wider uppercase text-[#5C4938] hover:text-[#26170C] transition-colors dark:text-[#D8C2A8]/80 dark:hover:text-[#F5EBE0]">
+            linkedin
+          </a>
         </div>
 
         <p className="font-mono text-[10px] sm:text-[11px] font-medium text-[#5C4938] dark:text-[#D8C2A8]/75">© 2026 10X Shop</p>

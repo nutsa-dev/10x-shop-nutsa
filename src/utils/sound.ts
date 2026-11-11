@@ -143,6 +143,21 @@ function triggerWoodGrainStrike(
 }
 
 /**
+ * Eagerly creates and resumes the AudioContext.
+ * Call this as early as possible (ideally inside a user-gesture handler or
+ * immediately on page mount when the page was itself reached via a user gesture
+ * such as clicking a navigation link).
+ * Returns a Promise that resolves once the context is running.
+ */
+export async function resumeAudioContext(): Promise<void> {
+  const ctx = getAudioContext();
+  if (!ctx) return;
+  if (ctx.state !== "running") {
+    await ctx.resume();
+  }
+}
+
+/**
  * Plays a realistic, dry, tactile wooden tap sound.
  * - "soft": light oak button / link tap
  * - "deep": heavier walnut block tap (primary actions / add to cart)

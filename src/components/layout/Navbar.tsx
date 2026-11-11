@@ -53,7 +53,7 @@ export const Navbar = () => {
           className="flex shrink-0 items-center"
         >
           <span className="font-editorial text-base sm:text-xl font-extrabold tracking-[0.11em] sm:tracking-[0.14em] uppercase text-[#26170C] dark:text-[#F5EBE0]">
-            10X Shop
+            WOODWORLD
           </span>
         </Link>
 
